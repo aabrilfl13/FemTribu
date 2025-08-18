@@ -1,174 +1,79 @@
 ---
-import astroLogo from "../assets/astro.svg"
-import background from "../assets/background.svg"
+import Layout from "../layouts/Layout.astro"
+import { fade } from "astro:transitions"
+
+const images = ["/images/pregnant-woman.png", "/images/hands-together.png"]
+
+const description =
+	"Apoyando a las madres en su camino con un cuidado compasivo y una fuerza inquebrantable."
 ---
 
-<div id="container">My start</div>
+<Layout title="Femm Tribu">
+	<div class="background-overlay"></div>
+	<div class="w-full h-screen overflow-hidden relative">
+		{
+			images.map((image, index) => (
+				<img
+					src={image}
+					alt={`Background image ${index + 1}`}
+					class="absolute top-0 left-0 w-full h-screen object-cover transition-opacity duration-[2s] ease-in-out"
+					class:list={{ "opacity-100": index === 0, "opacity-0": index !== 0 }}
+					data-index={index}
+					transition:animate={fade()}
+				/>
+			))
+		}
+	</div>
+	<div
+		class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white text-center z-100"
+	>
+		<img
+			src="/images/logos/logo_sello_fullcolor.svg"
+			alt="Femm Tribu Logo"
+			class="mb-8"
+			style="max-width: 200px;"
+		/>
+		<h1 class="text-6xl font-bold mb-4">Femm Tribu</h1>
+		<p class="text-xl max-w-2xl">{description}</p>
+	</div>
+
+	<script>
+		const images = document.querySelectorAll("img[data-index]")
+		let currentIndex = 0
+
+		function changeBackground() {
+			// Hide current image
+			images[currentIndex].classList.remove("opacity-100")
+			images[currentIndex].classList.add("opacity-0")
+
+			// Move to next image
+			currentIndex = (currentIndex + 1) % images.length
+
+			// Show next image
+			images[currentIndex].classList.remove("opacity-0")
+			images[currentIndex].classList.add("opacity-100")
+		}
+
+		setTimeout(() => {
+			setInterval(changeBackground, 10000)
+		}, 1000)
+	</script>
+</Layout>
 
 <style>
-	#background {
-		position: fixed;
+	.background-overlay {
+		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		z-index: -1;
-		filter: blur(100px);
-	}
-
-	#container {
-		font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans", Arial, sans-serif;
-		height: 100%;
-	}
-
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-	}
-
-	#hero {
-		display: flex;
-		align-items: start;
-		flex-direction: column;
-		justify-content: center;
-		padding: 16px;
-	}
-
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
-
-	#links {
-		display: flex;
-		gap: 16px;
-	}
-
-	#links a {
-		display: flex;
-		align-items: center;
-		padding: 10px 12px;
-		color: #111827;
-		text-decoration: none;
-		transition: color 0.2s;
-	}
-
-	#links a:hover {
-		color: rgb(78, 80, 86);
-	}
-
-	#links a svg {
-		height: 1em;
-		margin-left: 8px;
-	}
-
-	#links a.button {
-		color: white;
-		background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
-		box-shadow:
-			inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-			inset 0 -2px 0 rgba(0, 0, 0, 0.24);
-		border-radius: 10px;
-	}
-
-	#links a.button:hover {
-		color: rgb(230, 230, 230);
-		box-shadow: none;
-	}
-
-	pre {
-		font-family:
-			ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono",
-			monospace;
-		font-weight: normal;
-		background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-		margin: 0;
-	}
-
-	h2 {
-		margin: 0 0 1em;
-		font-weight: normal;
-		color: #111827;
-		font-size: 20px;
-	}
-
-	p {
-		color: #4b5563;
-		font-size: 16px;
-		line-height: 24px;
-		letter-spacing: -0.006em;
-		margin: 0;
-	}
-
-	code {
-		display: inline-block;
-		background:
-			linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
-			linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
-		border-radius: 8px;
-		border: 1px solid transparent;
-		padding: 6px 8px;
-	}
-
-	.box {
-		padding: 16px;
-		background: rgba(255, 255, 255, 1);
-		border-radius: 16px;
-		border: 1px solid white;
-	}
-
-	#news {
-		position: absolute;
-		bottom: 16px;
-		right: 16px;
-		max-width: 300px;
-		text-decoration: none;
-		transition: background 0.2s;
-		backdrop-filter: blur(50px);
-	}
-
-	#news:hover {
-		background: rgba(255, 255, 255, 0.55);
-	}
-
-	@media screen and (max-height: 368px) {
-		#news {
-			display: none;
-		}
-	}
-
-	@media screen and (max-width: 768px) {
-		#container {
-			display: flex;
-			flex-direction: column;
-		}
-
-		#hero {
-			display: block;
-			padding-top: 10%;
-		}
-
-		#links {
-			flex-wrap: wrap;
-		}
-
-		#links a.button {
-			padding: 14px 18px;
-		}
-
-		#news {
-			right: 16px;
-			left: 16px;
-			bottom: 2.5rem;
-			max-width: 100%;
-		}
-
-		h1 {
-			line-height: 1.5;
-		}
+		background: linear-gradient(
+			45deg,
+			rgba(245, 213, 184, 0.7) 0%,
+			rgba(232, 196, 160, 0.5) 50%,
+			rgba(245, 213, 184, 0.3) 100%
+		);
+		backdrop-filter: blur(1px);
+		z-index: 20;
 	}
 </style>
