@@ -3,7 +3,13 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #fff5eb;
+        fill: #621B00;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        .cls-1 {
+          fill: #fff5eb;
+        }
       }
     </style>
   </defs>
