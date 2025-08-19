@@ -1,0 +1,422 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+
+<Layout title="Videos" />
+<section class="videos-section">
+	<div class="floating-element one"></div>
+	<div class="floating-element two"></div>
+
+	<div class="videos-container">
+		<div class="videos-header">
+			<h2>Nuestros Recursos</h2>
+			<p>
+				Explora contenido cuidadosamente seleccionado para acompañarte en cada etapa de tu viaje
+			</p>
+		</div>
+
+		<div class="videos-grid">
+			<!-- Video 1 -->
+			<div class="video-card">
+				<div class="video-wrapper">
+					<iframe
+						src="https://www.youtube.com/embed/VIDEO_ID_1"
+						title="Preparación para el parto"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					>
+					</iframe>
+					<div class="video-overlay">
+						<div class="play-icon"></div>
+					</div>
+				</div>
+				<div class="video-info">
+					<h3 class="video-title">Preparación para el parto</h3>
+					<p class="video-description">
+						Técnicas de respiración y relajación para un parto consciente y empoderado
+					</p>
+					<div class="video-tags">
+						<span class="tag">Parto</span>
+						<span class="tag">Respiración</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Video 2 -->
+			<div class="video-card">
+				<div class="video-wrapper">
+					<iframe
+						src="https://www.youtube.com/embed/VIDEO_ID_2"
+						title="Lactancia materna"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					>
+					</iframe>
+					<div class="video-overlay">
+						<div class="play-icon"></div>
+					</div>
+				</div>
+				<div class="video-info">
+					<h3 class="video-title">Lactancia materna</h3>
+					<p class="video-description">
+						Guía completa sobre posiciones y técnicas para una lactancia exitosa
+					</p>
+					<div class="video-tags">
+						<span class="tag">Lactancia</span>
+						<span class="tag">Maternidad</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Video 3 -->
+			<div class="video-card">
+				<div class="video-wrapper">
+					<iframe
+						src="https://www.youtube.com/embed/VIDEO_ID_3"
+						title="Yoga prenatal"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					>
+					</iframe>
+					<div class="video-overlay">
+						<div class="play-icon"></div>
+					</div>
+				</div>
+				<div class="video-info">
+					<h3 class="video-title">Yoga prenatal</h3>
+					<p class="video-description">
+						Ejercicios suaves para mantener tu cuerpo flexible y preparado
+					</p>
+					<div class="video-tags">
+						<span class="tag">Yoga</span>
+						<span class="tag">Embarazo</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Video 4 -->
+			<div class="video-card">
+				<div class="video-wrapper">
+					<iframe
+						src="https://www.youtube.com/embed/VIDEO_ID_4"
+						title="Piel con piel"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					>
+					</iframe>
+					<div class="video-overlay">
+						<div class="play-icon"></div>
+					</div>
+				</div>
+				<div class="video-info">
+					<h3 class="video-title">Piel con piel</h3>
+					<p class="video-description">
+						La importancia del contacto en los primeros momentos de vida
+					</p>
+					<div class="video-tags">
+						<span class="tag">Vínculo</span>
+						<span class="tag">Recién nacido</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	/* Sección de Vídeos */
+	.videos-section {
+		padding: 80px 20px;
+		background: #fff5eb;
+		position: relative;
+		overflow: hidden;
+	}
+
+	/* Patrón decorativo de fondo */
+	.videos-section::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-image:
+			radial-gradient(circle at 10% 20%, rgba(106, 128, 103, 0.03) 0%, transparent 50%),
+			radial-gradient(circle at 80% 80%, rgba(203, 110, 95, 0.03) 0%, transparent 50%),
+			radial-gradient(circle at 40% 60%, rgba(213, 161, 142, 0.02) 0%, transparent 70%);
+		pointer-events: none;
+	}
+
+	.videos-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		position: relative;
+		z-index: 1;
+	}
+
+	.videos-header {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+
+	.videos-header h2 {
+		font-size: 2.5rem;
+		color: #37443a;
+		font-weight: 300;
+		letter-spacing: 1px;
+		margin-bottom: 15px;
+		position: relative;
+		display: inline-block;
+	}
+
+	/* Elemento decorativo circular */
+	.videos-header h2::before {
+		content: "";
+		position: absolute;
+		top: -20px;
+		right: -40px;
+		width: 60px;
+		height: 60px;
+		border: 2px solid #cb6e5f;
+		border-radius: 50%;
+		opacity: 0.3;
+		animation: pulse 3s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 0.3;
+		}
+		50% {
+			transform: scale(1.1);
+			opacity: 0.5;
+		}
+	}
+
+	.videos-header p {
+		color: #6a8067;
+		font-size: 1.1rem;
+		max-width: 600px;
+		margin: 0 auto;
+		line-height: 1.6;
+	}
+
+	/* Grid de vídeos */
+	.videos-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 40px;
+		margin-bottom: 40px;
+	}
+
+	/* Tarjeta de vídeo */
+	.video-card {
+		background: white;
+		border-radius: 20px;
+		overflow: hidden;
+		box-shadow: 0 10px 30px rgba(55, 68, 58, 0.08);
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+	}
+
+	.video-card::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 3px;
+		background: linear-gradient(90deg, #cb6e5f 0%, #d5a18e 100%);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.4s ease;
+	}
+
+	.video-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 40px rgba(55, 68, 58, 0.15);
+	}
+
+	.video-card:hover::before {
+		transform: scaleX(1);
+	}
+
+	.video-wrapper {
+		position: relative;
+		padding-bottom: 56.25%; /* 16:9 */
+		height: 0;
+		overflow: hidden;
+		background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
+	}
+
+	.video-wrapper iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+
+	/* Overlay decorativo con el icono */
+	.video-overlay {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 60px;
+		height: 60px;
+		background: rgba(255, 255, 255, 0.9);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: 10;
+	}
+
+	.video-card:hover .video-overlay {
+		opacity: 1;
+	}
+
+	.play-icon {
+		width: 0;
+		height: 0;
+		border-left: 15px solid #cb6e5f;
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		margin-left: 3px;
+	}
+
+	.video-info {
+		padding: 25px;
+		background: white;
+	}
+
+	.video-title {
+		font-size: 1.2rem;
+		color: #37443a;
+		margin-bottom: 10px;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+	}
+
+	.video-description {
+		font-size: 0.95rem;
+		color: #6a8067;
+		line-height: 1.6;
+		margin-bottom: 15px;
+	}
+
+	.video-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.tag {
+		padding: 5px 12px;
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
+		border-radius: 20px;
+		font-size: 0.85rem;
+		color: #a22f11;
+		border: 1px solid rgba(203, 110, 95, 0.2);
+		transition: all 0.3s ease;
+	}
+
+	.tag:hover {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.2), rgba(213, 161, 142, 0.2));
+		transform: translateY(-2px);
+	}
+
+	/* Elemento decorativo flotante */
+	.floating-element {
+		position: absolute;
+		width: 100px;
+		height: 100px;
+		border: 2px solid rgba(106, 128, 103, 0.1);
+		border-radius: 50%;
+		pointer-events: none;
+	}
+
+	.floating-element.one {
+		top: 10%;
+		right: 5%;
+		animation: float-diagonal 15s ease-in-out infinite;
+	}
+
+	.floating-element.two {
+		bottom: 10%;
+		left: 5%;
+		width: 80px;
+		height: 80px;
+		border-color: rgba(203, 110, 95, 0.1);
+		animation: float-diagonal 20s ease-in-out infinite reverse;
+	}
+
+	@keyframes float-diagonal {
+		0%,
+		100% {
+			transform: translate(0, 0) rotate(0deg);
+		}
+		25% {
+			transform: translate(20px, -20px) rotate(90deg);
+		}
+		50% {
+			transform: translate(-10px, 10px) rotate(180deg);
+		}
+		75% {
+			transform: translate(10px, 20px) rotate(270deg);
+		}
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.videos-section {
+			padding: 60px 15px;
+		}
+
+		.videos-header h2 {
+			font-size: 2rem;
+		}
+
+		.videos-grid {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.floating-element {
+			display: none;
+		}
+	}
+
+	/* Animación de entrada */
+	.video-card {
+		opacity: 0;
+		transform: translateY(30px);
+		animation: fadeInUp 0.6s ease forwards;
+	}
+
+	.video-card:nth-child(1) {
+		animation-delay: 0.1s;
+	}
+	.video-card:nth-child(2) {
+		animation-delay: 0.2s;
+	}
+	.video-card:nth-child(3) {
+		animation-delay: 0.3s;
+	}
+	.video-card:nth-child(4) {
+		animation-delay: 0.4s;
+	}
+
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
