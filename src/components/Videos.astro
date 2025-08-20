@@ -6,9 +6,6 @@ const { videos } = videosData
 ---
 
 <section class="videos-section">
-	<div class="floating-element one"></div>
-	<div class="floating-element two"></div>
-
 	<div class="videos-container">
 		<div class="videos-header">
 			<h2>Nuestros Recursos</h2>
@@ -34,7 +31,6 @@ const { videos } = videosData
 						<div class="video-info">
 							<h3 class="video-title">{video.title}</h3>
 							<p class="video-description">{video.description}</p>
-							{video.duration && <span class="video-duration">{video.duration}</span>}
 							<div class="video-tags">
 								{video.tags.map((tag) => (
 									<span class="tag">{tag}</span>
@@ -96,18 +92,27 @@ const { videos } = videosData
 
 	/* Elemento decorativo circular */
 	.videos-header h2::before {
-		content: "";
+		content: url("../assets/iconos/ilustracion-negro_24.svg");
 		position: absolute;
 		top: -20px;
 		right: -40px;
 		width: 60px;
 		height: 60px;
-		border: 2px solid #cb6e5f;
-		border-radius: 50%;
 		opacity: 0.3;
 		animation: pulse 3s ease-in-out infinite;
 	}
 
+	.icon-wrapper {
+		animation: pulse 3s ease-in-out infinite;
+	}
+
+	.icon-wrapper svg {
+		fill: #6a8067;
+		width: 100px;
+		height: 100px;
+	}
+
+	/* Elemento decorativo circular */
 	@keyframes pulse {
 		0%,
 		100% {
@@ -197,6 +202,9 @@ const { videos } = videosData
 	.video-info {
 		padding: 25px;
 		background: white;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 	}
 
 	.video-title {
@@ -212,14 +220,6 @@ const { videos } = videosData
 		color: #6a8067;
 		line-height: 1.6;
 		margin-bottom: 15px;
-	}
-
-	.video-duration {
-		display: inline-block;
-		font-size: 0.85rem;
-		color: #a22f11;
-		margin-bottom: 12px;
-		opacity: 0.8;
 	}
 
 	.video-tags {
