@@ -1,8 +1,10 @@
 ---
-import Layout from "../layouts/Layout.astro"
+// VideoSection.astro
+import videosData from "../data/videos.json"
+
+const { videos } = videosData
 ---
 
-<Layout title="Videos" />
 <section class="videos-section">
 	<div class="floating-element one"></div>
 	<div class="floating-element two"></div>
@@ -16,112 +18,36 @@ import Layout from "../layouts/Layout.astro"
 		</div>
 
 		<div class="videos-grid">
-			<!-- Video 1 -->
-			<div class="video-card">
-				<div class="video-wrapper">
-					<iframe
-						src="https://www.youtube.com/embed/VIDEO_ID_1"
-						title="Preparación para el parto"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<div class="video-overlay">
-						<div class="play-icon"></div>
+			{
+				videos.map((video, index) => (
+					<div class="video-card" style={`animation-delay: ${0.1 * (index + 1)}s`}>
+						<div class="video-wrapper">
+							<iframe
+								src={`https://www.youtube.com/embed/${video.youtubeId}`}
+								title={video.title}
+								loading="lazy"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen
+							/>
+						</div>
+						<div class="video-info">
+							<h3 class="video-title">{video.title}</h3>
+							<p class="video-description">{video.description}</p>
+							{video.duration && <span class="video-duration">{video.duration}</span>}
+							<div class="video-tags">
+								{video.tags.map((tag) => (
+									<span class="tag">{tag}</span>
+								))}
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="video-info">
-					<h3 class="video-title">Preparación para el parto</h3>
-					<p class="video-description">
-						Técnicas de respiración y relajación para un parto consciente y empoderado
-					</p>
-					<div class="video-tags">
-						<span class="tag">Parto</span>
-						<span class="tag">Respiración</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Video 2 -->
-			<div class="video-card">
-				<div class="video-wrapper">
-					<iframe
-						src="https://www.youtube.com/embed/VIDEO_ID_2"
-						title="Lactancia materna"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<div class="video-overlay">
-						<div class="play-icon"></div>
-					</div>
-				</div>
-				<div class="video-info">
-					<h3 class="video-title">Lactancia materna</h3>
-					<p class="video-description">
-						Guía completa sobre posiciones y técnicas para una lactancia exitosa
-					</p>
-					<div class="video-tags">
-						<span class="tag">Lactancia</span>
-						<span class="tag">Maternidad</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Video 3 -->
-			<div class="video-card">
-				<div class="video-wrapper">
-					<iframe
-						src="https://www.youtube.com/embed/VIDEO_ID_3"
-						title="Yoga prenatal"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<div class="video-overlay">
-						<div class="play-icon"></div>
-					</div>
-				</div>
-				<div class="video-info">
-					<h3 class="video-title">Yoga prenatal</h3>
-					<p class="video-description">
-						Ejercicios suaves para mantener tu cuerpo flexible y preparado
-					</p>
-					<div class="video-tags">
-						<span class="tag">Yoga</span>
-						<span class="tag">Embarazo</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Video 4 -->
-			<div class="video-card">
-				<div class="video-wrapper">
-					<iframe
-						src="https://www.youtube.com/embed/VIDEO_ID_4"
-						title="Piel con piel"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<div class="video-overlay">
-						<div class="play-icon"></div>
-					</div>
-				</div>
-				<div class="video-info">
-					<h3 class="video-title">Piel con piel</h3>
-					<p class="video-description">
-						La importancia del contacto en los primeros momentos de vida
-					</p>
-					<div class="video-tags">
-						<span class="tag">Vínculo</span>
-						<span class="tag">Recién nacido</span>
-					</div>
-				</div>
-			</div>
+				))
+			}
 		</div>
 	</div>
 </section>
+
 <style>
 	/* Sección de Vídeos */
 	.videos-section {
@@ -210,7 +136,6 @@ import Layout from "../layouts/Layout.astro"
 		margin-bottom: 40px;
 	}
 
-	/* Tarjeta de vídeo */
 	.video-card {
 		background: white;
 		border-radius: 20px;
@@ -218,6 +143,16 @@ import Layout from "../layouts/Layout.astro"
 		box-shadow: 0 10px 30px rgba(55, 68, 58, 0.08);
 		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 		position: relative;
+		opacity: 0;
+		transform: translateY(30px);
+		animation: fadeInUp 0.6s ease forwards;
+	}
+
+	@keyframes fadeInUp {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.video-card::before {
@@ -259,38 +194,6 @@ import Layout from "../layouts/Layout.astro"
 		border: none;
 	}
 
-	/* Overlay decorativo con el icono */
-	.video-overlay {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 60px;
-		height: 60px;
-		background: rgba(255, 255, 255, 0.9);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		pointer-events: none;
-		opacity: 0;
-		transition: opacity 0.3s ease;
-		z-index: 10;
-	}
-
-	.video-card:hover .video-overlay {
-		opacity: 1;
-	}
-
-	.play-icon {
-		width: 0;
-		height: 0;
-		border-left: 15px solid #cb6e5f;
-		border-top: 10px solid transparent;
-		border-bottom: 10px solid transparent;
-		margin-left: 3px;
-	}
-
 	.video-info {
 		padding: 25px;
 		background: white;
@@ -309,6 +212,14 @@ import Layout from "../layouts/Layout.astro"
 		color: #6a8067;
 		line-height: 1.6;
 		margin-bottom: 15px;
+	}
+
+	.video-duration {
+		display: inline-block;
+		font-size: 0.85rem;
+		color: #a22f11;
+		margin-bottom: 12px;
+		opacity: 0.8;
 	}
 
 	.video-tags {
@@ -373,7 +284,6 @@ import Layout from "../layouts/Layout.astro"
 		}
 	}
 
-	/* Responsive */
 	@media (max-width: 768px) {
 		.videos-section {
 			padding: 60px 15px;
@@ -390,33 +300,6 @@ import Layout from "../layouts/Layout.astro"
 
 		.floating-element {
 			display: none;
-		}
-	}
-
-	/* Animación de entrada */
-	.video-card {
-		opacity: 0;
-		transform: translateY(30px);
-		animation: fadeInUp 0.6s ease forwards;
-	}
-
-	.video-card:nth-child(1) {
-		animation-delay: 0.1s;
-	}
-	.video-card:nth-child(2) {
-		animation-delay: 0.2s;
-	}
-	.video-card:nth-child(3) {
-		animation-delay: 0.3s;
-	}
-	.video-card:nth-child(4) {
-		animation-delay: 0.4s;
-	}
-
-	@keyframes fadeInUp {
-		to {
-			opacity: 1;
-			transform: translateY(0);
 		}
 	}
 </style>

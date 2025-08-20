@@ -1,0 +1,40 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "youtubeId": "sL6gioAwU8o",
+      "title": "Preparación para el parto",
+      "description": "Técnicas de respiración y relajación para un parto consciente y empoderado",
+      "tags": ["Parto", "Respiración"],
+      "duration": "15:30",
+      "thumbnail": "/images/video-thumb-1.jpg"
+    },
+    {
+      "id": 2,
+      "youtubeId": "VIDEO_ID_2",
+      "title": "Lactancia materna",
+      "description": "Guía completa sobre posiciones y técnicas para una lactancia exitosa",
+      "tags": ["Lactancia", "Maternidad"],
+      "duration": "22:45",
+      "thumbnail": "/images/video-thumb-2.jpg"
+    },
+    {
+      "id": 3,
+      "youtubeId": "VIDEO_ID_3",
+      "title": "Yoga prenatal",
+      "description": "Ejercicios suaves para mantener tu cuerpo flexible y preparado",
+      "tags": ["Yoga", "Embarazo"],
+      "duration": "30:00",
+      "thumbnail": "/images/video-thumb-3.jpg"
+    },
+    {
+      "id": 4,
+      "youtubeId": "VIDEO_ID_4",
+      "title": "Piel con piel",
+      "description": "La importancia del contacto en los primeros momentos de vida",
+      "tags": ["Vínculo", "Recién nacido"],
+      "duration": "18:20",
+      "thumbnail": "/images/video-thumb-4.jpg"
+    }
+  ]
+}
