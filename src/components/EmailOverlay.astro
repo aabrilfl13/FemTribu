@@ -384,6 +384,14 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 		const buttonText = submitButton.querySelector(".button-text")
 		const buttonLoader = submitButton.querySelector(".button-loader")
 
+		// Check access flag expiration
+		const accessData = localStorage.getItem("videoAccess")
+		if (accessData) {
+			const parsed = JSON.parse(accessData)
+			if (Date.now() > parsed.expires) {
+				localStorage.removeItem("videoAccess")
+			}
+		}
 		// Check if user already has access (you can modify this logic)
 		const hasAccess = localStorage.getItem("videoAccess")
 		if (hasAccess) {
@@ -427,10 +435,18 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 				}
 
 				// Hide overlay after a delay
+				// This add a visualization of the videos, but maybe the best it's to validate this access by entering from the email
 				setTimeout(() => {
 					overlay?.classList.add("hidden")
 					// Store access in localStorage (temporary - you should validate with the code)
-					localStorage.setItem("videoAccess", "pending")
+					const expirationTime = Date.now() + 0.5 * 60 * 1000 // 30 seconds. TEST ONLY
+					localStorage.setItem(
+						"videoAccess",
+						JSON.stringify({
+							status: "pending",
+							expires: expirationTime,
+						})
+					)
 				}, 3000)
 			} catch (error) {
 				// Show error message
