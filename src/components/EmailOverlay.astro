@@ -413,10 +413,11 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 			const email = emailInput.value
 
 			try {
-				const response = await fetch("/api/send-email", {
+				const response = await fetch("https://n8n.abfcloud.es/webhook-test/send-email", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
+						"Authorization": "MBRiz7sf7jPeFir9n3Zi9-cc9J", // TODO: remove it
 					},
 					body: JSON.stringify({ email }),
 				})
