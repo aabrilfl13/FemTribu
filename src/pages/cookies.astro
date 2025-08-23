@@ -1,0 +1,1074 @@
+---
+// src/pages/cookies.astro
+import Layout from "../layouts/Layout.astro"
+import Footer from "../components/Footer.astro"
+---
+
+<Layout title="Política de Cookies - Femm Tribu">
+	<div class="cookies-page">
+		<div class="cookies-container">
+			<!-- Header -->
+			<header class="cookies-header">
+				<div class="header-content">
+					<a href="/" class="back-link">
+						<svg viewBox="0 0 24 24" fill="currentColor">
+							<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"></path>
+						</svg>
+						Volver al inicio
+					</a>
+					<h1>Política de Cookies</h1>
+					<p class="last-updated">
+						Última actualización: <time datetime="2025-01-01">1 de enero de 2025</time>
+					</p>
+				</div>
+			</header>
+
+			<!-- Content -->
+			<main class="cookies-content">
+				<div class="content-wrapper">
+					<!-- Table of Contents -->
+					<aside class="table-of-contents">
+						<h2>Contenido</h2>
+						<nav>
+							<ul>
+								<li><a href="#que-son-cookies">1. ¿Qué son las Cookies?</a></li>
+								<li><a href="#tipos-cookies">2. Tipos de Cookies</a></li>
+								<li><a href="#finalidades">3. Finalidades del Tratamiento</a></li>
+								<li><a href="#base-legal">4. Base Legal</a></li>
+								<li><a href="#gestion-control">5. Gestión y Control</a></li>
+								<li><a href="#dispositivos-moviles">6. Dispositivos Móviles</a></li>
+								<li><a href="#almacenamiento-local">7. Almacenamiento Local</a></li>
+								<li><a href="#consecuencias">8. Consecuencias de Desactivar</a></li>
+								<li><a href="#transferencias">9. Transferencias Internacionales</a></li>
+								<li><a href="#actualizaciones">10. Actualización de la Política</a></li>
+								<li><a href="#contacto">11. Contacto</a></li>
+							</ul>
+						</nav>
+					</aside>
+
+					<!-- Main Content -->
+					<article class="policy-content">
+						<section id="que-son-cookies">
+							<h2>1. ¿Qué son las Cookies?</h2>
+							<p>
+								Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando
+								visitas nuestro sitio web. Nos ayudan a mejorar tu experiencia de navegación,
+								recordar tus preferencias y entender cómo utilizas nuestro sitio.
+							</p>
+							<p>
+								Las cookies pueden ser propias (establecidas por Femm Tribu) o de terceros
+								(establecidas por otros servicios que utilizamos).
+							</p>
+						</section>
+
+						<section id="tipos-cookies">
+							<h2>2. Tipos de Cookies que Utilizamos</h2>
+
+							<h3>2.1 Cookies Esenciales (Técnicamente Necesarias)</h3>
+							<p>
+								Estas cookies son imprescindibles para el correcto funcionamiento del sitio web y no
+								se pueden desactivar.
+							</p>
+
+							<div class="cookies-table">
+								<table>
+									<thead>
+										<tr>
+											<th>Cookie</th>
+											<th>Propósito</th>
+											<th>Duración</th>
+											<th>Proveedor</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>videoAccess</code></td>
+											<td>Controla el acceso temporal a los recursos de video</td>
+											<td>30 minutos*</td>
+											<td>Femm Tribu (localStorage)</td>
+										</tr>
+										<tr>
+											<td><code>femm-session</code></td>
+											<td>Mantiene la sesión del usuario durante la navegación</td>
+											<td>Sesión</td>
+											<td>Femm Tribu</td>
+										</tr>
+									</tbody>
+								</table>
+								<p class="table-note">
+									*Nota: Durante la fase de pruebas, el acceso expira en 30 segundos. En producción
+									será de 30 minutos.
+								</p>
+							</div>
+
+							<h3>2.2 Cookies de Análisis y Rendimiento</h3>
+							<p>
+								Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro
+								sitio web.
+							</p>
+
+							<div class="cookies-table">
+								<table>
+									<thead>
+										<tr>
+											<th>Cookie</th>
+											<th>Propósito</th>
+											<th>Duración</th>
+											<th>Proveedor</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>_ga</code></td>
+											<td>Distingue usuarios únicos</td>
+											<td>2 años</td>
+											<td>Google Analytics</td>
+										</tr>
+										<tr>
+											<td><code>_ga_XXXXXXXXXX</code></td>
+											<td>Mantiene el estado de la sesión</td>
+											<td>2 años</td>
+											<td>Google Analytics</td>
+										</tr>
+										<tr>
+											<td><code>_gid</code></td>
+											<td>Distingue usuarios únicos</td>
+											<td>24 horas</td>
+											<td>Google Analytics</td>
+										</tr>
+										<tr>
+											<td><code>_gat_gtag_XX</code></td>
+											<td>Limita la velocidad de solicitudes</td>
+											<td>1 minuto</td>
+											<td>Google Analytics</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<h3>2.3 Cookies de Terceros</h3>
+							<p>
+								Nuestro sitio web puede incluir contenido de terceros que establecen sus propias
+								cookies.
+							</p>
+
+							<div class="cookies-table">
+								<table>
+									<thead>
+										<tr>
+											<th>Servicio</th>
+											<th>Cookies</th>
+											<th>Propósito</th>
+											<th>Política de Privacidad</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>YouTube</td>
+											<td
+												><code>CONSENT</code>, <code>YSC</code>, <code>VISITOR_INFO1_LIVE</code></td
+											>
+											<td>Reproducción de videos embebidos</td>
+											<td>
+												<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
+													>YouTube Privacy Policy</a
+												>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+
+						<section id="finalidades">
+							<h2>3. Finalidades del Tratamiento</h2>
+							<p>Utilizamos cookies para:</p>
+							<ul>
+								<li>
+									<strong>Funcionalidad del sitio</strong>: Recordar tus preferencias y
+									configuraciones
+								</li>
+								<li>
+									<strong>Acceso a contenido</strong>: Gestionar el acceso temporal a recursos
+									exclusivos
+								</li>
+								<li>
+									<strong>Análisis de uso</strong>: Entender cómo navegas por nuestro sitio para
+									mejorarlo
+								</li>
+								<li>
+									<strong>Experiencia de usuario</strong>: Personalizar el contenido según tus
+									intereses
+								</li>
+							</ul>
+						</section>
+
+						<section id="base-legal">
+							<h2>4. Base Legal</h2>
+							<p>El uso de cookies se basa en:</p>
+							<ul>
+								<li>
+									<strong>Consentimiento</strong>: Para cookies de análisis y marketing (Art. 6.1.a
+									RGPD)
+								</li>
+								<li>
+									<strong>Interés legítimo</strong>: Para cookies de análisis básico (Art. 6.1.f
+									RGPD)
+								</li>
+								<li>
+									<strong>Necesidad contractual</strong>: Para cookies esenciales (Art. 6.1.b RGPD)
+								</li>
+							</ul>
+						</section>
+
+						<section id="gestion-control">
+							<h2>5. Gestión y Control de Cookies</h2>
+
+							<h3>5.1 Configuración del Navegador</h3>
+							<p>Puedes controlar y eliminar cookies mediante la configuración de tu navegador:</p>
+
+							<div class="browser-guide">
+								<div class="browser-item">
+									<h4>Google Chrome</h4>
+									<p>Configuración > Privacidad y seguridad > Cookies y otros datos de sitios</p>
+								</div>
+
+								<div class="browser-item">
+									<h4>Mozilla Firefox</h4>
+									<p>Preferencias > Privacidad y seguridad > Cookies y datos del sitio</p>
+								</div>
+
+								<div class="browser-item">
+									<h4>Safari</h4>
+									<p>Preferencias > Privacidad > Gestionar datos del sitio web</p>
+								</div>
+
+								<div class="browser-item">
+									<h4>Microsoft Edge</h4>
+									<p>Configuración > Cookies y permisos del sitio</p>
+								</div>
+							</div>
+
+							<h3>5.2 Herramientas de Exclusión Específicas</h3>
+
+							<div class="opt-out-tools">
+								<div class="tool-item">
+									<h4>Google Analytics</h4>
+									<ul>
+										<li>
+											Complemento de exclusión:
+											<a
+												href="https://tools.google.com/dlpage/gaoptout"
+												target="_blank"
+												rel="noopener">Google Analytics Opt-out</a
+											>
+										</li>
+										<li>
+											Configuración de anuncios:
+											<a href="https://adssettings.google.com" target="_blank" rel="noopener"
+												>Google Ad Settings</a
+											>
+										</li>
+									</ul>
+								</div>
+
+								<div class="tool-item">
+									<h4>YouTube</h4>
+									<ul>
+										<li>
+											Configuración de privacidad:
+											<a href="https://myaccount.google.com/privacy" target="_blank" rel="noopener"
+												>Privacy Controls</a
+											>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>5.3 Banner de Cookies (Implementación Futura)</h3>
+							<div class="future-feature">
+								<p>Estamos desarrollando un banner de gestión de cookies que te permitirá:</p>
+								<ul>
+									<li>Aceptar o rechazar cookies no esenciales</li>
+									<li>Configurar preferencias por categorías</li>
+									<li>Cambiar tu consentimiento en cualquier momento</li>
+									<li>Acceder a información detallada sobre cada cookie</li>
+								</ul>
+							</div>
+						</section>
+
+						<section id="dispositivos-moviles">
+							<h2>6. Cookies en Dispositivos Móviles</h2>
+							<p>En dispositivos móviles, también puedes gestionar cookies:</p>
+
+							<div class="mobile-guide">
+								<div class="mobile-item">
+									<h4>iOS (Safari)</h4>
+									<p>Configuración > Safari > Privacidad y seguridad</p>
+								</div>
+
+								<div class="mobile-item">
+									<h4>Android (Chrome)</h4>
+									<p>Chrome > Configuración > Configuración del sitio > Cookies</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="almacenamiento-local">
+							<h2>7. Almacenamiento Local (Local Storage)</h2>
+							<p>Además de cookies, utilizamos tecnologías de almacenamiento local:</p>
+
+							<div class="cookies-table">
+								<table>
+									<thead>
+										<tr>
+											<th>Elemento</th>
+											<th>Propósito</th>
+											<th>Duración</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><code>videoAccess</code></td>
+											<td>Estado de acceso a videos</td>
+											<td>30 minutos</td>
+										</tr>
+										<tr>
+											<td><code>user-preferences</code></td>
+											<td>Preferencias del usuario</td>
+											<td>Permanente hasta eliminación manual</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+
+						<section id="consecuencias">
+							<h2>8. Consecuencias de Desactivar Cookies</h2>
+							<p>Si desactivas las cookies:</p>
+
+							<div class="consequences-grid">
+								<div class="consequence-item essential">
+									<h4>Cookies Esenciales</h4>
+									<p>El sitio web puede no funcionar correctamente</p>
+								</div>
+
+								<div class="consequence-item analytics">
+									<h4>Cookies de Análisis</h4>
+									<p>No afectará la funcionalidad, pero no podremos mejorar la experiencia</p>
+								</div>
+
+								<div class="consequence-item third-party">
+									<h4>Cookies de Terceros</h4>
+									<p>El contenido embebido puede no mostrarse correctamente</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="transferencias">
+							<h2>9. Transferencias Internacionales</h2>
+							<p>Algunas cookies implican transferencias de datos a países fuera del EEE:</p>
+
+							<div class="transfers-grid">
+								<div class="transfer-item">
+									<h4>Google Analytics</h4>
+									<p>
+										<strong>Destino</strong>: Estados Unidos<br />
+										<strong>Protección</strong>: Decisión de Adecuación UE-US
+									</p>
+								</div>
+
+								<div class="transfer-item">
+									<h4>YouTube</h4>
+									<p>
+										<strong>Destino</strong>: Estados Unidos<br />
+										<strong>Protección</strong>: Cláusulas Contractuales Tipo
+									</p>
+								</div>
+							</div>
+						</section>
+
+						<section id="actualizaciones">
+							<h2>10. Actualización de la Política de Cookies</h2>
+							<p>
+								Esta política se actualiza periódicamente. Los cambios importantes serán comunicados
+								mediante:
+							</p>
+							<ul>
+								<li>Notificación en el sitio web</li>
+								<li>Banner de cookies actualizado</li>
+								<li>Email a usuarios registrados (para cambios sustanciales)</li>
+							</ul>
+						</section>
+
+						<section id="contacto">
+							<h2>11. Más Información y Contacto</h2>
+							<p>Para más detalles sobre cookies específicas o cómo ejercer tus derechos:</p>
+
+							<div class="contact-info">
+								<ul>
+									<li>
+										<strong>Email</strong>:
+										<a href="mailto:cookies@femtribu.com">cookies@femtribu.com</a>
+									</li>
+									<li><strong>Teléfono</strong>: [Número de contacto]</li>
+									<li>
+										<strong>Dirección</strong>: [Dirección postal completa]
+									</li>
+								</ul>
+							</div>
+
+							<h3>11.1 Enlaces Útiles</h3>
+							<div class="useful-links">
+								<ul>
+									<li>
+										<a href="https://www.aepd.es/guias/cookies.html" target="_blank" rel="noopener"
+											>Guía sobre cookies - AEPD</a
+										>
+									</li>
+									<li>
+										<a
+											href="https://www.incibe.es/protege-tu-empresa/blog/cookies-que-son"
+											target="_blank"
+											rel="noopener">¿Qué son las cookies? - INCIBE</a
+										>
+									</li>
+									<li>
+										<a href="https://www.allaboutcookies.org/es/" target="_blank" rel="noopener"
+											>All About Cookies</a
+										>
+									</li>
+								</ul>
+							</div>
+						</section>
+
+						<!-- Legal Note -->
+						<div class="legal-note">
+							<p>
+								<strong
+									>Esta política de cookies entra en vigor el 1 de enero de 2025 y se rige por la
+									legislación española y europea aplicable.</strong
+								>
+							</p>
+						</div>
+					</article>
+				</div>
+			</main>
+		</div>
+	</div>
+	<Footer />
+</Layout>
+
+<style>
+	.cookies-page {
+		min-height: 100vh;
+		background: #fff5eb;
+		font-family: "Questrial", sans-serif;
+	}
+
+	.cookies-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Header */
+	.cookies-header {
+		padding: 40px 0 60px;
+		background: linear-gradient(135deg, #37443a 0%, #6a8067 100%);
+		color: #fff5eb;
+		margin: 0 -20px;
+	}
+
+	.header-content {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		color: rgba(255, 245, 235, 0.8);
+		text-decoration: none;
+		font-size: 0.9rem;
+		margin-bottom: 20px;
+		transition: all 0.3s ease;
+	}
+
+	.back-link:hover {
+		color: #fff5eb;
+		transform: translateX(-5px);
+	}
+
+	.back-link svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.cookies-header h1 {
+		font-family: "The Seasons", serif;
+		font-size: 3rem;
+		font-weight: 300;
+		margin-bottom: 15px;
+		letter-spacing: 1px;
+	}
+
+	.last-updated {
+		font-size: 0.9rem;
+		color: rgba(255, 245, 235, 0.8);
+		font-style: italic;
+	}
+
+	/* Content Layout */
+	.cookies-content {
+		padding: 40px 0 80px;
+	}
+
+	.content-wrapper {
+		display: grid;
+		grid-template-columns: 280px 1fr;
+		gap: 60px;
+		align-items: start;
+	}
+
+	/* Table of Contents */
+	.table-of-contents {
+		position: sticky;
+		top: 40px;
+		background: white;
+		padding: 30px;
+		border-radius: 20px;
+		box-shadow: 0 10px 30px rgba(55, 68, 58, 0.08);
+		border: 1px solid rgba(106, 128, 103, 0.1);
+	}
+
+	.table-of-contents h2 {
+		font-family: "The Seasons", serif;
+		font-size: 1.2rem;
+		color: #37443a;
+		margin-bottom: 20px;
+		font-weight: 400;
+	}
+
+	.table-of-contents nav ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.table-of-contents nav li {
+		margin-bottom: 8px;
+	}
+
+	.table-of-contents nav a {
+		color: #6a8067;
+		text-decoration: none;
+		font-size: 0.85rem;
+		line-height: 1.4;
+		transition: all 0.3s ease;
+		display: block;
+		padding: 5px 0;
+		border-left: 2px solid transparent;
+		padding-left: 10px;
+	}
+
+	.table-of-contents nav a:hover {
+		color: #37443a;
+		border-left-color: #cb6e5f;
+		transform: translateX(5px);
+	}
+
+	.table-of-contents nav a.active {
+		color: #37443a;
+		border-left-color: #cb6e5f;
+		font-weight: 500;
+		background: rgba(203, 110, 95, 0.05);
+		border-radius: 5px;
+		margin-left: -10px;
+		padding-left: 15px;
+	}
+
+	/* Main Content */
+	.policy-content {
+		background: white;
+		padding: 50px;
+		border-radius: 20px;
+		box-shadow: 0 10px 30px rgba(55, 68, 58, 0.08);
+		line-height: 1.7;
+	}
+
+	.policy-content h2 {
+		font-family: "The Seasons", serif;
+		font-size: 1.8rem;
+		color: #37443a;
+		margin: 40px 0 20px 0;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+		border-bottom: 2px solid rgba(203, 110, 95, 0.2);
+		padding-bottom: 10px;
+	}
+
+	.policy-content h2:first-child {
+		margin-top: 0;
+	}
+
+	.policy-content h3 {
+		font-family: "The Seasons", serif;
+		font-size: 1.3rem;
+		color: #37443a;
+		margin: 30px 0 15px 0;
+		font-weight: 400;
+	}
+
+	.policy-content h4 {
+		font-family: "The Seasons", serif;
+		font-size: 1.1rem;
+		color: #37443a;
+		margin: 20px 0 10px 0;
+		font-weight: 400;
+	}
+
+	.policy-content p {
+		color: #4a5a4d;
+		margin-bottom: 15px;
+		text-align: justify;
+	}
+
+	.policy-content ul,
+	.policy-content ol {
+		margin: 15px 0;
+		padding-left: 25px;
+	}
+
+	.policy-content li {
+		color: #4a5a4d;
+		margin-bottom: 8px;
+	}
+
+	.policy-content strong {
+		color: #37443a;
+		font-weight: 500;
+	}
+
+	.policy-content a {
+		color: #cb6e5f;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(203, 110, 95, 0.3);
+		transition: all 0.3s ease;
+	}
+
+	.policy-content a:hover {
+		color: #37443a;
+		border-bottom-color: #37443a;
+	}
+
+	/* Tables */
+	.cookies-table {
+		margin: 20px 0;
+		overflow-x: auto;
+	}
+
+	.cookies-table table {
+		width: 100%;
+		border-collapse: collapse;
+		border: 1px solid rgba(106, 128, 103, 0.2);
+		border-radius: 10px;
+		overflow: hidden;
+	}
+
+	.cookies-table th {
+		background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
+		color: white;
+		padding: 15px 12px;
+		text-align: left;
+		font-weight: 500;
+		font-size: 0.9rem;
+	}
+
+	.cookies-table td {
+		padding: 12px;
+		border-bottom: 1px solid rgba(106, 128, 103, 0.1);
+		vertical-align: top;
+	}
+
+	.cookies-table tr:last-child td {
+		border-bottom: none;
+	}
+
+	.cookies-table tr:nth-child(even) {
+		background: rgba(106, 128, 103, 0.02);
+	}
+
+	.cookies-table code {
+		background: rgba(203, 110, 95, 0.1);
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-size: 0.85rem;
+		color: #a22f11;
+		font-family: monospace;
+	}
+
+	.table-note {
+		font-size: 0.85rem;
+		color: #6a8067;
+		margin-top: 10px;
+		font-style: italic;
+	}
+
+	/* Browser Guide */
+	.browser-guide,
+	.mobile-guide {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 20px;
+		margin: 20px 0;
+	}
+
+	.browser-item,
+	.mobile-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+	}
+
+	.browser-item h4,
+	.mobile-item h4 {
+		margin: 0 0 8px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	.browser-item p,
+	.mobile-item p {
+		margin: 0;
+		font-size: 0.9rem;
+		color: #4a5a4d;
+	}
+
+	/* Opt-out Tools */
+	.opt-out-tools {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 20px;
+		margin: 20px 0;
+	}
+
+	.tool-item {
+		background: rgba(203, 110, 95, 0.05);
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid #cb6e5f;
+	}
+
+	.tool-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+	}
+
+	.tool-item ul {
+		margin: 0;
+		padding-left: 20px;
+	}
+
+	/* Future Feature */
+	.future-feature {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
+		padding: 25px;
+		border-radius: 15px;
+		border: 1px solid rgba(203, 110, 95, 0.2);
+		margin: 20px 0;
+	}
+
+	/* Consequences Grid */
+	.consequences-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 20px;
+		margin: 20px 0;
+	}
+
+	.consequence-item {
+		padding: 20px;
+		border-radius: 15px;
+		text-align: center;
+	}
+
+	.consequence-item.essential {
+		background: rgba(231, 76, 60, 0.1);
+		border-left: 4px solid #e74c3c;
+	}
+
+	.consequence-item.analytics {
+		background: rgba(52, 152, 219, 0.1);
+		border-left: 4px solid #3498db;
+	}
+
+	.consequence-item.third-party {
+		background: rgba(155, 89, 182, 0.1);
+		border-left: 4px solid #9b59b6;
+	}
+
+	.consequence-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+	}
+
+	.consequence-item p {
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	/* Transfers Grid */
+	.transfers-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 20px;
+		margin: 20px 0;
+	}
+
+	.transfer-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+	}
+
+	.transfer-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+	}
+
+	.transfer-item p {
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	/* Contact Info */
+	.contact-info {
+		background: rgba(203, 110, 95, 0.05);
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid #cb6e5f;
+		margin: 20px 0;
+	}
+
+	.contact-info ul {
+		margin: 0;
+		padding-left: 20px;
+	}
+
+	/* Useful Links */
+	.useful-links ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	.useful-links li {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 10px 15px;
+		border-radius: 8px;
+		margin-bottom: 8px;
+		border-left: 3px solid #6a8067;
+	}
+
+	/* Legal Note */
+	.legal-note {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
+		padding: 25px;
+		border-radius: 15px;
+		border: 1px solid rgba(203, 110, 95, 0.2);
+		margin-top: 40px;
+		text-align: center;
+	}
+
+	.legal-note p {
+		margin: 0;
+		color: #37443a;
+		font-size: 0.95rem;
+	}
+
+	/* Section Spacing */
+	.policy-content section {
+		scroll-margin-top: 100px;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 1024px) {
+		.content-wrapper {
+			grid-template-columns: 250px 1fr;
+			gap: 40px;
+		}
+
+		.policy-content {
+			padding: 40px 30px;
+		}
+
+		.table-of-contents {
+			padding: 25px;
+		}
+
+		.cookies-table {
+			font-size: 0.85rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.cookies-container {
+			padding: 0 15px;
+		}
+
+		.cookies-header {
+			margin: 0 -15px;
+		}
+
+		.cookies-header h1 {
+			font-size: 2.2rem;
+		}
+
+		.content-wrapper {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+
+		.table-of-contents {
+			position: static;
+			order: 1;
+			margin-top: 40px;
+		}
+
+		.policy-content {
+			padding: 30px 20px;
+			order: 2;
+		}
+
+		.policy-content h2 {
+			font-size: 1.5rem;
+		}
+
+		.policy-content h3 {
+			font-size: 1.2rem;
+		}
+
+		.browser-guide,
+		.mobile-guide,
+		.opt-out-tools,
+		.consequences-grid,
+		.transfers-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.cookies-table table {
+			font-size: 0.8rem;
+		}
+
+		.cookies-table th,
+		.cookies-table td {
+			padding: 8px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.cookies-header h1 {
+			font-size: 1.8rem;
+		}
+
+		.policy-content {
+			padding: 25px 15px;
+		}
+
+		.table-of-contents {
+			padding: 20px;
+		}
+
+		.contact-info,
+		.tool-item,
+		.legal-note,
+		.future-feature {
+			padding: 20px;
+		}
+
+		.browser-item,
+		.mobile-item,
+		.consequence-item,
+		.transfer-item {
+			padding: 15px;
+		}
+	}
+
+	/* Smooth scroll */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Print styles */
+	@media print {
+		.cookies-header,
+		.table-of-contents,
+		.back-link {
+			display: none;
+		}
+
+		.content-wrapper {
+			grid-template-columns: 1fr;
+		}
+
+		.policy-content {
+			box-shadow: none;
+			padding: 0;
+		}
+	}
+</style>
+
+<script>
+	// Smooth scrolling for table of contents links
+	document.addEventListener("DOMContentLoaded", () => {
+		const tocLinks = document.querySelectorAll('.table-of-contents a[href^="#"]')
+
+		tocLinks.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault()
+				const targetId = link.getAttribute("href")
+				const targetElement = document.querySelector(targetId)
+
+				if (targetElement) {
+					targetElement.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					})
+				}
+			})
+		})
+
+		// Highlight current section in table of contents
+		const sections = document.querySelectorAll(".policy-content section[id]")
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						// Remove active class from all links
+						tocLinks.forEach((link) => link.classList.remove("active"))
+
+						// Add active class to current link
+						const activeLink = document.querySelector(
+							`.table-of-contents a[href="#${entry.target.id}"]`
+						)
+						if (activeLink) {
+							activeLink.classList.add("active")
+						}
+					}
+				})
+			},
+			{
+				rootMargin: "-20% 0px -80% 0px",
+			}
+		)
+
+		sections.forEach((section) => {
+			observer.observe(section)
+		})
+	})
+</script>
