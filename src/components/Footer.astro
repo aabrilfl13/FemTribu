@@ -27,19 +27,17 @@ import Logo from "../assets/iconos/ilustracion-negro_27.svg"
 						<h4>Recursos</h4>
 						<ul>
 							<li><a href="#videos">Vídeos</a></li>
-							<li><a href="#guias">Guías</a></li>
-							<li><a href="#testimonios">Testimonios</a></li>
-							<li><a href="#blog">Blog</a></li>
+							<li><a class="disabled-link" href="#guias">Guías</a></li>
+							<li><a class="disabled-link" href="#testimonios">Testimonios</a></li>
+							<li><a class="disabled-link" href="#blog">Blog</a></li>
 						</ul>
 					</div>
 
 					<div class="links-section">
 						<h4>Comunidad</h4>
 						<ul>
-							<li><a href="#eventos">Eventos</a></li>
-							<li><a href="#grupos">Grupos de apoyo</a></li>
-							<li><a href="#profesionales">Profesionales</a></li>
-							<li><a href="#contacto">Contacto</a></li>
+							<li><a class="disabled-link" href="#profesionales">Profesionales</a></li>
+							<li><a class="disabled-link" href="#contacto">Contacto</a></li>
 						</ul>
 					</div>
 
@@ -53,14 +51,14 @@ import Logo from "../assets/iconos/ilustracion-negro_27.svg"
 					</div>
 				</div>
 
-				<div class="footer-newsletter">
+				<!-- <div class="footer-newsletter">
 					<h4>Mantente conectada</h4>
 					<p>Recibe nuestras últimas actualizaciones y recursos exclusivos</p>
 					<form class="newsletter-form">
 						<input type="email" placeholder="tu@email.com" class="newsletter-input" />
 						<button type="submit" class="newsletter-button"> Suscribirme </button>
 					</form>
-				</div>
+				</div> -->
 			</div>
 
 			<!-- Social media section -->
@@ -163,6 +161,12 @@ import Logo from "../assets/iconos/ilustracion-negro_27.svg"
 		bottom: 20%;
 		left: 8%;
 		animation: float-slow 25s ease-in-out infinite reverse;
+	}
+
+	.disabled-link {
+		pointer-events: none;
+		opacity: 0.6;
+		cursor: default;
 	}
 
 	@keyframes float-slow {
