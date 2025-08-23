@@ -1,0 +1,645 @@
+---
+// src/components/Navbar.astro
+---
+
+<nav class="navbar">
+	<div class="navbar-container">
+		<!-- Mobile menu backdrop -->
+		<div class="mobile-backdrop" id="mobile-backdrop"></div>
+
+		<!-- Main navbar content -->
+		<div class="navbar-content">
+			<!-- Logo section -->
+			<div class="navbar-brand">
+				<a href="/" class="brand-link">
+					<img
+						src="/images/logos/logo_principal_fullcolor.svg"
+						alt="Femm Tribu"
+						class="brand-logo"
+					/>
+				</a>
+			</div>
+
+			<!-- Desktop Navigation Links -->
+			<div class="navbar-menu" id="navbar-menu">
+				<div class="menu-links">
+					<a href="/" class="nav-link" data-section="inicio">
+						<span class="link-text">Inicio</span>
+					</a>
+					<a href="#sobre-mi" class="nav-link" data-section="sobre-mi">
+						<span class="link-text">Sobre Mí</span>
+					</a>
+					<a href="#contacto" class="nav-link disabled-link" data-section="contacto">
+						<span class="link-text">Contacto</span>
+						<span class="coming-soon">Próximamente</span>
+					</a>
+				</div>
+
+				<!-- CTA Button -->
+				<div class="navbar-cta">
+					<a href="#videos" class="cta-button">
+						<span class="cta-text">Ver Recursos</span>
+						<svg class="cta-icon" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M8 5v14l11-7z"></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+
+			<!-- Mobile menu toggle -->
+			<button class="mobile-toggle" id="mobile-toggle" aria-label="Abrir menú">
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+				<span class="hamburger-line"></span>
+			</button>
+		</div>
+
+		<!-- Progress indicator for scroll -->
+		<div class="scroll-progress" id="scroll-progress"></div>
+	</div>
+</nav>
+
+<style>
+	/* Base navbar styles */
+	.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		background: rgba(255, 245, 235, 0.95);
+		backdrop-filter: blur(20px);
+		border-bottom: 1px solid rgba(106, 128, 103, 0.1);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.navbar.scrolled {
+		background: rgba(255, 245, 235, 0.98);
+		box-shadow: 0 4px 20px rgba(55, 68, 58, 0.1);
+		border-bottom-color: rgba(106, 128, 103, 0.2);
+	}
+
+	.navbar.hidden {
+		transform: translateY(-100%);
+	}
+
+	.navbar-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		position: relative;
+	}
+
+	.navbar-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 15px 20px;
+		position: relative;
+	}
+
+	/* Brand/Logo */
+	.navbar-brand {
+		flex-shrink: 0;
+	}
+
+	.brand-link {
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.brand-link:hover {
+		transform: scale(1.02);
+	}
+
+	.brand-logo {
+		height: 45px;
+		width: auto;
+	}
+
+	/* Desktop Menu */
+	.navbar-menu {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+	}
+
+	.menu-links {
+		display: flex;
+		align-items: center;
+		gap: 35px;
+	}
+
+	.nav-link {
+		position: relative;
+		text-decoration: none;
+		color: #37443a;
+		font-family: "Questrial", sans-serif;
+		font-size: 0.95rem;
+		font-weight: 500;
+		letter-spacing: 0.3px;
+		transition: all 0.3s ease;
+		padding: 8px 0;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
+	.nav-link::before {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: linear-gradient(90deg, #cb6e5f 0%, #d5a18e 100%);
+		transform: scaleX(0);
+		transform-origin: right;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.nav-link:hover {
+		color: #cb6e5f;
+	}
+
+	.nav-link:hover::before {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+
+	.nav-link.active {
+		color: #cb6e5f;
+	}
+
+	.nav-link.active::before {
+		transform: scaleX(1);
+		transform-origin: left;
+	}
+
+	.disabled-link {
+		pointer-events: none;
+		opacity: 0.6;
+		cursor: default;
+		position: relative;
+	}
+
+	.coming-soon {
+		position: absolute;
+		top: -25px;
+		right: -10px;
+		background: linear-gradient(135deg, #cb6e5f, #d5a18e);
+		color: white;
+		font-size: 0.7rem;
+		padding: 2px 6px;
+		border-radius: 8px;
+		font-weight: 400;
+		white-space: nowrap;
+		animation: pulse-soft 2s ease-in-out infinite;
+	}
+
+	@keyframes pulse-soft {
+		0%,
+		100% {
+			opacity: 0.8;
+			transform: scale(1);
+		}
+		50% {
+			opacity: 1;
+			transform: scale(1.02);
+		}
+	}
+
+	/* CTA Button */
+	.navbar-cta {
+		flex-shrink: 0;
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 12px 24px;
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		color: white;
+		text-decoration: none;
+		border-radius: 25px;
+		font-family: "Questrial", sans-serif;
+		font-size: 0.9rem;
+		font-weight: 500;
+		letter-spacing: 0.3px;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.cta-button::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.2);
+		transform: translate(-50%, -50%);
+		transition:
+			width 0.6s ease,
+			height 0.6s ease;
+	}
+
+	.cta-button:hover::before {
+		width: 300px;
+		height: 300px;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 25px rgba(203, 110, 95, 0.3);
+	}
+
+	.cta-icon {
+		width: 16px;
+		height: 16px;
+		transition: transform 0.3s ease;
+	}
+
+	.cta-button:hover .cta-icon {
+		transform: translateX(3px);
+	}
+
+	/* Mobile menu toggle */
+	.mobile-toggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		width: 30px;
+		height: 30px;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0;
+		z-index: 1001;
+	}
+
+	.hamburger-line {
+		width: 100%;
+		height: 2px;
+		background: #37443a;
+		margin: 3px 0;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transform-origin: center;
+	}
+
+	.mobile-toggle.active .hamburger-line:nth-child(1) {
+		transform: rotate(45deg) translate(6px, 6px);
+	}
+
+	.mobile-toggle.active .hamburger-line:nth-child(2) {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+
+	.mobile-toggle.active .hamburger-line:nth-child(3) {
+		transform: rotate(-45deg) translate(6px, -6px);
+	}
+
+	/* Mobile backdrop */
+	.mobile-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(55, 68, 58, 0.8);
+		backdrop-filter: blur(5px);
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease;
+		z-index: 999;
+	}
+
+	.mobile-backdrop.active {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	/* Scroll progress indicator */
+	.scroll-progress {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 2px;
+		background: linear-gradient(90deg, #cb6e5f 0%, #d5a18e 100%);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.1s ease-out;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 1024px) {
+		.menu-links {
+			gap: 25px;
+		}
+
+		.navbar-menu {
+			gap: 30px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.navbar-content {
+			padding: 12px 15px;
+		}
+
+		.brand-logo {
+			height: 40px;
+		}
+
+		.mobile-toggle {
+			display: flex;
+		}
+
+		.navbar-menu {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: #fff5eb;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 40px;
+			transform: translateX(100%);
+			transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			z-index: 1000;
+		}
+
+		.navbar-menu.active {
+			transform: translateX(0);
+		}
+
+		.menu-links {
+			flex-direction: column;
+			gap: 30px;
+			text-align: center;
+		}
+
+		.nav-link {
+			font-size: 1.2rem;
+			padding: 15px 0;
+		}
+
+		.cta-button {
+			padding: 15px 30px;
+			font-size: 1rem;
+		}
+
+		/* Mobile menu animation */
+		.navbar-menu .nav-link {
+			opacity: 0;
+			transform: translateY(20px);
+			animation: none;
+		}
+
+		.navbar-menu.active .nav-link {
+			animation: slideInUp 0.6s ease forwards;
+		}
+
+		.navbar-menu.active .nav-link:nth-child(1) {
+			animation-delay: 0.1s;
+		}
+		.navbar-menu.active .nav-link:nth-child(2) {
+			animation-delay: 0.2s;
+		}
+		.navbar-menu.active .nav-link:nth-child(3) {
+			animation-delay: 0.3s;
+		}
+		.navbar-menu.active .nav-link:nth-child(4) {
+			animation-delay: 0.4s;
+		}
+
+		.navbar-menu.active .cta-button {
+			animation: slideInUp 0.6s ease forwards;
+			animation-delay: 0.5s;
+			opacity: 0;
+		}
+
+		@keyframes slideInUp {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+	}
+
+	@media (max-width: 480px) {
+		.navbar-content {
+			padding: 10px 10px;
+		}
+
+		.brand-logo {
+			height: 35px;
+		}
+
+		.nav-link {
+			font-size: 1.1rem;
+		}
+
+		.cta-button {
+			padding: 12px 25px;
+		}
+	}
+
+	/* Reduced motion */
+	@media (prefers-reduced-motion: reduce) {
+		.navbar,
+		.nav-link,
+		.cta-button,
+		.mobile-toggle,
+		.navbar-menu {
+			transition: none;
+		}
+
+		.coming-soon {
+			animation: none;
+		}
+	}
+
+	/* High contrast mode */
+	@media (prefers-contrast: high) {
+		.navbar {
+			background: white;
+			border-bottom: 2px solid #37443a;
+		}
+
+		.nav-link {
+			color: #000;
+		}
+
+		.cta-button {
+			background: #37443a;
+			border: 2px solid #37443a;
+		}
+	}
+
+	/* Print styles */
+	@media print {
+		.navbar {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	// Navbar functionality
+	document.addEventListener("DOMContentLoaded", () => {
+		const navbar = document.querySelector(".navbar")
+		const mobileToggle = document.getElementById("mobile-toggle")
+		const mobileBackdrop = document.getElementById("mobile-backdrop")
+		const navbarMenu = document.getElementById("navbar-menu")
+		const scrollProgress = document.getElementById("scroll-progress")
+		const navLinks = document.querySelectorAll(".nav-link:not(.disabled-link)")
+
+		let lastScrollY = window.scrollY
+		let ticking = false
+
+		// Mobile menu toggle
+		function toggleMobileMenu() {
+			const isActive = navbarMenu?.classList.contains("active")
+
+			if (isActive) {
+				navbarMenu?.classList.remove("active")
+				mobileBackdrop?.classList.remove("active")
+				mobileToggle?.classList.remove("active")
+				document.body.style.overflow = ""
+			} else {
+				navbarMenu?.classList.add("active")
+				mobileBackdrop?.classList.add("active")
+				mobileToggle?.classList.add("active")
+				document.body.style.overflow = "hidden"
+			}
+		}
+
+		// Close mobile menu
+		function closeMobileMenu() {
+			navbarMenu?.classList.remove("active")
+			mobileBackdrop?.classList.remove("active")
+			mobileToggle?.classList.remove("active")
+			document.body.style.overflow = ""
+		}
+
+		// Event listeners for mobile menu
+		mobileToggle?.addEventListener("click", toggleMobileMenu)
+		mobileBackdrop?.addEventListener("click", closeMobileMenu)
+
+		// Close menu when clicking nav links
+		navLinks.forEach((link) => {
+			link.addEventListener("click", () => {
+				if (window.innerWidth <= 768) {
+					setTimeout(closeMobileMenu, 300)
+				}
+			})
+		})
+
+		// Scroll handling
+		function updateOnScroll() {
+			const currentScrollY = window.scrollY
+			const documentHeight = document.documentElement.scrollHeight - window.innerHeight
+			const scrollPercent = (currentScrollY / documentHeight) * 100
+
+			// Update scroll progress
+			if (scrollProgress) {
+				scrollProgress.style.transform = `scaleX(${scrollPercent / 100})`
+			}
+
+			// Show/hide navbar on scroll
+			if (currentScrollY > 100) {
+				navbar?.classList.add("scrolled")
+
+				if (currentScrollY > lastScrollY && currentScrollY > 200) {
+					// Scrolling down
+					navbar?.classList.add("hidden")
+				} else {
+					// Scrolling up
+					navbar?.classList.remove("hidden")
+				}
+			} else {
+				navbar?.classList.remove("scrolled")
+				navbar?.classList.remove("hidden")
+			}
+
+			lastScrollY = currentScrollY
+			ticking = false
+		}
+
+		// Throttled scroll event
+		function requestTick() {
+			if (!ticking) {
+				requestAnimationFrame(updateOnScroll)
+				ticking = true
+			}
+		}
+
+		window.addEventListener("scroll", requestTick)
+
+		// Active section highlighting
+		function updateActiveLink() {
+			const sections = document.querySelectorAll("[id]")
+			const scrollPosition = window.scrollY + 100
+
+			sections.forEach((section) => {
+				const sectionTop = section.offsetTop
+				const sectionHeight = section.offsetHeight
+				const sectionId = section.getAttribute("id")
+
+				if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+					// Remove active class from all links
+					navLinks.forEach((link) => link.classList.remove("active"))
+
+					// Add active class to current section link
+					const activeLink =
+						document.querySelector(`[data-section="${sectionId}"]`) ||
+						document.querySelector(`[href="#${sectionId}"]`)
+					if (activeLink && !activeLink.classList.contains("disabled-link")) {
+						activeLink.classList.add("active")
+					}
+				}
+			})
+		}
+
+		// Update active link on scroll
+		window.addEventListener("scroll", () => {
+			requestAnimationFrame(updateActiveLink)
+		})
+
+		// Smooth scrolling for anchor links
+		navLinks.forEach((link) => {
+			const href = link.getAttribute("href")
+			if (href?.startsWith("#")) {
+				link.addEventListener("click", (e) => {
+					e.preventDefault()
+					const targetId = href.substring(1)
+					const targetElement = document.getElementById(targetId)
+
+					if (targetElement) {
+						const offsetTop = targetElement.offsetTop - 80 // Account for fixed navbar
+						window.scrollTo({
+							top: offsetTop,
+							behavior: "smooth",
+						})
+					}
+				})
+			}
+		})
+
+		// Handle window resize
+		window.addEventListener("resize", () => {
+			if (window.innerWidth > 768) {
+				closeMobileMenu()
+			}
+		})
+
+		// Initialize active link
+		updateActiveLink()
+	})
+</script>
