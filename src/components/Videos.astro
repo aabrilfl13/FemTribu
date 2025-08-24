@@ -3,6 +3,45 @@ import videosData from "../data/videos.json"
 import EmailOverlay from "./EmailOverlay.astro"
 
 const { videos } = videosData
+
+// Function to check if video is unlocked
+function isVideoUnlocked(unlockDate: string | Date) {
+	const now = new Date()
+	const unlock = new Date(unlockDate)
+	return now >= unlock
+}
+
+// Function to format time until unlock
+function formatTimeUntilUnlock(unlockDate: string | Date) {
+	const now = new Date()
+	const unlock = new Date(unlockDate)
+	const diff = unlock.getTime() - now.getTime()
+
+	if (diff <= 0) return "Disponible ahora"
+
+	const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+	const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+
+	if (days > 0) {
+		return `${days} día${days !== 1 ? "s" : ""}`
+	} else if (hours > 0) {
+		return `${hours} hora${hours !== 1 ? "s" : ""}`
+	} else {
+		return "Menos de una hora"
+	}
+}
+
+// Process videos with lock status
+const processedVideos = videos.map((video) => ({
+	...video,
+	isLocked: !isVideoUnlocked(video.unlockDate),
+	timeUntilUnlock: formatTimeUntilUnlock(video.unlockDate),
+	unlockDateFormatted: new Date(video.unlockDate).toLocaleDateString("es-ES", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	}),
+}))
 ---
 
 <section class="videos-section" id="videos">
@@ -19,18 +58,55 @@ const { videos } = videosData
 
 			<div class="videos-grid">
 				{
-					videos.map((video, index) => (
+					processedVideos.map((video, index) => (
 						<div class="video-card" style={`animation-delay: ${0.1 * (index + 1)}s`}>
 							<div class="video-wrapper">
-								<iframe
-									src={`https://www.youtube.com/embed/${video.youtubeId}`}
-									title={video.title}
-									loading="lazy"
-									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allowfullscreen
-								/>
+								{!video.isLocked ? (
+									<iframe
+										src={`https://www.youtube.com/embed/${video.youtubeId}`}
+										title={video.title}
+										loading="lazy"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										referrerpolicy="strict-origin-when-cross-origin"
+										allowfullscreen
+									/>
+								) : (
+									<div class="video-placeholder">
+										<div class="placeholder-content">
+											<img
+												src="/images/decoratives/ilustracion-negro_24.svg"
+												alt=""
+												class="placeholder-icon"
+											/>
+											<div class="video-info-preview">
+												<h3>{video.title}</h3>
+												<p>{video.description}</p>
+											</div>
+										</div>
+									</div>
+								)}
+
+								{/* Unlock Overlay for locked videos */}
+								{video.isLocked && (
+									<div class="unlock-overlay">
+										<div class="unlock-content">
+											<div class="lock-icon">
+												<svg viewBox="0 0 24 24" fill="currentColor">
+													<path d="M18,8h-1V6c0-2.76-2.24-5-5-5S7,3.24,7,6v2H6c-1.1,0-2,0.9-2,2v10c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V10C20,8.9,19.1,8,18,8z M12,17c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S13.1,17,12,17z M15.1,8H8.9V6c0-1.71,1.39-3.1,3.1-3.1c1.71,0,3.1,1.39,3.1,3.1V8z" />
+												</svg>
+											</div>
+											<div class="unlock-text">
+												<h4>Se desbloquea en</h4>
+												<p class="countdown" data-unlock-date={video.unlockDate}>
+													{video.timeUntilUnlock}
+												</p>
+												<span class="unlock-date">{video.unlockDateFormatted}</span>
+											</div>
+										</div>
+									</div>
+								)}
 							</div>
+
 							<div class="video-info">
 								<h3 class="video-title">{video.title}</h3>
 								<p class="video-description">{video.description}</p>
@@ -107,16 +183,6 @@ const { videos } = videosData
 		animation: pulse 3s ease-in-out infinite;
 	}
 
-	.icon-wrapper {
-		animation: pulse 3s ease-in-out infinite;
-	}
-
-	.icon-wrapper svg {
-		fill: #6a8067;
-		width: 100px;
-		height: 100px;
-	}
-
 	/* Elemento decorativo circular */
 	@keyframes pulse {
 		0%,
@@ -152,7 +218,7 @@ const { videos } = videosData
 		grid-template-rows: repeat(2, 1fr);
 		gap: 40px;
 		margin-bottom: 40px;
-		/* max-width: 1000px;  /* This will limit the with */
+		/* max-width: 1000px;  /* This will limit the width */
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -167,6 +233,15 @@ const { videos } = videosData
 		opacity: 0;
 		transform: translateY(30px);
 		animation: fadeInUp 0.6s ease forwards;
+	}
+
+	/* Locked video card styling */
+	.video-card:has(.unlock-overlay) {
+		background: linear-gradient(
+			135deg,
+			rgba(106, 128, 103, 0.05) 0%,
+			rgba(203, 110, 95, 0.03) 100%
+		);
 	}
 
 	@keyframes fadeInUp {
@@ -215,6 +290,117 @@ const { videos } = videosData
 		border: none;
 	}
 
+	/* Video placeholder for locked content */
+	.video-placeholder {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0.7;
+	}
+
+	.placeholder-content {
+		text-align: center;
+		color: white;
+		padding: 20px;
+		max-width: 80%;
+	}
+
+	.placeholder-icon {
+		width: 60px;
+		height: 60px;
+		opacity: 0.6;
+		margin: 0 auto 15px;
+		filter: invert(1);
+	}
+
+	.video-info-preview h3 {
+		font-size: 1rem;
+		margin: 0 0 8px 0;
+		opacity: 0.9;
+	}
+
+	.video-info-preview p {
+		font-size: 0.85rem;
+		margin: 0;
+		opacity: 0.7;
+		line-height: 1.4;
+	}
+
+	/* Unlock Overlay Styles */
+	.unlock-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(55, 68, 58, 0.95);
+		backdrop-filter: blur(10px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10;
+	}
+
+	.unlock-content {
+		text-align: center;
+		color: rgb(183, 182, 182);
+		padding: 20px;
+		animation: unlock-pulse 5s ease-in-out infinite;
+	}
+
+	@keyframes unlock-pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			opacity: 1;
+		}
+		50% {
+			transform: scale(1.05);
+			opacity: 0.9;
+		}
+	}
+
+	.lock-icon {
+		width: 48px;
+		height: 48px;
+		margin: 0 auto 15px;
+		opacity: 0.9;
+	}
+
+	.lock-icon svg {
+		width: 100%;
+		height: 100%;
+		color: #fff5eb;
+	}
+
+	.unlock-text h4 {
+		font-family: "The Seasons", serif;
+		font-size: 1.1rem;
+		margin: 0 0 8px 0;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+	}
+
+	.countdown {
+		font-size: 1.3rem;
+		font-weight: 500;
+		color: #d5a18e;
+		margin: 0 0 8px 0;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.unlock-date {
+		font-size: 0.85rem;
+		opacity: 0.8;
+		font-style: italic;
+	}
+
 	.video-info {
 		padding: 25px;
 		background: white;
@@ -259,47 +445,6 @@ const { videos } = videosData
 		transform: translateY(-2px);
 	}
 
-	/* Elemento decorativo flotante */
-	.floating-element {
-		position: absolute;
-		width: 100px;
-		height: 100px;
-		border: 2px solid rgba(106, 128, 103, 0.1);
-		border-radius: 50%;
-		pointer-events: none;
-	}
-
-	.floating-element.one {
-		top: 10%;
-		right: 5%;
-		animation: float-diagonal 15s ease-in-out infinite;
-	}
-
-	.floating-element.two {
-		bottom: 10%;
-		left: 5%;
-		width: 80px;
-		height: 80px;
-		border-color: rgba(203, 110, 95, 0.1);
-		animation: float-diagonal 20s ease-in-out infinite reverse;
-	}
-
-	@keyframes float-diagonal {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg);
-		}
-		25% {
-			transform: translate(20px, -20px) rotate(90deg);
-		}
-		50% {
-			transform: translate(-10px, 10px) rotate(180deg);
-		}
-		75% {
-			transform: translate(10px, 20px) rotate(270deg);
-		}
-	}
-
 	@media (max-width: 1024px) {
 		.videos-grid-wrapper {
 			max-width: 800px;
@@ -325,8 +470,63 @@ const { videos } = videosData
 			gap: 30px;
 		}
 
-		.floating-element {
-			display: none;
+		.unlock-content {
+			padding: 15px;
+		}
+
+		.countdown {
+			font-size: 1.1rem;
+		}
+
+		.lock-icon {
+			width: 40px;
+			height: 40px;
+			margin-bottom: 12px;
 		}
 	}
 </style>
+
+<script>
+	// Update countdown timers every minute
+	function updateCountdowns() {
+		const countdownElements = document.querySelectorAll(".countdown[data-unlock-date]")
+
+		countdownElements.forEach((element) => {
+			const unlockDateString = element.getAttribute("data-unlock-date")
+			if (!unlockDateString) return
+
+			const unlockDate: Date = new Date(unlockDateString)
+			const now: Date = new Date()
+			const diff = unlockDate.getTime() - now.getTime()
+
+			if (diff <= 0) {
+				// Video should be unlocked - reload page to update
+				window.location.reload()
+				return
+			}
+
+			const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+			const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+			const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+
+			let timeText
+			if (days > 0) {
+				timeText = `${days} día${days !== 1 ? "s" : ""}`
+			} else if (hours > 0) {
+				timeText = `${hours} hora${hours !== 1 ? "s" : ""}`
+			} else if (minutes > 0) {
+				timeText = `${minutes} minuto${minutes !== 1 ? "s" : ""}`
+			} else {
+				timeText = "Menos de un minuto"
+			}
+
+			;(element as HTMLElement).textContent = timeText
+		})
+	}
+
+	// Update immediately and then every minute
+	document.addEventListener("DOMContentLoaded", () => {
+		updateCountdowns()
+		setInterval(updateCountdowns, 60000) // Update every minute
+	})
+</script>

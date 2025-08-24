@@ -6,8 +6,8 @@
       "title": "Preparación para el parto",
       "description": "Técnicas de respiración y relajación para un parto consciente y empoderado",
       "tags": ["Parto", "Respiración"],
-      "duration": "15:30",
-      "thumbnail": "/images/video-thumb-1.jpg"
+      "thumbnail": "/images/video-thumb-1.jpg",
+      "unlockDate": "2025-08-24T17:41:50Z"
     },
     {
       "id": 2,
@@ -15,8 +15,8 @@
       "title": "Lactancia materna",
       "description": "Guía completa sobre posiciones y técnicas para una lactancia exitosa",
       "tags": ["Lactancia", "Maternidad"],
-      "duration": "22:45",
-      "thumbnail": "/images/video-thumb-2.jpg"
+      "thumbnail": "/images/video-thumb-2.jpg",
+      "unlockDate": "2025-09-01T10:00:00Z"
     },
     {
       "id": 3,
@@ -24,8 +24,8 @@
       "title": "Yoga prenatal",
       "description": "Ejercicios suaves para mantener tu cuerpo flexible y preparado",
       "tags": ["Yoga", "Embarazo"],
-      "duration": "30:00",
-      "thumbnail": "/images/video-thumb-3.jpg"
+      "thumbnail": "/images/video-thumb-3.jpg",
+      "unlockDate": "2025-09-02T10:00:00Z"
     },
     {
       "id": 4,
@@ -33,8 +33,8 @@
       "title": "Piel con piel",
       "description": "La importancia del contacto en los primeros momentos de vida",
       "tags": ["Vínculo", "Recién nacido"],
-      "duration": "18:20",
-      "thumbnail": "/images/video-thumb-4.jpg"
+      "thumbnail": "/images/video-thumb-4.jpg",
+      "unlockDate": "2025-09-03T10:00:00Z"
     }
   ]
 }

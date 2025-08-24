@@ -388,9 +388,7 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 		const accessData = localStorage.getItem("videoAccess")
 		if (accessData) {
 			const parsed = JSON.parse(accessData)
-			if (Date.now() > parsed.expires) {
-				localStorage.removeItem("videoAccess")
-			}
+			// a
 		}
 		// Check if user already has access (you can modify this logic)
 		const hasAccess = localStorage.getItem("videoAccess")
