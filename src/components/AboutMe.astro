@@ -1,52 +1,9 @@
 ---
-// src/components/SobreMi.astro
-import MysticDecoration from "./decoratives/MysticDecoration.astro"
-import IconDecoration from "./decoratives/IconDecoration.astro"
-import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
+
 ---
 
 <section class="section">
-	<DecorativeContainer class="has-floating-decorations">
 		<div class="container">
-			<!-- Elementos decorativos flotantes místicos -->
-			<MysticDecoration
-				iconName="01"
-				animationType="spiral"
-				size="large"
-				position={{ top: "8%", right: "3%" }}
-				animationDuration="40s"
-			/>
-			<MysticDecoration
-				iconName="25"
-				animationType="organic"
-				size="medium"
-				position={{ top: "25%", left: "2%" }}
-				animationDuration="35s"
-				animationDirection="reverse"
-			/>
-			<MysticDecoration
-				iconName="27"
-				animationType="fluid"
-				size="small"
-				position={{ top: "45%", right: "8%" }}
-				animationDuration="30s"
-			/>
-			<MysticDecoration
-				iconName="26"
-				animationType="organic"
-				size="large"
-				position={{ bottom: "15%", left: "5%" }}
-				animationDuration="45s"
-			/>
-			<MysticDecoration
-				iconName="09"
-				animationType="spiral"
-				size="small"
-				position={{ bottom: "8%", right: "12%" }}
-				animationDuration="38s"
-				animationDirection="reverse"
-			/>
-
 			<!-- Contenido principal -->
 			<div class="content">
 				<!-- Imagen y presentación principal -->
@@ -130,7 +87,6 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 				</div>
 			</div>
 		</div>
-	</DecorativeContainer>
 </section>
 <style>
 	.section {
