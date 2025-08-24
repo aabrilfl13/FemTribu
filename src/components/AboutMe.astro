@@ -1,347 +1,131 @@
 ---
 // src/components/SobreMi.astro
-import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 import MysticDecoration from "./decoratives/MysticDecoration.astro"
 import IconDecoration from "./decoratives/IconDecoration.astro"
 import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 ---
 
 <section class="sobre-mi-section">
-	<DecorativeContainer class="sobre-mi-container has-floating-decorations">
-		<!-- Elementos decorativos flotantes místicos -->
-		<MysticDecoration
-			iconName="01"
-			animationType="spiral"
-			size="large"
-			position={{ top: "8%", right: "3%" }}
-			animationDuration="40s"
-		/>
-		<MysticDecoration
-			iconName="25"
-			animationType="organic"
-			size="medium"
-			position={{ top: "25%", left: "2%" }}
-			animationDuration="35s"
-			animationDirection="reverse"
-		/>
-		<MysticDecoration
-			iconName="27"
-			animationType="fluid"
-			size="small"
-			position={{ top: "45%", right: "8%" }}
-			animationDuration="30s"
-		/>
-		<MysticDecoration
-			iconName="26"
-			animationType="organic"
-			size="large"
-			position={{ bottom: "15%", left: "5%" }}
-			animationDuration="45s"
-		/>
-		<MysticDecoration
-			iconName="09"
-			animationType="spiral"
-			size="small"
-			position={{ bottom: "8%", right: "12%" }}
-			animationDuration="38s"
-			animationDirection="reverse"
-		/>
+	<DecorativeContainer class="has-floating-decorations">
+		<div class="sobre-mi-container">
+			<!-- Elementos decorativos flotantes místicos -->
+			<MysticDecoration
+				iconName="01"
+				animationType="spiral"
+				size="large"
+				position={{ top: "8%", right: "3%" }}
+				animationDuration="40s"
+			/>
+			<MysticDecoration
+				iconName="25"
+				animationType="organic"
+				size="medium"
+				position={{ top: "25%", left: "2%" }}
+				animationDuration="35s"
+				animationDirection="reverse"
+			/>
+			<MysticDecoration
+				iconName="27"
+				animationType="fluid"
+				size="small"
+				position={{ top: "45%", right: "8%" }}
+				animationDuration="30s"
+			/>
+			<MysticDecoration
+				iconName="26"
+				animationType="organic"
+				size="large"
+				position={{ bottom: "15%", left: "5%" }}
+				animationDuration="45s"
+			/>
+			<MysticDecoration
+				iconName="09"
+				animationType="spiral"
+				size="small"
+				position={{ bottom: "8%", right: "12%" }}
+				animationDuration="38s"
+				animationDirection="reverse"
+			/>
 
-		<!-- Contenido principal -->
-		<div class="sobre-mi-content">
-			<!-- Imagen y presentación principal -->
-			<div class="hero-content">
-				<div class="image-wrapper">
-					<div class="image-container">
-						<img
-							src="/images/about-me/mery-portrait.jpg"
-							alt="María Belenguer, Matrona"
-							class="portrait-image"
-						/>
-						<!-- Overlay decorativo -->
-						<div class="image-overlay">
-							<div class="pattern-overlay"></div>
-						</div>
-					</div>
-
-					<!-- Elemento decorativo con icono místico -->
-					<IconDecoration iconName="24" size="medium" />
-				</div>
-
-				<div class="intro-content">
-					<div class="title-section">
-						<h2>Sobre Mí</h2>
-						<div class="subtitle-wrapper">
-							<h3>María Belenguer</h3>
-							<span class="profession">Matrona</span>
-						</div>
-					</div>
-
-					<div class="intro-text">
-						<p class="lead-paragraph">
-							Soy María, matrona con más de 8 años acompañando a mujeres en su viaje más
-							transformador: la maternidad. Mi misión es crear espacios seguros donde cada madre
-							pueda conectar con su sabiduría interior y vivir esta experiencia desde el
-							empoderamiento y la confianza.
-						</p>
-
-						<p>
-							Creo firmemente en el poder de la información, el apoyo emocional y el respeto hacia
-							las decisiones de cada mujer. En Femm Tribu encontrarás un lugar donde tu voz es
-							escuchada, tus dudas son válidas y tu experiencia única es celebrada.
-						</p>
-					</div>
-
-					<!-- Credenciales y certificaciones -->
-					<div class="credentials">
-						<h4>Formación y Experiencia</h4>
-						<ul class="credentials-list">
-							<li>
-								<span class="credential-icon">🎓</span>
-								<div>
-									<strong>Diplomatura en Enfermería</strong>
-									<span>Universidad de Valencia</span>
-								</div>
-							</li>
-							<li>
-								<span class="credential-icon">👶</span>
-								<div>
-									<strong>Especialización en Obstetricia y Ginecología</strong>
-									<span>Hospital Universitario La Fe</span>
-								</div>
-							</li>
-							<li>
-								<span class="credential-icon">🤱</span>
-								<div>
-									<strong>Certificación en Lactancia Materna IBCLC</strong>
-									<span>International Board of Lactation Consultant Examiners</span>
-								</div>
-							</li>
-							<li>
-								<span class="credential-icon">🧘</span>
-								<div>
-									<strong>Formación en Yoga Prenatal y Mindfulness</strong>
-									<span>Asociación Española de Matronas</span>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-
-			<!-- Sección de valores y filosofía -->
-			<div class="philosophy-section">
-				<div class="philosophy-header">
-					<h3>Mi Filosofía</h3>
-					<p class="philosophy-intro">
-						Mi trabajo se basa en pilares fundamentales que guían cada consulta, cada conversación y
-						cada recurso que comparto contigo.
-					</p>
-				</div>
-
-				<div class="values-grid">
-					<div class="value-card">
-						<div class="value-icon">
-							<svg viewBox="0 0 24 24" fill="currentColor">
-								<path
-									d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-								></path>
-							</svg>
-						</div>
-						<h4>Respeto y Autonomía</h4>
-						<p>
-							Cada mujer conoce su cuerpo mejor que nadie. Mi papel es acompañarte con información
-							clara para que tomes decisiones informadas y empoderadas.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<div class="value-icon">
-							<svg viewBox="0 0 24 24" fill="currentColor">
-								<path
-									d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zM4 18v-6h2.5l6-6L14 7.5l-6 6H10v4.5H4z"
-								></path>
-							</svg>
-						</div>
-						<h4>Cuidado Humanizado</h4>
-						<p>
-							Más allá de protocolos médicos, creo en la importancia del trato humano, la escucha
-							activa y el apoyo emocional durante toda la experiencia maternal.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<div class="value-icon">
-							<svg viewBox="0 0 24 24" fill="currentColor">
-								<path
-									d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-								></path>
-							</svg>
-						</div>
-						<h4>Excelencia Profesional</h4>
-						<p>
-							Mi compromiso es mantenerme actualizada con las últimas evidencias científicas y
-							mejores prácticas en obstetricia y cuidado maternal.
-						</p>
-					</div>
-
-					<div class="value-card">
-						<div class="value-icon">
-							<svg viewBox="0 0 24 24" fill="currentColor">
-								<path
-									d="M16 4c4.42 0 8 3.58 8 8s-3.58 8-8 8c-1.81 0-3.5-.6-4.86-1.61l-6.9 6.9a.996.996 0 0 1-1.41 0 .996.996 0 0 1 0-1.41l6.9-6.9A7.93 7.93 0 0 1 8 12c0-4.42 3.58-8 8-8z"
-								></path>
-							</svg>
-						</div>
-						<h4>Comunidad y Tribu</h4>
-						<p>
-							Creo en el poder de la comunidad. Juntas somos más fuertes, más sabias y más capaces
-							de superar cualquier desafío que la maternidad nos presente.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Sección de expertise con elementos orgánicos -->
-			<div class="expertise-section">
-				<MysticDecoration
-					iconName="29-29"
-					animationType="side-flow"
-					className="expertise-decoration mystic-side-1"
-					size="large"
-					position={{ top: "20%", left: "-60px" }}
-					animationDuration="40s"
-				/>
-				<MysticDecoration
-					iconName="35"
-					animationType="side-flow"
-					className="expertise-decoration mystic-side-2"
-					size="large"
-					position={{ bottom: "10%", right: "-70px" }}
-					animationDuration="35s"
-					animationDirection="reverse"
-				/>
-				<div class="expertise-content">
-					<div class="expertise-text">
-						<h3>Especialidades y Experiencia</h3>
-						<p>
-							A lo largo de mi carrera, he tenido el privilegio de acompañar a más de 1,200 mujeres
-							en diferentes momentos de su viaje maternal. Cada historia es única y cada experiencia
-							me ha enseñado algo valioso.
-						</p>
-
-						<div class="specialties-list">
-							<div class="specialty-item">
-								<h5>Preparación al Parto</h5>
-								<p>
-									Técnicas de relajación, respiración y empoderamiento para un parto consciente.
-								</p>
-							</div>
-
-							<div class="specialty-item">
-								<h5>Lactancia Materna</h5>
-								<p>
-									Apoyo integral desde el inicio hasta el destete, resolviendo dificultades comunes.
-								</p>
-							</div>
-
-							<div class="specialty-item">
-								<h5>Puerperio y Postparto</h5>
-								<p>Acompañamiento en la adaptación a la maternidad y cuidados del recién nacido.</p>
-							</div>
-
-							<div class="specialty-item">
-								<h5>Educación Maternal</h5>
-								<p>
-									Talleres grupales e individuales sobre maternidad consciente y crianza respetuosa.
-								</p>
+			<!-- Contenido principal -->
+			<div class="sobre-mi-content">
+				<!-- Imagen y presentación principal -->
+				<div class="hero-content">
+					<div class="image-wrapper">
+						<div class="image-container">
+							<img
+								src="/images/about-me/mery-portrait.jpg"
+								alt="María Belenguer, Matrona"
+								class="portrait-image"
+							/>
+							<!-- Overlay decorativo -->
+							<div class="image-overlay">
+								<div class="pattern-overlay"></div>
 							</div>
 						</div>
+
+						<!-- Elemento decorativo con icono místico -->
+						<IconDecoration iconName="24" size="medium" />
 					</div>
 
-					<div class="stats-wrapper">
-						<div class="stats-container">
-							<div class="stat-item">
-								<span class="stat-number">8+</span>
-								<span class="stat-label">Años de Experiencia</span>
-							</div>
-
-							<div class="stat-item">
-								<span class="stat-number">1,200+</span>
-								<span class="stat-label">Mujeres Acompañadas</span>
-							</div>
-
-							<div class="stat-item">
-								<span class="stat-number">500+</span>
-								<span class="stat-label">Partos Asistidos</span>
-							</div>
-
-							<div class="stat-item">
-								<span class="stat-number">2,000+</span>
-								<span class="stat-label">Consultas de Lactancia</span>
+					<div class="intro-content">
+						<div class="title-section">
+							<h2>Sobre Mí</h2>
+							<div class="subtitle-wrapper">
+								<h3>María Belenguer</h3>
+								<span class="profession">Matrona</span>
 							</div>
 						</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- Sección de testimonios con marcos orgánicos -->
-			<div class="testimonials-section">
-				<MysticDecoration
-					iconName="31"
-					animationType="frame-dance"
-					className="testimonial-decoration mystic-frame-1"
-					size="xlarge"
-					position={{ top: "-50px", left: "-80px" }}
-					animationDuration="55s"
-					opacity={0.05}
-				/>
-				<MysticDecoration
-					iconName="33"
-					animationType="frame-dance"
-					className="testimonial-decoration mystic-frame-2"
-					size="large"
-					position={{ bottom: "-60px", right: "-90px" }}
-					animationDuration="48s"
-					animationDirection="reverse"
-					opacity={0.05}
-				/>
-				<h3>Lo Que Dicen Las Madres</h3>
-				<div class="testimonials-grid">
-					<div class="testimonial-card">
-						<div class="quote-icon">"</div>
-						<blockquote>
-							María fue un ángel durante mi embarazo. Su calidez y conocimiento me dieron la
-							confianza que necesitaba para vivir un parto respetado y hermoso.
-						</blockquote>
-						<cite>
-							<span class="testimonial-name">Ana García</span>
-							<span class="testimonial-role">Madre de Emma</span>
-						</cite>
-					</div>
+						<div class="intro-text">
+							<p class="lead-paragraph">
+								Soy María, matrona con más de 8 años acompañando a mujeres en su viaje más
+								transformador: la maternidad. Mi misión es crear espacios seguros donde cada madre
+								pueda conectar con su sabiduría interior y vivir esta experiencia desde el
+								empoderamiento y la confianza.
+							</p>
 
-					<div class="testimonial-card">
-						<div class="quote-icon">"</div>
-						<blockquote>
-							Gracias a María, la lactancia de mi bebé fue exitosa desde el primer día. Su apoyo fue
-							fundamental en mis momentos de dudas.
-						</blockquote>
-						<cite>
-							<span class="testimonial-name">Sofía Martín</span>
-							<span class="testimonial-role">Madre de Lucas</span>
-						</cite>
-					</div>
+							<p>
+								Creo firmemente en el poder de la información, el apoyo emocional y el respeto hacia
+								las decisiones de cada mujer. En Femm Tribu encontrarás un lugar donde tu voz es
+								escuchada, tus dudas son válidas y tu experiencia única es celebrada.
+							</p>
+						</div>
 
-					<div class="testimonial-card">
-						<div class="quote-icon">"</div>
-						<blockquote>
-							Encontré en María no solo una profesional excepcional, sino también una persona que
-							realmente comprende y acompaña en este viaje único.
-						</blockquote>
-						<cite>
-							<span class="testimonial-name">Carmen López</span>
-							<span class="testimonial-role">Madre de Valentina</span>
-						</cite>
+						<!-- Credenciales y certificaciones -->
+						<div class="credentials">
+							<h4>Formación y Experiencia</h4>
+							<ul class="credentials-list">
+								<li>
+									<span class="credential-icon">🎓</span>
+									<div>
+										<strong>Diplomatura en Enfermería</strong>
+										<span>Universidad de Valencia</span>
+									</div>
+								</li>
+								<li>
+									<span class="credential-icon">👶</span>
+									<div>
+										<strong>Especialización en Obstetricia y Ginecología</strong>
+										<span>Hospital Universitario La Fe</span>
+									</div>
+								</li>
+								<li>
+									<span class="credential-icon">🤱</span>
+									<div>
+										<strong>Certificación en Lactancia Materna IBCLC</strong>
+										<span>International Board of Lactation Consultant Examiners</span>
+									</div>
+								</li>
+								<li>
+									<span class="credential-icon">🧘</span>
+									<div>
+										<strong>Formación en Yoga Prenatal y Mindfulness</strong>
+										<span>Asociación Española de Matronas</span>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -369,7 +153,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		padding: 80px 20px;
 		background: #fff5eb;
 		position: relative;
-		overflow: hidden;
+		overflow: visible;
 	}
 
 	/* Patrón de fondo */
@@ -586,97 +370,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		font-size: 0.9rem;
 	}
 
-	/* Sección de filosofía con decoraciones místicas */
-	.philosophy-section {
-		margin-bottom: 80px;
-		background: white;
-		border-radius: 30px;
-		padding: 50px;
-		box-shadow: 0 20px 50px rgba(55, 68, 58, 0.08);
-		border: 1px solid rgba(106, 128, 103, 0.1);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.philosophy-header {
-		text-align: center;
-		margin-bottom: 50px;
-		position: relative;
-		z-index: 1;
-	}
-
-	.philosophy-header h3 {
-		font-family: "The Seasons", serif;
-		font-size: 2.2rem;
-		color: #37443a;
-		font-weight: 400;
-		margin-bottom: 15px;
-		letter-spacing: 0.5px;
-	}
-
-	.philosophy-intro {
-		font-size: 1.1rem;
-		color: #6a8067;
-		line-height: 1.6;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.values-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 30px;
-		position: relative;
-		z-index: 1;
-	}
-
-	.value-card {
-		padding: 30px;
-		background: linear-gradient(135deg, rgba(203, 110, 95, 0.03), rgba(213, 161, 142, 0.02));
-		border-radius: 20px;
-		border: 1px solid rgba(203, 110, 95, 0.1);
-		text-align: center;
-		transition: all 0.3s ease;
-	}
-
-	.value-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 15px 40px rgba(203, 110, 95, 0.15);
-		border-color: rgba(203, 110, 95, 0.2);
-	}
-
-	.value-icon {
-		width: 60px;
-		height: 60px;
-		background: linear-gradient(135deg, #cb6e5f, #d5a18e);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 0 auto 20px;
-		color: white;
-	}
-
-	.value-icon svg {
-		width: 30px;
-		height: 30px;
-	}
-
-	.value-card h4 {
-		font-family: "The Seasons", serif;
-		font-size: 1.2rem;
-		color: #37443a;
-		margin-bottom: 15px;
-		font-weight: 400;
-	}
-
-	.value-card p {
-		color: #4a5a4d;
-		line-height: 1.6;
-		margin: 0;
-	}
-
-	/* Sección de expertise con elementos orgánicos */
+	/* Responsive Design */ /* Sección de expertise con elementos orgánicos */
 	.expertise-section {
 		margin-bottom: 80px;
 		position: relative;
@@ -999,15 +693,6 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		.image-container {
 			height: 450px;
 		}
-
-		.expertise-content {
-			grid-template-columns: 1fr;
-			gap: 40px;
-		}
-
-		.stats-container {
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 
 	@media (max-width: 768px) {
@@ -1035,18 +720,6 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 			justify-content: center;
 		}
 
-		.values-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.philosophy-section {
-			padding: 40px 30px;
-		}
-
-		.testimonials-grid {
-			grid-template-columns: 1fr;
-		}
-
 		.cta-section {
 			padding: 40px 30px;
 		}
@@ -1064,11 +737,6 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		.cta-secondary {
 			width: 100%;
 			max-width: 300px;
-		}
-
-		.stats-container {
-			grid-template-columns: 1fr;
-			padding: 30px;
 		}
 
 		.floating-element {
@@ -1093,32 +761,12 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 			padding: 30px 20px;
 		}
 
-		.value-card {
-			padding: 25px 20px;
-		}
-
-		.specialty-item {
-			padding: 20px;
-		}
-
-		.testimonial-card {
-			padding: 30px 20px;
-		}
-
 		.credentials-list li {
 			padding: 12px;
 		}
 
 		.credential-icon {
 			font-size: 1.3rem;
-		}
-
-		.stats-container {
-			padding: 25px 20px;
-		}
-
-		.stat-number {
-			font-size: 2rem;
 		}
 	}
 
@@ -1139,67 +787,6 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 	}
 
 	/* Animaciones escalonadas para las cards */
-	.value-card:nth-child(1) {
-		animation-delay: 0.1s;
-	}
-	.value-card:nth-child(2) {
-		animation-delay: 0.2s;
-	}
-	.value-card:nth-child(3) {
-		animation-delay: 0.3s;
-	}
-	.value-card:nth-child(4) {
-		animation-delay: 0.4s;
-	}
-
-	.value-card {
-		opacity: 0;
-		animation: fadeInUp 0.6s ease-out forwards;
-	}
-
-	.specialty-item:nth-child(1) {
-		animation-delay: 0.1s;
-	}
-	.specialty-item:nth-child(2) {
-		animation-delay: 0.2s;
-	}
-	.specialty-item:nth-child(3) {
-		animation-delay: 0.3s;
-	}
-	.specialty-item:nth-child(4) {
-		animation-delay: 0.4s;
-	}
-
-	.specialty-item {
-		opacity: 0;
-		animation: slideInLeft 0.6s ease-out forwards;
-	}
-
-	@keyframes slideInLeft {
-		from {
-			opacity: 0;
-			transform: translateX(-30px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
-
-	.testimonial-card:nth-child(1) {
-		animation-delay: 0.1s;
-	}
-	.testimonial-card:nth-child(2) {
-		animation-delay: 0.2s;
-	}
-	.testimonial-card:nth-child(3) {
-		animation-delay: 0.3s;
-	}
-
-	.testimonial-card {
-		opacity: 0;
-		animation: fadeInUp 0.6s ease-out forwards;
-	}
 </style>
 
 <script>
@@ -1219,52 +806,10 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		}, observerOptions)
 
 		// Observar elementos animables
-		const animatableElements = document.querySelectorAll(
-			".value-card, .specialty-item, .testimonial-card, .stat-item"
-		)
+		const animatableElements = document.querySelectorAll(".credentials-list li")
 
 		animatableElements.forEach((el) => {
 			observer.observe(el)
-		})
-
-		// Contador animado para las estadísticas
-		const animateCounter = (element: HTMLElement, target: number, duration = 2000) => {
-			let start = 0
-			const increment = target / (duration / 16)
-
-			const timer = setInterval(() => {
-				start += increment
-				if (start >= target) {
-					element.textContent = target + (element.textContent.includes("+") ? "+" : "")
-					clearInterval(timer)
-				} else {
-					element.textContent = Math.floor(start) + (element.textContent.includes("+") ? "+" : "")
-				}
-			}, 16)
-		}
-
-		// Animar contadores cuando son visibles
-		const statNumbers = document.querySelectorAll(".stat-number")
-		const statsObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						const target = entry.target
-						const text = target.textContent
-						const number = parseInt(text.replace(/\D/g, ""))
-
-						if (number > 0) {
-							animateCounter(target as HTMLElement, number)
-							statsObserver.unobserve(target)
-						}
-					}
-				})
-			},
-			{ threshold: 0.5 }
-		)
-
-		statNumbers.forEach((stat) => {
-			statsObserver.observe(stat)
 		})
 	})
 </script>
