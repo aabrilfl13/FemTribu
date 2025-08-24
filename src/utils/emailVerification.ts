@@ -3,7 +3,25 @@
  * Manages the state between email form, verification pending, and verified states
  */
 
+interface AccessData {
+	status: "pending" | "accepted"
+	email: string
+	expires: number
+}
+
+// Extend Window interface to include custom properties
+declare global {
+	interface Window {
+		verifyEmailAccess: () => void
+		showNotification?: (message: string, type: string) => void
+	}
+}
+
 export class EmailVerificationManager {
+	private storageKey: string
+	private emailOverlayId: string
+	private verificationOverlayId: string
+
 	constructor() {
 		this.storageKey = "videoAccess"
 		this.emailOverlayId = "email-overlay"
@@ -52,9 +70,9 @@ export class EmailVerificationManager {
 
 	/**
 	 * Set access data in localStorage
-	 * @param {Object} data Access data to store
+	 * @param {AccessData} data Access data to store
 	 */
-	setAccessData(data) {
+	setAccessData(data: AccessData): void {
 		try {
 			localStorage.setItem(this.storageKey, JSON.stringify(data))
 		} catch (error) {
@@ -123,7 +141,7 @@ export class EmailVerificationManager {
 	 * @param {Object} accessData Access data object
 	 * @returns {boolean} True if expired
 	 */
-	isExpired(accessData) {
+	isExpired(accessData: AccessData) {
 		if (!accessData.expires) return false
 
 		const now = Date.now()
@@ -167,7 +185,7 @@ export class EmailVerificationManager {
 	 * Handle localStorage changes from other tabs
 	 * @param {StorageEvent} event Storage event
 	 */
-	handleStorageChange(event) {
+	handleStorageChange(event: StorageEvent) {
 		if (event.key === this.storageKey) {
 			this.checkStatus()
 		}
@@ -178,8 +196,8 @@ export class EmailVerificationManager {
 	 * @param {string} email User's email address
 	 * @param {number} expirationTime Expiration timestamp (optional)
 	 */
-	setPendingVerification(email, expirationTime = null) {
-		const accessData = {
+	setPendingVerification(email: string, expirationTime: number | null = null) {
+		const accessData: AccessData = {
 			status: "pending",
 			email: email,
 			expires: expirationTime || Date.now() + 30 * 60 * 1000, // 30 minutes default
