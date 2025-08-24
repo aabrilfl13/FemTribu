@@ -5,9 +5,9 @@ import IconDecoration from "./decoratives/IconDecoration.astro"
 import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 ---
 
-<section class="sobre-mi-section">
+<section class="section">
 	<DecorativeContainer class="has-floating-decorations">
-		<div class="sobre-mi-container">
+		<div class="container">
 			<!-- Elementos decorativos flotantes místicos -->
 			<MysticDecoration
 				iconName="01"
@@ -48,7 +48,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 			/>
 
 			<!-- Contenido principal -->
-			<div class="sobre-mi-content">
+			<div class="content">
 				<!-- Imagen y presentación principal -->
 				<div class="hero-content">
 					<div class="image-wrapper">
@@ -132,9 +132,8 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		</div>
 	</DecorativeContainer>
 </section>
-
 <style>
-	.sobre-mi-section {
+	.section {
 		padding: 80px 20px;
 		background: #fff5eb;
 		position: relative;
@@ -142,7 +141,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 	}
 
 	/* Patrón de fondo */
-	.sobre-mi-section::before {
+	.section::before {
 		content: "";
 		position: absolute;
 		top: 0;
@@ -156,16 +155,17 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 		pointer-events: none;
 	}
 
-	.sobre-mi-container {
+	.container {
 		max-width: 1200px;
 		margin: 0 auto;
 		position: relative;
 		z-index: 1;
 	}
 
-	.sobre-mi-content {
+	.content {
 		position: relative;
 		z-index: 2;
+		animation: fadeInUp 0.8s ease-out;
 	}
 
 	/* Sección principal hero */
@@ -368,7 +368,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 	}
 
 	@media (max-width: 768px) {
-		.sobre-mi-section {
+		.section {
 			padding: 60px 15px;
 		}
 
@@ -412,7 +412,7 @@ import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 	}
 
 	/* Animation de entrada */
-	.sobre-mi-content {
+	.content {
 		animation: fadeInUp 0.8s ease-out;
 	}
 
