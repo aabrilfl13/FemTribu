@@ -30,7 +30,7 @@ const description =
 		<img
 			src="/images/logos/logo_principal_fullcolor.svg"
 			alt="Femm Tribu Logo"
-			class="mb-8"
+			class="mb-8 logo"
 			style="max-width: 500px;"
 		/>
 		<!-- <h1 class="text-6xl mb-4 font-[seasons]">
@@ -60,6 +60,20 @@ const description =
 		setTimeout(() => {
 			setInterval(changeBackground, 6000)
 		}, 500)
+	</script>
+	<script>
+		import { animate } from "animejs"
+		// Relaxed sleeping heartbeat at 55 BPM (~1090ms per beat)
+		animate(".logo", {
+			scale: [
+				{ to: 1.05, duration: 100, ease: "easeOutQuad" }, // first strong thump
+				{ to: 0.98, duration: 80, ease: "easeInQuad" }, // quick release
+				{ to: 1.03, duration: 90, ease: "easeOutQuad" }, // softer second thump
+				{ to: 1, duration: 230, ease: "easeInOutQuad" }, // return to rest
+			],
+			loop: true,
+			loopDelay: 500, // adjust so total ~900–1000ms (≈60–70 bpm)
+		})
 	</script>
 </Layout>
 
