@@ -6,7 +6,7 @@ import "../styles/global.css"
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Femm Tribu</title>
@@ -16,22 +16,3 @@ import "../styles/global.css"
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
 </html>
-
-<style is:global>
-	/* Global smooth scroll behavior */
-	html {
-		scroll-behavior: smooth;
-	}
-
-	/* Respect user's motion preferences */
-	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
-	}
-
-	/* Add scroll margin to sections for better positioning */
-	section[id] {
-		scroll-margin-top: 80px;
-	}
-</style>
