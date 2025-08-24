@@ -15,3 +15,22 @@ import "../styles/global.css"
 		<slot />
 	</body>
 </html>
+
+<style is:global>
+	/* Global smooth scroll behavior */
+	html {
+		scroll-behavior: smooth;
+	}
+
+	/* Respect user's motion preferences */
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+
+	/* Add scroll margin to sections for better positioning */
+	section[id] {
+		scroll-margin-top: 80px;
+	}
+</style>
