@@ -1,26 +1,51 @@
 ---
 // src/components/SobreMi.astro
 import Icon from "../assets/iconos/ilustracion-negro_25.svg"
+import MysticDecoration from "./decoratives/MysticDecoration.astro"
+import IconDecoration from "./decoratives/IconDecoration.astro"
+import DecorativeContainer from "./decoratives/DecorativeContainer.astro"
 ---
 
 <section class="sobre-mi-section">
-	<div class="sobre-mi-container">
+	<DecorativeContainer class="sobre-mi-container has-floating-decorations">
 		<!-- Elementos decorativos flotantes místicos -->
-		<div class="mystic-decoration mystic-spiral-1">
-			<img src="/images/decoratives/ilustracion-negro_01.svg" alt="" />
-		</div>
-		<div class="mystic-decoration mystic-organic-1">
-			<img src="/images/decoratives/ilustracion-negro_25.svg" alt="" />
-		</div>
-		<div class="mystic-decoration mystic-fluid-1">
-			<img src="/images/decoratives/ilustracion-negro_27.svg" alt="" />
-		</div>
-		<div class="mystic-decoration mystic-organic-2">
-			<img src="/images/decoratives/ilustracion-negro_26.svg" alt="" />
-		</div>
-		<div class="mystic-decoration mystic-spiral-2">
-			<img src="/images/decoratives/ilustracion-negro_09.svg" alt="" />
-		</div>
+		<MysticDecoration
+			iconName="01"
+			animationType="spiral"
+			size="large"
+			position={{ top: "8%", right: "3%" }}
+			animationDuration="40s"
+		/>
+		<MysticDecoration
+			iconName="25"
+			animationType="organic"
+			size="medium"
+			position={{ top: "25%", left: "2%" }}
+			animationDuration="35s"
+			animationDirection="reverse"
+		/>
+		<MysticDecoration
+			iconName="27"
+			animationType="fluid"
+			size="small"
+			position={{ top: "45%", right: "8%" }}
+			animationDuration="30s"
+		/>
+		<MysticDecoration
+			iconName="26"
+			animationType="organic"
+			size="large"
+			position={{ bottom: "15%", left: "5%" }}
+			animationDuration="45s"
+		/>
+		<MysticDecoration
+			iconName="09"
+			animationType="spiral"
+			size="small"
+			position={{ bottom: "8%", right: "12%" }}
+			animationDuration="38s"
+			animationDirection="reverse"
+		/>
 
 		<!-- Contenido principal -->
 		<div class="sobre-mi-content">
@@ -29,7 +54,7 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 				<div class="image-wrapper">
 					<div class="image-container">
 						<img
-							src="/images/sobre-mi/maria-belenguer-portrait.jpg"
+							src="/images/about-me/mery-portrait.jpg"
 							alt="María Belenguer, Matrona"
 							class="portrait-image"
 						/>
@@ -40,9 +65,7 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 					</div>
 
 					<!-- Elemento decorativo con icono místico -->
-					<div class="icon-decoration">
-						<img src="/images/decoratives/ilustracion-negro_24.svg" alt="" />
-					</div>
+					<IconDecoration iconName="24" size="medium" />
 				</div>
 
 				<div class="intro-content">
@@ -181,12 +204,23 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 
 			<!-- Sección de expertise con elementos orgánicos -->
 			<div class="expertise-section">
-				<div class="expertise-decoration mystic-side-1">
-					<img src="/images/decoratives/ilustracion-negro_29-29.svg" alt="" />
-				</div>
-				<div class="expertise-decoration mystic-side-2">
-					<img src="/images/decoratives/ilustracion-negro_35.svg" alt="" />
-				</div>
+				<MysticDecoration
+					iconName="29-29"
+					animationType="side-flow"
+					className="expertise-decoration mystic-side-1"
+					size="large"
+					position={{ top: "20%", left: "-60px" }}
+					animationDuration="40s"
+				/>
+				<MysticDecoration
+					iconName="35"
+					animationType="side-flow"
+					className="expertise-decoration mystic-side-2"
+					size="large"
+					position={{ bottom: "10%", right: "-70px" }}
+					animationDuration="35s"
+					animationDirection="reverse"
+				/>
 				<div class="expertise-content">
 					<div class="expertise-text">
 						<h3>Especialidades y Experiencia</h3>
@@ -253,12 +287,25 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 
 			<!-- Sección de testimonios con marcos orgánicos -->
 			<div class="testimonials-section">
-				<div class="testimonial-decoration mystic-frame-1">
-					<img src="/images/decoratives/ilustracion-negro_31.svg" alt="" />
-				</div>
-				<div class="testimonial-decoration mystic-frame-2">
-					<img src="/images/decoratives/ilustracion-negro_33.svg" alt="" />
-				</div>
+				<MysticDecoration
+					iconName="31"
+					animationType="frame-dance"
+					className="testimonial-decoration mystic-frame-1"
+					size="xlarge"
+					position={{ top: "-50px", left: "-80px" }}
+					animationDuration="55s"
+					opacity={0.05}
+				/>
+				<MysticDecoration
+					iconName="33"
+					animationType="frame-dance"
+					className="testimonial-decoration mystic-frame-2"
+					size="large"
+					position={{ bottom: "-60px", right: "-90px" }}
+					animationDuration="48s"
+					animationDirection="reverse"
+					opacity={0.05}
+				/>
 				<h3>Lo Que Dicen Las Madres</h3>
 				<div class="testimonials-grid">
 					<div class="testimonial-card">
@@ -314,7 +361,7 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 				</div>
 			</div>
 		</div>
-	</div>
+	</DecorativeContainer>
 </section>
 
 <style>
@@ -345,135 +392,6 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 		margin: 0 auto;
 		position: relative;
 		z-index: 1;
-	}
-
-	/* Elementos decorativos místicos flotantes */
-	.mystic-decoration {
-		position: absolute;
-		pointer-events: none;
-		z-index: 0;
-		opacity: 0.08;
-		transition: opacity 0.4s ease;
-	}
-
-	.mystic-decoration img {
-		width: 100%;
-		height: 100%;
-		fill: #6a8067;
-		filter: sepia(0.4) hue-rotate(90deg) saturate(0.8);
-	}
-
-	.mystic-spiral-1 {
-		width: 200px;
-		height: 200px;
-		top: 8%;
-		right: 3%;
-		animation: mystic-float-spiral 40s ease-in-out infinite;
-		transform-origin: center center;
-	}
-
-	.mystic-organic-1 {
-		width: 150px;
-		height: 150px;
-		top: 25%;
-		left: 2%;
-		animation: mystic-float-organic 35s ease-in-out infinite reverse;
-		transform-origin: center center;
-	}
-
-	.mystic-fluid-1 {
-		width: 120px;
-		height: 120px;
-		top: 45%;
-		right: 8%;
-		animation: mystic-flow 30s linear infinite;
-		transform-origin: center center;
-	}
-
-	.mystic-organic-2 {
-		width: 180px;
-		height: 180px;
-		bottom: 15%;
-		left: 5%;
-		animation: mystic-float-organic 45s ease-in-out infinite;
-		transform-origin: center center;
-	}
-
-	.mystic-spiral-2 {
-		width: 100px;
-		height: 100px;
-		bottom: 8%;
-		right: 12%;
-		animation: mystic-float-spiral 38s ease-in-out infinite reverse;
-		transform-origin: center center;
-	}
-
-	/* Animaciones místicas más orgánicas */
-	@keyframes mystic-float-spiral {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.08;
-		}
-		25% {
-			transform: translate(15px, -10px) rotate(90deg) scale(1.1);
-			opacity: 0.12;
-		}
-		50% {
-			transform: translate(-8px, 12px) rotate(180deg) scale(0.95);
-			opacity: 0.06;
-		}
-		75% {
-			transform: translate(12px, 8px) rotate(270deg) scale(1.05);
-			opacity: 0.1;
-		}
-	}
-
-	@keyframes mystic-float-organic {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.08;
-		}
-		20% {
-			transform: translate(8px, -15px) rotate(72deg) scale(1.08);
-			opacity: 0.1;
-		}
-		40% {
-			transform: translate(-12px, 5px) rotate(144deg) scale(0.92);
-			opacity: 0.06;
-		}
-		60% {
-			transform: translate(10px, 18px) rotate(216deg) scale(1.12);
-			opacity: 0.12;
-		}
-		80% {
-			transform: translate(-5px, -8px) rotate(288deg) scale(0.98);
-			opacity: 0.04;
-		}
-	}
-
-	@keyframes mystic-flow {
-		0% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.08;
-		}
-		25% {
-			transform: translate(20px, -25px) rotate(90deg) scale(1.15);
-			opacity: 0.14;
-		}
-		50% {
-			transform: translate(-15px, 20px) rotate(180deg) scale(0.85);
-			opacity: 0.04;
-		}
-		75% {
-			transform: translate(25px, 15px) rotate(270deg) scale(1.2);
-			opacity: 0.16;
-		}
-		100% {
-			transform: translate(0, 0) rotate(360deg) scale(1);
-			opacity: 0.08;
-		}
 	}
 
 	.sobre-mi-content {
@@ -542,63 +460,6 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 		}
 		to {
 			transform: translate(-60px, -60px) rotate(360deg);
-		}
-	}
-
-	.icon-decoration {
-		position: absolute;
-		bottom: -25px;
-		right: -25px;
-		width: 90px;
-		height: 90px;
-		background: white;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		box-shadow: 0 15px 40px rgba(55, 68, 58, 0.2);
-		animation: icon-mystic-pulse 4s ease-in-out infinite;
-		overflow: hidden;
-	}
-
-	.icon-decoration::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle, rgba(203, 110, 95, 0.1) 0%, transparent 70%);
-		animation: mystic-glow 8s linear infinite;
-		pointer-events: none;
-	}
-
-	.icon-decoration img {
-		width: 55px;
-		height: 55px;
-		filter: sepia(0.3) hue-rotate(20deg) saturate(1.2);
-		z-index: 1;
-		position: relative;
-	}
-
-	@keyframes icon-mystic-pulse {
-		0%,
-		100% {
-			transform: scale(1) rotate(0deg);
-			box-shadow: 0 15px 40px rgba(55, 68, 58, 0.2);
-		}
-		50% {
-			transform: scale(1.08) rotate(2deg);
-			box-shadow: 0 20px 50px rgba(203, 110, 95, 0.3);
-		}
-	}
-
-	@keyframes mystic-glow {
-		from {
-			transform: rotate(0deg);
-		}
-		to {
-			transform: rotate(360deg);
 		}
 	}
 
@@ -737,48 +598,6 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 		overflow: hidden;
 	}
 
-	/* Decoraciones místicas de fondo para philosophy */
-	.philosophy-decoration {
-		position: absolute;
-		pointer-events: none;
-		opacity: 0.04;
-		z-index: 0;
-	}
-
-	.philosophy-decoration img {
-		width: 100%;
-		height: 100%;
-		filter: sepia(0.5) hue-rotate(90deg) saturate(0.6);
-	}
-
-	.mystic-bg-1 {
-		width: 300px;
-		height: 300px;
-		top: -100px;
-		right: -80px;
-		animation: mystic-float-bg 50s ease-in-out infinite;
-	}
-
-	.mystic-bg-2 {
-		width: 250px;
-		height: 250px;
-		bottom: -80px;
-		left: -60px;
-		animation: mystic-float-bg 45s ease-in-out infinite reverse;
-	}
-
-	@keyframes mystic-float-bg {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.04;
-		}
-		50% {
-			transform: translate(10px, -15px) rotate(180deg) scale(1.1);
-			opacity: 0.08;
-		}
-	}
-
 	.philosophy-header {
 		text-align: center;
 		margin-bottom: 50px;
@@ -861,52 +680,6 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 	.expertise-section {
 		margin-bottom: 80px;
 		position: relative;
-	}
-
-	/* Decoraciones laterales orgánicas */
-	.expertise-decoration {
-		position: absolute;
-		pointer-events: none;
-		opacity: 0.06;
-		z-index: 0;
-	}
-
-	.expertise-decoration img {
-		width: 100%;
-		height: 100%;
-		filter: sepia(0.4) hue-rotate(45deg) saturate(0.7);
-	}
-
-	.mystic-side-1 {
-		width: 180px;
-		height: 180px;
-		top: 20%;
-		left: -60px;
-		animation: mystic-side-flow 40s ease-in-out infinite;
-	}
-
-	.mystic-side-2 {
-		width: 200px;
-		height: 200px;
-		bottom: 10%;
-		right: -70px;
-		animation: mystic-side-flow 35s ease-in-out infinite reverse;
-	}
-
-	@keyframes mystic-side-flow {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.06;
-		}
-		33% {
-			transform: translate(8px, -12px) rotate(120deg) scale(1.05);
-			opacity: 0.1;
-		}
-		66% {
-			transform: translate(-5px, 15px) rotate(240deg) scale(0.95);
-			opacity: 0.04;
-		}
 	}
 
 	.expertise-content {
@@ -1016,56 +789,6 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 	.testimonials-section {
 		margin-bottom: 80px;
 		position: relative;
-	}
-
-	/* Decoraciones de marcos místicos */
-	.testimonial-decoration {
-		position: absolute;
-		pointer-events: none;
-		opacity: 0.05;
-		z-index: 0;
-	}
-
-	.testimonial-decoration img {
-		width: 100%;
-		height: 100%;
-		filter: sepia(0.6) hue-rotate(60deg) saturate(0.5);
-	}
-
-	.mystic-frame-1 {
-		width: 250px;
-		height: 250px;
-		top: -50px;
-		left: -80px;
-		animation: mystic-frame-dance 55s ease-in-out infinite;
-	}
-
-	.mystic-frame-2 {
-		width: 220px;
-		height: 220px;
-		bottom: -60px;
-		right: -90px;
-		animation: mystic-frame-dance 48s ease-in-out infinite reverse;
-	}
-
-	@keyframes mystic-frame-dance {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg) scale(1);
-			opacity: 0.05;
-		}
-		25% {
-			transform: translate(12px, -8px) rotate(90deg) scale(1.08);
-			opacity: 0.08;
-		}
-		50% {
-			transform: translate(-8px, 10px) rotate(180deg) scale(0.92);
-			opacity: 0.03;
-		}
-		75% {
-			transform: translate(10px, 12px) rotate(270deg) scale(1.12);
-			opacity: 0.09;
-		}
 	}
 
 	.testimonials-section h3 {
@@ -1505,7 +1228,7 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 		})
 
 		// Contador animado para las estadísticas
-		const animateCounter = (element, target, duration = 2000) => {
+		const animateCounter = (element: HTMLElement, target: number, duration = 2000) => {
 			let start = 0
 			const increment = target / (duration / 16)
 
@@ -1531,7 +1254,7 @@ import Icon from "../assets/iconos/ilustracion-negro_25.svg"
 						const number = parseInt(text.replace(/\D/g, ""))
 
 						if (number > 0) {
-							animateCounter(target, number)
+							animateCounter(target as HTMLElement, number)
 							statsObserver.unobserve(target)
 						}
 					}
