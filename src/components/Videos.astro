@@ -1,6 +1,7 @@
 ---
 import videosData from "../data/videos.json"
 import EmailOverlay from "./EmailOverlay.astro"
+import VerificationOverlay from "./VerificationOverlay.astro"
 
 const { videos } = videosData
 
@@ -55,6 +56,7 @@ const processedVideos = videos.map((video) => ({
 
 		<div class="videos-grid-wrapper">
 			<EmailOverlay />
+			<VerificationOverlay />
 
 			<div class="videos-grid">
 				{
@@ -487,6 +489,8 @@ const processedVideos = videos.map((video) => ({
 </style>
 
 <script>
+	import EmailVerificationManager from "../utils/emailVerification.js"
+
 	// Update countdown timers every minute
 	function updateCountdowns() {
 		const countdownElements = document.querySelectorAll(".countdown[data-unlock-date]")
@@ -495,8 +499,8 @@ const processedVideos = videos.map((video) => ({
 			const unlockDateString = element.getAttribute("data-unlock-date")
 			if (!unlockDateString) return
 
-			const unlockDate: Date = new Date(unlockDateString)
-			const now: Date = new Date()
+			const unlockDate = new Date(unlockDateString)
+			const now = new Date()
 			const diff = unlockDate.getTime() - now.getTime()
 
 			if (diff <= 0) {
@@ -520,13 +524,20 @@ const processedVideos = videos.map((video) => ({
 				timeText = "Menos de un minuto"
 			}
 
-			;(element as HTMLElement).textContent = timeText
+			element.textContent = timeText
 		})
 	}
 
-	// Update immediately and then every minute
+	// Initialize when DOM is loaded
 	document.addEventListener("DOMContentLoaded", () => {
+		// Initialize email verification manager
+		const verificationManager = new EmailVerificationManager()
+
+		// Store reference globally for potential external access
+		window.emailVerificationManager = verificationManager
+
+		// Update countdowns
 		updateCountdowns()
-		setInterval(updateCountdowns, 60000) // Update every minute
+		setInterval(updateCountdowns, 30000) // Update every 30 seconds
 	})
 </script>

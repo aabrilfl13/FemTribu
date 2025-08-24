@@ -375,7 +375,6 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
-		const overlay = document.getElementById("email-overlay")
 		const form = document.getElementById("email-form") as HTMLFormElement
 		const emailInput = document.getElementById("email") as HTMLInputElement
 		const errorMessage = document.getElementById("error-message")
@@ -383,18 +382,6 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 		const submitButton = form.querySelector(".submit-button") as HTMLButtonElement
 		const buttonText = submitButton.querySelector(".button-text")
 		const buttonLoader = submitButton.querySelector(".button-loader")
-
-		// Check access flag expiration
-		const accessData = localStorage.getItem("videoAccess")
-		if (accessData) {
-			const parsed = JSON.parse(accessData)
-			// a
-		}
-		// Check if user already has access (you can modify this logic)
-		const hasAccess = localStorage.getItem("videoAccess")
-		if (hasAccess) {
-			overlay?.classList.add("hidden")
-		}
 
 		form?.addEventListener("submit", async (e) => {
 			e.preventDefault()
@@ -432,20 +419,31 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 					successMessage.classList.remove("hidden")
 				}
 
-				// Hide overlay after a delay
-				// This add a visualization of the videos, but maybe the best it's to validate this access by entering from the email
-				setTimeout(() => {
-					overlay?.classList.add("hidden")
-					// Store access in localStorage (temporary - you should validate with the code)
-					const expirationTime = Date.now() + 0.5 * 60 * 1000 // 30 seconds. TEST ONLY
+				// Use the verification manager to set pending status
+				if (window.emailVerificationManager) {
+					// Set expiration to 30 minutes (or based on your server logic)
+					const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
+					window.emailVerificationManager.setPendingVerification(email, expirationTime)
+				} else {
+					// Fallback to direct localStorage (for compatibility)
+					const expirationTime = Date.now() + 30 * 60 * 1000
 					localStorage.setItem(
 						"videoAccess",
 						JSON.stringify({
 							status: "pending",
+							email: email,
 							expires: expirationTime,
 						})
 					)
-				}, 3000)
+
+					// Manually trigger state change
+					setTimeout(() => {
+						const emailOverlay = document.getElementById("email-overlay")
+						const verificationOverlay = document.getElementById("verification-overlay")
+						emailOverlay?.classList.add("hidden")
+						verificationOverlay?.classList.remove("hidden")
+					}, 2000)
+				}
 			} catch (error) {
 				// Show error message
 				if (errorMessage) {

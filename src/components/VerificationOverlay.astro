@@ -1,0 +1,501 @@
+---
+
+---
+
+<div id="verification-overlay" class="verification-overlay hidden">
+	<div class="verification-content">
+		<div class="verification-container">
+			<!-- Icon -->
+			<div class="verification-icon">
+				<svg viewBox="0 0 24 24" fill="currentColor">
+					<path
+						d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"
+					></path>
+				</svg>
+			</div>
+
+			<h3>Verifica tu email para acceder</h3>
+			<p>
+				Hemos enviado un enlace de verificación a tu correo electrónico. Por favor, revisa tu
+				bandeja de entrada (y la carpeta de spam) y haz clic en el enlace para acceder a todos
+				nuestros recursos.
+			</p>
+
+			<div class="verification-actions">
+				<button id="resend-email-btn" class="resend-button">
+					<span class="button-text">Reenviar email</span>
+					<span class="button-loader hidden">
+						<svg class="spinner" viewBox="0 0 50 50">
+							<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+						</svg>
+					</span>
+				</button>
+
+				<button id="check-verification-btn" class="check-button">Ya verifiqué mi email</button>
+			</div>
+
+			<p class="verification-note">
+				Si no encuentras el email, revisa tu carpeta de spam o promociones.
+			</p>
+
+			<div id="verification-messages" class="verification-messages">
+				<div id="verification-error" class="error-message hidden"></div>
+				<div id="verification-success" class="success-message hidden"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	/* Verification Overlay */
+	.verification-overlay {
+		position: absolute;
+		top: -20px;
+		left: -20px;
+		right: -20px;
+		bottom: -20px;
+		background: rgba(255, 245, 235, 0.95);
+		backdrop-filter: blur(8px);
+		z-index: 50;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 40px;
+		overflow: hidden;
+		opacity: 0;
+		animation: fadeIn 0.3s ease forwards;
+	}
+
+	.verification-overlay.hidden {
+		display: none;
+	}
+
+	@keyframes fadeIn {
+		to {
+			opacity: 1;
+		}
+	}
+
+	.verification-content {
+		width: 100%;
+		max-width: 600px;
+		padding: 20px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.verification-container {
+		background: white;
+		padding: 50px 40px;
+		border-radius: 30px;
+		box-shadow: 0 20px 60px rgba(55, 68, 58, 0.15);
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+		border: 2px solid rgba(203, 110, 95, 0.1);
+	}
+
+	/* Decorative background pattern for verification overlay */
+	.verification-container::before {
+		content: "";
+		position: absolute;
+		top: -50%;
+		right: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(106, 128, 103, 0.03) 0%, transparent 70%);
+		animation: rotate 30s linear infinite;
+		pointer-events: none;
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.verification-icon {
+		width: 80px;
+		height: 80px;
+		margin: 0 auto 20px;
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		z-index: 1;
+		animation: verification-pulse 3s ease-in-out infinite;
+	}
+
+	@keyframes verification-pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			box-shadow: 0 0 0 0 rgba(203, 110, 95, 0.4);
+		}
+		50% {
+			transform: scale(1.05);
+			box-shadow: 0 0 0 20px rgba(203, 110, 95, 0);
+		}
+	}
+
+	.verification-icon svg {
+		width: 40px;
+		height: 40px;
+		color: white;
+	}
+
+	.verification-container h3 {
+		font-family: "The Seasons", serif;
+		font-size: 1.8rem;
+		color: #37443a;
+		margin-bottom: 15px;
+		font-weight: 400;
+		letter-spacing: 0.5px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.verification-container p {
+		color: #6a8067;
+		font-size: 1rem;
+		line-height: 1.6;
+		margin-bottom: 30px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.verification-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		margin-bottom: 25px;
+		position: relative;
+		z-index: 1;
+	}
+
+	.resend-button,
+	.check-button {
+		padding: 15px 30px;
+		border-radius: 50px;
+		font-size: 1rem;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		position: relative;
+		overflow: hidden;
+		border: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 50px;
+	}
+
+	.resend-button {
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		color: white;
+	}
+
+	.check-button {
+		background: rgba(106, 128, 103, 0.1);
+		color: #37443a;
+		border: 2px solid rgba(106, 128, 103, 0.3);
+	}
+
+	.resend-button::before,
+	.check-button::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.3);
+		transform: translate(-50%, -50%);
+		transition:
+			width 0.6s,
+			height 0.6s;
+	}
+
+	.resend-button:hover::before,
+	.check-button:hover::before {
+		width: 300px;
+		height: 300px;
+	}
+
+	.resend-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 10px 20px rgba(203, 110, 95, 0.3);
+	}
+
+	.check-button:hover {
+		background: rgba(106, 128, 103, 0.15);
+		border-color: rgba(106, 128, 103, 0.5);
+		transform: translateY(-2px);
+	}
+
+	.resend-button:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+	}
+
+	.button-text,
+	.button-loader {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.button-loader.hidden {
+		display: none;
+	}
+
+	.spinner {
+		animation: spin 1s linear infinite;
+		width: 20px;
+		height: 20px;
+	}
+
+	.spinner .path {
+		stroke: white;
+		stroke-linecap: round;
+		animation: dash 1.5s ease-in-out infinite;
+	}
+
+	@keyframes spin {
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+	@keyframes dash {
+		0% {
+			stroke-dasharray: 1, 150;
+			stroke-dashoffset: 0;
+		}
+		50% {
+			stroke-dasharray: 90, 150;
+			stroke-dashoffset: -35;
+		}
+		100% {
+			stroke-dasharray: 90, 150;
+			stroke-dashoffset: -124;
+		}
+	}
+
+	.verification-note {
+		font-size: 0.85rem;
+		color: rgba(106, 128, 103, 0.7);
+		margin-bottom: 20px;
+		position: relative;
+		z-index: 1;
+		font-style: italic;
+	}
+
+	.verification-messages {
+		position: relative;
+		z-index: 1;
+	}
+
+	.error-message,
+	.success-message {
+		padding: 10px;
+		border-radius: 10px;
+		font-size: 0.9rem;
+		margin-top: 10px;
+		animation: slideIn 0.3s ease;
+	}
+
+	.error-message {
+		background: rgba(231, 76, 60, 0.1);
+		color: #e74c3c;
+		border: 1px solid rgba(231, 76, 60, 0.2);
+	}
+
+	.success-message {
+		background: rgba(106, 128, 103, 0.1);
+		color: #6a8067;
+		border: 1px solid rgba(106, 128, 103, 0.2);
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	@keyframes slideIn {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Mobile responsive */
+	@media (max-width: 768px) {
+		.verification-overlay {
+			align-items: flex-start;
+			padding-top: 20px;
+			top: -10px;
+			left: -10px;
+			right: -10px;
+			bottom: -10px;
+		}
+
+		.verification-content {
+			padding: 10px;
+		}
+
+		.verification-container {
+			padding: 30px 20px;
+			border-radius: 20px;
+		}
+
+		.verification-icon {
+			width: 60px;
+			height: 60px;
+			margin-bottom: 15px;
+		}
+
+		.verification-icon svg {
+			width: 30px;
+			height: 30px;
+		}
+
+		.verification-container h3 {
+			font-size: 1.4rem;
+			margin-bottom: 10px;
+		}
+
+		.verification-container p {
+			font-size: 0.95rem;
+			margin-bottom: 20px;
+		}
+
+		.verification-actions {
+			gap: 12px;
+		}
+
+		.resend-button,
+		.check-button {
+			padding: 12px 25px;
+			font-size: 0.95rem;
+		}
+
+		.verification-note {
+			font-size: 0.8rem;
+		}
+	}
+</style>
+
+<script>
+	// Handle resend email
+	async function handleResendEmail() {
+		const resendButton = document.getElementById("resend-email-btn") as HTMLButtonElement
+		const buttonText = resendButton?.querySelector(".button-text")
+		const buttonLoader = resendButton?.querySelector(".button-loader")
+		const errorMessage = document.getElementById("verification-error")
+		const successMessage = document.getElementById("verification-success")
+
+		if (!resendButton) return
+
+		// Get email from localStorage
+		const accessDataString = localStorage.getItem("videoAccess")
+		let email = ""
+
+		if (accessDataString) {
+			try {
+				const accessData = JSON.parse(accessDataString)
+				email = accessData.email
+			} catch (error) {
+				console.error("Error getting email from localStorage:", error)
+			}
+		}
+
+		if (!email) {
+			// No email found, redirect to email form
+			const emailOverlay = document.getElementById("email-overlay")
+			const verificationOverlay = document.getElementById("verification-overlay")
+			emailOverlay?.classList.remove("hidden")
+			verificationOverlay?.classList.add("hidden")
+			return
+		}
+
+		// Reset messages
+		errorMessage?.classList.add("hidden")
+		successMessage?.classList.add("hidden")
+
+		// Show loading state
+		resendButton.disabled = true
+		buttonText?.classList.add("hidden")
+		buttonLoader?.classList.remove("hidden")
+
+		try {
+			const response = await fetch("/api/send-email", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			})
+
+			if (!response.ok) {
+				throw new Error("Error al reenviar el email")
+			}
+
+			// Show success message
+			if (successMessage) {
+				successMessage.textContent = "Email reenviado correctamente. Revisa tu bandeja de entrada."
+				successMessage.classList.remove("hidden")
+			}
+		} catch (error) {
+			// Show error message
+			if (errorMessage) {
+				errorMessage.textContent =
+					error instanceof Error ? error.message : "Error al reenviar el email. Intenta de nuevo."
+				errorMessage.classList.remove("hidden")
+			}
+		} finally {
+			// Reset loading state
+			resendButton.disabled = false
+			buttonText?.classList.remove("hidden")
+			buttonLoader?.classList.add("hidden")
+		}
+	}
+
+	// Handle check verification
+	function handleCheckVerification() {
+		const errorMessage = document.getElementById("verification-error")
+		const successMessage = document.getElementById("verification-success")
+
+		// Reset messages
+		errorMessage?.classList.add("hidden")
+		successMessage?.classList.add("hidden")
+
+		// Check if user has verified (this would normally be done via API call)
+		// For now, we'll show a message asking them to click the link in email
+		if (errorMessage) {
+			errorMessage.textContent =
+				"Por favor, haz clic en el enlace del email de verificación antes de continuar."
+			errorMessage.classList.remove("hidden")
+		}
+	}
+
+	// Initialize component
+	document.addEventListener("DOMContentLoaded", () => {
+		// Add event listeners for verification overlay buttons
+		const resendButton = document.getElementById("resend-email-btn")
+		const checkButton = document.getElementById("check-verification-btn")
+
+		resendButton?.addEventListener("click", handleResendEmail)
+		checkButton?.addEventListener("click", handleCheckVerification)
+	})
+</script>
