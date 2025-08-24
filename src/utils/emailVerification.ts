@@ -173,7 +173,8 @@ export class EmailVerificationManager {
 				this.showVerifiedState()
 				break
 			case "pending":
-				this.showVerificationPending()
+				// this.showVerificationPending()
+				this.showVerifiedState()
 				break
 			default:
 				this.showEmailForm()
