@@ -70,7 +70,10 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 </style>
 
 <script>
+	import EmailVerificationManager from "../utils/emailVerification.ts"
+
 	document.addEventListener("DOMContentLoaded", () => {
+		const manager = new EmailVerificationManager()
 		const form = document.getElementById("email-form") as HTMLFormElement
 		const emailInput = document.getElementById("email") as HTMLInputElement
 		const errorMessage = document.getElementById("error-message")
@@ -106,8 +109,6 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 					throw new Error("Error al procesar tu solicitud")
 				}
 
-				const data = await response.json()
-
 				// Show success message
 				if (successMessage) {
 					successMessage.textContent =
@@ -116,30 +117,8 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 				}
 
 				// Use the verification manager to set pending status
-				if (window.emailVerificationManager) {
-					// Set expiration to 30 minutes (or based on your server logic)
-					const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
-					window.emailVerificationManager.setPendingVerification(email, expirationTime)
-				} else {
-					// Fallback to direct localStorage (for compatibility)
-					const expirationTime = Date.now() + 30 * 60 * 1000
-					localStorage.setItem(
-						"videoAccess",
-						JSON.stringify({
-							status: "pending",
-							email: email,
-							expires: expirationTime,
-						})
-					)
-
-					// Manually trigger state change
-					setTimeout(() => {
-						const emailOverlay = document.getElementById("email-overlay")
-						const verificationOverlay = document.getElementById("verification-overlay")
-						emailOverlay?.classList.add("hidden")
-						verificationOverlay?.classList.remove("hidden")
-					}, 2000)
-				}
+				const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
+				manager.setPendingVerification(email, expirationTime)
 			} catch (error) {
 				// Show error message
 				if (errorMessage) {

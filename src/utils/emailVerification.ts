@@ -48,7 +48,7 @@ export class EmailVerificationManager {
 		window.addEventListener("storage", this.handleStorageChange)
 
 		// Check verification status periodically
-		setInterval(this.checkStatus, 30000) // Every 30 seconds
+		setInterval(this.checkStatus, 1000) // Every 30 seconds
 	}
 
 	/**

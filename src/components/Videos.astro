@@ -491,6 +491,13 @@ const processedVideos = videos.map((video) => ({
 <script>
 	import EmailVerificationManager from "../utils/emailVerification.ts"
 
+	// Extend Window interface to include emailVerificationManager
+	declare global {
+		interface Window {
+			emailVerificationManager: EmailVerificationManager
+		}
+	}
+
 	// Update countdown timers every minute
 	function updateCountdowns() {
 		const countdownElements = document.querySelectorAll(".countdown[data-unlock-date]")
