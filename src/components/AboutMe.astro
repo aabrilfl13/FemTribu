@@ -3,90 +3,92 @@
 ---
 
 <section class="section">
-		<div class="container">
-			<!-- Contenido principal -->
-			<div class="content">
-				<!-- Imagen y presentación principal -->
-				<div class="hero-content">
-					<div class="image-wrapper">
-						<div class="image-container">
-							<img
-								src="/images/about-me/mery-portrait.jpg"
-								alt="María Belenguer, Matrona"
-								class="portrait-image"
-							/>
-							<!-- Overlay decorativo -->
-							<div class="image-overlay">
-								<div class="pattern-overlay"></div>
-							</div>
+	<div class="container">
+		<!-- Contenido principal -->
+		<div class="content">
+			<!-- Imagen y presentación principal -->
+			<div class="hero-content">
+				<div class="image-wrapper">
+					<div class="image-container">
+						<img
+							src="/images/about-me/mery-portrait.jpg"
+							alt="María Belenguer, Matrona"
+							class="portrait-image"
+						/>
+						<!-- Overlay decorativo -->
+						<div class="image-overlay">
+							<div class="pattern-overlay"></div>
 						</div>
-
-						<!-- Elemento decorativo con icono místico -->
-						<IconDecoration iconName="24" size="medium" />
 					</div>
 
-					<div class="intro-content">
-						<div class="title-section">
-							<h2>Sobre Mí</h2>
-							<div class="subtitle-wrapper">
-								<h3>María Belenguer</h3>
-								<span class="profession">Matrona</span>
-							</div>
-						</div>
+					<!-- Elemento decorativo con icono místico -->
+					<div class="icon-decoration">
+						<img src="/images/decoratives/ilustracion-negro_24.svg" alt="" />
+					</div>
+				</div>
 
-						<div class="intro-text">
-							<p class="lead-paragraph">
-								Soy María, matrona con más de 8 años acompañando a mujeres en su viaje más
-								transformador: la maternidad. Mi misión es crear espacios seguros donde cada madre
-								pueda conectar con su sabiduría interior y vivir esta experiencia desde el
-								empoderamiento y la confianza.
-							</p>
-
-							<p>
-								Creo firmemente en el poder de la información, el apoyo emocional y el respeto hacia
-								las decisiones de cada mujer. En Femm Tribu encontrarás un lugar donde tu voz es
-								escuchada, tus dudas son válidas y tu experiencia única es celebrada.
-							</p>
+				<div class="intro-content">
+					<div class="title-section">
+						<h2>Sobre Mí</h2>
+						<div class="subtitle-wrapper">
+							<h3>María Belenguer</h3>
+							<span class="profession">Matrona</span>
 						</div>
+					</div>
 
-						<!-- Credenciales y certificaciones -->
-						<div class="credentials">
-							<h4>Formación y Experiencia</h4>
-							<ul class="credentials-list">
-								<li>
-									<span class="credential-icon">🎓</span>
-									<div>
-										<strong>Diplomatura en Enfermería</strong>
-										<span>Universidad de Valencia</span>
-									</div>
-								</li>
-								<li>
-									<span class="credential-icon">👶</span>
-									<div>
-										<strong>Especialización en Obstetricia y Ginecología</strong>
-										<span>Hospital Universitario La Fe</span>
-									</div>
-								</li>
-								<li>
-									<span class="credential-icon">🤱</span>
-									<div>
-										<strong>Certificación en Lactancia Materna IBCLC</strong>
-										<span>International Board of Lactation Consultant Examiners</span>
-									</div>
-								</li>
-								<li>
-									<span class="credential-icon">🧘</span>
-									<div>
-										<strong>Formación en Yoga Prenatal y Mindfulness</strong>
-										<span>Asociación Española de Matronas</span>
-									</div>
-								</li>
-							</ul>
-						</div>
+					<div class="intro-text">
+						<p class="lead-paragraph">
+							Soy María, matrona con más de 8 años acompañando a mujeres en su viaje más
+							transformador: la maternidad. Mi misión es crear espacios seguros donde cada madre
+							pueda conectar con su sabiduría interior y vivir esta experiencia desde el
+							empoderamiento y la confianza.
+						</p>
+
+						<p>
+							Creo firmemente en el poder de la información, el apoyo emocional y el respeto hacia
+							las decisiones de cada mujer. En Femm Tribu encontrarás un lugar donde tu voz es
+							escuchada, tus dudas son válidas y tu experiencia única es celebrada.
+						</p>
+					</div>
+
+					<!-- Credenciales y certificaciones -->
+					<div class="credentials">
+						<h4>Formación y Experiencia</h4>
+						<ul class="credentials-list">
+							<li>
+								<span class="credential-icon">🎓</span>
+								<div>
+									<strong>Diplomatura en Enfermería</strong>
+									<span>Universidad de Valencia</span>
+								</div>
+							</li>
+							<li>
+								<span class="credential-icon">👶</span>
+								<div>
+									<strong>Especialización en Obstetricia y Ginecología</strong>
+									<span>Hospital Universitario La Fe</span>
+								</div>
+							</li>
+							<li>
+								<span class="credential-icon">🤱</span>
+								<div>
+									<strong>Certificación en Lactancia Materna IBCLC</strong>
+									<span>International Board of Lactation Consultant Examiners</span>
+								</div>
+							</li>
+							<li>
+								<span class="credential-icon">🧘</span>
+								<div>
+									<strong>Formación en Yoga Prenatal y Mindfulness</strong>
+									<span>Asociación Española de Matronas</span>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </section>
 <style>
 	.section {
@@ -165,6 +167,42 @@
 			rgba(106, 128, 103, 0.05) 50%,
 			transparent 100%
 		);
+	}
+
+	.icon-decoration {
+		position: absolute;
+		bottom: -25px;
+		right: -25px;
+		width: 90px;
+		height: 90px;
+		background: white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 15px 40px rgba(55, 68, 58, 0.2);
+		animation: icon-mystic-pulse 4s ease-in-out infinite;
+		overflow: hidden;
+	}
+
+	.icon-decoration::before {
+		content: "";
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(circle, rgba(203, 110, 95, 0.1) 0%, transparent 70%);
+		animation: mystic-glow 8s linear infinite;
+		pointer-events: none;
+	}
+
+	.icon-decoration img {
+		width: 55px;
+		height: 55px;
+		filter: sepia(0.3) hue-rotate(20deg) saturate(1.2);
+		z-index: 1;
+		position: relative;
 	}
 
 	.pattern-overlay {
