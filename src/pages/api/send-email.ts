@@ -2,6 +2,12 @@ import type { APIRoute } from "astro"
 
 export const prerender = false
 
+interface WebhookResponse {
+	success: boolean
+	message?: string
+	code?: string
+}
+
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const { email } = await request.json()
@@ -17,8 +23,8 @@ export const POST: APIRoute = async ({ request }) => {
 		const webhook_url = import.meta.env.WEBHOOK_URL
 		const authToken = import.meta.env.WEBHOOK_AUTH_TOKEN
 
-		if (!authToken) {
-			console.error("WEBHOOK_AUTH_TOKEN environment variable is not set")
+		if (!webhook_url || !authToken) {
+			console.error("WEBHOOK_URL or WEBHOOK_AUTH_TOKEN environment variables are not set")
 			return new Response(JSON.stringify({ error: "Server configuration error" }), {
 				status: 500,
 				headers: { "Content-Type": "application/json" },
@@ -36,32 +42,41 @@ export const POST: APIRoute = async ({ request }) => {
 		})
 
 		if (!response.ok) {
-			throw new Error(`Webhook request failed: ${response.status}`)
+			throw new Error(`Webhook request failed: ${response.status} - ${response.statusText}`)
 		}
 
-		const data = await response.json()
+		// Parse the webhook response
+		let webhookData: WebhookResponse
+		try {
+			webhookData = await response.json()
+		} catch (parseError) {
+			console.error("Error parsing webhook response:", parseError)
+			// If response isn't JSON, treat as success but without redirect
+			webhookData = { success: true }
+		}
 
+		// Return the response including any redirect URL
 		return new Response(
 			JSON.stringify({
 				success: true,
-				message: "Email sent successfully",
-				data,
+				message: webhookData.message || "Email sent successfully",
+				code: webhookData.code,
 			}),
 			{
 				status: 200,
 				headers: { "Content-Type": "application/json" },
-			}
+			},
 		)
 	} catch (error) {
 		console.error("API error:", error)
 		return new Response(
 			JSON.stringify({
-				error: "Internal server error",
+				error: error instanceof Error ? error.message : "Internal server error",
 			}),
 			{
 				status: 500,
 				headers: { "Content-Type": "application/json" },
-			}
+			},
 		)
 	}
 }

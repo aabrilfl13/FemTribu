@@ -109,16 +109,42 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 					throw new Error("Error al procesar tu solicitud")
 				}
 
-				// Show success message
-				if (successMessage) {
-					successMessage.textContent =
-						"Te hemos enviado un email con tu código de acceso. Por favor, revisa tu bandeja de entrada."
-					successMessage.classList.remove("hidden")
-				}
+				const result = await response.json()
+				console.log("Email send response:", result)
+				// Check if there's a redirect URL in the response
+				if (result.code) {
+					// Show brief success message before redirecting
+					if (successMessage) {
+						successMessage.textContent = result.message || "Procesando tu solicitud..."
+						successMessage.classList.remove("hidden")
+					}
 
-				// Use the verification manager to set pending status
-				const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
-				manager.setPendingVerification(email, expirationTime)
+					// Store pending verification with longer expiration if redirecting
+					const expirationTime = Date.now() + 60 * 60 * 1000 // 1 hour for redirect flow
+					manager.setPendingVerification(email, result.code, expirationTime)
+
+					// Get current URL and append code as query param and videos hash
+					const currentUrl = new URL(window.location.href)
+					currentUrl.hash = "videos"
+					currentUrl.searchParams.set("code", result.code)
+
+					// Redirect after a short delay to show the success message
+					setTimeout(() => {
+						window.location.href = currentUrl.toString()
+					}, 1500)
+				} else {
+					// Original flow - show success message and set pending
+					if (successMessage) {
+						successMessage.textContent =
+							result.message ||
+							"Te hemos enviado un email con tu código de acceso. Por favor, revisa tu bandeja de entrada."
+						successMessage.classList.remove("hidden")
+					}
+
+					// Use the verification manager to set pending status
+					const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
+					manager.setPendingVerification(email, null, expirationTime)
+				}
 			} catch (error) {
 				// Show error message
 				if (errorMessage) {

@@ -7,6 +7,7 @@ interface AccessData {
 	status: "pending" | "accepted"
 	email: string
 	expires: number
+	code: string | null
 }
 
 // Extend Window interface to include custom properties
@@ -197,10 +198,15 @@ export class EmailVerificationManager {
 	 * @param {string} email User's email address
 	 * @param {number} expirationTime Expiration timestamp (optional)
 	 */
-	setPendingVerification(email: string, expirationTime: number | null = null) {
+	setPendingVerification(
+		email: string,
+		code: string | null = null,
+		expirationTime: number | null = null,
+	) {
 		const accessData: AccessData = {
 			status: "pending",
 			email: email,
+			code: code,
 			expires: expirationTime || Date.now() + 30 * 60 * 1000, // 30 minutes default
 		}
 
