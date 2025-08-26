@@ -17,7 +17,11 @@ const description =
 					src={image}
 					alt={`Background image ${index + 1}`}
 					class="absolute top-0 left-0 w-full h-screen object-cover transition-opacity duration-[2s] ease-in-out"
-					class:list={{ "opacity-100": index === 0, "opacity-0": index !== 0 }}
+					class:list={{
+						"opacity-100": index === 0,
+						"opacity-0": index !== 0,
+						"object-[38%_center] sm:object-center": image.includes("pregnant-woman"),
+					}}
 					data-index={index}
 					transition:animate={fade()}
 				/>
