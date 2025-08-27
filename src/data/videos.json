@@ -3,36 +3,36 @@
     {
       "id": 1,
       "youtubeId": "sL6gioAwU8o",
-      "title": "Preparación para el parto",
-      "description": "Técnicas de respiración y relajación para un parto consciente y empoderado",
-      "tags": ["Parto", "Respiración"],
+      "title": "Pasos básicos",
+      "description": "Cómo funciona la lactancia: lo básico para entender tu cuerpo.",
+      "tags": ["Día 1"],
       "thumbnail": "/images/video-thumb-1.jpg",
       "unlockDate": "2025-08-24T17:41:50Z"
     },
     {
       "id": 2,
       "youtubeId": "VIDEO_ID_2",
-      "title": "Lactancia materna",
-      "description": "Guía completa sobre posiciones y técnicas para una lactancia exitosa",
-      "tags": ["Lactancia", "Maternidad"],
+      "title": "Buen agarre",
+      "description": "Cómo conseguir un buen agarre desde el principio.",
+      "tags": ["Día 2"],
       "thumbnail": "/images/video-thumb-2.jpg",
       "unlockDate": "2025-09-01T10:00:00Z"
     },
     {
       "id": 3,
       "youtubeId": "VIDEO_ID_3",
-      "title": "Yoga prenatal",
-      "description": "Ejercicios suaves para mantener tu cuerpo flexible y preparado",
-      "tags": ["Yoga", "Embarazo"],
+      "title": "Banco de leche",
+      "description": "Cómo crear tu propio banco de leche y cómo conservarla.",
+      "tags": ["Día 3"],
       "thumbnail": "/images/video-thumb-3.jpg",
       "unlockDate": "2025-09-02T10:00:00Z"
     },
     {
       "id": 4,
       "youtubeId": "VIDEO_ID_4",
-      "title": "Piel con piel",
-      "description": "La importancia del contacto en los primeros momentos de vida",
-      "tags": ["Vínculo", "Recién nacido"],
+      "title": "Destete",
+      "description": "Destete respetuoso: cuándo, cómo y por qué.",
+      "tags": ["Día 4"],
       "thumbnail": "/images/video-thumb-4.jpg",
       "unlockDate": "2025-09-03T10:00:00Z"
     }

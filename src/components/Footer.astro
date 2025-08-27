@@ -17,7 +17,7 @@ import Logo from "../assets/iconos/ilustracion-negro_27.svg"
 						<img src="/images/logos/logo_sello_fullcolor.svg" alt="Femm Tribu Logo" class="mb-8" />
 					</div>
 					<p class="brand-description">
-						Apoyando a las madres en su camino con un cuidado compasivo y una fuerza inquebrantable.
+						Una <i>guía femenina integral</i> para todo el viaje corporal y emocional de ser mujer.
 					</p>
 				</div>
 
@@ -101,482 +101,482 @@ import Logo from "../assets/iconos/ilustracion-negro_27.svg"
 			</div>
 		</div>
 	</div>
-</footer>
 
-<style>
-	.footer {
-		background: linear-gradient(135deg, #37443a 0%, #6a8067 100%);
-		color: #fff5eb;
-		position: relative;
-		overflow: hidden;
-	}
-
-	/* Decorative background pattern */
-	.footer::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background-image:
-			radial-gradient(circle at 20% 30%, rgba(255, 245, 235, 0.05) 0%, transparent 50%),
-			radial-gradient(circle at 80% 70%, rgba(203, 110, 95, 0.08) 0%, transparent 60%);
-		pointer-events: none;
-	}
-
-	.footer-container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 60px 20px 0;
-		position: relative;
-		z-index: 1;
-	}
-
-	.footer-content {
-		position: relative;
-		z-index: 2;
-	}
-
-	/* Floating decorative elements */
-	.floating-element {
-		position: absolute;
-		border: 1px solid rgba(255, 245, 235, 0.1);
-		border-radius: 50%;
-		pointer-events: none;
-	}
-
-	.floating-element.one {
-		width: 120px;
-		height: 120px;
-		top: 10%;
-		right: 5%;
-		animation: float-slow 20s ease-in-out infinite;
-	}
-
-	.floating-element.two {
-		width: 80px;
-		height: 80px;
-		bottom: 20%;
-		left: 8%;
-		animation: float-slow 25s ease-in-out infinite reverse;
-	}
-
-	.disabled-link {
-		pointer-events: none;
-		opacity: 0.6;
-		cursor: default;
-	}
-
-	@keyframes float-slow {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg);
-			opacity: 0.3;
-		}
-		25% {
-			transform: translate(10px, -15px) rotate(90deg);
-			opacity: 0.5;
-		}
-		50% {
-			transform: translate(-5px, 10px) rotate(180deg);
-			opacity: 0.4;
-		}
-		75% {
-			transform: translate(15px, 5px) rotate(270deg);
-			opacity: 0.6;
-		}
-	}
-
-	/* Main footer content */
-	.footer-main {
-		display: grid;
-		grid-template-columns: 1fr 1fr 300px;
-		gap: 60px;
-		margin-bottom: 50px;
-	}
-
-	.footer-brand {
-		max-width: 350px;
-	}
-
-	.logo-wrapper {
-		width: 250px;
-		height: 250px;
-		opacity: 0.8;
-	}
-
-	.logo-wrapper svg {
-		width: 100%;
-		height: 100%;
-		fill: #fff5eb;
-	}
-
-	.footer-brand h3 {
-		font-family: "The Seasons", serif;
-		font-size: 1.8rem;
-		font-weight: 400;
-		margin-bottom: 15px;
-		color: #fff5eb;
-		letter-spacing: 0.5px;
-	}
-
-	.brand-description {
-		font-family: "Questrial", sans-serif;
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: rgba(255, 245, 235, 0.8);
-	}
-
-	.footer-links {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 40px;
-	}
-
-	.links-section h4 {
-		font-family: "The Seasons", serif;
-		font-size: 1.1rem;
-		font-weight: 400;
-		margin-bottom: 20px;
-		color: #fff5eb;
-		letter-spacing: 0.5px;
-	}
-
-	.links-section ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	.links-section li {
-		margin-bottom: 12px;
-	}
-
-	.links-section a {
-		font-family: "Questrial", sans-serif;
-		color: rgba(255, 245, 235, 0.8);
-		text-decoration: none;
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
-		position: relative;
-	}
-
-	.links-section a::before {
-		content: "";
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 0;
-		height: 1px;
-		background: #cb6e5f;
-		transition: width 0.3s ease;
-	}
-
-	.links-section a:hover {
-		color: #fff5eb;
-		transform: translateX(5px);
-	}
-
-	.links-section a:hover::before {
-		width: 100%;
-	}
-
-	/* Newsletter section */
-	.footer-newsletter {
-		background: rgba(255, 245, 235, 0.05);
-		padding: 30px;
-		border-radius: 20px;
-		border: 1px solid rgba(255, 245, 235, 0.1);
-	}
-
-	.footer-newsletter h4 {
-		font-family: "The Seasons", serif;
-		font-size: 1.1rem;
-		font-weight: 400;
-		margin-bottom: 10px;
-		color: #fff5eb;
-		letter-spacing: 0.5px;
-	}
-
-	.footer-newsletter p {
-		font-family: "Questrial", sans-serif;
-		font-size: 0.9rem;
-		color: rgba(255, 245, 235, 0.8);
-		margin-bottom: 20px;
-		line-height: 1.5;
-	}
-
-	.newsletter-form {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-
-	.newsletter-input {
-		padding: 12px 16px;
-		border: 1px solid rgba(255, 245, 235, 0.2);
-		border-radius: 25px;
-		background: rgba(255, 245, 235, 0.1);
-		color: #fff5eb;
-		font-family: "Questrial", sans-serif;
-		font-size: 0.9rem;
-		outline: none;
-		transition: all 0.3s ease;
-	}
-
-	.newsletter-input::placeholder {
-		color: rgba(255, 245, 235, 0.5);
-	}
-
-	.newsletter-input:focus {
-		border-color: #cb6e5f;
-		background: rgba(255, 245, 235, 0.15);
-		box-shadow: 0 0 0 2px rgba(203, 110, 95, 0.2);
-	}
-
-	.newsletter-button {
-		padding: 12px 20px;
-		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
-		color: white;
-		border: none;
-		border-radius: 25px;
-		font-family: "Questrial", sans-serif;
-		font-size: 0.9rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		position: relative;
-		overflow: hidden;
-	}
-
-	.newsletter-button::before {
-		content: "";
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 0;
-		height: 0;
-		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.2);
-		transform: translate(-50%, -50%);
-		transition:
-			width 0.5s,
-			height 0.5s;
-	}
-
-	.newsletter-button:hover::before {
-		width: 200px;
-		height: 200px;
-	}
-
-	.newsletter-button:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 20px rgba(203, 110, 95, 0.3);
-	}
-
-	/* Social media section */
-	.footer-social {
-		padding: 30px 0;
-		border-top: 1px solid rgba(255, 245, 235, 0.1);
-		border-bottom: 1px solid rgba(255, 245, 235, 0.1);
-		margin-bottom: 30px;
-	}
-
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 25px;
-	}
-
-	.social-link {
-		width: 45px;
-		height: 45px;
-		border-radius: 50%;
-		background: rgba(255, 245, 235, 0.1);
-		border: 1px solid rgba(255, 245, 235, 0.2);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: rgba(255, 245, 235, 0.8);
-		transition: all 0.3s ease;
-		text-decoration: none;
-	}
-
-	.social-link svg {
-		width: 20px;
-		height: 20px;
-	}
-
-	.social-link:hover {
-		background: #cb6e5f;
-		border-color: #cb6e5f;
-		color: white;
-		transform: translateY(-3px);
-		box-shadow: 0 5px 15px rgba(203, 110, 95, 0.4);
-	}
-
-	/* Bottom section */
-	.footer-bottom {
-		text-align: center;
-		padding-bottom: 40px;
-	}
-
-	.footer-bottom-content {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-wrap: wrap;
-		gap: 20px;
-	}
-
-	.copyright,
-	.made-with-love {
-		font-family: "Questrial", sans-serif;
-		font-size: 0.85rem;
-		color: rgba(255, 245, 235, 0.6);
-		margin: 0;
-	}
-
-	.made-with-love {
-		font-style: italic;
-	}
-
-	/* Responsive design */
-	@media (max-width: 1024px) {
-		.footer-main {
-			grid-template-columns: 1fr 1fr;
-			gap: 40px;
+	<style>
+		.footer {
+			background: linear-gradient(135deg, #37443a 0%, #6a8067 100%);
+			color: #fff5eb;
+			position: relative;
+			overflow: hidden;
 		}
 
-		.footer-newsletter {
-			grid-column: 1 / -1;
-			max-width: 400px;
-			margin: 0 auto;
+		/* Decorative background pattern */
+		.footer::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-image:
+				radial-gradient(circle at 20% 30%, rgba(255, 245, 235, 0.05) 0%, transparent 50%),
+				radial-gradient(circle at 80% 70%, rgba(203, 110, 95, 0.08) 0%, transparent 60%);
+			pointer-events: none;
 		}
 
-		.footer-links {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 30px;
-		}
-	}
-
-	@media (max-width: 768px) {
 		.footer-container {
-			padding: 40px 15px 0;
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 60px 20px 0;
+			position: relative;
+			z-index: 1;
 		}
 
+		.footer-content {
+			position: relative;
+			z-index: 2;
+		}
+
+		/* Floating decorative elements */
+		.floating-element {
+			position: absolute;
+			border: 1px solid rgba(255, 245, 235, 0.1);
+			border-radius: 50%;
+			pointer-events: none;
+		}
+
+		.floating-element.one {
+			width: 120px;
+			height: 120px;
+			top: 10%;
+			right: 5%;
+			animation: float-slow 20s ease-in-out infinite;
+		}
+
+		.floating-element.two {
+			width: 80px;
+			height: 80px;
+			bottom: 20%;
+			left: 8%;
+			animation: float-slow 25s ease-in-out infinite reverse;
+		}
+
+		.disabled-link {
+			pointer-events: none;
+			opacity: 0.6;
+			cursor: default;
+		}
+
+		@keyframes float-slow {
+			0%,
+			100% {
+				transform: translate(0, 0) rotate(0deg);
+				opacity: 0.3;
+			}
+			25% {
+				transform: translate(10px, -15px) rotate(90deg);
+				opacity: 0.5;
+			}
+			50% {
+				transform: translate(-5px, 10px) rotate(180deg);
+				opacity: 0.4;
+			}
+			75% {
+				transform: translate(15px, 5px) rotate(270deg);
+				opacity: 0.6;
+			}
+		}
+
+		/* Main footer content */
 		.footer-main {
-			grid-template-columns: 1fr;
-			gap: 40px;
-			text-align: center;
+			display: grid;
+			grid-template-columns: 1fr 1fr 300px;
+			gap: 60px;
+			margin-bottom: 50px;
 		}
 
 		.footer-brand {
-			max-width: none;
-		}
-
-		.footer-links {
-			grid-template-columns: 1fr;
-			gap: 30px;
-		}
-
-		.footer-newsletter {
-			text-align: left;
+			max-width: 350px;
 		}
 
 		.logo-wrapper {
 			width: 250px;
 			height: 250px;
 			opacity: 0.8;
-			margin: 0 auto;
 		}
 
-		.newsletter-form {
-			gap: 15px;
-		}
-
-		.social-links {
-			gap: 20px;
-		}
-
-		.footer-bottom-content {
-			flex-direction: column;
-			text-align: center;
-			gap: 10px;
-		}
-
-		.floating-element {
-			display: none;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.footer-container {
-			padding: 30px 10px 0;
+		.logo-wrapper svg {
+			width: 100%;
+			height: 100%;
+			fill: #fff5eb;
 		}
 
 		.footer-brand h3 {
-			font-size: 1.5rem;
+			font-family: "The Seasons", serif;
+			font-size: 1.8rem;
+			font-weight: 400;
+			margin-bottom: 15px;
+			color: #fff5eb;
+			letter-spacing: 0.5px;
 		}
 
+		.brand-description {
+			font-family: "Questrial", sans-serif;
+			font-size: 0.95rem;
+			line-height: 1.6;
+			color: rgba(255, 245, 235, 0.8);
+		}
+
+		.footer-links {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 40px;
+		}
+
+		.links-section h4 {
+			font-family: "The Seasons", serif;
+			font-size: 1.1rem;
+			font-weight: 400;
+			margin-bottom: 20px;
+			color: #fff5eb;
+			letter-spacing: 0.5px;
+		}
+
+		.links-section ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		.links-section li {
+			margin-bottom: 12px;
+		}
+
+		.links-section a {
+			font-family: "Questrial", sans-serif;
+			color: rgba(255, 245, 235, 0.8);
+			text-decoration: none;
+			font-size: 0.9rem;
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.links-section a::before {
+			content: "";
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 0;
+			height: 1px;
+			background: #cb6e5f;
+			transition: width 0.3s ease;
+		}
+
+		.links-section a:hover {
+			color: #fff5eb;
+			transform: translateX(5px);
+		}
+
+		.links-section a:hover::before {
+			width: 100%;
+		}
+
+		/* Newsletter section */
 		.footer-newsletter {
-			padding: 25px 20px;
+			background: rgba(255, 245, 235, 0.05);
+			padding: 30px;
+			border-radius: 20px;
+			border: 1px solid rgba(255, 245, 235, 0.1);
+		}
+
+		.footer-newsletter h4 {
+			font-family: "The Seasons", serif;
+			font-size: 1.1rem;
+			font-weight: 400;
+			margin-bottom: 10px;
+			color: #fff5eb;
+			letter-spacing: 0.5px;
+		}
+
+		.footer-newsletter p {
+			font-family: "Questrial", sans-serif;
+			font-size: 0.9rem;
+			color: rgba(255, 245, 235, 0.8);
+			margin-bottom: 20px;
+			line-height: 1.5;
+		}
+
+		.newsletter-form {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		.newsletter-input {
+			padding: 12px 16px;
+			border: 1px solid rgba(255, 245, 235, 0.2);
+			border-radius: 25px;
+			background: rgba(255, 245, 235, 0.1);
+			color: #fff5eb;
+			font-family: "Questrial", sans-serif;
+			font-size: 0.9rem;
+			outline: none;
+			transition: all 0.3s ease;
+		}
+
+		.newsletter-input::placeholder {
+			color: rgba(255, 245, 235, 0.5);
+		}
+
+		.newsletter-input:focus {
+			border-color: #cb6e5f;
+			background: rgba(255, 245, 235, 0.15);
+			box-shadow: 0 0 0 2px rgba(203, 110, 95, 0.2);
+		}
+
+		.newsletter-button {
+			padding: 12px 20px;
+			background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+			color: white;
+			border: none;
+			border-radius: 25px;
+			font-family: "Questrial", sans-serif;
+			font-size: 0.9rem;
+			font-weight: 500;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.newsletter-button::before {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 0;
+			height: 0;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.2);
+			transform: translate(-50%, -50%);
+			transition:
+				width 0.5s,
+				height 0.5s;
+		}
+
+		.newsletter-button:hover::before {
+			width: 200px;
+			height: 200px;
+		}
+
+		.newsletter-button:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(203, 110, 95, 0.3);
+		}
+
+		/* Social media section */
+		.footer-social {
+			padding: 30px 0;
+			border-top: 1px solid rgba(255, 245, 235, 0.1);
+			border-bottom: 1px solid rgba(255, 245, 235, 0.1);
+			margin-bottom: 30px;
+		}
+
+		.social-links {
+			display: flex;
+			justify-content: center;
+			gap: 25px;
 		}
 
 		.social-link {
-			width: 40px;
-			height: 40px;
+			width: 45px;
+			height: 45px;
+			border-radius: 50%;
+			background: rgba(255, 245, 235, 0.1);
+			border: 1px solid rgba(255, 245, 235, 0.2);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: rgba(255, 245, 235, 0.8);
+			transition: all 0.3s ease;
+			text-decoration: none;
 		}
 
 		.social-link svg {
-			width: 18px;
-			height: 18px;
+			width: 20px;
+			height: 20px;
 		}
-	}
-</style>
 
-<script>
-	// Newsletter form handling
-	document.addEventListener("DOMContentLoaded", () => {
-		const newsletterForm = document.querySelector(".newsletter-form") as HTMLFormElement
-		const newsletterInput = document.querySelector(".newsletter-input") as HTMLInputElement
-		const newsletterButton = document.querySelector(".newsletter-button") as HTMLButtonElement
-
-		if (newsletterForm) {
-			newsletterForm.addEventListener("submit", async (e) => {
-				e.preventDefault()
-
-				const email = newsletterInput.value.trim()
-				if (!email) return
-
-				// Show loading state
-				const originalText = newsletterButton.textContent
-				newsletterButton.textContent = "Suscribiendo..."
-				newsletterButton.disabled = true
-
-				try {
-					// Here you would typically send the email to your backend
-					// For now, we'll simulate a successful subscription
-					await new Promise((resolve) => setTimeout(resolve, 1500))
-
-					newsletterButton.textContent = "¡Suscrita!"
-					newsletterInput.value = ""
-
-					setTimeout(() => {
-						newsletterButton.textContent = originalText
-						newsletterButton.disabled = false
-					}, 2000)
-				} catch (error) {
-					console.error("Newsletter subscription error:", error)
-					newsletterButton.textContent = "Error - Intenta de nuevo"
-
-					setTimeout(() => {
-						newsletterButton.textContent = originalText
-						newsletterButton.disabled = false
-					}, 2000)
-				}
-			})
+		.social-link:hover {
+			background: #cb6e5f;
+			border-color: #cb6e5f;
+			color: white;
+			transform: translateY(-3px);
+			box-shadow: 0 5px 15px rgba(203, 110, 95, 0.4);
 		}
-	})
-</script>
+
+		/* Bottom section */
+		.footer-bottom {
+			text-align: center;
+			padding-bottom: 40px;
+		}
+
+		.footer-bottom-content {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+
+		.copyright,
+		.made-with-love {
+			font-family: "Questrial", sans-serif;
+			font-size: 0.85rem;
+			color: rgba(255, 245, 235, 0.6);
+			margin: 0;
+		}
+
+		.made-with-love {
+			font-style: italic;
+		}
+
+		/* Responsive design */
+		@media (max-width: 1024px) {
+			.footer-main {
+				grid-template-columns: 1fr 1fr;
+				gap: 40px;
+			}
+
+			.footer-newsletter {
+				grid-column: 1 / -1;
+				max-width: 400px;
+				margin: 0 auto;
+			}
+
+			.footer-links {
+				grid-template-columns: repeat(2, 1fr);
+				gap: 30px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.footer-container {
+				padding: 40px 15px 0;
+			}
+
+			.footer-main {
+				grid-template-columns: 1fr;
+				gap: 40px;
+				text-align: center;
+			}
+
+			.footer-brand {
+				max-width: none;
+			}
+
+			.footer-links {
+				grid-template-columns: 1fr;
+				gap: 30px;
+			}
+
+			.footer-newsletter {
+				text-align: left;
+			}
+
+			.logo-wrapper {
+				width: 250px;
+				height: 250px;
+				opacity: 0.8;
+				margin: 0 auto;
+			}
+
+			.newsletter-form {
+				gap: 15px;
+			}
+
+			.social-links {
+				gap: 20px;
+			}
+
+			.footer-bottom-content {
+				flex-direction: column;
+				text-align: center;
+				gap: 10px;
+			}
+
+			.floating-element {
+				display: none;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.footer-container {
+				padding: 30px 10px 0;
+			}
+
+			.footer-brand h3 {
+				font-size: 1.5rem;
+			}
+
+			.footer-newsletter {
+				padding: 25px 20px;
+			}
+
+			.social-link {
+				width: 40px;
+				height: 40px;
+			}
+
+			.social-link svg {
+				width: 18px;
+				height: 18px;
+			}
+		}
+	</style>
+
+	<script>
+		// Newsletter form handling
+		document.addEventListener("DOMContentLoaded", () => {
+			const newsletterForm = document.querySelector(".newsletter-form") as HTMLFormElement
+			const newsletterInput = document.querySelector(".newsletter-input") as HTMLInputElement
+			const newsletterButton = document.querySelector(".newsletter-button") as HTMLButtonElement
+
+			if (newsletterForm) {
+				newsletterForm.addEventListener("submit", async (e) => {
+					e.preventDefault()
+
+					const email = newsletterInput.value.trim()
+					if (!email) return
+
+					// Show loading state
+					const originalText = newsletterButton.textContent
+					newsletterButton.textContent = "Suscribiendo..."
+					newsletterButton.disabled = true
+
+					try {
+						// Here you would typically send the email to your backend
+						// For now, we'll simulate a successful subscription
+						await new Promise((resolve) => setTimeout(resolve, 1500))
+
+						newsletterButton.textContent = "¡Suscrita!"
+						newsletterInput.value = ""
+
+						setTimeout(() => {
+							newsletterButton.textContent = originalText
+							newsletterButton.disabled = false
+						}, 2000)
+					} catch (error) {
+						console.error("Newsletter subscription error:", error)
+						newsletterButton.textContent = "Error - Intenta de nuevo"
+
+						setTimeout(() => {
+							newsletterButton.textContent = originalText
+							newsletterButton.disabled = false
+						}, 2000)
+					}
+				})
+			}
+		})
+	</script>
+</footer>

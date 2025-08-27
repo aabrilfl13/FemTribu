@@ -38,10 +38,9 @@
 
 					<div class="intro-text">
 						<p class="lead-paragraph">
-							Soy María, matrona con más de 8 años acompañando a mujeres en su viaje más
-							transformador: la maternidad. Mi misión es crear espacios seguros donde cada madre
-							pueda conectar con su sabiduría interior y vivir esta experiencia desde el
-							empoderamiento y la confianza.
+							Soy María, matrona, y acompaño a mujeres en su viaje más transformador: la maternidad.
+							Mi misión es crear espacios seguros donde cada madre pueda conectar con su sabiduría
+							interior y vivir esta experiencia desde el empoderamiento y la confianza.
 						</p>
 
 						<p>
@@ -58,29 +57,38 @@
 							<li>
 								<span class="credential-icon">🎓</span>
 								<div>
-									<strong>Diplomatura en Enfermería</strong>
-									<span>Universidad de Valencia</span>
+									<strong>Graduada en Enfermería</strong>
+									<span>Escuela de Enfermería La Fe</span>
 								</div>
 							</li>
 							<li>
 								<span class="credential-icon">👶</span>
 								<div>
 									<strong>Especialización en Obstetricia y Ginecología</strong>
-									<span>Hospital Universitario La Fe</span>
+									<span>Hospital Can Misses de Ibiza</span>
 								</div>
 							</li>
 							<li>
 								<span class="credential-icon">🤱</span>
 								<div>
-									<strong>Certificación en Lactancia Materna IBCLC</strong>
-									<span>International Board of Lactation Consultant Examiners</span>
+									<strong>Master en Lactancia Materna Avanzada</strong>
+									<span>IFSES</span>
 								</div>
 							</li>
-							<li>
-								<span class="credential-icon">🧘</span>
+							<li class="current-role">
+								<span class="credential-icon">🏥</span>
 								<div>
-									<strong>Formación en Yoga Prenatal y Mindfulness</strong>
-									<span>Asociación Española de Matronas</span>
+									<strong>Matrona en Paritorio</strong>
+									<span>Valencia</span>
+									<span class="current-badge">Actualmente</span>
+								</div>
+							</li>
+							<li class="current-role">
+								<span class="credential-icon">🤱</span>
+								<div>
+									<strong>Consultas y Asesorías de Lactancia</strong>
+									<span>Trabajo autónomo</span>
+									<span class="current-badge">Actualmente</span>
 								</div>
 							</li>
 						</ul>
@@ -91,11 +99,22 @@
 	</div>
 </section>
 <style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: "Questrial", sans-serif;
+	}
+
 	.section {
 		padding: 80px 20px;
 		background: #fff5eb;
 		position: relative;
 		overflow: visible;
+		min-height: 100vh;
 	}
 
 	/* Patrón de fondo */
@@ -197,10 +216,8 @@
 		pointer-events: none;
 	}
 
-	.icon-decoration img {
-		width: 55px;
-		height: 55px;
-		filter: sepia(0.3) hue-rotate(20deg) saturate(1.2);
+	.icon-placeholder {
+		font-size: 2.5rem;
 		z-index: 1;
 		position: relative;
 	}
@@ -226,6 +243,28 @@
 		}
 	}
 
+	@keyframes icon-mystic-pulse {
+		0%,
+		100% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.05);
+		}
+	}
+
+	@keyframes mystic-glow {
+		0% {
+			transform: rotate(0deg) scale(1);
+		}
+		50% {
+			transform: rotate(180deg) scale(1.1);
+		}
+		100% {
+			transform: rotate(360deg) scale(1);
+		}
+	}
+
 	.intro-content {
 		padding-top: 20px;
 	}
@@ -235,7 +274,7 @@
 	}
 
 	.title-section h2 {
-		font-family: "The Seasons", serif;
+		font-family: serif;
 		font-size: 3rem;
 		color: #37443a;
 		font-weight: 300;
@@ -263,7 +302,7 @@
 	}
 
 	.subtitle-wrapper h3 {
-		font-family: "The Seasons", serif;
+		font-family: serif;
 		font-size: 1.8rem;
 		color: #cb6e5f;
 		font-weight: 400;
@@ -300,7 +339,7 @@
 
 	/* Credenciales */
 	.credentials h4 {
-		font-family: "The Seasons", serif;
+		font-family: serif;
 		font-size: 1.3rem;
 		color: #37443a;
 		margin-bottom: 20px;
@@ -323,6 +362,7 @@
 		border-radius: 15px;
 		border-left: 4px solid #cb6e5f;
 		transition: all 0.3s ease;
+		position: relative;
 	}
 
 	.credentials-list li:hover {
@@ -331,10 +371,62 @@
 		box-shadow: 0 5px 20px rgba(55, 68, 58, 0.1);
 	}
 
+	/* Highlighting for current roles */
+	.credentials-list li.current-role {
+		background: linear-gradient(
+			135deg,
+			rgba(203, 110, 95, 0.08) 0%,
+			rgba(213, 161, 142, 0.05) 100%
+		);
+		border-left: 4px solid #cb6e5f;
+		box-shadow: 0 8px 25px rgba(203, 110, 95, 0.15);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.credentials-list li.current-role::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(
+			45deg,
+			transparent 0%,
+			rgba(203, 110, 95, 0.03) 50%,
+			transparent 100%
+		);
+		animation: shimmer 3s ease-in-out infinite;
+		pointer-events: none;
+	}
+
+	@keyframes shimmer {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+	}
+
+	.credentials-list li.current-role:hover {
+		background: linear-gradient(
+			135deg,
+			rgba(203, 110, 95, 0.12) 0%,
+			rgba(213, 161, 142, 0.08) 100%
+		);
+		transform: translateX(8px);
+		box-shadow: 0 12px 35px rgba(203, 110, 95, 0.2);
+	}
+
 	.credential-icon {
 		font-size: 1.5rem;
 		line-height: 1;
 		margin-top: 2px;
+		z-index: 1;
+		position: relative;
 	}
 
 	.credentials-list strong {
@@ -342,12 +434,60 @@
 		color: #37443a;
 		font-weight: 500;
 		margin-bottom: 3px;
+		position: relative;
+		z-index: 1;
 	}
 
-	.credentials-list span:not(.credential-icon) {
+	.credentials-list span:not(.credential-icon):not(.current-badge) {
 		color: #6a8067;
 		font-size: 0.9rem;
+		position: relative;
+		z-index: 1;
 	}
+
+	/* Current badge styling */
+	.current-badge {
+		display: inline-block;
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		color: white;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+		padding: 4px 12px;
+		border-radius: 20px;
+		margin-top: 8px;
+		box-shadow: 0 2px 8px rgba(203, 110, 95, 0.3);
+		animation: badge-pulse 2s ease-in-out infinite;
+		position: relative;
+		z-index: 2;
+	}
+
+	@keyframes badge-pulse {
+		0%,
+		100% {
+			transform: scale(1);
+			box-shadow: 0 2px 8px rgba(203, 110, 95, 0.3);
+		}
+		50% {
+			transform: scale(1.02);
+			box-shadow: 0 4px 12px rgba(203, 110, 95, 0.4);
+		}
+	}
+
+	/* Alternative highlighting options (commented out) */
+	/*
+	.credentials-list li.current-role {
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		color: white;
+		border-left: 4px solid #37443a;
+	}
+
+	.credentials-list li.current-role strong,
+	.credentials-list li.current-role span:not(.credential-icon) {
+		color: white;
+	}
+	*/
 
 	/* Responsive Design */
 	@media (max-width: 1024px) {
