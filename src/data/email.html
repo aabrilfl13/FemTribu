@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Bienvenida a Femm Tribu</title>
 		<style>
-			@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+			@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Playfair+Display:wght@400;700&display=swap");
 
 			body {
 				margin: 0;
@@ -29,6 +29,10 @@
 
 				.content {
 					background-color: #24322a;
+				}
+
+				.company-name {
+					color: #fff5eb;
 				}
 
 				.welcome-title {
@@ -83,7 +87,7 @@
 
 			.header {
 				background: linear-gradient(135deg, #fff5eb 0%, #d5a18e 100%);
-				padding: 20px 10px;
+				padding: 40px 30px;
 				text-align: center;
 				position: relative;
 			}
@@ -99,16 +103,24 @@
 				opacity: 0.3;
 			}
 
-			.logo {
+			.company-name {
 				position: relative;
 				z-index: 2;
+				color: #37443a;
+				font-family: "Playfair Display", serif;
+				font-size: 42px;
+				font-weight: 700;
+				margin: 0;
+				letter-spacing: 1px;
 			}
 
-			.logo-icon {
-				width: 100%;
-				height: 150px;
-				margin: 0;
-				fill: #cb6e5f;
+			.company-tagline {
+				position: relative;
+				z-index: 2;
+				color: #6a8067;
+				font-size: 16px;
+				margin-top: 10px;
+				font-style: italic;
 			}
 
 			.content {
@@ -312,13 +324,7 @@
 		<div class="container">
 			<!-- Header -->
 			<div class="header">
-				<div class="logo">
-					<img
-						src="https://femm-tribu.vercel.app/images/logos/logo_principal_fullcolor.svg"
-						alt="Femm Tribu Logo"
-						class="logo-icon"
-					/>
-				</div>
+				<h1 class="company-name">Femm Tribu</h1>
 			</div>
 
 			<!-- Content -->
