@@ -32,16 +32,18 @@ import Footer from "../components/Footer.astro"
 						<nav>
 							<ul>
 								<li><a href="#que-son-cookies">1. ¿Qué son las Cookies?</a></li>
-								<li><a href="#tipos-cookies">2. Tipos de Cookies</a></li>
-								<li><a href="#finalidades">3. Finalidades del Tratamiento</a></li>
-								<li><a href="#base-legal">4. Base Legal</a></li>
-								<li><a href="#gestion-control">5. Gestión y Control</a></li>
-								<li><a href="#dispositivos-moviles">6. Dispositivos Móviles</a></li>
-								<li><a href="#almacenamiento-local">7. Almacenamiento Local</a></li>
-								<li><a href="#consecuencias">8. Consecuencias de Desactivar</a></li>
-								<li><a href="#transferencias">9. Transferencias Internacionales</a></li>
-								<li><a href="#actualizaciones">10. Actualización de la Política</a></li>
-								<li><a href="#contacto">11. Contacto</a></li>
+								<li><a href="#tecnologias-actuales">2. Tecnologías que Utilizamos</a></li>
+								<li><a href="#almacenamiento-local">3. Almacenamiento Local</a></li>
+								<li><a href="#servicios-terceros">4. Servicios de Terceros</a></li>
+								<li><a href="#finalidades">5. Finalidades del Tratamiento</a></li>
+								<li><a href="#base-legal">6. Base Legal</a></li>
+								<li><a href="#gestion-control">7. Gestión y Control</a></li>
+								<li><a href="#dispositivos-moviles">8. Dispositivos Móviles</a></li>
+								<li><a href="#consecuencias">9. Consecuencias de Desactivar</a></li>
+								<li><a href="#transferencias">10. Transferencias Internacionales</a></li>
+								<li><a href="#futuras-implementaciones">11. Futuras Implementaciones</a></li>
+								<li><a href="#actualizaciones">12. Actualización de la Política</a></li>
+								<li><a href="#contacto">13. Contacto</a></li>
 							</ul>
 						</nav>
 					</aside>
@@ -52,393 +54,1123 @@ import Footer from "../components/Footer.astro"
 							<h2>1. ¿Qué son las Cookies?</h2>
 							<p>
 								Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando
-								visitas nuestro sitio web. Nos ayudan a mejorar tu experiencia de navegación,
-								recordar tus preferencias y entender cómo utilizas nuestro sitio.
+								visitas nuestro sitio web. En Femm Tribu, utilizamos principalmente tecnologías de
+								almacenamiento local del navegador (localStorage) en lugar de cookies tradicionales.
 							</p>
 							<p>
-								Las cookies pueden ser propias (establecidas por Femm Tribu) o de terceros
-								(establecidas por otros servicios que utilizamos).
+								Estas tecnologías nos permiten ofrecerte una experiencia personalizada, recordar tus
+								preferencias y gestionar el acceso temporal a nuestro contenido educativo.
 							</p>
 						</section>
 
-						<section id="tipos-cookies">
-							<h2>2. Tipos de Cookies que Utilizamos</h2>
+						<section id="tecnologias-actuales">
+							<h2>2. Tecnologías que Utilizamos Actualmente</h2>
 
-							<h3>2.1 Cookies Esenciales (Técnicamente Necesarias)</h3>
-							<p>
-								Estas cookies son imprescindibles para el correcto funcionamiento del sitio web y no
-								se pueden desactivar.
-							</p>
-
-							<div class="cookies-table">
+							<h3>2.1 Almacenamiento Local Propio</h3>
+							<div class="current-tech-table">
 								<table>
 									<thead>
 										<tr>
-											<th>Cookie</th>
+											<th>Tecnología</th>
 											<th>Propósito</th>
 											<th>Duración</th>
-											<th>Proveedor</th>
+											<th>Tipo</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><code>videoAccess</code></td>
-											<td>Controla el acceso temporal a los recursos de video</td>
-											<td>30 minutos*</td>
-											<td>Femm Tribu (localStorage)</td>
-										</tr>
-										<tr>
-											<td><code>femm-session</code></td>
-											<td>Mantiene la sesión del usuario durante la navegación</td>
-											<td>Sesión</td>
-											<td>Femm Tribu</td>
+											<td><code>videoAccess</code> (localStorage)</td>
+											<td>
+												Controla el acceso temporal al curso "Prepárate para amamantar". Almacena
+												estado de verificación y código de acceso.
+											</td>
+											<td>
+												30 segundos (fase de pruebas)<br />
+												30 minutos (producción)
+											</td>
+											<td>Esencial</td>
 										</tr>
 									</tbody>
 								</table>
-								<p class="table-note">
-									*Nota: Durante la fase de pruebas, el acceso expira en 30 segundos. En producción
-									será de 30 minutos.
+							</div>
+
+							<div class="info-box">
+								<p>
+									<strong>Nota sobre duración:</strong> Durante la fase de desarrollo y pruebas, el acceso
+									a los videos expira en 30 segundos para facilitar las pruebas. Una vez en producción,
+									este tiempo se extenderá a 30 minutos.
 								</p>
 							</div>
 
-							<h3>2.2 Cookies de Análisis y Rendimiento</h3>
-							<p>
-								Estas cookies nos ayudan a entender cómo los visitantes interactúan con nuestro
-								sitio web.
-							</p>
-
-							<div class="cookies-table">
+							<h3>2.2 Cookies de Sesión Básicas</h3>
+							<div class="current-tech-table">
 								<table>
 									<thead>
 										<tr>
 											<th>Cookie</th>
 											<th>Propósito</th>
 											<th>Duración</th>
-											<th>Proveedor</th>
+											<th>Tipo</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><code>_ga</code></td>
-											<td>Distingue usuarios únicos</td>
-											<td>2 años</td>
-											<td>Google Analytics</td>
-										</tr>
-										<tr>
-											<td><code>_ga_XXXXXXXXXX</code></td>
-											<td>Mantiene el estado de la sesión</td>
-											<td>2 años</td>
-											<td>Google Analytics</td>
-										</tr>
-										<tr>
-											<td><code>_gid</code></td>
-											<td>Distingue usuarios únicos</td>
-											<td>24 horas</td>
-											<td>Google Analytics</td>
-										</tr>
-										<tr>
-											<td><code>_gat_gtag_XX</code></td>
-											<td>Limita la velocidad de solicitudes</td>
-											<td>1 minuto</td>
-											<td>Google Analytics</td>
+											<td><code>femm-session</code></td>
+											<td>Mantiene la sesión del usuario durante la navegación por el sitio</td>
+											<td>Hasta cerrar navegador</td>
+											<td>Esencial</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
+						</section>
 
-							<h3>2.3 Cookies de Terceros</h3>
+						<section id="almacenamiento-local">
+							<h2>3. Almacenamiento Local Detallado</h2>
+
+							<h3>3.1 ¿Qué es localStorage?</h3>
 							<p>
-								Nuestro sitio web puede incluir contenido de terceros que establecen sus propias
-								cookies.
+								localStorage es una tecnología web que permite almacenar datos directamente en tu
+								navegador. A diferencia de las cookies, estos datos no se envían automáticamente con
+								cada solicitud al servidor.
 							</p>
 
-							<div class="cookies-table">
-								<table>
-									<thead>
-										<tr>
-											<th>Servicio</th>
-											<th>Cookies</th>
-											<th>Propósito</th>
-											<th>Política de Privacidad</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>YouTube</td>
-											<td
-												><code>CONSENT</code>, <code>YSC</code>, <code>VISITOR_INFO1_LIVE</code></td
-											>
-											<td>Reproducción de videos embebidos</td>
-											<td>
-												<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
-													>YouTube Privacy Policy</a
-												>
-											</td>
-										</tr>
-									</tbody>
-								</table>
+							<h3>3.2 Estructura de Datos en localStorage</h3>
+							<div class="code-example">
+								<h4>Ejemplo de datos almacenados:</h4>
+								<pre><code>{'{'}<br />
+								"status": "pending" | "accepted",<br />
+								"email": "tu@email.com",<br />
+								"expires": 1640995200000,<br />
+								"code": "ABC123" | null<br />
+								{'}'}</code></pre>
+							</div>
+
+							<h3>3.3 Gestión Automática</h3>
+							<ul>
+								<li>
+									<strong>Expiración automática</strong>: Los datos se eliminan automáticamente al
+									expirar
+								</li>
+								<li>
+									<strong>Verificación continua</strong>: El sistema verifica cada segundo el estado
+									de acceso
+								</li>
+								<li>
+									<strong>Limpieza de datos</strong>: Los datos inválidos se eliminan
+									automáticamente
+								</li>
+								<li>
+									<strong>Sin seguimiento</strong>: No utilizamos estos datos para rastreo entre
+									sitios
+								</li>
+							</ul>
+						</section>
+
+						<section id="servicios-terceros">
+							<h2>4. Servicios de Terceros</h2>
+
+							<h3>4.1 YouTube (Videos Embebidos)</h3>
+							<div class="third-party-service">
+								<p><strong>Propósito:</strong> Reproducción del curso "Prepárate para amamantar"</p>
+								<p><strong>Videos actuales:</strong></p>
+								<ul>
+									<li>"Pasos básicos" - Cómo funciona la lactancia</li>
+									<li>"Buen agarre" - Técnicas de agarre correcto</li>
+									<li>"Banco de leche" - Conservación y almacenamiento</li>
+									<li>"Destete" - Destete respetuoso</li>
+								</ul>
+
+								<h4>Cookies de YouTube que pueden establecerse:</h4>
+								<div class="youtube-cookies-table">
+									<table>
+										<thead>
+											<tr>
+												<th>Cookie</th>
+												<th>Propósito</th>
+												<th>Duración</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><code>CONSENT</code></td>
+												<td>Almacena estado de consentimiento</td>
+												<td>2 años</td>
+											</tr>
+											<tr>
+												<td><code>YSC</code></td>
+												<td>Sesión única para estadísticas</td>
+												<td>Sesión</td>
+											</tr>
+											<tr>
+												<td><code>VISITOR_INFO1_LIVE</code></td>
+												<td>Estimación del ancho de banda</td>
+												<td>6 meses</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<p>
+									<strong>Control:</strong> Puedes desactivar estas cookies en la configuración de tu
+									cuenta de Google o navegador.
+								</p>
+								<p>
+									<strong>Política de privacidad:</strong>
+									<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
+										>Google Privacy Policy</a>
+								</p>
+							</div>
+
+							<h3>4.2 Vercel (Hosting)</h3>
+							<div class="third-party-service">
+								<p><strong>Propósito:</strong> Hosting y entrega de contenido del sitio web</p>
+								<p><strong>Datos procesados:</strong></p>
+								<ul>
+									<li>Logs de acceso al servidor</li>
+									<li>Métricas de rendimiento</li>
+									<li>Información de errores técnicos</li>
+								</ul>
+								<p><strong>Ubicación:</strong> Servidores en Estados Unidos</p>
+								<p>
+									<strong>Política de privacidad:</strong>
+									<a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener"
+										>Vercel Privacy Policy</a>
+								</p>
 							</div>
 						</section>
 
 						<section id="finalidades">
-							<h2>3. Finalidades del Tratamiento</h2>
-							<p>Utilizamos cookies para:</p>
+							<h2>5. Finalidades del Tratamiento</h2>
+
+							<h3>5.1 Finalidades Esenciales</h3>
 							<ul>
 								<li>
-									<strong>Funcionalidad del sitio</strong>: Recordar tus preferencias y
-									configuraciones
+									<strong>Gestión de acceso al curso</strong>: Control temporal del acceso a los
+									videos educativos
 								</li>
 								<li>
-									<strong>Acceso a contenido</strong>: Gestionar el acceso temporal a recursos
-									exclusivos
+									<strong>Funcionalidad del sitio</strong>: Navegación correcta entre páginas y
+									secciones
 								</li>
 								<li>
-									<strong>Análisis de uso</strong>: Entender cómo navegas por nuestro sitio para
-									mejorarlo
+									<strong>Seguridad</strong>: Prevención de accesos no autorizados y spam
 								</li>
 								<li>
-									<strong>Experiencia de usuario</strong>: Personalizar el contenido según tus
-									intereses
+									<strong>Experiencia de usuario</strong>: Recordar el estado de acceso durante la
+									visita
 								</li>
+							</ul>
+
+							<h3>5.2 Finalidades de Análisis (Futuras)</h3>
+							<p>En futuras versiones, podremos utilizar cookies para:</p>
+							<ul>
+								<li>Entender qué contenido es más útil para nuestras usuarias</li>
+								<li>Optimizar la carga y rendimiento del sitio</li>
+								<li>Identificar problemas técnicos que afecten la experiencia</li>
+								<li>Personalizar recomendaciones de contenido</li>
 							</ul>
 						</section>
 
 						<section id="base-legal">
-							<h2>4. Base Legal</h2>
-							<p>El uso de cookies se basa en:</p>
-							<ul>
-								<li>
-									<strong>Consentimiento</strong>: Para cookies de análisis y marketing (Art. 6.1.a
-									RGPD)
-								</li>
-								<li>
-									<strong>Interés legítimo</strong>: Para cookies de análisis básico (Art. 6.1.f
-									RGPD)
-								</li>
-								<li>
-									<strong>Necesidad contractual</strong>: Para cookies esenciales (Art. 6.1.b RGPD)
-								</li>
-							</ul>
+							<h2>6. Base Legal</h2>
+
+							<div class="legal-bases">
+								<div class="legal-basis-item essential">
+									<h4>Cookies Esenciales</h4>
+									<p><strong>Base legal:</strong> Necesidad contractual (Art. 6.1.b RGPD)</p>
+									<p>
+										Estas son estrictamente necesarias para proporcionar el servicio solicitado
+										(acceso al curso).
+									</p>
+								</div>
+
+								<div class="legal-basis-item analytics">
+									<h4>Tecnologías de Análisis</h4>
+									<p><strong>Base legal:</strong> Interés legítimo (Art. 6.1.f RGPD)</p>
+									<p>Para mejorar nuestros servicios educativos y la experiencia del usuario.</p>
+								</div>
+
+								<div class="legal-basis-item third-party">
+									<h4>Servicios de Terceros</h4>
+									<p>
+										<strong>Base legal:</strong> Consentimiento (Art. 6.1.a RGPD) e Interés legítimo
+									</p>
+									<p>Para la reproducción de videos y funcionalidades integradas necesarias.</p>
+								</div>
+							</div>
 						</section>
 
 						<section id="gestion-control">
-							<h2>5. Gestión y Control de Cookies</h2>
+							<h2>7. Gestión y Control</h2>
 
-							<h3>5.1 Configuración del Navegador</h3>
-							<p>Puedes controlar y eliminar cookies mediante la configuración de tu navegador:</p>
+							<h3>7.1 Control de localStorage</h3>
+							<div class="control-guide">
+								<h4>Para eliminar datos de localStorage:</h4>
+								<ol>
+									<li>Abre las herramientas de desarrollo de tu navegador (F12)</li>
+									<li>Ve a la pestaña "Application" o "Almacenamiento"</li>
+									<li>Busca "Local Storage" en el panel izquierdo</li>
+									<li>Selecciona el dominio de Femm Tribu</li>
+									<li>Elimina el elemento "videoAccess"</li>
+								</ol>
+
+								<h4>Alternativa más sencilla:</h4>
+								<p>
+									Simplemente borra los datos de navegación del sitio web a través de la
+									configuración de tu navegador.
+								</p>
+							</div>
+
+							<h3>7.2 Configuración del Navegador por Navegador</h3>
 
 							<div class="browser-guide">
 								<div class="browser-item">
 									<h4>Google Chrome</h4>
-									<p>Configuración > Privacidad y seguridad > Cookies y otros datos de sitios</p>
+									<ul>
+										<li>
+											Configuración > Privacidad y seguridad > Cookies y otros datos de sitios
+										</li>
+										<li>Configuración > Privacidad y seguridad > Borrar datos de navegación</li>
+										<li>Para localStorage: "Datos de sitios web almacenados"</li>
+									</ul>
 								</div>
 
 								<div class="browser-item">
 									<h4>Mozilla Firefox</h4>
-									<p>Preferencias > Privacidad y seguridad > Cookies y datos del sitio</p>
+									<ul>
+										<li>Preferencias > Privacidad y seguridad > Cookies y datos del sitio</li>
+										<li>Preferencias > Privacidad y seguridad > Limpiar datos</li>
+										<li>Seleccionar "Almacenamiento sin conexión de sitios web"</li>
+									</ul>
 								</div>
 
 								<div class="browser-item">
 									<h4>Safari</h4>
-									<p>Preferencias > Privacidad > Gestionar datos del sitio web</p>
+									<ul>
+										<li>Preferencias > Privacidad > Gestionar datos del sitio web</li>
+										<li>Safari > Borrar historial y datos de sitios web</li>
+									</ul>
 								</div>
 
 								<div class="browser-item">
 									<h4>Microsoft Edge</h4>
-									<p>Configuración > Cookies y permisos del sitio</p>
-								</div>
-							</div>
-
-							<h3>5.2 Herramientas de Exclusión Específicas</h3>
-
-							<div class="opt-out-tools">
-								<div class="tool-item">
-									<h4>Google Analytics</h4>
 									<ul>
+										<li>Configuración > Cookies y permisos del sitio</li>
 										<li>
-											Complemento de exclusión:
-											<a
-												href="https://tools.google.com/dlpage/gaoptout"
-												target="_blank"
-												rel="noopener">Google Analytics Opt-out</a
-											>
-										</li>
-										<li>
-											Configuración de anuncios:
-											<a href="https://adssettings.google.com" target="_blank" rel="noopener"
-												>Google Ad Settings</a
-											>
+											Configuración > Privacidad, búsqueda y servicios > Borrar datos de exploración
 										</li>
 									</ul>
-								</div>
-
-								<div class="tool-item">
-									<h4>YouTube</h4>
-									<ul>
-										<li>
-											Configuración de privacidad:
-											<a href="https://myaccount.google.com/privacy" target="_blank" rel="noopener"
-												>Privacy Controls</a
-											>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-							<h3>5.3 Banner de Cookies (Implementación Futura)</h3>
-							<div class="future-feature">
-								<p>Estamos desarrollando un banner de gestión de cookies que te permitirá:</p>
-								<ul>
-									<li>Aceptar o rechazar cookies no esenciales</li>
-									<li>Configurar preferencias por categorías</li>
-									<li>Cambiar tu consentimiento en cualquier momento</li>
-									<li>Acceder a información detallada sobre cada cookie</li>
-								</ul>
-							</div>
-						</section>
-
-						<section id="dispositivos-moviles">
-							<h2>6. Cookies en Dispositivos Móviles</h2>
-							<p>En dispositivos móviles, también puedes gestionar cookies:</p>
-
-							<div class="mobile-guide">
-								<div class="mobile-item">
-									<h4>iOS (Safari)</h4>
-									<p>Configuración > Safari > Privacidad y seguridad</p>
-								</div>
-
-								<div class="mobile-item">
-									<h4>Android (Chrome)</h4>
-									<p>Chrome > Configuración > Configuración del sitio > Cookies</p>
 								</div>
 							</div>
 						</section>
 
 						<section id="almacenamiento-local">
-							<h2>7. Almacenamiento Local (Local Storage)</h2>
-							<p>Además de cookies, utilizamos tecnologías de almacenamiento local:</p>
+							<h2>3. Almacenamiento Local (localStorage)</h2>
 
-							<div class="cookies-table">
-								<table>
-									<thead>
-										<tr>
-											<th>Elemento</th>
-											<th>Propósito</th>
-											<th>Duración</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td><code>videoAccess</code></td>
-											<td>Estado de acceso a videos</td>
-											<td>30 minutos</td>
-										</tr>
-										<tr>
-											<td><code>user-preferences</code></td>
-											<td>Preferencias del usuario</td>
-											<td>Permanente hasta eliminación manual</td>
-										</tr>
-									</tbody>
-								</table>
+							<h3>3.1 ¿Qué almacenamos?</h3>
+							<div class="storage-details">
+								<div class="storage-item">
+									<h4>videoAccess</h4>
+									<ul>
+										<li>
+											<strong>Contenido</strong>: Estado de verificación del email, código temporal
+											de acceso
+										</li>
+										<li>
+											<strong>Finalidad</strong>: Permitir acceso a los videos del curso sin
+											requerir login
+										</li>
+										<li>
+											<strong>Estructura</strong>: JSON con email, estado, código y tiempo de
+											expiración
+										</li>
+										<li>
+											<strong>Sensibilidad</strong>: Solo email y código temporal, sin datos
+											personales sensibles
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>3.2 Ventajas del localStorage sobre cookies</h3>
+							<div class="advantages">
+								<div class="advantage-item">
+									<h4>Mayor Privacidad</h4>
+									<p>Los datos no se envían automáticamente al servidor con cada solicitud</p>
+								</div>
+
+								<div class="advantage-item">
+									<h4>Control Total</h4>
+									<p>Puedes eliminar estos datos en cualquier momento desde tu navegador</p>
+								</div>
+
+								<div class="advantage-item">
+									<h4>Sin Seguimiento</h4>
+									<p>No permite seguimiento entre sitios web diferentes</p>
+								</div>
+
+								<div class="advantage-item">
+									<h4>Transparencia</h4>
+									<p>Puedes ver exactamente qué información se almacena</p>
+								</div>
+							</div>
+
+							<h3>3.3 Gestión Automática de Expiración</h3>
+							<p>Nuestro sistema incluye funciones de limpieza automática:</p>
+							<ul>
+								<li>Verificación cada segundo del estado de expiración</li>
+								<li>Eliminación automática de datos caducados</li>
+								<li>Limpieza de datos corruptos o inválidos</li>
+								<li>No persistencia de datos más allá del tiempo necesario</li>
+							</ul>
+						</section>
+
+						<section id="servicios-terceros">
+							<h2>4. Servicios de Terceros</h2>
+
+							<h3>4.1 YouTube (Videos del Curso)</h3>
+							<div class="youtube-integration">
+								<p><strong>Videos actuales embebidos:</strong></p>
+								<ul>
+									<li>Video ID: sL6gioAwU8o - "Pasos básicos" (activo)</li>
+									<li>Videos adicionales del curso (próximamente)</li>
+								</ul>
+
+								<p><strong>Configuración de privacidad:</strong></p>
+								<ul>
+									<li>Utilizamos youtube.com/embed (modo estándar)</li>
+									<li>No utilizamos youtube-nocookie.com actualmente</li>
+									<li>Los videos se cargan solo cuando accedes a la sección correspondiente</li>
+									<li>YouTube puede establecer cookies según su política de privacidad</li>
+								</ul>
+
+								<div class="youtube-cookies">
+									<h4>Cookies potenciales de YouTube:</h4>
+									<table>
+										<thead>
+											<tr>
+												<th>Cookie</th>
+												<th>Finalidad</th>
+												<th>Duración típica</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><code>VISITOR_INFO1_LIVE</code></td>
+												<td>Estimación del ancho de banda del usuario</td>
+												<td>6 meses</td>
+											</tr>
+											<tr>
+												<td><code>YSC</code></td>
+												<td>Registra un ID único para estadísticas</td>
+												<td>Sesión</td>
+											</tr>
+											<tr>
+												<td><code>CONSENT</code></td>
+												<td>Estado de consentimiento del usuario en servicios de Google</td>
+												<td>2 años</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<h3>4.2 Control de Servicios de Terceros</h3>
+							<ul>
+								<li>
+									<strong>YouTube/Google</strong>:
+									<a
+										href="https://myaccount.google.com/data-and-privacy"
+										target="_blank"
+										rel="noopener">Controles de privacidad de Google</a
+									>
+								</li>
+								<li>
+									<strong>Configuración de anuncios</strong>:
+									<a href="https://adssettings.google.com" target="_blank" rel="noopener"
+										>Google Ad Settings</a
+									>
+								</li>
+								<li>
+									<strong>Exclusión de Analytics</strong>:
+									<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener"
+										>Google Analytics Opt-out</a
+									>
+								</li>
+							</ul>
+						</section>
+
+						<section id="finalidades">
+							<h2>5. Finalidades del Tratamiento</h2>
+
+							<h3>5.1 Finalidades Actuales</h3>
+							<div class="purposes-current">
+								<div class="purpose-item essential">
+									<h4>Acceso al Contenido Educativo</h4>
+									<ul>
+										<li>Verificación temporal de email para acceso al curso</li>
+										<li>Gestión de códigos de verificación con expiración</li>
+										<li>Control de acceso a videos sin necesidad de registro</li>
+									</ul>
+								</div>
+
+								<div class="purpose-item functional">
+									<h4>Funcionalidad del Sitio Web</h4>
+									<ul>
+										<li>Navegación fluida entre secciones</li>
+										<li>Mantenimiento del estado durante la sesión</li>
+										<li>Carga optimizada de recursos</li>
+									</ul>
+								</div>
+
+								<div class="purpose-item security">
+									<h4>Seguridad y Prevención</h4>
+									<ul>
+										<li>Prevención de acceso automatizado no deseado</li>
+										<li>Limitación temporal para evitar abuso del sistema</li>
+										<li>Protección contra solicitudes excesivas</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>5.2 Finalidades NO Utilizadas</h3>
+							<div class="not-used">
+								<p>
+									<strong
+										>Confirmamos que NO utilizamos cookies o almacenamiento local para:</strong>
+								</p>
+								<ul>
+									<li>Publicidad dirigida o marketing personalizado</li>
+									<li>Venta o cesión de datos a terceros</li>
+									<li>Seguimiento del comportamiento entre sitios web</li>
+									<li>Análisis comercial detallado de usuarios individuales</li>
+									<li>Perfilado automatizado para toma de decisiones</li>
+								</ul>
 							</div>
 						</section>
 
+						<section id="base-legal">
+							<h2>6. Base Legal</h2>
+
+							<div class="legal-classification">
+								<div class="legal-item necessary">
+									<h4>Almacenamiento Esencial (No requiere consentimiento)</h4>
+									<p><strong>Base:</strong> Artículo 6.1.b RGPD - Ejecución de contrato</p>
+									<ul>
+										<li>localStorage "videoAccess" para gestión de acceso al curso</li>
+										<li>Cookies de sesión para funcionalidad básica</li>
+										<li>Datos técnicos necesarios para la entrega del servicio</li>
+									</ul>
+								</div>
+
+								<div class="legal-item legitimate">
+									<h4>Interés Legítimo (Art. 6.1.f RGPD)</h4>
+									<p><strong>Intereses evaluados:</strong></p>
+									<ul>
+										<li>Mejorar la seguridad del sitio web</li>
+										<li>Optimizar el rendimiento para todas las usuarias</li>
+										<li>Prevenir uso fraudulento o automatizado</li>
+									</ul>
+									<p>
+										<strong>Test de equilibrio:</strong> Estos intereses no prevalecen sobre tus derechos
+										fundamentales.
+									</p>
+								</div>
+
+								<div class="legal-item consent">
+									<h4>Consentimiento (Art. 6.1.a RGPD)</h4>
+									<p><strong>Aplicable para:</strong></p>
+									<ul>
+										<li>Cookies de análisis detallado (cuando se implementen)</li>
+										<li>Cookies de marketing (no utilizadas actualmente)</li>
+										<li>Integraciones opcionales con redes sociales</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section id="gestion-control">
+							<h2>7. Gestión y Control Avanzado</h2>
+
+							<h3>7.1 Control Granular por Tecnología</h3>
+							<div class="granular-controls">
+								<div class="control-item">
+									<h4>localStorage de Femm Tribu</h4>
+									<p><strong>Control manual:</strong></p>
+									<ul>
+										<li>Herramientas de desarrollo > Application > Local Storage</li>
+										<li>Eliminar elemento específico "videoAccess"</li>
+										<li>O borrar todos los datos del sitio en configuración del navegador</li>
+									</ul>
+									<p><strong>Control automático:</strong> Los datos expiran automáticamente</p>
+								</div>
+
+								<div class="control-item">
+									<h4>Cookies de YouTube</h4>
+									<p><strong>Métodos de control:</strong></p>
+									<ul>
+										<li>
+											Configuración de Google: <a
+												href="https://myaccount.google.com"
+												target="_blank"
+												rel="noopener">myaccount.google.com</a>
+										</li>
+										<li>Bloqueo en navegador: Configuración > Cookies > Bloquear terceros</li>
+										<li>Extensiones de privacidad que bloquean cookies de seguimiento</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>7.2 Herramientas de Privacidad Recomendadas</h3>
+							<div class="privacy-tools">
+								<div class="tool-category">
+									<h4>Extensiones de Navegador</h4>
+									<ul>
+										<li><strong>uBlock Origin</strong>: Bloqueo de rastreadores</li>
+										<li>
+											<strong>Privacy Badger</strong>: Protección automática contra seguimiento
+										</li>
+										<li>
+											<strong>DuckDuckGo Privacy Essentials</strong>: Bloqueo integral de
+											rastreadores
+										</li>
+									</ul>
+								</div>
+
+								<div class="tool-category">
+									<h4>Configuraciones de Navegador</h4>
+									<ul>
+										<li>
+											<strong>Modo incógnito/privado</strong>: No almacena datos después de cerrar
+										</li>
+										<li>
+											<strong>Bloqueo de cookies de terceros</strong>: Evita seguimiento entre
+											sitios
+										</li>
+										<li>
+											<strong>Eliminación automática</strong>: Borrado de datos al cerrar navegador
+										</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<section id="dispositivos-moviles">
+							<h2>8. Dispositivos Móviles</h2>
+
+							<h3>8.1 Control en Móviles</h3>
+							<div class="mobile-guide">
+								<div class="mobile-item">
+									<h4>iOS (Safari)</h4>
+									<ul>
+										<li>Configuración > Safari > Privacidad y seguridad</li>
+										<li>Configuración > Safari > Avanzado > Datos del sitio web</li>
+										<li>Buscar "femm-tribu" y eliminar datos específicos</li>
+									</ul>
+								</div>
+
+								<div class="mobile-item">
+									<h4>Android (Chrome)</h4>
+									<ul>
+										<li>Chrome > Configuración > Configuración del sitio > Cookies</li>
+										<li>
+											Chrome > Configuración > Privacidad y seguridad > Borrar datos de navegación
+										</li>
+										<li>Seleccionar "Datos de sitios almacenados"</li>
+									</ul>
+								</div>
+
+								<div class="mobile-item">
+									<h4>Otros Navegadores Móviles</h4>
+									<ul>
+										<li><strong>Firefox Mobile</strong>: Configuración > Gestión de datos</li>
+										<li><strong>Samsung Internet</strong>: Configuración > Datos del sitio web</li>
+										<li><strong>Opera Mobile</strong>: Configuración > Privacidad</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>8.2 Apps vs Navegador Web</h3>
+							<p>
+								<strong>Importante:</strong> Femm Tribu es actualmente solo un sitio web. No tenemos
+								aplicación móvil.
+							</p>
+							<ul>
+								<li>Accedes a través del navegador de tu móvil</li>
+								<li>Los datos se almacenan en el navegador, no como app</li>
+								<li>Borrar datos del navegador elimina toda la información de Femm Tribu</li>
+							</ul>
+						</section>
+
 						<section id="consecuencias">
-							<h2>8. Consecuencias de Desactivar Cookies</h2>
-							<p>Si desactivas las cookies:</p>
+							<h2>9. Consecuencias de Desactivar Tecnologías</h2>
 
 							<div class="consequences-grid">
 								<div class="consequence-item essential">
-									<h4>Cookies Esenciales</h4>
-									<p>El sitio web puede no funcionar correctamente</p>
-								</div>
-
-								<div class="consequence-item analytics">
-									<h4>Cookies de Análisis</h4>
-									<p>No afectará la funcionalidad, pero no podremos mejorar la experiencia</p>
+									<h4>Desactivar localStorage</h4>
+									<p><strong>Impacto:</strong> Alto - El sitio no funcionará correctamente</p>
+									<ul>
+										<li>No podrás acceder a los videos del curso</li>
+										<li>Tendrás que volver a verificar tu email en cada visita</li>
+										<li>Posible pérdida de progreso durante la navegación</li>
+									</ul>
 								</div>
 
 								<div class="consequence-item third-party">
-									<h4>Cookies de Terceros</h4>
-									<p>El contenido embebido puede no mostrarse correctamente</p>
+									<h4>Bloquear cookies de YouTube</h4>
+									<p><strong>Impacto:</strong> Medio - Los videos pueden no reproducirse</p>
+									<ul>
+										<li>Videos pueden no cargar correctamente</li>
+										<li>Pérdida de funcionalidades como calidad adaptativa</li>
+										<li>Posible pérdida de preferencias de reproducción</li>
+									</ul>
 								</div>
+
+								<div class="consequence-item future">
+									<h4>Futuras cookies de análisis</h4>
+									<p><strong>Impacto:</strong> Bajo - No afectará la funcionalidad</p>
+									<ul>
+										<li>No podremos mejorar el sitio basándonos en datos de uso</li>
+										<li>Menos personalización del contenido</li>
+										<li>Dificultad para identificar problemas técnicos</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>9.1 Configuración Recomendada</h3>
+							<div class="recommended-config">
+								<h4>Para la mejor experiencia en Femm Tribu:</h4>
+								<ul>
+									<li>
+										<strong>Permitir</strong>: localStorage del sitio (esencial para el curso)
+									</li>
+									<li>
+										<strong>Permitir</strong>: Cookies de YouTube (para reproducción de videos)
+									</li>
+									<li><strong>Opcional</strong>: Cookies de análisis (cuando se implementen)</li>
+									<li><strong>Bloquear</strong>: Cookies de publicidad y seguimiento</li>
+								</ul>
 							</div>
 						</section>
 
 						<section id="transferencias">
-							<h2>9. Transferencias Internacionales</h2>
-							<p>Algunas cookies implican transferencias de datos a países fuera del EEE:</p>
+							<h2>10. Transferencias Internacionales</h2>
 
-							<div class="transfers-grid">
+							<h3>10.1 Transferencias Actuales</h3>
+							<div class="transfers-current">
 								<div class="transfer-item">
-									<h4>Google Analytics</h4>
-									<p>
-										<strong>Destino</strong>: Estados Unidos<br />
-										<strong>Protección</strong>: Decisión de Adecuación UE-US
-									</p>
+									<h4>Vercel (Hosting)</h4>
+									<ul>
+										<li><strong>Destino</strong>: Estados Unidos</li>
+										<li>
+											<strong>Datos transferidos</strong>: Logs de acceso, métricas de rendimiento
+										</li>
+										<li>
+											<strong>Protección</strong>: Decisión de Adecuación UE-US Data Privacy
+											Framework
+										</li>
+										<li>
+											<strong>Garantías adicionales</strong>: Contrato con cláusulas de protección
+										</li>
+									</ul>
 								</div>
 
 								<div class="transfer-item">
-									<h4>YouTube</h4>
+									<h4>YouTube/Google</h4>
+									<ul>
+										<li><strong>Destino</strong>: Estados Unidos y otros países</li>
+										<li><strong>Datos transferidos</strong>: Datos de reproducción de videos</li>
+										<li>
+											<strong>Protección</strong>: Decisión de Adecuación y Cláusulas Contractuales
+											Tipo
+										</li>
+										<li><strong>Control del usuario</strong>: Configurable en cuenta de Google</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>10.2 Garantías de Protección</h3>
+							<p>Para todas las transferencias internacionales garantizamos:</p>
+							<ul>
+								<li>Evaluación previa de la adecuación del país de destino</li>
+								<li>Contratos con cláusulas de protección aprobadas por la UE</li>
+								<li>Verificación periódica del cumplimiento de estándares</li>
+								<li>Derecho a oponerte a transferencias específicas</li>
+							</ul>
+						</section>
+
+						<section id="futuras-implementaciones">
+							<h2>11. Futuras Implementaciones</h2>
+
+							<h3>11.1 Tecnologías en Desarrollo</h3>
+							<div class="future-tech">
+								<div class="future-item planned">
+									<h4>Google Analytics 4 (GA4)</h4>
+									<p><strong>Estado</strong>: En evaluación</p>
+									<p><strong>Finalidad</strong>: Análisis básico de uso del sitio</p>
 									<p>
-										<strong>Destino</strong>: Estados Unidos<br />
-										<strong>Protección</strong>: Cláusulas Contractuales Tipo
+										<strong>Implementación</strong>: Con anonimización de IP y configuración de
+										privacidad
 									</p>
+									<p><strong>Control</strong>: Banner de consentimiento antes de activar</p>
+								</div>
+
+								<div class="future-item considered">
+									<h4>Banner de Gestión de Cookies</h4>
+									<p><strong>Estado</strong>: Planificado</p>
+									<p><strong>Funcionalidades</strong>:</p>
+									<ul>
+										<li>Control granular por tipo de cookie</li>
+										<li>Información detallada sobre cada tecnología</li>
+										<li>Opción de cambiar preferencias en cualquier momento</li>
+										<li>Cumplimiento total con directivas de la UE</li>
+									</ul>
+								</div>
+
+								<div class="future-item evaluated">
+									<h4>Cookies de Personalización</h4>
+									<p><strong>Estado</strong>: En evaluación</p>
+									<p><strong>Posible uso</strong>:</p>
+									<ul>
+										<li>Recordar preferencias de contenido</li>
+										<li>Configuración de accesibilidad</li>
+										<li>Tema claro/oscuro automático</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>11.2 Compromiso de Transparencia</h3>
+							<p>Cuando implementemos nuevas tecnologías:</p>
+							<ul>
+								<li>
+									<strong>Notificaremos con antelación</strong> a través de email y en el sitio web
+								</li>
+								<li>
+									<strong>Solicitaremos consentimiento</strong> cuando sea legalmente requerido
+								</li>
+								<li><strong>Actualizaremos esta política</strong> con información detallada</li>
+								<li>
+									<strong>Proporcionaremos controles</strong> para gestionar nuevas funcionalidades
+								</li>
+							</ul>
+						</section>
+
+						<section id="dispositivos-moviles">
+							<h2>8. Configuración Específica por Dispositivo</h2>
+
+							<h3>8.1 Escritorio - Navegadores Principales</h3>
+							<div class="desktop-detailed">
+								<div class="browser-detailed">
+									<h4>Google Chrome</h4>
+									<p><strong>Acceso rápido:</strong> chrome://settings/cookies</p>
+									<ul>
+										<li>
+											Configuración > Privacidad y seguridad > Cookies y otros datos de sitios
+										</li>
+										<li>Para localStorage: "Ver todos los datos y permisos del sitio"</li>
+										<li>Buscar "femm-tribu" y gestionar datos específicos</li>
+										<li>Opción: "Eliminar datos al cerrar Chrome" para limpieza automática</li>
+									</ul>
+								</div>
+
+								<div class="browser-detailed">
+									<h4>Mozilla Firefox</h4>
+									<p><strong>Acceso rápido:</strong> about:preferences#privacy</p>
+									<ul>
+										<li>Preferencias > Privacidad y seguridad</li>
+										<li>"Gestionar datos" en sección de Cookies y datos del sitio</li>
+										<li>Buscar "femm-tribu" para gestión específica</li>
+										<li>Configurar eliminación automática al cerrar Firefox</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>8.2 Móviles - Configuración Detallada</h3>
+							<div class="mobile-detailed">
+								<div class="mobile-detailed-item">
+									<h4>iPhone/iPad - Safari</h4>
+									<ul>
+										<li>Configuración > Safari > Privacidad y seguridad</li>
+										<li>"Bloquear todas las cookies" (extremo, puede afectar funcionalidad)</li>
+										<li>"Gestionar datos del sitio web" para control específico</li>
+										<li>Configuración > Safari > Avanzado > Datos del sitio web</li>
+									</ul>
+								</div>
+
+								<div class="mobile-detailed-item">
+									<h4>Android - Chrome</h4>
+									<ul>
+										<li>Chrome > Menú (⋮) > Configuración</li>
+										<li>Configuración del sitio > Cookies</li>
+										<li>Datos almacenados > Buscar "femm-tribu"</li>
+										<li>Eliminar y restablecer > Datos almacenados</li>
+									</ul>
 								</div>
 							</div>
 						</section>
 
 						<section id="actualizaciones">
-							<h2>10. Actualización de la Política de Cookies</h2>
-							<p>
-								Esta política se actualiza periódicamente. Los cambios importantes serán comunicados
-								mediante:
-							</p>
+							<h2>12. Actualización de la Política de Cookies</h2>
+
+							<h3>12.1 Frecuencia de Revisión</h3>
+							<p>Revisamos esta política:</p>
 							<ul>
-								<li>Notificación en el sitio web</li>
-								<li>Banner de cookies actualizado</li>
-								<li>Email a usuarios registrados (para cambios sustanciales)</li>
+								<li><strong>Trimestralmente</strong>: Revisión rutinaria de cambios técnicos</li>
+								<li>
+									<strong>Antes de implementar nuevas tecnologías</strong>: Análisis de impacto en
+									privacidad
+								</li>
+								<li><strong>Por cambios legales</strong>: Adaptación a nueva legislación</li>
+								<li>
+									<strong>Por solicitud de usuarios</strong>: Clarificaciones o mejoras solicitadas
+								</li>
 							</ul>
+
+							<h3>12.2 Proceso de Notificación</h3>
+							<div class="notification-process">
+								<div class="notification-level">
+									<h4>Cambios Técnicos Menores</h4>
+									<ul>
+										<li>Actualización silenciosa de la política</li>
+										<li>Aviso discreto en el sitio web durante 30 días</li>
+										<li>Sin impacto en derechos del usuario</li>
+									</ul>
+								</div>
+
+								<div class="notification-level">
+									<h4>Nuevas Tecnologías o Cookies</h4>
+									<ul>
+										<li>Email a todos los usuarios registrados</li>
+										<li>Banner informativo en el sitio web</li>
+										<li>30 días de anticipación antes de la implementación</li>
+										<li>Solicitud de consentimiento cuando sea requerido</li>
+									</ul>
+								</div>
+
+								<div class="notification-level">
+									<h4>Cambios Sustanciales en Finalidades</h4>
+									<ul>
+										<li>Notificación destacada por email</li>
+										<li>Popup informativo en el sitio</li>
+										<li>Opción de darse de baja antes del cambio</li>
+										<li>Periodo de gracia de 60 días</li>
+									</ul>
+								</div>
+							</div>
+
+							<h3>12.3 Historial de Cambios</h3>
+							<div class="version-history">
+								<div class="version-item current">
+									<h4>v1.0 - 1 enero 2025 (Actual)</h4>
+									<ul>
+										<li>Política inicial basada en el uso actual de localStorage</li>
+										<li>Documentación de integración con YouTube</li>
+										<li>Sin Google Analytics implementado</li>
+									</ul>
+								</div>
+
+								<div class="version-item future">
+									<h4>Próximas versiones</h4>
+									<p>
+										Se documentarán aquí todos los cambios futuros con fechas y detalles
+										específicos.
+									</p>
+								</div>
+							</div>
 						</section>
 
 						<section id="contacto">
-							<h2>11. Más Información y Contacto</h2>
-							<p>Para más detalles sobre cookies específicas o cómo ejercer tus derechos:</p>
+							<h2>13. Más Información y Contacto</h2>
 
+							<h3>13.1 Contacto para Cookies y Tecnologías</h3>
 							<div class="contact-info">
+								<p>
+									Para preguntas específicas sobre cookies, localStorage o tecnologías utilizadas:
+								</p>
 								<ul>
 									<li>
-										<strong>Email</strong>:
-										<a href="mailto:cookies@femtribu.com">cookies@femtribu.com</a>
+										<strong>Email principal</strong>: <a href="mailto:hola@femmtribu.com"
+											>hola@femmtribu.com</a
+										>
 									</li>
-									<li><strong>Teléfono</strong>: [Número de contacto]</li>
 									<li>
-										<strong>Dirección</strong>: [Dirección postal completa]
+										<strong>Email específico</strong>: <a
+											href="mailto:hola@femmtribu.com?subject=Consulta%20Cookies"
+											>hola@femmtribu.com</a
+										> (asunto: "Consulta Cookies")
 									</li>
+									<li><strong>Teléfono</strong>: 622 333 785</li>
+									<li><strong>Respuesta</strong>: En un plazo máximo de 48 horas</li>
 								</ul>
 							</div>
 
-							<h3>11.1 Enlaces Útiles</h3>
+							<h3>13.2 Soporte Técnico</h3>
+							<p>Si tienes problemas técnicos relacionados con cookies o acceso:</p>
+							<ul>
+								<li>Describe tu navegador y versión</li>
+								<li>Indica qué acciones realizaste antes del problema</li>
+								<li>Adjunta captura de pantalla si es posible</li>
+								<li>Menciona si usas extensiones de privacidad</li>
+							</ul>
+
+							<h3>13.3 Enlaces Útiles</h3>
 							<div class="useful-links">
-								<ul>
-									<li>
-										<a href="https://www.aepd.es/guias/cookies.html" target="_blank" rel="noopener"
-											>Guía sobre cookies - AEPD</a
-										>
-									</li>
-									<li>
-										<a
-											href="https://www.incibe.es/protege-tu-empresa/blog/cookies-que-son"
-											target="_blank"
-											rel="noopener">¿Qué son las cookies? - INCIBE</a
-										>
-									</li>
-									<li>
-										<a href="https://www.allaboutcookies.org/es/" target="_blank" rel="noopener"
-											>All About Cookies</a
-										>
-									</li>
-								</ul>
+								<div class="link-category">
+									<h4>Información General sobre Cookies</h4>
+									<ul>
+										<li>
+											<a
+												href="https://www.aepd.es/guias/cookies.html"
+												target="_blank"
+												rel="noopener">Guía sobre cookies - AEPD</a
+											>
+										</li>
+										<li>
+											<a
+												href="https://www.incibe.es/protege-tu-empresa/blog/cookies-que-son"
+												target="_blank"
+												rel="noopener">¿Qué son las cookies? - INCIBE</a
+											>
+										</li>
+										<li>
+											<a href="https://www.allaboutcookies.org/es/" target="_blank" rel="noopener"
+												>All About Cookies</a
+											>
+										</li>
+									</ul>
+								</div>
+
+								<div class="link-category">
+									<h4>Control de Servicios Específicos</h4>
+									<ul>
+										<li>
+											<a
+												href="https://myaccount.google.com/data-and-privacy"
+												target="_blank"
+												rel="noopener">Privacidad de Google/YouTube</a
+											>
+										</li>
+										<li>
+											<a
+												href="https://tools.google.com/dlpage/gaoptout"
+												target="_blank"
+												rel="noopener">Exclusión de Google Analytics</a
+											>
+										</li>
+										<li>
+											<a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener"
+												>Your Online Choices - Control de publicidad</a
+											>
+										</li>
+									</ul>
+								</div>
+
+								<div class="link-category">
+									<h4>Otras Políticas de Femm Tribu</h4>
+									<ul>
+										<li><a href="/privacy">Política de Privacidad completa</a></li>
+										<li>Términos de uso (próximamente)</li>
+									</ul>
+								</div>
+							</div>
+						</section>
+
+						<!-- FAQ Section específica para cookies -->
+						<section class="faq-section">
+							<h2>Preguntas Frecuentes sobre Cookies</h2>
+
+							<div class="faq-item">
+								<h3>¿Por qué usáis localStorage en lugar de cookies tradicionales?</h3>
+								<p>
+									localStorage ofrece mayor privacidad porque los datos no se envían automáticamente
+									al servidor con cada solicitud. Esto significa menos datos transferidos y mayor
+									control para ti.
+								</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Qué pasa si desactivo localStorage en mi navegador?</h3>
+								<p>
+									No podrás acceder a los videos del curso, ya que localStorage es esencial para
+									gestionar el acceso temporal. El sitio web básico seguirá funcionando para
+									navegación general.
+								</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Los videos de YouTube me rastrean aunque esté en vuestro sitio?</h3>
+								<p>
+									YouTube puede establecer cookies según su política de privacidad. Puedes
+									controlarlo mediante la configuración de tu cuenta de Google o bloqueando cookies
+									de terceros en tu navegador.
+								</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Voy a recibir publicidad personalizada por usar vuestro sitio?</h3>
+								<p>
+									No utilizamos cookies publicitarias propias. Si YouTube muestra anuncios, puedes
+									controlarlos a través de tu configuración de Google Ads.
+								</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Cómo sé qué datos tenéis almacenados sobre mí?</h3>
+								<p>
+									Puedes ver los datos de localStorage abriendo las herramientas de desarrollo (F12)
+									> Application > Local Storage. Para otros datos, solicita un informe a
+									hola@femmtribu.com.
+								</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Implementaréis Google Analytics en el futuro?</h3>
+								<p>
+									Estamos evaluándolo para entender mejor cómo mejorar nuestro contenido. Si lo
+									implementamos, será con anonimización de IP y previo aviso, solicitando
+									consentimiento cuando sea requerido.
+								</p>
+							</div>
+						</section>
+
+						<!-- Technical Implementation Details -->
+						<section class="technical-details">
+							<h2>Detalles Técnicos de Implementación</h2>
+
+							<h3>Configuración Técnica Actual</h3>
+							<div class="tech-implementation">
+								<div class="implementation-item">
+									<h4>EmailVerificationManager</h4>
+									<p>Sistema de gestión de acceso implementado en TypeScript:</p>
+									<ul>
+										<li>
+											<strong>Verificación automática</strong>: Cada segundo comprueba expiración
+										</li>
+										<li>
+											<strong>Limpieza automática</strong>: Elimina datos caducados o corruptos
+										</li>
+										<li>
+											<strong>Soporte multi-tab</strong>: Sincronización entre pestañas del
+											navegador
+										</li>
+										<li>
+											<strong>Gestión de estados</strong>: "pending", "accepted" con transiciones
+											controladas
+										</li>
+									</ul>
+								</div>
+
+								<div class="implementation-item">
+									<h4>API de Verificación</h4>
+									<p>Endpoint seguro para envío de códigos:</p>
+									<ul>
+										<li><strong>Ruta</strong>: /api/send-email</li>
+										<li><strong>Método</strong>: POST con validación de email</li>
+										<li><strong>Autenticación</strong>: Token de autorización en servidor</li>
+										<li><strong>Variables de entorno</strong>: WEBHOOK_URL y WEBHOOK_AUTH_TOKEN</li>
+									</ul>
+								</div>
 							</div>
 						</section>
 
@@ -446,9 +1178,13 @@ import Footer from "../components/Footer.astro"
 						<div class="legal-note">
 							<p>
 								<strong
-									>Esta política de cookies entra en vigor el 1 de enero de 2025 y se rige por la
-									legislación española y europea aplicable.</strong
-								>
+									>Esta política de cookies entra en vigor el 1 de enero de 2025 y se rige por:</strong
+								><br />
+								• Reglamento General de Protección de Datos (RGPD) - UE 2016/679<br />
+								• Directiva 2002/58/CE sobre privacidad y comunicaciones electrónicas<br />
+								• Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico
+								(LSSICE)<br />
+								• Real Decreto-ley 13/2012 sobre cookies
 							</p>
 						</div>
 					</article>
@@ -664,13 +1400,30 @@ import Footer from "../components/Footer.astro"
 		border-bottom-color: #37443a;
 	}
 
+	/* Specialized Components */
+	.info-box {
+		background: rgba(52, 152, 219, 0.1);
+		border: 1px solid rgba(52, 152, 219, 0.2);
+		border-left: 4px solid #3498db;
+		padding: 20px;
+		border-radius: 15px;
+		margin: 20px 0;
+	}
+
+	.info-box p {
+		margin: 0;
+		color: #2c5aa0;
+	}
+
 	/* Tables */
-	.cookies-table {
+	.current-tech-table,
+	.youtube-cookies-table {
 		margin: 20px 0;
 		overflow-x: auto;
 	}
 
-	.cookies-table table {
+	.current-tech-table table,
+	.youtube-cookies-table table {
 		width: 100%;
 		border-collapse: collapse;
 		border: 1px solid rgba(106, 128, 103, 0.2);
@@ -678,7 +1431,8 @@ import Footer from "../components/Footer.astro"
 		overflow: hidden;
 	}
 
-	.cookies-table th {
+	.current-tech-table th,
+	.youtube-cookies-table th {
 		background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
 		color: white;
 		padding: 15px 12px;
@@ -687,21 +1441,26 @@ import Footer from "../components/Footer.astro"
 		font-size: 0.9rem;
 	}
 
-	.cookies-table td {
+	.current-tech-table td,
+	.youtube-cookies-table td {
 		padding: 12px;
 		border-bottom: 1px solid rgba(106, 128, 103, 0.1);
 		vertical-align: top;
+		font-size: 0.9rem;
 	}
 
-	.cookies-table tr:last-child td {
+	.current-tech-table tr:last-child td,
+	.youtube-cookies-table tr:last-child td {
 		border-bottom: none;
 	}
 
-	.cookies-table tr:nth-child(even) {
+	.current-tech-table tr:nth-child(even),
+	.youtube-cookies-table tr:nth-child(even) {
 		background: rgba(106, 128, 103, 0.02);
 	}
 
-	.cookies-table code {
+	.current-tech-table code,
+	.youtube-cookies-table code {
 		background: rgba(203, 110, 95, 0.1);
 		padding: 2px 6px;
 		border-radius: 4px;
@@ -710,20 +1469,129 @@ import Footer from "../components/Footer.astro"
 		font-family: monospace;
 	}
 
-	.table-note {
-		font-size: 0.85rem;
-		color: #6a8067;
-		margin-top: 10px;
-		font-style: italic;
+	/* Storage Details */
+	.storage-details {
+		margin: 25px 0;
 	}
 
-	/* Browser Guide */
+	.storage-item {
+		background: rgba(203, 110, 95, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #cb6e5f;
+		margin-bottom: 20px;
+	}
+
+	.storage-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+		font-family: "The Seasons", serif;
+	}
+
+	/* Advantages Grid */
+	.advantages {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 20px;
+		margin: 25px 0;
+	}
+
+	.advantage-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		text-align: center;
+	}
+
+	.advantage-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	.advantage-item p {
+		margin: 0;
+		font-size: 0.9rem;
+		color: #4a5a4d;
+	}
+
+	/* Code Examples */
+	.code-example {
+		background: #f8f9fa;
+		border: 1px solid rgba(106, 128, 103, 0.2);
+		border-radius: 10px;
+		padding: 20px;
+		margin: 20px 0;
+	}
+
+	.code-example h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	.code-example pre {
+		margin: 0;
+		font-family: monospace;
+		font-size: 0.9rem;
+		color: #2c3e50;
+		white-space: pre-wrap;
+		line-height: 1.5;
+	}
+
+	/* Third Party Services */
+	.third-party-service {
+		background: rgba(203, 110, 95, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #cb6e5f;
+		margin: 20px 0;
+	}
+
+	/* Legal Bases */
+	.legal-bases {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 20px;
+		margin: 25px 0;
+	}
+
+	.legal-basis-item {
+		padding: 20px;
+		border-radius: 15px;
+		border-left: 4px solid;
+	}
+
+	.legal-basis-item.essential {
+		background: rgba(231, 76, 60, 0.05);
+		border-left-color: #e74c3c;
+	}
+
+	.legal-basis-item.legitimate {
+		background: rgba(52, 152, 219, 0.05);
+		border-left-color: #3498db;
+	}
+
+	.legal-basis-item.consent {
+		background: rgba(46, 204, 113, 0.05);
+		border-left-color: #2ecc71;
+	}
+
+	.legal-basis-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	/* Browser Guides */
 	.browser-guide,
 	.mobile-guide {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 20px;
-		margin: 20px 0;
+		margin: 25px 0;
 	}
 
 	.browser-item,
@@ -736,45 +1604,102 @@ import Footer from "../components/Footer.astro"
 
 	.browser-item h4,
 	.mobile-item h4 {
-		margin: 0 0 8px 0;
+		margin: 0 0 10px 0;
 		color: #37443a;
 		font-size: 1rem;
 	}
 
-	.browser-item p,
-	.mobile-item p {
-		margin: 0;
+	/* Enhanced Mobile Details */
+	.mobile-detailed,
+	.desktop-detailed {
+		margin: 25px 0;
+	}
+
+	.browser-detailed,
+	.mobile-detailed-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.browser-detailed h4,
+	.mobile-detailed-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	.browser-detailed p,
+	.mobile-detailed-item p {
+		margin: 0 0 10px 0;
+		color: #4a5a4d;
+		font-size: 0.9rem;
+	}
+
+	/* Privacy Tools */
+	.privacy-tools {
+		margin: 25px 0;
+	}
+
+	.tool-category {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.tool-category h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	/* Consequences Grid */
+	.consequences-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 20px;
+		margin: 25px 0;
+	}
+
+	.consequence-item {
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid;
+	}
+
+	.consequence-item.essential {
+		background: rgba(231, 76, 60, 0.05);
+		border-left-color: #e74c3c;
+	}
+
+	.consequence-item.third-party {
+		background: rgba(155, 89, 182, 0.05);
+		border-left-color: #9b59b6;
+	}
+
+	.consequence-item.future {
+		background: rgba(52, 152, 219, 0.05);
+		border-left-color: #3498db;
+	}
+
+	.consequence-item h4 {
+		margin: 0 0 10px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	.consequence-item p {
+		margin: 0 0 10px 0;
 		font-size: 0.9rem;
 		color: #4a5a4d;
 	}
 
-	/* Opt-out Tools */
-	.opt-out-tools {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 20px;
-		margin: 20px 0;
-	}
-
-	.tool-item {
-		background: rgba(203, 110, 95, 0.05);
-		padding: 20px;
-		border-radius: 15px;
-		border-left: 4px solid #cb6e5f;
-	}
-
-	.tool-item h4 {
-		margin: 0 0 10px 0;
-		color: #37443a;
-	}
-
-	.tool-item ul {
-		margin: 0;
-		padding-left: 20px;
-	}
-
-	/* Future Feature */
-	.future-feature {
+	/* Recommended Config */
+	.recommended-config {
 		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
 		padding: 25px;
 		border-radius: 15px;
@@ -782,97 +1707,292 @@ import Footer from "../components/Footer.astro"
 		margin: 20px 0;
 	}
 
-	/* Consequences Grid */
-	.consequences-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 20px;
-		margin: 20px 0;
-	}
-
-	.consequence-item {
-		padding: 20px;
-		border-radius: 15px;
-		text-align: center;
-	}
-
-	.consequence-item.essential {
-		background: rgba(231, 76, 60, 0.1);
-		border-left: 4px solid #e74c3c;
-	}
-
-	.consequence-item.analytics {
-		background: rgba(52, 152, 219, 0.1);
-		border-left: 4px solid #3498db;
-	}
-
-	.consequence-item.third-party {
-		background: rgba(155, 89, 182, 0.1);
-		border-left: 4px solid #9b59b6;
-	}
-
-	.consequence-item h4 {
-		margin: 0 0 10px 0;
+	.recommended-config h4 {
+		margin: 0 0 15px 0;
 		color: #37443a;
 	}
 
-	.consequence-item p {
-		margin: 0;
-		font-size: 0.9rem;
-	}
-
-	/* Transfers Grid */
-	.transfers-grid {
+	/* Transfers */
+	.transfers-current {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 20px;
-		margin: 20px 0;
+		margin: 25px 0;
 	}
 
 	.transfer-item {
-		background: rgba(106, 128, 103, 0.05);
-		padding: 20px;
+		background: rgba(203, 110, 95, 0.05);
+		padding: 25px;
 		border-radius: 15px;
-		border-left: 4px solid #6a8067;
+		border-left: 4px solid #cb6e5f;
 	}
 
 	.transfer-item h4 {
-		margin: 0 0 10px 0;
+		margin: 0 0 15px 0;
 		color: #37443a;
+		font-size: 1.1rem;
 	}
 
-	.transfer-item p {
-		margin: 0;
-		font-size: 0.9rem;
-		line-height: 1.5;
+	/* Future Technology */
+	.future-tech {
+		margin: 25px 0;
 	}
 
-	/* Contact Info */
-	.contact-info {
+	.future-item {
+		background: rgba(52, 152, 219, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #3498db;
+		margin-bottom: 20px;
+	}
+
+	.future-item.planned {
+		border-left-color: #2ecc71;
+		background: rgba(46, 204, 113, 0.05);
+	}
+
+	.future-item.considered {
+		border-left-color: #f39c12;
+		background: rgba(243, 156, 18, 0.05);
+	}
+
+	.future-item.evaluated {
+		border-left-color: #9b59b6;
+		background: rgba(155, 89, 182, 0.05);
+	}
+
+	.future-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	.future-item p {
+		margin: 0 0 10px 0;
+		font-size: 0.95rem;
+	}
+
+	/* Notification Process */
+	.notification-process {
+		margin: 25px 0;
+	}
+
+	.notification-level {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.notification-level h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	/* Version History */
+	.version-history {
+		margin: 25px 0;
+	}
+
+	.version-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.version-item.current {
+		border-left-color: #2ecc71;
+		background: rgba(46, 204, 113, 0.05);
+	}
+
+	.version-item.future {
+		border-left-color: #3498db;
+		background: rgba(52, 152, 219, 0.05);
+	}
+
+	.version-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	/* Technical Implementation */
+	.tech-implementation {
+		margin: 25px 0;
+	}
+
+	.implementation-item {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.implementation-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+		font-family: monospace;
+	}
+
+	/* Control Guides */
+	.control-guide {
 		background: rgba(203, 110, 95, 0.05);
-		padding: 20px;
+		padding: 25px;
 		border-radius: 15px;
 		border-left: 4px solid #cb6e5f;
 		margin: 20px 0;
 	}
 
-	.contact-info ul {
+	.control-guide h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1rem;
+	}
+
+	.control-guide ol {
+		background: white;
+		padding: 15px 20px 15px 35px;
+		border-radius: 10px;
+		margin: 15px 0;
+	}
+
+	/* Contact Info */
+	.contact-info {
+		background: rgba(203, 110, 95, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #cb6e5f;
+		margin: 20px 0;
+	}
+
+	/* Useful Links */
+	.useful-links {
+		margin: 25px 0;
+	}
+
+	.link-category {
+		background: rgba(106, 128, 103, 0.05);
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid #6a8067;
+		margin-bottom: 20px;
+	}
+
+	.link-category h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
+	}
+
+	.link-category ul {
 		margin: 0;
 		padding-left: 20px;
 	}
 
-	/* Useful Links */
-	.useful-links ul {
-		list-style: none;
-		padding: 0;
+	/* FAQ Section */
+	.faq-section {
+		margin-top: 50px;
+		padding-top: 40px;
+		border-top: 2px solid rgba(106, 128, 103, 0.1);
 	}
 
-	.useful-links li {
+	.faq-item {
 		background: rgba(106, 128, 103, 0.05);
-		padding: 10px 15px;
-		border-radius: 8px;
-		margin-bottom: 8px;
-		border-left: 3px solid #6a8067;
+		padding: 25px;
+		border-radius: 15px;
+		margin-bottom: 20px;
+		border-left: 4px solid #6a8067;
+	}
+
+	.faq-item h3 {
+		font-family: "The Seasons", serif;
+		font-size: 1.1rem;
+		color: #37443a;
+		margin: 0 0 10px 0;
+		font-weight: 400;
+	}
+
+	.faq-item p {
+		margin: 0;
+		color: #4a5a4d;
+	}
+
+	/* Technical Details Section */
+	.technical-details {
+		margin-top: 50px;
+		padding-top: 40px;
+		border-top: 2px solid rgba(106, 128, 103, 0.1);
+	}
+
+	.technical-details h2 {
+		border-bottom: none;
+		margin-bottom: 30px;
+	}
+
+	/* Not Used Section */
+	.not-used {
+		background: rgba(231, 76, 60, 0.05);
+		border: 1px solid rgba(231, 76, 60, 0.2);
+		border-left: 4px solid #e74c3c;
+		padding: 25px;
+		border-radius: 15px;
+		margin: 20px 0;
+	}
+
+	.not-used p {
+		margin: 0 0 15px 0;
+		color: #c0392b;
+		font-weight: 500;
+	}
+
+	.not-used ul {
+		margin: 0;
+		padding-left: 20px;
+	}
+
+	.not-used li {
+		color: #c0392b;
+	}
+
+	/* Purposes Current */
+	.purposes-current {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 20px;
+		margin: 25px 0;
+	}
+
+	.purpose-item {
+		padding: 25px;
+		border-radius: 15px;
+		border-left: 4px solid;
+	}
+
+	.purpose-item.essential {
+		background: rgba(231, 76, 60, 0.05);
+		border-left-color: #e74c3c;
+	}
+
+	.purpose-item.functional {
+		background: rgba(52, 152, 219, 0.05);
+		border-left-color: #3498db;
+	}
+
+	.purpose-item.security {
+		background: rgba(155, 89, 182, 0.05);
+		border-left-color: #9b59b6;
+	}
+
+	.purpose-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
 	}
 
 	/* Legal Note */
@@ -889,6 +2009,7 @@ import Footer from "../components/Footer.astro"
 		margin: 0;
 		color: #37443a;
 		font-size: 0.95rem;
+		line-height: 1.6;
 	}
 
 	/* Section Spacing */
@@ -909,10 +2030,6 @@ import Footer from "../components/Footer.astro"
 
 		.table-of-contents {
 			padding: 25px;
-		}
-
-		.cookies-table {
-			font-size: 0.85rem;
 		}
 	}
 
@@ -955,18 +2072,23 @@ import Footer from "../components/Footer.astro"
 
 		.browser-guide,
 		.mobile-guide,
-		.opt-out-tools,
+		.advantages,
+		.legal-bases,
 		.consequences-grid,
-		.transfers-grid {
+		.transfers-current,
+		.purposes-current {
 			grid-template-columns: 1fr;
 		}
 
-		.cookies-table table {
+		.current-tech-table table,
+		.youtube-cookies-table table {
 			font-size: 0.8rem;
 		}
 
-		.cookies-table th,
-		.cookies-table td {
+		.current-tech-table th,
+		.current-tech-table td,
+		.youtube-cookies-table th,
+		.youtube-cookies-table td {
 			padding: 8px;
 		}
 	}
@@ -984,18 +2106,29 @@ import Footer from "../components/Footer.astro"
 			padding: 20px;
 		}
 
+		.storage-item,
+		.third-party-service,
+		.control-guide,
+		.info-box,
+		.recommended-config,
+		.tool-category,
 		.contact-info,
-		.tool-item,
-		.legal-note,
-		.future-feature {
+		.legal-note {
 			padding: 20px;
 		}
 
+		.advantage-item,
+		.consequence-item,
+		.transfer-item,
+		.purpose-item,
+		.legal-basis-item,
 		.browser-item,
 		.mobile-item,
-		.consequence-item,
-		.transfer-item {
-			padding: 15px;
+		.future-item,
+		.notification-level,
+		.version-item,
+		.implementation-item {
+			padding: 20px;
 		}
 	}
 
