@@ -9,11 +9,21 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 				<Icon />
 			</div>
 
-			<h2>Accede a nuestro contenido exclusivo</h2>
-			<p>Introduce tu email para desbloquear todos nuestros recursos y acompañarte en este viaje</p>
+			<h2 id="overlay-title">Accede a nuestro contenido exclusivo</h2>
+			<p id="overlay-description">
+				Introduce tus datos para desbloquear todos nuestros recursos y acompañarte en este viaje
+			</p>
 
 			<form id="email-form" class="overlay-form">
-				<div class="form-group">
+				<div class="form-group-vertical" id="registration-fields">
+					<input
+						type="text"
+						id="name"
+						name="name"
+						placeholder="Tu nombre"
+						required
+						class="overlay-input"
+					/>
 					<input
 						type="email"
 						id="email"
@@ -22,6 +32,26 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 						required
 						class="overlay-input"
 					/>
+
+					<!-- Terms and conditions checkbox (only for registration) -->
+					<div class="terms-checkbox-container" id="terms-container">
+						<label class="terms-checkbox-label">
+							<input
+								type="checkbox"
+								id="terms-checkbox"
+								name="acceptTerms"
+								class="terms-checkbox"
+							/>
+							<span class="checkbox-custom"></span>
+							<span class="terms-text">
+								Acepto la <a href="/privacy" target="_blank" class="terms-link"
+									>política de privacidad</a
+								>
+								y los términos de uso
+							</span>
+						</label>
+					</div>
+
 					<button type="submit" class="overlay-button primary">
 						<span class="button-text">Acceder</span>
 						<span class="button-loader hidden">
@@ -35,9 +65,16 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 				<div id="success-message" class="success-message hidden"></div>
 			</form>
 
+			<div class="auth-toggle">
+				<p class="toggle-text">
+					<span id="toggle-message">Si ya has accedido previamente </span>
+					<button type="button" id="toggle-auth-mode" class="toggle-link">pulsa aquí</button>
+				</p>
+			</div>
+
 			<p class="overlay-note privacy-note">
-				Respetamos tu privacidad. Tu email será usado únicamente para enviarte el acceso a nuestros
-				recursos.
+				Respetamos tu privacidad. Tus datos serán usados únicamente para enviarte el acceso a
+				nuestros recursos.
 			</p>
 		</div>
 	</div>
@@ -64,6 +101,158 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 			transform: scale(1.05);
 		}
 	}
+
+	/* Additional styles for the new form layout */
+	.form-group-vertical {
+		display: flex;
+		flex-direction: column;
+		gap: 15px;
+		margin-bottom: 15px;
+	}
+
+	.form-group-vertical .overlay-input {
+		width: 100%;
+	}
+
+	/* Terms and conditions checkbox styling */
+	.terms-checkbox-container {
+		margin: 10px 0;
+	}
+
+	.terms-checkbox-label {
+		display: flex;
+		align-items: flex-start;
+		gap: 12px;
+		cursor: pointer;
+		position: relative;
+		text-align: left;
+	}
+
+	.terms-checkbox {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+	}
+
+	.checkbox-custom {
+		position: relative;
+		width: 20px;
+		height: 20px;
+		background: rgba(255, 245, 235, 0.5);
+		border: 2px solid rgba(106, 128, 103, 0.3);
+		border-radius: 4px;
+		transition: all 0.3s ease;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	/* Checkbox checked state */
+	.terms-checkbox:checked + .checkbox-custom {
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+		border-color: #cb6e5f;
+	}
+
+	.terms-checkbox:checked + .checkbox-custom::after {
+		content: "";
+		position: absolute;
+		left: 6px;
+		top: 2px;
+		width: 6px;
+		height: 10px;
+		border: solid white;
+		border-width: 0 2px 2px 0;
+		transform: rotate(45deg);
+	}
+
+	/* Focus state for accessibility */
+	.terms-checkbox:focus + .checkbox-custom {
+		outline: 2px solid rgba(203, 110, 95, 0.3);
+		outline-offset: 2px;
+	}
+
+	.terms-text {
+		color: #4a5a4d;
+		font-size: 0.85rem;
+		line-height: 1.4;
+		flex: 1;
+	}
+
+	.terms-link {
+		color: #cb6e5f;
+		text-decoration: underline;
+		transition: color 0.3s ease;
+	}
+
+	.terms-link:hover {
+		color: #37443a;
+	}
+
+	.auth-toggle {
+		margin: 20px 0;
+		text-align: center;
+	}
+
+	.toggle-text {
+		color: #6a8067;
+		font-size: 0.9rem;
+		margin: 0;
+	}
+
+	.toggle-link {
+		color: #cb6e5f;
+		background: none;
+		border: none;
+		text-decoration: underline;
+		cursor: pointer;
+		font-size: 0.9rem;
+		font-family: inherit;
+		transition: color 0.3s ease;
+	}
+
+	.toggle-link:hover {
+		color: #37443a;
+	}
+
+	/* Animation for form transitions */
+	.form-transition {
+		animation: formSlide 0.3s ease-in-out;
+	}
+
+	@keyframes formSlide {
+		0% {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		100% {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Mobile responsive adjustments */
+	@media (max-width: 768px) {
+		.terms-checkbox-label {
+			gap: 10px;
+		}
+
+		.checkbox-custom {
+			width: 18px;
+			height: 18px;
+		}
+
+		.terms-checkbox:checked + .checkbox-custom::after {
+			left: 5px;
+			top: 1px;
+			width: 5px;
+			height: 9px;
+		}
+
+		.terms-text {
+			font-size: 0.8rem;
+		}
+	}
 </style>
 
 <script>
@@ -71,13 +260,64 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 
 	document.addEventListener("DOMContentLoaded", () => {
 		const manager = new EmailVerificationManager()
+		const overlay = document.getElementById("email-overlay")
 		const form = document.getElementById("email-form") as HTMLFormElement
+		const nameInput = document.getElementById("name") as HTMLInputElement
 		const emailInput = document.getElementById("email") as HTMLInputElement
+		const termsCheckbox = document.getElementById("terms-checkbox") as HTMLInputElement
+		const termsContainer = document.getElementById("terms-container")
 		const errorMessage = document.getElementById("error-message")
 		const successMessage = document.getElementById("success-message")
 		const submitButton = form.querySelector(".overlay-button") as HTMLButtonElement
 		const buttonText = submitButton.querySelector(".button-text")
 		const buttonLoader = submitButton.querySelector(".button-loader")
+		const toggleButton = document.getElementById("toggle-auth-mode")
+		const toggleMessage = document.getElementById("toggle-message")
+		const overlayTitle = document.getElementById("overlay-title")
+		const overlayDescription = document.getElementById("overlay-description")
+		const registrationFields = document.getElementById("registration-fields")
+
+		let isAuthMode = false // false = registration, true = authentication
+
+		// Toggle between registration and authentication modes
+		toggleButton?.addEventListener("click", () => {
+			isAuthMode = !isAuthMode
+
+			// Add transition animation
+			registrationFields?.classList.add("form-transition")
+
+			if (isAuthMode) {
+				// Switch to authentication mode
+				overlayTitle!.textContent = "Acceder a tu cuenta"
+				overlayDescription!.textContent = "Introduce tu email para acceder a tus recursos"
+				nameInput.style.display = "none"
+				nameInput.required = false
+				termsContainer!.style.display = "none"
+				buttonText!.textContent = "Iniciar Sesión"
+				toggleMessage!.textContent = "¿No tienes cuenta? "
+				toggleButton.textContent = "Accede aquí"
+			} else {
+				// Switch to registration mode
+				overlayTitle!.textContent = "Accede a nuestro contenido exclusivo"
+				overlayDescription!.textContent =
+					"Introduce tus datos para desbloquear todos nuestros recursos y acompañarte en este viaje"
+				nameInput.style.display = "block"
+				nameInput.required = true
+				termsContainer!.style.display = "block"
+				buttonText!.textContent = "Acceder"
+				toggleMessage!.textContent = "Si ya has accedido previamente "
+				toggleButton.textContent = "pulsa aquí"
+			}
+
+			// Clear any previous messages
+			errorMessage?.classList.add("hidden")
+			successMessage?.classList.add("hidden")
+
+			// Remove animation class after transition
+			setTimeout(() => {
+				registrationFields?.classList.remove("form-transition")
+			}, 300)
+		})
 
 		form?.addEventListener("submit", async (e) => {
 			e.preventDefault()
@@ -85,6 +325,17 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 			// Reset messages
 			errorMessage?.classList.add("hidden")
 			successMessage?.classList.add("hidden")
+			console.log("AAA")
+
+			// Validate terms acceptance for registration mode
+			if (!isAuthMode && !termsCheckbox.checked) {
+				if (errorMessage) {
+					errorMessage.textContent =
+						"Debes aceptar la política de privacidad y los términos de uso para continuar."
+					errorMessage.classList.remove("hidden")
+				}
+				return
+			}
 
 			// Show loading state
 			submitButton.disabled = true
@@ -92,14 +343,19 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 			buttonLoader?.classList.remove("hidden")
 
 			const email = emailInput.value
+			const name = nameInput.value
 
 			try {
+				const requestBody = isAuthMode
+					? { email, mode: "auth" }
+					: { email, name, mode: "register", acceptedTerms: termsCheckbox.checked }
+
 				const response = await fetch("/api/send-email", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ email }),
+					body: JSON.stringify(requestBody),
 				})
 
 				if (!response.ok) {
@@ -108,40 +364,32 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 
 				const result = await response.json()
 				console.log("Email send response:", result)
-				// Check if there's a redirect URL in the response
-				if (result.code) {
-					// Show brief success message before redirecting
-					if (successMessage) {
-						successMessage.textContent = result.message || "Procesando tu solicitud..."
-						successMessage.classList.remove("hidden")
+
+				if (!result.created) {
+					if (result.status === "pending") {
+						manager.setPendingVerification(email)
+					} else if (result.status === "accepted") {
+						manager.setVerified()
 					}
 
-					// Store pending verification with longer expiration if redirecting
-					const expirationTime = Date.now() + 60 * 60 * 1000 // 1 hour for redirect flow
-					manager.setPendingVerification(email, result.code, expirationTime)
-
-					// Get current URL and append code as query param and videos hash
-					const currentUrl = new URL(window.location.href)
-					currentUrl.hash = "videos"
-					currentUrl.searchParams.set("code", result.code)
-
-					// Redirect after a short delay to show the success message
-					setTimeout(() => {
-						window.location.href = currentUrl.toString()
-					}, 1500)
-				} else {
-					// Original flow - show success message and set pending
+					if (successMessage) {
+						successMessage.textContent = result.message
+						successMessage.classList.remove("hidden")
+					}
+				} else if (result.created) {
 					if (successMessage) {
 						successMessage.textContent =
 							result.message ||
-							"Te hemos enviado un email con tu código de acceso. Por favor, revisa tu bandeja de entrada."
+							"Te hemos enviado un email para verificar tu email. Por favor, revisa tu bandeja de entrada o spam."
 						successMessage.classList.remove("hidden")
 					}
-
-					// Use the verification manager to set pending status
-					const expirationTime = Date.now() + 30 * 60 * 1000 // 30 minutes
-					manager.setPendingVerification(email, null, expirationTime)
+					manager.setPendingVerification(email)
 				}
+
+				// Hide overlay after a delay
+				setTimeout(() => {
+					overlay?.classList.add("hidden")
+				}, 4000)
 			} catch (error) {
 				// Show error message
 				if (errorMessage) {
@@ -151,11 +399,19 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 							: "Ocurrió un error. Por favor, intenta de nuevo."
 					errorMessage.classList.remove("hidden")
 				}
-			} finally {
-				// Reset loading state
 				submitButton.disabled = false
 				buttonText?.classList.remove("hidden")
 				buttonLoader?.classList.add("hidden")
+			} finally {
+				buttonText?.classList.remove("hidden")
+				buttonText!.textContent = "Accediendo a los vídeos..."
+				buttonLoader?.classList.add("hidden")
+
+				// Go back to init status
+				setTimeout(() => {
+					buttonText!.textContent = "Acceder"
+					submitButton.disabled = false
+				}, 5000)
 			}
 		})
 	})

@@ -6,8 +6,6 @@
 interface AccessData {
 	status: "pending" | "accepted"
 	email: string
-	expires: number
-	code: string | null
 }
 
 // Extend Window interface to include custom properties
@@ -28,8 +26,6 @@ export class EmailVerificationManager {
 		this.emailOverlayId = "email-overlay"
 		this.verificationOverlayId = "verification-overlay"
 
-		// Bind methods to preserve 'this' context
-		this.checkStatus = this.checkStatus.bind(this)
 		this.handleStorageChange = this.handleStorageChange.bind(this)
 
 		// Initialize event listeners
@@ -40,6 +36,9 @@ export class EmailVerificationManager {
 	 * Initialize the verification manager
 	 */
 	init() {
+		// Check for verification parameters in URL
+		this.checkVerificationParams()
+
 		// Check status on page load
 		document.addEventListener("DOMContentLoaded", () => {
 			this.checkStatus()
@@ -48,8 +47,27 @@ export class EmailVerificationManager {
 		// Listen for storage changes (multi-tab support)
 		window.addEventListener("storage", this.handleStorageChange)
 
-		// Check verification status periodically
-		setInterval(this.checkStatus, 1000) // Every 30 seconds
+		if (this.getAccessData()) {
+			const emailOverlay = document.getElementById(this.emailOverlayId)
+			emailOverlay?.classList.add("hidden")
+		}
+	}
+
+	/**
+	 * Check URL parameters for automatic verification
+	 */
+	checkVerificationParams() {
+		const urlParams = new URLSearchParams(window.location.search)
+		const accessCode = urlParams.get("accessCode")
+
+		if (accessCode) {
+			// Auto-verify if URL contains verification parameters
+			window.verifyEmailAccess()
+
+			// Clean up URL (optional)
+			const newUrl = window.location.pathname
+			window.history.replaceState({}, document.title, newUrl)
+		}
 	}
 
 	/**
@@ -116,17 +134,6 @@ export class EmailVerificationManager {
 	}
 
 	/**
-	 * Show verification pending overlay
-	 */
-	showVerificationPending() {
-		const emailOverlay = this.getEmailOverlay()
-		const verificationOverlay = this.getVerificationOverlay()
-
-		emailOverlay?.classList.add("hidden")
-		verificationOverlay?.classList.remove("hidden")
-	}
-
-	/**
 	 * Hide all overlays (verified state)
 	 */
 	showVerifiedState() {
@@ -138,18 +145,6 @@ export class EmailVerificationManager {
 	}
 
 	/**
-	 * Check if access has expired
-	 * @param {Object} accessData Access data object
-	 * @returns {boolean} True if expired
-	 */
-	isExpired(accessData: AccessData) {
-		if (!accessData.expires) return false
-
-		const now = Date.now()
-		return now > accessData.expires && accessData.status !== "accepted"
-	}
-
-	/**
 	 * Check email verification status and update UI accordingly
 	 */
 	checkStatus() {
@@ -157,13 +152,6 @@ export class EmailVerificationManager {
 
 		// No access data - show email form
 		if (!accessData) {
-			this.showEmailForm()
-			return
-		}
-
-		// Check if access has expired
-		if (this.isExpired(accessData)) {
-			this.clearAccessData()
 			this.showEmailForm()
 			return
 		}
@@ -196,34 +184,25 @@ export class EmailVerificationManager {
 	/**
 	 * Set email as pending verification
 	 * @param {string} email User's email address
-	 * @param {number} expirationTime Expiration timestamp (optional)
 	 */
-	setPendingVerification(
-		email: string,
-		code: string | null = null,
-		expirationTime: number | null = null,
-	) {
+	setPendingVerification(email: string) {
 		const accessData: AccessData = {
 			status: "pending",
 			email: email,
-			code: code,
-			expires: expirationTime || Date.now() + 30 * 60 * 1000, // 30 minutes default
 		}
 
 		this.setAccessData(accessData)
-		this.checkStatus()
+		// this.checkStatus()
 	}
 
 	/**
 	 * Mark email as verified
-	 * @param {number} expirationTime New expiration time (optional, defaults to 24 hours)
 	 */
-	setVerified(expirationTime = null) {
+	setVerified() {
 		const accessData = this.getAccessData()
 
 		if (accessData) {
 			accessData.status = "accepted"
-			accessData.expires = expirationTime || Date.now() + 24 * 60 * 60 * 1000 // 24 hours default
 
 			this.setAccessData(accessData)
 			this.checkStatus()
@@ -247,7 +226,6 @@ export class EmailVerificationManager {
 		const accessData = this.getAccessData()
 
 		if (!accessData) return false
-		if (this.isExpired(accessData)) return false
 
 		return accessData.status === "accepted"
 	}
@@ -274,7 +252,8 @@ window.verifyEmailAccess = function () {
 	manager.setVerified()
 
 	// Optional: Show success message
-	const successMessage = "¡Email verificado correctamente! Ya puedes acceder a todos los recursos."
+	const successMessage =
+		"¡Email verificado correctamente! Te enviaremos el código de descuento al final del reto."
 
 	// You can customize this notification method
 	if (typeof window.showNotification === "function") {

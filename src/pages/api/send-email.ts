@@ -5,15 +5,23 @@ export const prerender = false
 interface WebhookResponse {
 	success: boolean
 	message?: string
-	code?: string
+	created?: boolean
+	status?: string
 }
 
 export const POST: APIRoute = async ({ request }) => {
 	try {
-		const { email } = await request.json()
+		const { name, email, mode, acceptedTerms } = await request.json()
 
 		if (!email) {
 			return new Response(JSON.stringify({ error: "Email is required" }), {
+				status: 400,
+				headers: { "Content-Type": "application/json" },
+			})
+		}
+
+		if (mode != "auth" && !name) {
+			return new Response(JSON.stringify({ error: "Name is required" }), {
 				status: 400,
 				headers: { "Content-Type": "application/json" },
 			})
@@ -38,7 +46,10 @@ export const POST: APIRoute = async ({ request }) => {
 				"Content-Type": "application/json",
 				"Authorization": authToken,
 			},
-			body: JSON.stringify({ email }),
+			body:
+				mode === "auth"
+					? JSON.stringify({ email, mode })
+					: JSON.stringify({ name, email, mode, acceptedTerms }),
 		})
 
 		if (!response.ok) {
@@ -47,20 +58,15 @@ export const POST: APIRoute = async ({ request }) => {
 
 		// Parse the webhook response
 		let webhookData: WebhookResponse
-		try {
-			webhookData = await response.json()
-		} catch (parseError) {
-			console.error("Error parsing webhook response:", parseError)
-			// If response isn't JSON, treat as success but without redirect
-			webhookData = { success: true }
-		}
+		webhookData = await response.json()
 
 		// Return the response including any redirect URL
 		return new Response(
 			JSON.stringify({
 				success: true,
-				message: webhookData.message || "Email sent successfully",
-				code: webhookData.code,
+				created: webhookData.created,
+				message: webhookData.message,
+				status: webhookData.status,
 			}),
 			{
 				status: 200,
