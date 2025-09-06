@@ -511,8 +511,30 @@ const processedVideos = videos.map((video) => ({
 			const diff = unlockDate.getTime() - now.getTime()
 
 			if (diff <= 0) {
-				// Video should be unlocked - reload page to update
-				window.location.reload()
+				// Video should be unlocked - remove the unlock overlay and show unlock message
+				const videoCard = element.closest(".video-card")
+				const unlockOverlay = videoCard?.querySelector(".unlock-overlay") as HTMLElement
+
+				if (unlockOverlay) {
+					// Replace countdown with unlock message
+					element.textContent = "¡Disponible ahora!"
+					;(element as HTMLElement).style.color = "#4ade80" // Green color
+
+					// Add click handler to reload and show video
+					unlockOverlay.style.cursor = "pointer"
+					unlockOverlay.title = "Haz clic para cargar el video"
+
+					// Remove the data attribute to prevent further updates
+					element.removeAttribute("data-unlock-date")
+
+					// Add click event to reload page when user clicks
+					if (!unlockOverlay.dataset.clickHandlerAdded) {
+						unlockOverlay.addEventListener("click", () => {
+							window.location.reload()
+						})
+						unlockOverlay.dataset.clickHandlerAdded = "true"
+					}
+				}
 				return
 			}
 
