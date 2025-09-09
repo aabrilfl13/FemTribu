@@ -6,6 +6,11 @@
 interface AccessData {
 	status: "pending" | "accepted"
 	email: string
+	code?: string
+}
+
+interface WebhookResponse {
+	verified: boolean
 }
 
 // Extend Window interface to include custom properties
@@ -196,17 +201,47 @@ export class EmailVerificationManager {
 	}
 
 	/**
-	 * Mark email as verified
+	 * Mark email as verified and send data to backend
 	 */
-	setVerified() {
+	async setVerified(email: string, code: string) {
 		const accessData = this.getAccessData()
 
 		if (accessData) {
-			accessData.status = "accepted"
+			// Send verification data to backend via internal API
+			try {
+				const response = await fetch("/api/verify-email", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						email: email,
+						code: code,
+					}),
+				})
 
-			this.setAccessData(accessData)
-			this.checkStatus()
+				if (!response.ok) {
+					console.error("Failed to send verification data to backend")
+				}
+
+				// Parse the webhook response
+				let webhookData: WebhookResponse
+				webhookData = await response.json()
+
+				this.setAccessData({
+					status: webhookData.verified === true ? "accepted" : "pending",
+					email: email,
+					code: code,
+				})
+			} catch (error) {
+				console.error("Error sending verification data:", error)
+			}
 		}
+
+		// Update access status to verified
+
+		this.showVerifiedState()
+		this.checkStatus()
 	}
 
 	/**
