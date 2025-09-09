@@ -77,7 +77,13 @@ const processedVideos = videos.map((video) => ({
 			<div class="videos-grid">
 				{
 					processedVideos.map((video, index) => (
-						<div class="video-card" style={`animation-delay: ${0.1 * (index + 1)}s`}>
+						<div
+							class="video-card"
+							style={`animation-delay: ${0.1 * (index + 1)}s`}
+							data-video-id={video.youtubeId}
+							data-unlock-date={video.unlockDate}
+							data-timezone={timezone}
+						>
 							<div class="video-wrapper">
 								{!video.isLocked ? (
 									<iframe
@@ -528,65 +534,88 @@ const processedVideos = videos.map((video) => ({
 		return new Date(dateString)
 	}
 
-	// Update countdown timers every minute
+	// Update countdown timers and unlock videos when time comes
 	function updateCountdowns() {
-		const countdownElements = document.querySelectorAll(".countdown[data-unlock-date]")
+		// Check both countdown elements and video cards for unlocking
+		const videoCards = document.querySelectorAll(".video-card[data-unlock-date]")
 
-		countdownElements.forEach((element) => {
-			console.log("Element:", element)
-			const unlockDateString = element.getAttribute("data-unlock-date")
-			const timezone = element.getAttribute("data-timezone") || "Europe/Madrid"
-			if (!unlockDateString) return
+		videoCards.forEach((videoCard) => {
+			const unlockDateString = videoCard.getAttribute("data-unlock-date")
+			const timezone = videoCard.getAttribute("data-timezone") || "Europe/Madrid"
+			const youtubeId = videoCard.getAttribute("data-video-id")
+
+			if (!unlockDateString || !youtubeId) return
 
 			const unlockDate = createClientTimezoneAwareDate(unlockDateString, timezone)
-			console.log("Unlock Date:", unlockDate.toString())
 			const now = new Date()
 			const diff = unlockDate.getTime() - now.getTime()
 
+			const unlockOverlay = videoCard.querySelector(".unlock-overlay") as HTMLElement
+			const countdownElement = videoCard.querySelector(".countdown") as HTMLElement
+			const videoWrapper = videoCard.querySelector(".video-wrapper") as HTMLElement
+
 			if (diff <= 0) {
-				// Video should be unlocked - remove the unlock overlay and show unlock message
-				const videoCard = element.closest(".video-card")
-				const unlockOverlay = videoCard?.querySelector(".unlock-overlay") as HTMLElement
+				// Video should be unlocked
+				if (unlockOverlay && videoWrapper) {
+					// Remove the unlock overlay with a smooth transition
+					unlockOverlay.style.transition = "opacity 0.5s ease"
+					unlockOverlay.style.opacity = "0"
 
-				if (unlockOverlay) {
-					// Replace countdown with unlock message
-					element.textContent = "¡Disponible ahora!"
-					;(element as HTMLElement).style.color = "#4ade80" // Green color
+					setTimeout(() => {
+						// Replace the placeholder with the actual iframe
+						const videoPlaceholder = videoWrapper.querySelector(".video-placeholder")
+						if (videoPlaceholder) {
+							const iframe = document.createElement("iframe")
+							iframe.src = `https://www.youtube.com/embed/${youtubeId}`
+							iframe.title = videoCard.querySelector(".video-title")?.textContent || ""
+							iframe.loading = "lazy"
+							iframe.allow =
+								"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin")
+							iframe.allowFullscreen = true
+							iframe.style.position = "absolute"
+							iframe.style.top = "0"
+							iframe.style.left = "0"
+							iframe.style.width = "100%"
+							iframe.style.height = "100%"
+							iframe.style.border = "none"
 
-					// Add click handler to reload and show video
-					unlockOverlay.style.cursor = "pointer"
-					unlockOverlay.title = "Haz clic para cargar el video"
+							// Replace placeholder with iframe
+							videoWrapper.removeChild(videoPlaceholder)
+							videoWrapper.appendChild(iframe)
+						}
 
-					// Remove the data attribute to prevent further updates
-					// element.removeAttribute("data-unlock-date")
+						// Remove the unlock overlay completely
+						if (unlockOverlay.parentNode) {
+							unlockOverlay.parentNode.removeChild(unlockOverlay)
+						}
 
-					// Add click event to reload page when user clicks
-					if (!unlockOverlay.dataset.clickHandlerAdded) {
-						unlockOverlay.addEventListener("click", () => {
-							window.location.reload()
-						})
-						unlockOverlay.dataset.clickHandlerAdded = "true"
-					}
+						// Remove the data attribute to prevent further processing
+						videoCard.removeAttribute("data-unlock-date")
+					}, 500)
 				}
 				return
 			}
 
-			const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-			const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-			const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+			// Update countdown text if still locked
+			if (countdownElement) {
+				const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+				const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+				const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
 
-			let timeText
-			if (days > 0) {
-				timeText = `${days} día${days !== 1 ? "s" : ""}`
-			} else if (hours > 0) {
-				timeText = `${hours} hora${hours !== 1 ? "s" : ""}`
-			} else if (minutes > 0) {
-				timeText = `${minutes} minuto${minutes !== 1 ? "s" : ""}`
-			} else {
-				timeText = "Menos de un minuto"
+				let timeText
+				if (days > 0) {
+					timeText = `${days} día${days !== 1 ? "s" : ""}`
+				} else if (hours > 0) {
+					timeText = `${hours} hora${hours !== 1 ? "s" : ""}`
+				} else if (minutes > 0) {
+					timeText = `${minutes} minuto${minutes !== 1 ? "s" : ""}`
+				} else {
+					timeText = "Menos de un minuto"
+				}
+
+				countdownElement.textContent = timeText
 			}
-
-			element.textContent = timeText
 		})
 	}
 
