@@ -325,7 +325,6 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 			// Reset messages
 			errorMessage?.classList.add("hidden")
 			successMessage?.classList.add("hidden")
-			console.log("AAA")
 
 			// Validate terms acceptance for registration mode
 			if (!isAuthMode && !termsCheckbox.checked) {
@@ -363,7 +362,6 @@ import Icon from "../assets/iconos/ilustracion-negro_24.svg"
 				}
 
 				const result = await response.json()
-				console.log("Email send response:", result)
 
 				if (!result.created) {
 					if (result.status === "pending") {
