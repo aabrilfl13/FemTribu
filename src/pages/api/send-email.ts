@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro"
+import { getWebhookConfig } from "@/utils/config.ts"
 
 export const prerender = false
 
@@ -7,6 +8,7 @@ interface WebhookResponse {
 	message?: string
 	created?: boolean
 	status?: string
+	acceptedTerms?: boolean
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -27,12 +29,12 @@ export const POST: APIRoute = async ({ request }) => {
 			})
 		}
 
-		// Get auth token from environment variable (server-side only, secure)
-		const webhook_url = import.meta.env.WEBHOOK_URL
-		const authToken = import.meta.env.WEBHOOK_AUTH_TOKEN
-
-		if (!webhook_url || !authToken) {
-			console.error("WEBHOOK_URL or WEBHOOK_AUTH_TOKEN environment variables are not set")
+		// Get webhook configuration from shared config utility
+		let webhookConfig
+		try {
+			webhookConfig = getWebhookConfig()
+		} catch (error) {
+			console.error("Webhook configuration error:", error)
 			return new Response(JSON.stringify({ error: "Server configuration error" }), {
 				status: 500,
 				headers: { "Content-Type": "application/json" },
@@ -40,11 +42,11 @@ export const POST: APIRoute = async ({ request }) => {
 		}
 
 		// Call the n8n webhook
-		const response = await fetch(webhook_url, {
+		const response = await fetch(webhookConfig.webhookUrl, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
-				"Authorization": authToken,
+				"Authorization": webhookConfig.authToken,
 			},
 			body:
 				mode === "auth"
@@ -67,6 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
 				created: webhookData.created,
 				message: webhookData.message,
 				status: webhookData.status,
+				acceptedTerms: webhookData.acceptedTerms,
 			}),
 			{
 				status: 200,
