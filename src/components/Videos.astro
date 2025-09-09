@@ -3,19 +3,29 @@ import videosData from "../data/videos.json"
 import EmailOverlay from "./EmailOverlay.astro"
 import VerificationOverlay from "./VerificationOverlay.astro"
 
-const { videos } = videosData
+const { videos, timezone } = videosData
+
+// Function to create timezone-aware date
+function createTimezoneAwareDate(dateString: string, timezone: string) {
+	// If the date doesn't have timezone info, interpret it in the specified timezone
+	if (!dateString.includes("Z") && !dateString.includes("+") && !dateString.includes("-")) {
+		// Parse the date as if it's in the specified timezone
+		return new Date(dateString + " UTC")
+	}
+	return new Date(dateString)
+}
 
 // Function to check if video is unlocked
-function isVideoUnlocked(unlockDate: string | Date) {
+function isVideoUnlocked(unlockDate: string, timezone: string) {
 	const now = new Date()
-	const unlock = new Date(unlockDate)
+	const unlock = createTimezoneAwareDate(unlockDate, timezone)
 	return now >= unlock
 }
 
 // Function to format time until unlock
-function formatTimeUntilUnlock(unlockDate: string | Date) {
+function formatTimeUntilUnlock(unlockDate: string, timezone: string) {
 	const now = new Date()
-	const unlock = new Date(unlockDate)
+	const unlock = createTimezoneAwareDate(unlockDate, timezone)
 	const diff = unlock.getTime() - now.getTime()
 
 	if (diff <= 0) return "Disponible ahora"
@@ -35,13 +45,19 @@ function formatTimeUntilUnlock(unlockDate: string | Date) {
 // Process videos with lock status
 const processedVideos = videos.map((video) => ({
 	...video,
-	isLocked: !isVideoUnlocked(video.unlockDate),
-	timeUntilUnlock: formatTimeUntilUnlock(video.unlockDate),
-	unlockDateFormatted: new Date(video.unlockDate).toLocaleDateString("es-ES", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	}),
+	isLocked: !isVideoUnlocked(video.unlockDate, timezone),
+	timeUntilUnlock: formatTimeUntilUnlock(video.unlockDate, timezone),
+	unlockDateFormatted: createTimezoneAwareDate(video.unlockDate, timezone).toLocaleDateString(
+		"es-ES",
+		{
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+			timeZone: timezone,
+		}
+	),
 }))
 ---
 
@@ -99,7 +115,11 @@ const processedVideos = videos.map((video) => ({
 											</div>
 											<div class="unlock-text">
 												<h4>Se desbloquea en</h4>
-												<p class="countdown" data-unlock-date={video.unlockDate}>
+												<p
+													class="countdown"
+													data-unlock-date={video.unlockDate}
+													data-timezone={timezone}
+												>
 													{video.timeUntilUnlock}
 												</p>
 												<span class="unlock-date">{video.unlockDateFormatted}</span>
@@ -498,15 +518,28 @@ const processedVideos = videos.map((video) => ({
 		}
 	}
 
+	// Function to create timezone-aware date on client side
+	function createClientTimezoneAwareDate(dateString: string, timezone: string) {
+		// If the date doesn't have timezone info, interpret it in the specified timezone
+		if (!dateString.includes("Z") && !dateString.includes("+") && !dateString.includes("-")) {
+			// Parse the date as if it's in UTC (since we want Spain time to be treated as Spain time)
+			return new Date(dateString + " UTC")
+		}
+		return new Date(dateString)
+	}
+
 	// Update countdown timers every minute
 	function updateCountdowns() {
 		const countdownElements = document.querySelectorAll(".countdown[data-unlock-date]")
 
 		countdownElements.forEach((element) => {
+			console.log("Element:", element)
 			const unlockDateString = element.getAttribute("data-unlock-date")
+			const timezone = element.getAttribute("data-timezone") || "Europe/Madrid"
 			if (!unlockDateString) return
 
-			const unlockDate = new Date(unlockDateString)
+			const unlockDate = createClientTimezoneAwareDate(unlockDateString, timezone)
+			console.log("Unlock Date:", unlockDate.toString())
 			const now = new Date()
 			const diff = unlockDate.getTime() - now.getTime()
 
@@ -525,7 +558,7 @@ const processedVideos = videos.map((video) => ({
 					unlockOverlay.title = "Haz clic para cargar el video"
 
 					// Remove the data attribute to prevent further updates
-					element.removeAttribute("data-unlock-date")
+					// element.removeAttribute("data-unlock-date")
 
 					// Add click event to reload page when user clicks
 					if (!unlockOverlay.dataset.clickHandlerAdded) {
