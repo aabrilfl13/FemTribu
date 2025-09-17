@@ -110,6 +110,16 @@
 					<p class="made-with-love">Hecho con ❤️ para madres extraordinarias</p>
 				</div>
 			</div>
+			<!-- Developer Credit -->
+			<div class="developer-credit">
+				<p>
+					Desarrollado por <strong>Antonio Abril</strong> ·
+					<a href="https://github.com/aabrilfl13" target="_blank" rel="noopener">
+						<img src="/images/icons/github-mark.svg" alt="GitHub Logo" />
+						@aabrilfl13
+					</a>
+				</p>
+			</div>
 		</div>
 	</div>
 
@@ -494,6 +504,71 @@
 			font-style: italic;
 		}
 
+		/* Developer Credit */
+		.developer-credit {
+			padding: 5px;
+			margin-top: 0px;
+			text-align: center;
+		}
+
+		.developer-credit p {
+			margin: 0;
+			color: rgba(255, 245, 235, 0.6);
+			font-size: 0.85rem;
+			font-family: "Questrial", sans-serif;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+		}
+
+		.developer-credit strong {
+			color: rgba(255, 245, 235, 0.8);
+		}
+
+		.developer-credit a {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			color: rgba(255, 245, 235, 0.7);
+			text-decoration: none;
+			transition: all 0.3s ease;
+			padding: 4px 8px;
+			border-radius: 6px;
+			position: relative;
+		}
+
+		.developer-credit a::before {
+			content: "";
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 0;
+			height: 1px;
+			background: #cb6e5f;
+			transition: width 0.3s ease;
+		}
+
+		.developer-credit a:hover {
+			color: #fff5eb;
+			background: rgba(203, 110, 95, 0.1);
+			transform: translateY(-1px);
+		}
+
+		.developer-credit a:hover::before {
+			width: 100%;
+		}
+
+		.developer-credit img {
+			width: 16px;
+			height: 16px;
+			opacity: 0.8;
+		}
+
+		.developer-credit a:hover img {
+			opacity: 1;
+		}
+
 		/* Responsive design */
 		@media (max-width: 1024px) {
 			.footer-main {
@@ -594,6 +669,15 @@
 			.email-link svg {
 				width: 16px;
 				height: 16px;
+			}
+
+			.developer-credit p {
+				flex-direction: column;
+				gap: 8px;
+			}
+
+			.developer-credit a {
+				padding: 8px 12px;
 			}
 		}
 	</style>
