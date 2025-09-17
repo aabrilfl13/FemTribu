@@ -3,7 +3,7 @@
   "videos": [
     {
       "id": 1,
-      "youtubeId": "sL6gioAwU8o",
+      "youtubeId": "wg0D8BMgvcE",
       "title": "Pasos básicos",
       "description": "Cómo funciona la lactancia: lo básico para entender tu cuerpo.",
       "tags": ["Día 1"],
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "youtubeId": "obBECIGR4K8",
+      "youtubeId": "jkCivYy-awQ",
       "title": "Buen agarre",
       "description": "Cómo conseguir un buen agarre desde el principio.",
       "tags": ["Día 2"],
@@ -21,7 +21,7 @@
     },
     {
       "id": 3,
-      "youtubeId": "VIDEO_ID_3",
+      "youtubeId": "xOKl5z44WeU",
       "title": "Banco de leche",
       "description": "Cómo crear tu propio banco de leche y cómo conservarla.",
       "tags": ["Día 3"],
@@ -30,7 +30,7 @@
     },
     {
       "id": 4,
-      "youtubeId": "VIDEO_ID_4",
+      "youtubeId": "DrPD6yfB_ik",
       "title": "Destete",
       "description": "Destete respetuoso: cuándo, cómo y por qué.",
       "tags": ["Día 4"],
