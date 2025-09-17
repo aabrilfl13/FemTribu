@@ -802,16 +802,52 @@
 		 * Enable YouTube cookies
 		 */
 		enableYouTubeCookies() {
-			// YouTube cookies are handled automatically when videos are embedded
 			console.log("YouTube cookies enabled")
+			this.updateYouTubeEmbeds()
 		}
 
 		/**
 		 * Disable YouTube cookies
 		 */
 		disableYouTubeCookies() {
-			// TODO: Use youtube-nocookie.com domain for embeds
 			console.log("YouTube cookies disabled")
+			this.updateYouTubeEmbeds()
+		}
+
+		/**
+		 * Update all YouTube embeds to use appropriate domain based on cookie preferences
+		 */
+		updateYouTubeEmbeds() {
+			// Find all YouTube iframes in the page
+			const iframes = document.querySelectorAll('iframe[src*="youtube"]')
+
+			iframes.forEach((iframe) => {
+				if (iframe instanceof HTMLIFrameElement) {
+					const currentSrc = iframe.src
+					let videoId = ""
+
+					// Extract video ID from current URL
+					const youtubeMatch = currentSrc.match(
+						/(?:youtube\.com|youtube-nocookie\.com)\/embed\/([^?&]+)/
+					)
+					if (youtubeMatch) {
+						videoId = youtubeMatch[1]
+					}
+
+					if (videoId) {
+						// Get the appropriate URL based on current cookie preferences
+						const consent = this.getStoredConsent()
+						const isYouTubeCookiesEnabled = consent?.preferences?.youtube || false
+						const domain = isYouTubeCookiesEnabled ? "www.youtube.com" : "www.youtube-nocookie.com"
+						const newSrc = `https://${domain}/embed/${videoId}`
+
+						// Only update if the domain actually changed
+						if (!currentSrc.includes(domain)) {
+							iframe.src = newSrc
+						}
+					}
+				}
+			})
 		}
 
 		/**

@@ -87,7 +87,7 @@ const processedVideos = videos.map((video) => ({
 							<div class="video-wrapper">
 								{!video.isLocked ? (
 									<iframe
-										src={`https://www.youtube.com/embed/${video.youtubeId}`}
+										data-youtube-id={video.youtubeId}
 										title={video.title}
 										loading="lazy"
 										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -524,6 +524,21 @@ const processedVideos = videos.map((video) => ({
 		}
 	}
 
+	/**
+	 * Get the appropriate YouTube URL based on cookie preferences
+	 * @param {string} videoId - YouTube video ID
+	 * @returns {string} - Complete YouTube embed URL
+	 */
+	function getYouTubeEmbedUrl(videoId: string): string {
+		// Check if cookie manager exists and YouTube cookies are enabled
+		const cookieManager = (window as any).cookieManager
+		const isYouTubeCookiesEnabled = cookieManager?.isCategoryEnabled?.("youtube") || false
+
+		// Use no-cookie domain if YouTube cookies are not enabled
+		const domain = isYouTubeCookiesEnabled ? "www.youtube.com" : "www.youtube-nocookie.com"
+		return `https://${domain}/embed/${videoId}`
+	}
+
 	// Function to create timezone-aware date on client side
 	function createClientTimezoneAwareDate(dateString: string, timezone: string) {
 		// If the date doesn't have timezone info, interpret it in the specified timezone
@@ -566,7 +581,7 @@ const processedVideos = videos.map((video) => ({
 						const videoPlaceholder = videoWrapper.querySelector(".video-placeholder")
 						if (videoPlaceholder) {
 							const iframe = document.createElement("iframe")
-							iframe.src = `https://www.youtube.com/embed/${youtubeId}`
+							iframe.src = getYouTubeEmbedUrl(youtubeId)
 							iframe.title = videoCard.querySelector(".video-title")?.textContent || ""
 							iframe.loading = "lazy"
 							iframe.allow =
@@ -626,6 +641,15 @@ const processedVideos = videos.map((video) => ({
 
 		// Store reference globally for potential external access
 		window.emailVerificationManager = verificationManager
+
+		// Set YouTube URLs for unlocked videos based on cookie preferences
+		const unlockedIframes = document.querySelectorAll("iframe[data-youtube-id]")
+		unlockedIframes.forEach((iframe) => {
+			const youtubeId = iframe.getAttribute("data-youtube-id")
+			if (youtubeId && iframe instanceof HTMLIFrameElement) {
+				iframe.src = getYouTubeEmbedUrl(youtubeId)
+			}
+		})
 
 		// Update countdowns
 		updateCountdowns()
