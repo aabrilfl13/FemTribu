@@ -2,16 +2,16 @@
 
 ---
 
-<div id="cookies-overlay" class="cookies-overlay hidden">
-	<div class="cookies-content">
-		<div class="cookies-container">
+<div id="privacy-notice" class="privacy-overlay hidden">
+	<div class="privacy-content">
+		<div class="privacy-container">
 			<!-- Cookie icon -->
-			<div class="cookies-icon">
+			<div class="privacy-icon">
 				<img src="/images/icons/cookie.svg" alt="Icono de galleta" width="24" height="24" />
 			</div>
 
 			<!-- Main content -->
-			<div class="cookies-text">
+			<div class="privacy-text">
 				<h3>Respetamos tu privacidad</h3>
 				<p>
 					Utilizamos cookies esenciales para el funcionamiento del sitio web y cookies opcionales
@@ -20,47 +20,49 @@
 			</div>
 
 			<!-- Quick actions -->
-			<div class="cookies-actions-quick">
-				<button id="accept-all-cookies" class="cookies-button primary"> Aceptar todas </button>
-				<button id="reject-optional-cookies" class="cookies-button secondary">
+			<div class="privacy-actions-quick">
+				<button id="accept-all-preferences" class="privacy-button primary"> Aceptar todas </button>
+				<button id="reject-optional-preferences" class="privacy-button secondary">
 					Solo esenciales
 				</button>
 			</div>
 
 			<!-- Advanced options toggle -->
-			<div class="cookies-advanced-toggle">
-				<button id="show-cookie-settings" class="cookies-link"> Personalizar configuración </button>
-				<span class="cookies-divider">·</span>
-				<a href="/privacy" class="cookies-link" target="_blank"> Política de privacidad </a>
+			<div class="privacy-advanced-toggle">
+				<button id="show-preference-settings" class="privacy-link">
+					Personalizar configuración
+				</button>
+				<span class="privacy-divider">·</span>
+				<a href="/privacy" class="privacy-link" target="_blank"> Política de privacidad </a>
 			</div>
 		</div>
 
 		<!-- Advanced settings (hidden by default) -->
-		<div id="cookies-advanced" class="cookies-advanced hidden">
-			<div class="cookies-advanced-container">
+		<div id="privacy-advanced" class="privacy-advanced hidden">
+			<div class="privacy-advanced-container">
 				<h4>Configuración de cookies</h4>
-				<p class="cookies-advanced-description">
+				<p class="privacy-advanced-description">
 					Gestiona tus preferencias de cookies. Las cookies esenciales no se pueden desactivar ya
 					que son necesarias para el funcionamiento del sitio.
 				</p>
 
-				<div class="cookies-categories">
+				<div class="preference-categories">
 					<!-- Essential cookies -->
-					<div class="cookie-category">
-						<div class="cookie-category-header">
-							<div class="cookie-category-info">
+					<div class="preference-category">
+						<div class="preference-category-header">
+							<div class="preference-category-info">
 								<h5>Cookies Esenciales</h5>
 								<p>Necesarias para el funcionamiento básico del sitio web.</p>
 							</div>
-							<div class="cookie-toggle">
-								<input type="checkbox" id="essential-cookies" checked disabled />
-								<label for="essential-cookies" class="toggle-label">
+							<div class="preference-toggle">
+								<input type="checkbox" id="essential-preferences" checked disabled />
+								<label for="essential-preferences" class="toggle-label">
 									<span class="toggle-switch"></span>
 								</label>
 								<span class="toggle-status">Siempre activas</span>
 							</div>
 						</div>
-						<div class="cookie-details">
+						<div class="preference-details">
 							<ul>
 								<li>
 									<strong>localStorage:</strong> Control de acceso temporal a videos (30 minutos)
@@ -71,42 +73,42 @@
 					</div>
 
 					<!-- Analytics cookies -->
-					<div class="cookie-category">
-						<div class="cookie-category-header">
-							<div class="cookie-category-info">
-								<h5>Cookies de Análisis</h5>
+					<div class="preference-category">
+						<div class="preference-category-header">
+							<div class="preference-category-info">
+								<h5>Mejora de Experiencia</h5>
 								<p>Nos ayudan a entender cómo utilizas el sitio web.</p>
 							</div>
-							<div class="cookie-toggle">
-								<input type="checkbox" id="analytics-cookies" />
-								<label for="analytics-cookies" class="toggle-label">
+							<div class="preference-toggle">
+								<input type="checkbox" id="analytics-preferences" />
+								<label for="analytics-preferences" class="toggle-label">
 									<span class="toggle-switch"></span>
 								</label>
 							</div>
 						</div>
-						<div class="cookie-details">
+						<div class="preference-details">
 							<ul>
-								<li><strong>Google Analytics:</strong> Análisis de uso del sitio web</li>
+								<li><strong>Análisis de uso:</strong> Análisis de uso del sitio web</li>
 								<li><strong>Métricas de rendimiento:</strong> Optimización de la experiencia</li>
 							</ul>
 						</div>
 					</div>
 
 					<!-- YouTube cookies -->
-					<div class="cookie-category">
-						<div class="cookie-category-header">
-							<div class="cookie-category-info">
-								<h5>Cookies de Terceros</h5>
+					<div class="preference-category">
+						<div class="preference-category-header">
+							<div class="preference-category-info">
+								<h5>Contenido de Terceros</h5>
 								<p>Servicios externos embebidos como videos de YouTube.</p>
 							</div>
-							<div class="cookie-toggle">
-								<input type="checkbox" id="youtube-cookies" />
-								<label for="youtube-cookies" class="toggle-label">
+							<div class="preference-toggle">
+								<input type="checkbox" id="youtube-preferences" />
+								<label for="youtube-preferences" class="toggle-label">
 									<span class="toggle-switch"></span>
 								</label>
 							</div>
 						</div>
-						<div class="cookie-details">
+						<div class="preference-details">
 							<ul>
 								<li><strong>YouTube:</strong> Reproducción de videos educativos</li>
 								<li>
@@ -118,19 +120,21 @@
 				</div>
 
 				<!-- Advanced actions -->
-				<div class="cookies-advanced-actions">
-					<button id="save-cookie-preferences" class="cookies-button primary">
+				<div class="privacy-advanced-actions">
+					<button id="save-preferences" class="privacy-button primary">
 						Guardar preferencias
 					</button>
-					<button id="cancel-cookie-settings" class="cookies-button secondary"> Cancelar </button>
+					<button id="cancel-preference-settings" class="privacy-button secondary">
+						Cancelar
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Cookie settings button (floating, visible after initial consent) -->
-<button id="cookie-settings-btn" class="cookie-settings-floating hidden">
+<!-- Privacy settings button (floating, visible after initial consent) -->
+<button id="preference-settings-btn" class="preference-settings-floating hidden">
 	<svg viewBox="0 0 24 24" fill="currentColor">
 		<path
 			d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
@@ -141,7 +145,7 @@
 
 <style>
 	/* Base overlay styles */
-	.cookies-overlay {
+	.privacy-overlay {
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -155,18 +159,18 @@
 		transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
-	.cookies-overlay:not(.hidden) {
+	.privacy-overlay:not(.hidden) {
 		transform: translateY(0);
 		opacity: 1;
 	}
 
-	.cookies-overlay.hidden {
+	.privacy-overlay.hidden {
 		transform: translateY(100%);
 		opacity: 0;
 	}
 
 	/* Animation states for delayed appearance */
-	.cookies-overlay.fade-in {
+	.privacy-overlay.fade-in {
 		animation: slideUpFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 	}
 
@@ -186,13 +190,13 @@
 	}
 
 	/* Main content container */
-	.cookies-content {
+	.privacy-content {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 0 20px;
 	}
 
-	.cookies-container {
+	.privacy-container {
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		gap: 25px;
@@ -201,8 +205,8 @@
 		position: relative;
 	}
 
-	/* Cookie icon */
-	.cookies-icon {
+	/* Icon */
+	.privacy-icon {
 		width: 48px;
 		height: 48px;
 		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
@@ -214,17 +218,17 @@
 		flex-shrink: 0;
 	}
 
-	.cookies-icon svg {
+	.privacy-icon svg {
 		width: 24px;
 		height: 24px;
 	}
 
 	/* Text content */
-	.cookies-text {
+	.privacy-text {
 		min-width: 0; /* Allow text to wrap */
 	}
 
-	.cookies-text h3 {
+	.privacy-text h3 {
 		font-family: "The Seasons", serif;
 		font-size: 1.3rem;
 		color: #37443a;
@@ -233,7 +237,7 @@
 		letter-spacing: 0.5px;
 	}
 
-	.cookies-text p {
+	.privacy-text p {
 		color: #6a8067;
 		margin: 0;
 		line-height: 1.5;
@@ -241,13 +245,13 @@
 	}
 
 	/* Quick actions */
-	.cookies-actions-quick {
+	.privacy-actions-quick {
 		display: flex;
 		gap: 12px;
 		flex-shrink: 0;
 	}
 
-	.cookies-button {
+	.privacy-button {
 		padding: 10px 20px;
 		border-radius: 25px;
 		font-size: 0.9rem;
@@ -258,32 +262,32 @@
 		white-space: nowrap;
 	}
 
-	.cookies-button.primary {
+	.privacy-button.primary {
 		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
 		color: white;
 	}
 
-	.cookies-button.secondary {
+	.privacy-button.secondary {
 		background: rgba(106, 128, 103, 0.1);
 		color: #37443a;
 		border: 1px solid rgba(106, 128, 103, 0.3);
 	}
 
-	.cookies-button:hover {
+	.privacy-button:hover {
 		transform: translateY(-2px);
 	}
 
-	.cookies-button.primary:hover {
+	.privacy-button.primary:hover {
 		box-shadow: 0 6px 15px rgba(203, 110, 95, 0.3);
 	}
 
-	.cookies-button.secondary:hover {
+	.privacy-button.secondary:hover {
 		background: rgba(106, 128, 103, 0.15);
 		border-color: rgba(106, 128, 103, 0.5);
 	}
 
 	/* Advanced options toggle */
-	.cookies-advanced-toggle {
+	.privacy-advanced-toggle {
 		grid-column: 1 / -1;
 		text-align: center;
 		padding-top: 15px;
@@ -295,7 +299,7 @@
 		gap: 15px;
 	}
 
-	.cookies-link {
+	.privacy-link {
 		color: #cb6e5f;
 		text-decoration: none;
 		font-size: 0.85rem;
@@ -306,18 +310,18 @@
 		font-family: inherit;
 	}
 
-	.cookies-link:hover {
+	.privacy-link:hover {
 		color: #37443a;
 		text-decoration: underline;
 	}
 
-	.cookies-divider {
+	.privacy-divider {
 		color: rgba(106, 128, 103, 0.5);
 		font-size: 0.85rem;
 	}
 
 	/* Advanced settings */
-	.cookies-advanced {
+	.privacy-advanced {
 		border-top: 1px solid rgba(106, 128, 103, 0.1);
 		background: rgba(255, 245, 235, 0.5);
 		animation: slideDown 0.3s ease-in-out;
@@ -325,7 +329,7 @@
 		-webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 	}
 
-	.cookies-advanced.hidden {
+	.privacy-advanced.hidden {
 		display: none;
 	}
 
@@ -340,13 +344,13 @@
 		}
 	}
 
-	.cookies-advanced-container {
+	.privacy-advanced-container {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 30px 20px;
 	}
 
-	.cookies-advanced h4 {
+	.privacy-advanced h4 {
 		font-family: "The Seasons", serif;
 		font-size: 1.4rem;
 		color: #37443a;
@@ -355,7 +359,7 @@
 		text-align: center;
 	}
 
-	.cookies-advanced-description {
+	.privacy-advanced-description {
 		color: #6a8067;
 		text-align: center;
 		margin: 0 0 30px 0;
@@ -363,21 +367,21 @@
 		font-size: 0.95rem;
 	}
 
-	/* Cookie categories */
-	.cookies-categories {
+	/* Preference categories */
+	.preference-categories {
 		display: grid;
 		gap: 20px;
 		margin-bottom: 30px;
 	}
 
-	.cookie-category {
+	.preference-category {
 		background: white;
 		border-radius: 15px;
 		border: 1px solid rgba(106, 128, 103, 0.1);
 		overflow: hidden;
 	}
 
-	.cookie-category-header {
+	.preference-category-header {
 		display: grid;
 		grid-template-columns: 1fr auto;
 		align-items: center;
@@ -385,7 +389,7 @@
 		gap: 20px;
 	}
 
-	.cookie-category-info h5 {
+	.preference-category-info h5 {
 		font-family: "The Seasons", serif;
 		font-size: 1.1rem;
 		color: #37443a;
@@ -393,7 +397,7 @@
 		font-weight: 400;
 	}
 
-	.cookie-category-info p {
+	.preference-category-info p {
 		color: #6a8067;
 		margin: 0;
 		font-size: 0.9rem;
@@ -401,13 +405,13 @@
 	}
 
 	/* Toggle switch */
-	.cookie-toggle {
+	.preference-toggle {
 		display: flex;
 		align-items: center;
 		gap: 10px;
 	}
 
-	.cookie-toggle input[type="checkbox"] {
+	.preference-toggle input[type="checkbox"] {
 		display: none;
 	}
 
@@ -446,26 +450,34 @@
 		transform: translateX(20px);
 	}
 
+	.preference-toggle input[type="checkbox"]:checked + .toggle-label {
+		background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+	}
+
+	.preference-toggle input[type="checkbox"]:checked + .toggle-label .toggle-switch {
+		transform: translateX(20px);
+	}
+
 	.toggle-status {
 		font-size: 0.8rem;
 		color: #6a8067;
 		font-style: italic;
 	}
 
-	/* Cookie details */
-	.cookie-details {
+	/* Preference details */
+	.preference-details {
 		background: rgba(255, 245, 235, 0.3);
 		padding: 15px 25px;
 		border-top: 1px solid rgba(106, 128, 103, 0.1);
 	}
 
-	.cookie-details ul {
+	.preference-details ul {
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.cookie-details li {
+	.preference-details li {
 		color: #4a5a4d;
 		font-size: 0.85rem;
 		margin-bottom: 5px;
@@ -473,30 +485,30 @@
 		position: relative;
 	}
 
-	.cookie-details li::before {
+	.preference-details li::before {
 		content: "•";
 		color: #cb6e5f;
 		position: absolute;
 		left: 0;
 	}
 
-	.cookie-details li:last-child {
+	.preference-details li:last-child {
 		margin-bottom: 0;
 	}
 
-	.cookie-details strong {
+	.preference-details strong {
 		color: #37443a;
 	}
 
 	/* Advanced actions */
-	.cookies-advanced-actions {
+	.privacy-advanced-actions {
 		display: flex;
 		justify-content: center;
 		gap: 15px;
 	}
 
 	/* Floating settings button */
-	.cookie-settings-floating {
+	.preference-settings-floating {
 		position: fixed;
 		bottom: 20px;
 		right: 20px;
@@ -522,13 +534,13 @@
 		border-color: rgba(203, 110, 95, 0.3);
 	}
 
-	.cookie-settings-floating svg {
+	.preference-settings-floating svg {
 		width: 16px;
 		height: 16px;
 		color: #cb6e5f;
 	}
 
-	.cookie-settings-floating.hidden {
+	.preference-settings-floating.hidden {
 		transform: translateY(100px);
 		opacity: 0;
 		pointer-events: none;
@@ -536,101 +548,101 @@
 
 	/* Responsive design */
 	@media (max-width: 768px) {
-		.cookies-container {
+		.privacy-container {
 			grid-template-columns: 1fr;
 			gap: 20px;
 			text-align: center;
 			padding: 20px 0;
 		}
 
-		.cookies-icon {
+		.privacy-icon {
 			margin: 0 auto;
 		}
 
-		.cookies-actions-quick {
+		.privacy-actions-quick {
 			justify-content: center;
 			flex-wrap: wrap;
 		}
 
-		.cookies-button {
+		.privacy-button {
 			flex: 1;
 			min-width: 120px;
 		}
 
-		.cookies-advanced-toggle {
+		.privacy-advanced-toggle {
 			flex-direction: column;
 			gap: 8px;
 		}
 
-		.cookie-category-header {
+		.preference-category-header {
 			grid-template-columns: 1fr;
 			text-align: center;
 			gap: 15px;
 		}
 
-		.cookie-toggle {
+		.preference-toggle {
 			justify-content: center;
 		}
 
-		.cookies-advanced-actions {
+		.privacy-advanced-actions {
 			flex-direction: column;
 			align-items: center;
 		}
 
-		.cookies-advanced-actions .cookies-button {
+		.privacy-advanced-actions .privacy-button {
 			width: 200px;
 		}
 
-		.cookie-settings-floating {
+		.preference-settings-floating {
 			display: none;
 		}
 
 		/* Mobile-specific adjustments for advanced panel */
-		.cookies-advanced {
+		.privacy-advanced {
 			max-height: 100vh;
 		}
 	}
 
 	@media (max-width: 480px) {
-		.cookies-content {
+		.privacy-content {
 			padding: 0 15px;
 		}
 
-		.cookies-text h3 {
+		.privacy-text h3 {
 			font-size: 1.1rem;
 		}
 
-		.cookies-text p {
+		.privacy-text p {
 			font-size: 0.9rem;
 		}
 
-		.cookies-button {
+		.privacy-button {
 			padding: 8px 16px;
 			font-size: 0.85rem;
 		}
 
-		.cookies-advanced-container {
+		.privacy-advanced-container {
 			padding: 25px 15px;
 		}
 
-		.cookie-category-header {
+		.preference-category-header {
 			padding: 15px 20px;
 		}
 
-		.cookie-details {
+		.preference-details {
 			padding: 12px 20px;
 		}
 
 		/* Mobile-specific adjustments for advanced panel */
-		.cookies-advanced {
+		.privacy-advanced {
 			max-height: 100vh;
 		}
 	}
 
 	/* Print styles */
 	@media print {
-		.cookies-overlay,
-		.cookie-settings-floating {
+		.privacy-overlay,
+		.preference-settings-floating {
 			display: none !important;
 		}
 	}
@@ -638,19 +650,19 @@
 
 <script>
 	/**
-	 * Cookie Consent Manager
-	 * Handles cookie consent, preferences, and compliance with GDPR
+	 * Privacy Consent Manager
+	 * Handles privacy consent, preferences, and compliance with GDPR
 	 */
-	class CookieConsentManager {
-		private consentKey = "femm-tribu-cookie-consent"
-		private preferencesKey = "femm-tribu-cookie-preferences"
+	class UserPreferenceManager {
+		private storageKey = "femm-tribu-user-consent"
+		private settingsKey = "femm-tribu-user-settings"
 
 		constructor() {
 			this.init()
 		}
 
 		/**
-		 * Initialize the cookie consent manager
+		 * Initialize the preference manager
 		 */
 		init() {
 			document.addEventListener("DOMContentLoaded", () => {
@@ -664,30 +676,30 @@
 		 */
 		setupEventListeners() {
 			// Quick actions
-			document.getElementById("accept-all-cookies")?.addEventListener("click", () => {
-				this.acceptAllCookies()
+			document.getElementById("accept-all-preferences")?.addEventListener("click", () => {
+				this.acceptAllPreferences()
 			})
 
-			document.getElementById("reject-optional-cookies")?.addEventListener("click", () => {
-				this.rejectOptionalCookies()
+			document.getElementById("reject-optional-preferences")?.addEventListener("click", () => {
+				this.rejectOptionalPreferences()
 			})
 
 			// Advanced settings
-			document.getElementById("show-cookie-settings")?.addEventListener("click", () => {
+			document.getElementById("show-preference-settings")?.addEventListener("click", () => {
 				this.showAdvancedSettings()
 			})
 
-			document.getElementById("save-cookie-preferences")?.addEventListener("click", () => {
-				this.savePreferences()
+			document.getElementById("save-preferences")?.addEventListener("click", () => {
+				this.saveUserPreferences()
 			})
 
-			document.getElementById("cancel-cookie-settings")?.addEventListener("click", () => {
+			document.getElementById("cancel-preference-settings")?.addEventListener("click", () => {
 				this.hideAdvancedSettings()
 			})
 
 			// Floating settings button
-			document.getElementById("cookie-settings-btn")?.addEventListener("click", () => {
-				this.showCookieOverlay()
+			document.getElementById("preference-settings-btn")?.addEventListener("click", () => {
+				this.showPrivacyOverlay()
 			})
 		}
 
@@ -698,56 +710,56 @@
 			const consent = this.getStoredConsent()
 
 			if (consent) {
-				this.hideCookieOverlay()
+				this.hidePrivacyOverlay()
 				this.showFloatingButton()
-				this.applyCookiePreferences(consent.preferences)
+				this.applyUserPreferences(consent.preferences)
 			} else {
-				// Add delay before showing cookie overlay (2 seconds)
+				// Add delay before showing privacy overlay (2 seconds)
 				setTimeout(() => {
-					this.showCookieOverlay()
+					this.showPrivacyOverlay()
 				}, 2000)
 			}
 		}
 
 		/**
-		 * Accept all cookies
+		 * Accept all preferences
 		 */
-		acceptAllCookies() {
+		acceptAllPreferences() {
 			const preferences = {
 				essential: true,
 				analytics: true,
 				youtube: true,
 			}
 
-			this.saveConsent(preferences)
-			this.applyCookiePreferences(preferences)
-			this.hideCookieOverlay()
+			this.saveUserConsent(preferences)
+			this.applyUserPreferences(preferences)
+			this.hidePrivacyOverlay()
 			this.showFloatingButton()
 			this.showNotification("¡Perfecto! Has aceptado todas las cookies.", "success")
 		}
 
 		/**
-		 * Reject optional cookies (keep only essential)
+		 * Reject optional preferences (keep only essential)
 		 */
-		rejectOptionalCookies() {
+		rejectOptionalPreferences() {
 			const preferences = {
 				essential: true,
 				analytics: false,
 				youtube: false,
 			}
 
-			this.saveConsent(preferences)
-			this.applyCookiePreferences(preferences)
-			this.hideCookieOverlay()
+			this.saveUserConsent(preferences)
+			this.applyUserPreferences(preferences)
+			this.hidePrivacyOverlay()
 			this.showFloatingButton()
 			this.showNotification("Solo usaremos cookies esenciales.", "info")
 		}
 
 		/**
-		 * Show advanced cookie settings
+		 * Show advanced preference settings
 		 */
 		showAdvancedSettings() {
-			const advancedPanel = document.getElementById("cookies-advanced")
+			const advancedPanel = document.getElementById("privacy-advanced")
 			advancedPanel?.classList.remove("hidden")
 
 			// Prevent background scrolling on mobile
@@ -758,10 +770,10 @@
 		}
 
 		/**
-		 * Hide advanced cookie settings
+		 * Hide advanced preference settings
 		 */
 		hideAdvancedSettings() {
-			const advancedPanel = document.getElementById("cookies-advanced")
+			const advancedPanel = document.getElementById("privacy-advanced")
 			advancedPanel?.classList.add("hidden")
 
 			// Restore background scrolling
@@ -769,19 +781,20 @@
 		}
 
 		/**
-		 * Save custom cookie preferences
+		 * Save custom user preferences
 		 */
-		savePreferences() {
+		saveUserPreferences() {
 			const preferences = {
 				essential: true, // Always true
 				analytics:
-					(document.getElementById("analytics-cookies") as HTMLInputElement)?.checked || false,
-				youtube: (document.getElementById("youtube-cookies") as HTMLInputElement)?.checked || false,
+					(document.getElementById("analytics-preferences") as HTMLInputElement)?.checked || false,
+				youtube:
+					(document.getElementById("youtube-preferences") as HTMLInputElement)?.checked || false,
 			}
 
-			this.saveConsent(preferences)
-			this.applyCookiePreferences(preferences)
-			this.hideCookieOverlay()
+			this.saveUserConsent(preferences)
+			this.applyUserPreferences(preferences)
+			this.hidePrivacyOverlay()
 			this.showFloatingButton()
 			this.showNotification("Tus preferencias de cookies han sido guardadas.", "success")
 		}
@@ -798,31 +811,31 @@
 			}
 
 			// Update checkboxes
-			const analyticsCheckbox = document.getElementById("analytics-cookies") as HTMLInputElement
-			const youtubeCheckbox = document.getElementById("youtube-cookies") as HTMLInputElement
+			const analyticsCheckbox = document.getElementById("analytics-preferences") as HTMLInputElement
+			const youtubeCheckbox = document.getElementById("youtube-preferences") as HTMLInputElement
 
 			if (analyticsCheckbox) analyticsCheckbox.checked = preferences.analytics
 			if (youtubeCheckbox) youtubeCheckbox.checked = preferences.youtube
 		}
 
 		/**
-		 * Apply cookie preferences
+		 * Apply user preferences
 		 */
-		applyCookiePreferences(preferences: any) {
-			// Essential cookies are always enabled
+		applyUserPreferences(preferences: any) {
+			// Essential preferences are always enabled
 
-			// Analytics cookies
+			// Analytics preferences
 			if (preferences.analytics) {
 				this.enableAnalytics()
 			} else {
 				this.disableAnalytics()
 			}
 
-			// YouTube cookies
+			// YouTube preferences
 			if (preferences.youtube) {
-				this.enableYouTubeCookies()
+				this.enableYouTubeFeatures()
 			} else {
-				this.disableYouTubeCookies()
+				this.disableYouTubeFeatures()
 			}
 		}
 
@@ -843,18 +856,18 @@
 		}
 
 		/**
-		 * Enable YouTube cookies
+		 * Enable YouTube features
 		 */
-		enableYouTubeCookies() {
-			console.log("YouTube cookies enabled")
+		enableYouTubeFeatures() {
+			console.log("YouTube features enabled")
 			this.updateYouTubeEmbeds()
 		}
 
 		/**
-		 * Disable YouTube cookies
+		 * Disable YouTube features
 		 */
-		disableYouTubeCookies() {
-			console.log("YouTube cookies disabled")
+		disableYouTubeFeatures() {
+			console.log("YouTube features disabled")
 			this.updateYouTubeEmbeds()
 		}
 
@@ -895,9 +908,9 @@
 		}
 
 		/**
-		 * Save consent to localStorage
+		 * Save user consent to localStorage
 		 */
-		saveConsent(preferences: any) {
+		saveUserConsent(preferences: any) {
 			const consent = {
 				timestamp: Date.now(),
 				preferences: preferences,
@@ -905,9 +918,9 @@
 			}
 
 			try {
-				localStorage.setItem(this.consentKey, JSON.stringify(consent))
+				localStorage.setItem(this.storageKey, JSON.stringify(consent))
 			} catch (error) {
-				console.error("Error saving cookie consent:", error)
+				console.error("Error saving user consent:", error)
 			}
 		}
 
@@ -916,21 +929,21 @@
 		 */
 		getStoredConsent() {
 			try {
-				const consentString = localStorage.getItem(this.consentKey)
+				const consentString = localStorage.getItem(this.storageKey)
 				if (consentString) {
 					return JSON.parse(consentString)
 				}
 			} catch (error) {
-				console.error("Error reading cookie consent:", error)
+				console.error("Error reading user consent:", error)
 			}
 			return null
 		}
 
 		/**
-		 * Show cookie overlay
+		 * Show privacy overlay
 		 */
-		showCookieOverlay() {
-			const overlay = document.getElementById("cookies-overlay")
+		showPrivacyOverlay() {
+			const overlay = document.getElementById("privacy-notice")
 			if (overlay) {
 				overlay.classList.remove("hidden")
 				overlay.classList.add("fade-in")
@@ -939,10 +952,10 @@
 		}
 
 		/**
-		 * Hide cookie overlay
+		 * Hide privacy overlay
 		 */
-		hideCookieOverlay() {
-			const overlay = document.getElementById("cookies-overlay")
+		hidePrivacyOverlay() {
+			const overlay = document.getElementById("privacy-notice")
 			if (overlay) {
 				overlay.classList.add("hidden")
 				overlay.classList.remove("fade-in")
@@ -958,7 +971,7 @@
 		 */
 		showFloatingButton() {
 			setTimeout(() => {
-				const floatingBtn = document.getElementById("cookie-settings-btn")
+				const floatingBtn = document.getElementById("preference-settings-btn")
 				floatingBtn?.classList.remove("hidden")
 			}, 1000) // Delay to avoid immediate appearance
 		}
@@ -967,7 +980,7 @@
 		 * Hide floating settings button
 		 */
 		hideFloatingButton() {
-			const floatingBtn = document.getElementById("cookie-settings-btn")
+			const floatingBtn = document.getElementById("preference-settings-btn")
 			floatingBtn?.classList.add("hidden")
 		}
 
@@ -1057,17 +1070,17 @@
 		}
 
 		/**
-		 * Reset all cookie preferences (for testing/admin purposes)
+		 * Reset all user preferences (for testing/admin purposes)
 		 */
-		resetCookieConsent() {
+		resetUserConsent() {
 			try {
-				localStorage.removeItem(this.consentKey)
-				localStorage.removeItem(this.preferencesKey)
-				this.showCookieOverlay()
+				localStorage.removeItem(this.storageKey)
+				localStorage.removeItem(this.settingsKey)
+				this.showPrivacyOverlay()
 				this.hideFloatingButton()
 				this.showNotification("Preferencias de cookies restablecidas.", "info")
 			} catch (error) {
-				console.error("Error resetting cookie consent:", error)
+				console.error("Error resetting user consent:", error)
 			}
 		}
 
@@ -1088,15 +1101,17 @@
 		}
 	}
 
-	// Initialize cookie consent manager
-	const cookieManager = new CookieConsentManager()
+	// Initialize user preference manager
+	const preferenceManager = new UserPreferenceManager()
 
 	// Make it globally available for external scripts
 	declare global {
 		interface Window {
-			cookieManager: CookieConsentManager
+			preferenceManager: UserPreferenceManager
+			acceptAllSimple?: () => void
+			acceptEssentialSimple?: () => void
 		}
 	}
 
-	window.cookieManager = cookieManager
+	window.preferenceManager = preferenceManager
 </script>
