@@ -17,7 +17,7 @@ import Footer from "../components/Footer.astro"
 					</a>
 					<h1>Política de Privacidad</h1>
 					<p class="last-updated">
-						Última actualización: <time datetime="2025-01-01">1 de enero de 2025</time>
+						Última actualización: <time datetime="2025-01-17">17 de enero de 2025</time>
 					</p>
 				</div>
 			</header>
@@ -30,41 +30,36 @@ import Footer from "../components/Footer.astro"
 						<h2>Contenido</h2>
 						<nav>
 							<ul>
-								<li><a href="#identificacion-responsable">1. Identificación del Responsable</a></li>
+								<li><a href="#responsable">1. Responsable</a></li>
 								<li><a href="#datos-recopilamos">2. Datos que Recopilamos</a></li>
 								<li><a href="#como-utilizamos">3. Cómo Utilizamos tu Información</a></li>
-								<li><a href="#base-legal">4. Base Legal del Tratamiento</a></li>
-								<li><a href="#almacenamiento-retencion">5. Almacenamiento y Retención</a></li>
-								<li><a href="#compartir-informacion">6. Compartir Información</a></li>
-								<li><a href="#cookies-tecnologias">7. Cookies y Tecnologías</a></li>
+								<li><a href="#base-legal">4. Base Legal</a></li>
+								<li><a href="#conservacion">5. Conservación de Datos</a></li>
+								<li><a href="#compartir">6. Compartir Información</a></li>
+								<li><a href="#cookies">7. Cookies y localStorage</a></li>
 								<li><a href="#tus-derechos">8. Tus Derechos</a></li>
-								<li><a href="#seguridad">9. Seguridad de los Datos</a></li>
-								<li><a href="#menores">10. Menores de Edad</a></li>
-								<li><a href="#cambios">11. Cambios en la Política</a></li>
-								<li><a href="#contacto">12. Contacto</a></li>
+								<li><a href="#seguridad">9. Seguridad</a></li>
+								<li><a href="#contacto">10. Contacto</a></li>
 							</ul>
 						</nav>
 					</aside>
 
 					<!-- Main Content -->
 					<article class="policy-content">
-						<section id="identificacion-responsable">
-							<h2>1. Identificación del Responsable</h2>
-							<div class="responsible-info">
-								<p><strong>Responsable del Tratamiento:</strong> María Belenguer (Femm Tribu)</p>
+						<section id="responsable">
+							<h2>1. Responsable del Tratamiento</h2>
+							<div class="info-box">
+								<p><strong>María Belenguer</strong> (Femm Tribu)</p>
 								<ul>
 									<li>
 										<strong>Actividad:</strong> Servicios de matrona y educación en maternidad
 									</li>
-									<li><strong>Dirección:</strong> Valencia, España</li>
+									<li><strong>Ubicación:</strong> Valencia, España</li>
 									<li>
 										<strong>Email:</strong>
 										<a href="mailto:info@femmtribu.com">info@femmtribu.com</a>
 									</li>
-									<li>
-										<strong>Web:</strong>
-										<a href="https://femmtribu.es">www.femmtribu.es</a>
-									</li>
+									<li><strong>Web:</strong> www.femmtribu.es</li>
 								</ul>
 							</div>
 						</section>
@@ -72,54 +67,32 @@ import Footer from "../components/Footer.astro"
 						<section id="datos-recopilamos">
 							<h2>2. Datos que Recopilamos</h2>
 
-							<h3>2.1 Información que Proporcionas Directamente</h3>
+							<h3>2.1 Información que Proporcionas</h3>
 							<ul>
+								<li><strong>Email:</strong> Para acceder al curso "Prepárate para amamantar"</li>
+								<li><strong>Nombre:</strong> Si lo proporcionas voluntariamente al registrarte</li>
 								<li>
-									<strong>Dirección de correo electrónico</strong>: Cuando solicitas acceso al curso
-									"Prepárate para amamantar" o te suscribes a nuestro contenido
-								</li>
-								<li>
-									<strong>Información de contacto</strong>: Nombre, teléfono (si los proporcionas
-									voluntariamente a través de redes sociales o comunicaciones directas)
-								</li>
-								<li>
-									<strong>Información de comunicación</strong>: Mensajes que nos envíes a través de
-									Instagram (@matronamery), TikTok (@merypebe) o email
+									<strong>Consultas:</strong> Mensajes que nos envíes por email o redes sociales
 								</li>
 							</ul>
 
-							<h3>2.2 Información Recopilada Automáticamente</h3>
+							<h3>2.2 Información Técnica Automática</h3>
 							<ul>
 								<li>
-									<strong>Datos de navegación</strong>: Páginas visitadas, tiempo de permanencia en
-									el sitio, enlaces de referencia
+									<strong>localStorage:</strong> Control temporal de acceso a videos (30 minutos)
 								</li>
+								<li><strong>Datos de navegación:</strong> Páginas visitadas, tiempo en el sitio</li>
 								<li>
-									<strong>Información técnica</strong>: Dirección IP, tipo de navegador, sistema
-									operativo, dispositivo utilizado
-								</li>
-								<li>
-									<strong>Almacenamiento local</strong>: Datos temporales para gestionar el acceso a
-									los videos (localStorage)
-								</li>
-								<li>
-									<strong>Códigos de verificación</strong>: Códigos temporales enviados por email
-									para acceso a contenido exclusivo
+									<strong>Información técnica:</strong> Dirección IP, navegador, dispositivo (logs básicos
+									del servidor)
 								</li>
 							</ul>
 
-							<h3>2.3 Información de Servicios Integrados</h3>
+							<h3>2.3 Servicios de Terceros</h3>
 							<ul>
+								<li><strong>YouTube:</strong> Datos de reproducción de videos del curso</li>
 								<li>
-									<strong>YouTube</strong>: Datos de reproducción de videos embebidos del curso
-								</li>
-								<li>
-									<strong>Servicios de email</strong>: Estadísticas de apertura y clics en emails
-									enviados (si están habilitadas)
-								</li>
-								<li>
-									<strong>Hosting (Vercel)</strong>: Logs de servidor y métricas de rendimiento del
-									sitio web
+									<strong>Vercel (hosting):</strong> Logs de servidor para funcionamiento técnico
 								</li>
 							</ul>
 						</section>
@@ -127,65 +100,45 @@ import Footer from "../components/Footer.astro"
 						<section id="como-utilizamos">
 							<h2>3. Cómo Utilizamos tu Información</h2>
 
-							<h3>3.1 Finalidades Principales</h3>
-							<ul>
-								<li>
-									<strong>Acceso al curso "Prepárate para amamantar"</strong>: Envío de códigos de
-									verificación y gestión del acceso temporal a los videos
-								</li>
-								<li>
-									<strong>Comunicación educativa</strong>: Envío de contenido relacionado con
-									maternidad, lactancia y bienestar femenino
-								</li>
-								<li>
-									<strong>Soporte y consultas</strong>: Respuesta a preguntas y dudas sobre
-									maternidad y nuestros servicios
-								</li>
-								<li>
-									<strong>Mejora del servicio</strong>: Análisis de uso para optimizar el contenido
-									y la experiencia del usuario
-								</li>
-							</ul>
+							<div class="purposes-grid">
+								<div class="purpose-item essential">
+									<h4>✅ SÍ utilizamos para:</h4>
+									<ul>
+										<li>Proporcionar acceso al curso gratuito "Prepárate para amamantar"</li>
+										<li>Enviar códigos de verificación por email</li>
+										<li>Responder a consultas sobre maternidad y lactancia</li>
+										<li>Funcionamiento técnico del sitio web</li>
+										<li>Prevenir spam y accesos no autorizados</li>
+									</ul>
+								</div>
 
-							<h3>3.2 Funcionalidades Técnicas</h3>
-							<ul>
-								<li>
-									<strong>Sistema de acceso temporal</strong>: Control de acceso a videos mediante
-									códigos con expiración (30 segundos en pruebas, 30 minutos en producción)
-								</li>
-								<li>
-									<strong>Gestión de sesiones</strong>: Mantener tu estado de acceso durante la
-									navegación
-								</li>
-								<li>
-									<strong>Prevención de spam</strong>: Límites de tiempo para evitar solicitudes
-									automatizadas
-								</li>
-							</ul>
-
-							<h3>3.3 NO utilizamos tus datos para</h3>
-							<ul>
-								<li>Venta o cesión a terceros con fines comerciales</li>
-								<li>Marketing automatizado agresivo</li>
-								<li>Perfilado comercial detallado</li>
-								<li>Publicidad personalizada externa</li>
-							</ul>
+								<div class="purpose-item not-used">
+									<h4>❌ NO utilizamos para:</h4>
+									<ul>
+										<li>Vender tus datos a terceros</li>
+										<li>Marketing agresivo o spam</li>
+										<li>Seguimiento entre sitios web</li>
+										<li>Perfilado comercial detallado</li>
+										<li>Publicidad personalizada externa</li>
+									</ul>
+								</div>
+							</div>
 						</section>
 
 						<section id="base-legal">
 							<h2>4. Base Legal del Tratamiento</h2>
 
 							<div class="legal-bases">
-								<div class="legal-basis-item">
+								<div class="legal-basis-item consent">
 									<h4>Consentimiento (Art. 6.1.a RGPD)</h4>
 									<ul>
-										<li>Suscripción al curso y contenido educativo</li>
+										<li>Registro al curso educativo</li>
 										<li>Comunicaciones por email</li>
-										<li>Seguimiento en redes sociales</li>
+										<li>Cookies de YouTube</li>
 									</ul>
 								</div>
 
-								<div class="legal-basis-item">
+								<div class="legal-basis-item contract">
 									<h4>Ejecución de Contrato (Art. 6.1.b RGPD)</h4>
 									<ul>
 										<li>Proporcionar acceso al curso gratuito</li>
@@ -193,69 +146,47 @@ import Footer from "../components/Footer.astro"
 									</ul>
 								</div>
 
-								<div class="legal-basis-item">
+								<div class="legal-basis-item legitimate">
 									<h4>Interés Legítimo (Art. 6.1.f RGPD)</h4>
 									<ul>
-										<li>Análisis básico de uso del sitio web</li>
-										<li>Seguridad y prevención de fraudes</li>
-										<li>Mejora de nuestros servicios educativos</li>
+										<li>Seguridad del sitio web</li>
+										<li>Análisis básico de funcionamiento</li>
+										<li>Prevención de fraudes</li>
 									</ul>
 								</div>
 							</div>
 						</section>
 
-						<section id="almacenamiento-retencion">
-							<h2>5. Almacenamiento y Retención de Datos</h2>
+						<section id="conservacion">
+							<h2>5. Conservación de Datos</h2>
 
-							<h3>5.1 Ubicación de los Datos</h3>
-							<p>Tus datos se almacenan en:</p>
-							<ul>
-								<li>
-									<strong>Vercel (Hosting)</strong>: Estados Unidos (sujeto a Privacy
-									Shield/decisiones de adecuación)
-								</li>
-								<li>
-									<strong>Servicios de email</strong>: Servidores europeos o con garantías de
-									protección equivalentes
-								</li>
-								<li>
-									<strong>Tu dispositivo</strong>: Datos temporales en localStorage de tu navegador
-								</li>
-							</ul>
-
-							<h3>5.2 Períodos de Conservación</h3>
 							<div class="retention-table">
 								<table>
 									<thead>
 										<tr>
 											<th>Tipo de Dato</th>
-											<th>Período de Retención</th>
+											<th>Duración</th>
 											<th>Motivo</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td>Email para curso</td>
-											<td>Hasta solicitud de baja</td>
-											<td>Proporcionar acceso continuo</td>
-										</tr>
-										<tr>
-											<td>Códigos de verificación</td>
-											<td>30 minutos</td>
-											<td>Seguridad y funcionalidad</td>
+											<td>Email del curso</td>
+											<td>Hasta solicitar baja</td>
+											<td>Acceso continuado al contenido</td>
 										</tr>
 										<tr>
 											<td>localStorage (navegador)</td>
-											<td>30 segundos (pruebas) / 30 minutos (producción)</td>
-											<td>Acceso temporal</td>
+											<td>30 minutos</td>
+											<td>Acceso temporal a videos</td>
 										</tr>
 										<tr>
-											<td>Logs de servidor</td>
+											<td>Logs del servidor</td>
 											<td>30 días</td>
 											<td>Mantenimiento técnico</td>
 										</tr>
 										<tr>
-											<td>Comunicaciones de consulta</td>
+											<td>Consultas por email</td>
 											<td>2 años</td>
 											<td>Historial de atención</td>
 										</tr>
@@ -264,65 +195,43 @@ import Footer from "../components/Footer.astro"
 							</div>
 						</section>
 
-						<section id="compartir-informacion">
+						<section id="compartir">
 							<h2>6. Compartir Información</h2>
 
-							<h3>6.1 Principio de No Venta</h3>
-							<p class="highlight-box">
-								<strong>Compromiso:</strong> Nunca vendemos, alquilamos o intercambiamos tu información
-								personal con terceros para fines comerciales.
-							</p>
+							<div class="no-sale-box">
+								<p><strong>🔒 Compromiso: Nunca vendemos tus datos</strong></p>
+								<p>
+									No vendemos, alquilamos ni intercambiamos tu información personal con terceros
+									para fines comerciales.
+								</p>
+							</div>
 
-							<h3>6.2 Proveedores de Servicios Necesarios</h3>
-							<div class="service-providers">
+							<h3>6.1 Proveedores de Servicios Necesarios</h3>
+							<div class="providers-grid">
 								<div class="provider-item">
-									<h4>Vercel (Hosting y Despliegue)</h4>
+									<h4>Vercel (Hosting)</h4>
 									<ul>
-										<li><strong>Ubicación</strong>: Estados Unidos</li>
-										<li>
-											<strong>Datos compartidos</strong>: Logs de acceso, métricas de rendimiento
-										</li>
-										<li><strong>Protección</strong>: Decisiones de adecuación UE-US</li>
+										<li><strong>Ubicación:</strong> Estados Unidos</li>
+										<li><strong>Datos:</strong> Logs de acceso, métricas técnicas</li>
+										<li><strong>Protección:</strong> Decisión de adecuación UE-US</li>
 									</ul>
 								</div>
 
 								<div class="provider-item">
-									<h4>Servicios de Email</h4>
+									<h4>YouTube (Videos)</h4>
 									<ul>
-										<li><strong>Finalidad</strong>: Envío de códigos de acceso y comunicaciones</li>
-										<li><strong>Datos compartidos</strong>: Email y contenido de mensajes</li>
-										<li><strong>Protección</strong>: Cifrado en tránsito y reposo</li>
-									</ul>
-								</div>
-
-								<div class="provider-item">
-									<h4>YouTube (Google)</h4>
-									<ul>
-										<li><strong>Finalidad</strong>: Reproducción de videos del curso</li>
-										<li>
-											<strong>Datos compartidos</strong>: Datos de visualización (solo si
-											interactúas con el video)
-										</li>
-										<li><strong>Control</strong>: Puedes desactivar cookies de YouTube</li>
+										<li><strong>Finalidad:</strong> Reproducción de videos educativos</li>
+										<li><strong>Datos:</strong> Interacciones con videos</li>
+										<li><strong>Control:</strong> Configurable en tu cuenta Google</li>
 									</ul>
 								</div>
 							</div>
-
-							<h3>6.3 Situaciones Legales Excepcionales</h3>
-							<p>Solo compartiremos información cuando sea:</p>
-							<ul>
-								<li>Requerido por ley o autoridad judicial competente</li>
-								<li>Necesario para proteger nuestros derechos legales</li>
-								<li>Imprescindible para prevenir fraudes o actividades ilícitas</li>
-							</ul>
 						</section>
 
-						<section id="cookies-tecnologias">
-							<h2>7. Cookies y Tecnologías de Seguimiento</h2>
+						<section id="cookies">
+							<h2>7. Cookies y Almacenamiento Local</h2>
 
-							<h3>7.1 Uso Actual de Tecnologías</h3>
-							<p>Actualmente utilizamos tecnologías limitadas y esenciales:</p>
-
+							<h3>7.1 Tecnologías Actuales</h3>
 							<div class="current-tech-table">
 								<table>
 									<thead>
@@ -335,377 +244,169 @@ import Footer from "../components/Footer.astro"
 									</thead>
 									<tbody>
 										<tr>
-											<td>localStorage: "videoAccess"</td>
+											<td><code>videoAccess</code> (localStorage)</td>
 											<td>Control de acceso temporal a videos</td>
-											<td>30 segundos (pruebas) / 30 minutos (producción)</td>
+											<td>30 minutos</td>
 											<td>Esencial</td>
 										</tr>
 										<tr>
 											<td>Cookies de YouTube</td>
 											<td>Reproducción de videos embebidos</td>
-											<td>Variable según YouTube</td>
+											<td>Variable</td>
 											<td>Terceros</td>
+										</tr>
+										<tr>
+											<td>Cookies de sesión</td>
+											<td>Funcionamiento básico</td>
+											<td>Hasta cerrar navegador</td>
+											<td>Esencial</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 
-							<h3>7.2 Tecnologías Futuras (En Desarrollo)</h3>
-							<p>Estamos evaluando implementar:</p>
-							<ul>
-								<li>
-									<strong>Google Analytics</strong>: Para análisis básico de uso (con anonimización
-									de IP)
-								</li>
-								<li>
-									<strong>Cookies de preferencias</strong>: Para recordar configuraciones del
-									usuario
-								</li>
-								<li>
-									<strong>Banner de gestión de cookies</strong>: Para control granular del
-									consentimiento
-								</li>
-							</ul>
-
-							<h3>7.3 Control y Gestión</h3>
-							<p>Puedes gestionar estas tecnologías:</p>
-							<ul>
-								<li>
-									<strong>localStorage</strong>: A través de la configuración de tu navegador o
-									herramientas de desarrollo
-								</li>
-								<li>
-									<strong>Cookies de YouTube</strong>: Configurando las preferencias de
-									Google/YouTube
-								</li>
-								<li>
-									<strong>Cookies del navegador</strong>: Configuración > Privacidad > Cookies
-								</li>
-							</ul>
-
 							<p>
-								Para más detalles, consulta nuestra <a href="/cookies"
-									>Política de Cookies específica</a
+								<strong>Para más detalles:</strong> Consulta nuestra <a href="/cookies"
+									>Política de Cookies completa</a
 								>.
 							</p>
 						</section>
 
 						<section id="tus-derechos">
-							<h2>8. Tus Derechos</h2>
+							<h2>8. Tus Derechos bajo el RGPD</h2>
 
-							<h3>8.1 Derechos bajo RGPD</h3>
 							<div class="rights-grid">
 								<div class="right-item">
-									<h4>Acceso (Art. 15 RGPD)</h4>
-									<p>Solicitar una copia de todos tus datos personales que tenemos</p>
+									<h4>📄 Acceso</h4>
+									<p>Solicitar copia de todos tus datos</p>
 								</div>
 
 								<div class="right-item">
-									<h4>Rectificación (Art. 16 RGPD)</h4>
-									<p>Corregir datos inexactos o completar información incompleta</p>
+									<h4>✏️ Rectificación</h4>
+									<p>Corregir datos inexactos</p>
 								</div>
 
 								<div class="right-item">
-									<h4>Supresión (Art. 17 RGPD)</h4>
-									<p>Solicitar la eliminación de tus datos ("derecho al olvido")</p>
+									<h4>🗑️ Supresión</h4>
+									<p>Eliminar tus datos ("derecho al olvido")</p>
 								</div>
 
 								<div class="right-item">
-									<h4>Limitación (Art. 18 RGPD)</h4>
-									<p>Restringir el procesamiento de tus datos en situaciones específicas</p>
+									<h4>⏸️ Limitación</h4>
+									<p>Restringir el procesamiento</p>
 								</div>
 
 								<div class="right-item">
-									<h4>Portabilidad (Art. 20 RGPD)</h4>
-									<p>
-										Recibir tus datos en formato estructurado y transferirlos a otro responsable
-									</p>
+									<h4>📦 Portabilidad</h4>
+									<p>Llevarte tus datos a otro servicio</p>
 								</div>
 
 								<div class="right-item">
-									<h4>Oposición (Art. 21 RGPD)</h4>
-									<p>Oponerte al procesamiento basado en interés legítimo</p>
+									<h4>🚫 Oposición</h4>
+									<p>Oponerte al tratamiento</p>
 								</div>
 							</div>
 
-							<h3>8.2 Cómo Ejercer tus Derechos</h3>
+							<h3>8.1 Cómo Ejercer tus Derechos</h3>
 							<div class="exercise-rights">
-								<p><strong>Proceso simple:</strong></p>
 								<ol>
-									<li>
-										Envía un email a <a href="mailto:info@femmtribu.com">info@femmtribu.com</a>
-									</li>
-									<li>Indica claramente qué derecho deseas ejercer</li>
-									<li>Proporciona información suficiente para identificarte</li>
-									<li>Te responderemos en un plazo máximo de 1 mes</li>
+									<li>Envía email a <a href="mailto:info@femmtribu.com">info@femmtribu.com</a></li>
+									<li>Indica claramente qué derecho quieres ejercer</li>
+									<li>Incluye información para identificarte (email usado)</li>
+									<li>Te responderemos en máximo 30 días</li>
 								</ol>
-
-								<p><strong>Información necesaria:</strong></p>
-								<ul>
-									<li>Tu dirección de email</li>
-									<li>Descripción específica de tu solicitud</li>
-									<li>Copia del DNI/pasaporte (para verificar identidad)</li>
-								</ul>
 							</div>
-
-							<h3>8.3 Derechos Específicos para Nuestros Servicios</h3>
-							<ul>
-								<li>
-									<strong>Darse de baja del curso</strong>: En cualquier momento, con efecto
-									inmediato
-								</li>
-								<li>
-									<strong>Eliminar acceso temporal</strong>: Borrando los datos del navegador
-									(localStorage)
-								</li>
-								<li>
-									<strong>Bloquear comunicaciones futuras</strong>: Solicitando la exclusión de
-									futuras campañas
-								</li>
-							</ul>
 						</section>
 
 						<section id="seguridad">
 							<h2>9. Seguridad de los Datos</h2>
 
-							<h3>9.1 Medidas Técnicas Implementadas</h3>
+							<h3>9.1 Medidas Técnicas</h3>
 							<ul>
-								<li>
-									<strong>Cifrado HTTPS</strong>: Todas las comunicaciones están cifradas en
-									tránsito
-								</li>
-								<li>
-									<strong>Códigos temporales</strong>: Los códigos de acceso expiran automáticamente
-								</li>
-								<li>
-									<strong>Almacenamiento local limitado</strong>: Datos sensibles no se almacenan
-									permanentemente en el navegador
-								</li>
-								<li>
-									<strong>Hosting seguro</strong>: Infraestructura de Vercel con certificaciones de
-									seguridad
-								</li>
+								<li><strong>Cifrado HTTPS:</strong> Todas las comunicaciones cifradas</li>
+								<li><strong>Códigos temporales:</strong> Expiración automática en 30 minutos</li>
+								<li><strong>Hosting seguro:</strong> Infraestructura certificada de Vercel</li>
+								<li><strong>Minimización:</strong> Solo recopilamos datos necesarios</li>
 							</ul>
 
-							<h3>9.2 Medidas Organizativas</h3>
-							<ul>
-								<li>
-									<strong>Acceso limitado</strong>: Solo el personal necesario tiene acceso a los
-									datos
-								</li>
-								<li>
-									<strong>Principio de minimización</strong>: Recopilamos solo los datos
-									estrictamente necesarios
-								</li>
-								<li>
-									<strong>Revisiones regulares</strong>: Auditorías periódicas de seguridad y
-									privacidad
-								</li>
-								<li><strong>Formación continua</strong>: Capacitación en protección de datos</li>
-							</ul>
-
-							<h3>9.3 Notificación de Incidentes</h3>
-							<p>En caso de brecha de seguridad que afecte a datos personales:</p>
+							<h3>9.2 En Caso de Incidente</h3>
 							<ul>
 								<li>Notificaremos a la AEPD dentro de 72 horas</li>
-								<li>Te informaremos si existe alto riesgo para tus derechos y libertades</li>
-								<li>Proporcionaremos información clara sobre medidas adoptadas</li>
-							</ul>
-						</section>
-
-						<section id="menores">
-							<h2>10. Menores de Edad</h2>
-
-							<h3>10.1 Restricción de Edad</h3>
-							<p>
-								Nuestros servicios están dirigidos a mujeres adultas, especialmente madres y futuras
-								madres. No recopilamos conscientemente información personal de menores de 16 años.
-							</p>
-
-							<h3>10.2 Contenido Apropiado</h3>
-							<p>Todo nuestro contenido es educativo y apropiado, centrado en:</p>
-							<ul>
-								<li>Educación sobre lactancia materna</li>
-								<li>Bienestar durante el embarazo</li>
-								<li>Cuidados postparto</li>
-								<li>Salud femenina general</li>
-							</ul>
-
-							<h3>10.3 Protección Adicional</h3>
-							<p>Si detectamos que hemos recopilado datos de un menor:</p>
-							<ul>
-								<li>Eliminaremos la información inmediatamente</li>
-								<li>
-									Solicitaremos consentimiento parental verificable si es necesario mantener algún
-									dato
-								</li>
-								<li>Notificaremos a los padres o tutores legales</li>
-							</ul>
-						</section>
-
-						<section id="cambios">
-							<h2>11. Cambios en la Política</h2>
-
-							<h3>11.1 Proceso de Actualización</h3>
-							<p>
-								Podemos actualizar esta política para reflejar cambios en nuestros servicios o en la
-								legislación aplicable.
-							</p>
-
-							<h3>11.2 Notificación de Cambios</h3>
-							<div class="change-notifications">
-								<div class="notification-type">
-									<h4>Cambios Menores</h4>
-									<ul>
-										<li>Actualización de la fecha en la política</li>
-										<li>Publicación en nuestro sitio web</li>
-										<li>Sin notificación individual requerida</li>
-									</ul>
-								</div>
-
-								<div class="notification-type">
-									<h4>Cambios Sustanciales</h4>
-									<ul>
-										<li>Email a todos los usuarios afectados</li>
-										<li>30 días de antelación mínima</li>
-										<li>Opción de darse de baja antes de la entrada en vigor</li>
-									</ul>
-								</div>
-							</div>
-
-							<h3>11.3 Historial de Versiones</h3>
-							<p>Mantenemos un registro de los cambios principales:</p>
-							<ul>
-								<li><strong>v1.0 (1 enero 2025)</strong>: Versión inicial de la política</li>
-								<li>
-									<strong>Futuras versiones</strong>: Se documentarán aquí con fecha y resumen de
-									cambios
-								</li>
+								<li>Te informaremos si hay riesgo para tus derechos</li>
+								<li>Aplicaremos medidas correctivas inmediatas</li>
 							</ul>
 						</section>
 
 						<section id="contacto">
-							<h2>12. Contacto e Información Adicional</h2>
+							<h2>10. Contacto</h2>
 
-							<h3>12.1 Datos de Contacto del Responsable</h3>
-							<div class="contact-info-detailed">
-								<p><strong>María Belenguer - Femm Tribu</strong></p>
-								<ul>
-									<li>
-										<strong>Email principal</strong>: <a href="mailto:info@femmtribu.com"
-											>info@femmtribu.com</a
-										>
-									</li>
-									<li>
-										<strong>Email privacidad</strong>: <a href="mailto:info@femmtribu.com"
-											>info@femmtribu.com</a
-										> (asunto: "Privacidad")
-									</li>
-									<li>
-										<strong>Instagram</strong>: <a
-											href="https://www.instagram.com/femm.tribu/"
-											target="_blank"
-											rel="noopener">@femm.tribu</a
-										>
-									</li>
-									<li>
-										<strong>TikTok</strong>: <a
-											href="https://www.tiktok.com/@merypebe"
-											target="_blank"
-											rel="noopener">@merypebe</a
-										>
-									</li>
-									<li><strong>Ubicación</strong>: Valencia, España</li>
-								</ul>
+							<div class="contact-grid">
+								<div class="contact-item">
+									<h4>Para Ejercer tus Derechos</h4>
+									<ul>
+										<li>
+											<strong>Email:</strong>
+											<a href="mailto:info@femmtribu.com">info@femmtribu.com</a>
+										</li>
+										<li><strong>Asunto:</strong> "Derechos RGPD"</li>
+										<li><strong>Respuesta:</strong> Máximo 30 días</li>
+									</ul>
+								</div>
+
+								<div class="contact-item">
+									<h4>Si No Estás Satisfecha</h4>
+									<ul>
+										<li>
+											<strong>AEPD:</strong>
+											<a href="https://www.aepd.es" target="_blank">www.aepd.es</a>
+										</li>
+										<li><strong>Teléfono:</strong> 901 100 099</li>
+										<li>
+											<strong>Sede:</strong>
+											<a href="https://sedeagpd.gob.es" target="_blank">sedeagpd.gob.es</a>
+										</li>
+									</ul>
+								</div>
 							</div>
-
-							<h3>12.2 Autoridad de Control</h3>
-							<p>
-								Si consideras que no hemos atendido adecuadamente tus derechos de protección de
-								datos, puedes presentar una reclamación ante:
-							</p>
-							<div class="authority-contact">
-								<h4>Agencia Española de Protección de Datos (AEPD)</h4>
-								<ul>
-									<li>
-										<strong>Web</strong>: <a
-											href="https://www.aepd.es"
-											target="_blank"
-											rel="noopener">www.aepd.es</a
-										>
-									</li>
-									<li>
-										<strong>Sede electrónica</strong>: <a
-											href="https://sedeagpd.gob.es"
-											target="_blank"
-											rel="noopener">sedeagpd.gob.es</a
-										>
-									</li>
-									<li><strong>Teléfono</strong>: 901 100 099 / 91 266 35 17</li>
-									<li><strong>Dirección</strong>: C/ Jorge Juan, 6, 28001 Madrid</li>
-								</ul>
-							</div>
-
-							<h3>12.3 Recursos Adicionales</h3>
-							<ul>
-								<li><a href="/cookies">Política de Cookies detallada</a></li>
-								<li>
-									<a
-										href="https://www.aepd.es/guias/guia-derechos.html"
-										target="_blank"
-										rel="noopener">Guía de derechos - AEPD</a
-									>
-								</li>
-								<li>
-									<a href="https://www.aepd.es/ciudadanos" target="_blank" rel="noopener"
-										>Información para ciudadanos - AEPD</a
-									>
-								</li>
-							</ul>
 						</section>
 
 						<!-- FAQ Section -->
 						<section class="faq-section">
-							<h2>Preguntas Frecuentes sobre Privacidad</h2>
+							<h2>Preguntas Frecuentes</h2>
 
 							<div class="faq-item">
-								<h3>¿Cómo puedo acceder al curso sin proporcionar datos innecesarios?</h3>
+								<h3>¿Qué datos necesito proporcionar para el curso?</h3>
+								<p>Solo tu email. No necesitas teléfono, dirección ni otros datos personales.</p>
+							</div>
+
+							<div class="faq-item">
+								<h3>¿Por qué expira el acceso a los videos?</h3>
 								<p>
-									Solo necesitas proporcionar tu email. No solicitamos nombre, teléfono u otros
-									datos personales para acceder al curso gratuito "Prepárate para amamantar".
+									Por seguridad. Tienes 30 minutos para ver el contenido, tiempo suficiente para los
+									videos actuales. Siempre puedes solicitar acceso de nuevo.
 								</p>
 							</div>
 
 							<div class="faq-item">
-								<h3>¿Por qué expire tan rápido el acceso a los videos?</h3>
+								<h3>¿Vais a vender mi email a otras empresas?</h3>
 								<p>
-									Durante las pruebas, el acceso expira en 30 segundos para evitar accesos no
-									autorizados. En producción, el tiempo será de 30 minutos, suficiente para ver el
-									contenido tranquilamente.
+									Nunca. Tu email se usa únicamente para darte acceso a nuestro contenido educativo.
 								</p>
 							</div>
 
 							<div class="faq-item">
-								<h3>¿Qué pasa si borro los datos del navegador?</h3>
+								<h3>¿Cómo elimino todos mis datos?</h3>
 								<p>
-									Si borras el localStorage de tu navegador, perderás el acceso temporal a los
-									videos, pero puedes volver a solicitarlo con tu email sin problemas.
+									Envía un email a info@femmtribu.com con "Eliminar datos" en el asunto. Lo haremos
+									en 5 días laborables.
 								</p>
 							</div>
 
 							<div class="faq-item">
-								<h3>¿Venderéis mi email a terceros?</h3>
+								<h3>¿Qué pasa si borro las cookies de mi navegador?</h3>
 								<p>
-									Nunca. No vendemos, alquilamos ni compartimos emails para fines comerciales. Tu
-									email se usa únicamente para proporcionarte acceso a nuestro contenido educativo.
-								</p>
-							</div>
-
-							<div class="faq-item">
-								<h3>¿Cómo puedo darme de baja completamente?</h3>
-								<p>
-									Envía un email a info@femmtribu.com con el asunto "Baja completa" y eliminaremos
-									todos tus datos de nuestros sistemas en un plazo máximo de 5 días laborables.
+									Perderás el acceso temporal a los videos, pero puedes solicitarlo de nuevo con tu
+									email sin problema.
 								</p>
 							</div>
 						</section>
@@ -713,14 +414,10 @@ import Footer from "../components/Footer.astro"
 						<!-- Legal Note -->
 						<div class="legal-note">
 							<p>
-								<strong
-									>Esta política de privacidad entra en vigor el 1 de enero de 2025 y se rige por:</strong
-								><br />
+								<strong>Esta política cumple con:</strong><br />
 								• Reglamento General de Protección de Datos (RGPD) - UE 2016/679<br />
-								• Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales
-								(LOPDGDD)<br />
-								• Ley 34/2002, de Servicios de la Sociedad de la Información y de Comercio Electrónico
-								(LSSICE)
+								• Ley Orgánica 3/2018 de Protección de Datos (LOPDGDD)<br />
+								• Directiva 2002/58/CE sobre privacidad electrónica
 							</p>
 						</div>
 					</article>
@@ -936,8 +633,17 @@ import Footer from "../components/Footer.astro"
 		border-bottom-color: #37443a;
 	}
 
-	/* Specialized Components */
-	.responsible-info {
+	.policy-content code {
+		background: rgba(203, 110, 95, 0.1);
+		padding: 2px 6px;
+		border-radius: 4px;
+		font-size: 0.9rem;
+		color: #a22f11;
+		font-family: monospace;
+	}
+
+	/* Info Box */
+	.info-box {
 		background: rgba(203, 110, 95, 0.05);
 		padding: 25px;
 		border-radius: 15px;
@@ -945,14 +651,38 @@ import Footer from "../components/Footer.astro"
 		margin: 20px 0;
 	}
 
-	.highlight-box {
-		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
-		padding: 20px;
+	.info-box p:last-child {
+		margin-bottom: 0;
+	}
+
+	/* Purposes Grid */
+	.purposes-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 20px;
+		margin: 25px 0;
+	}
+
+	.purpose-item {
+		padding: 25px;
 		border-radius: 15px;
-		border: 1px solid rgba(203, 110, 95, 0.2);
-		margin: 20px 0;
-		text-align: center;
-		color: #37443a !important;
+		border-left: 4px solid;
+	}
+
+	.purpose-item.essential {
+		background: rgba(46, 204, 113, 0.05);
+		border-left-color: #2ecc71;
+	}
+
+	.purpose-item.not-used {
+		background: rgba(231, 76, 60, 0.05);
+		border-left-color: #e74c3c;
+	}
+
+	.purpose-item h4 {
+		margin: 0 0 15px 0;
+		color: #37443a;
+		font-size: 1.1rem;
 	}
 
 	/* Legal Bases */
@@ -964,10 +694,24 @@ import Footer from "../components/Footer.astro"
 	}
 
 	.legal-basis-item {
-		background: rgba(106, 128, 103, 0.05);
 		padding: 20px;
 		border-radius: 15px;
-		border-left: 4px solid #6a8067;
+		border-left: 4px solid;
+	}
+
+	.legal-basis-item.consent {
+		background: rgba(52, 152, 219, 0.05);
+		border-left-color: #3498db;
+	}
+
+	.legal-basis-item.contract {
+		background: rgba(46, 204, 113, 0.05);
+		border-left-color: #2ecc71;
+	}
+
+	.legal-basis-item.legitimate {
+		background: rgba(155, 89, 182, 0.05);
+		border-left-color: #9b59b6;
 	}
 
 	.legal-basis-item h4 {
@@ -1025,8 +769,28 @@ import Footer from "../components/Footer.astro"
 		background: rgba(106, 128, 103, 0.02);
 	}
 
-	/* Service Providers */
-	.service-providers {
+	/* No Sale Box */
+	.no-sale-box {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.1), rgba(213, 161, 142, 0.1));
+		padding: 25px;
+		border-radius: 15px;
+		border: 1px solid rgba(203, 110, 95, 0.2);
+		margin: 20px 0;
+		text-align: center;
+	}
+
+	.no-sale-box p {
+		margin: 0;
+		color: #37443a;
+	}
+
+	.no-sale-box p:last-child {
+		margin-top: 10px;
+		font-size: 0.95rem;
+	}
+
+	/* Providers Grid */
+	.providers-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 20px;
@@ -1034,10 +798,10 @@ import Footer from "../components/Footer.astro"
 	}
 
 	.provider-item {
-		background: rgba(203, 110, 95, 0.05);
+		background: rgba(106, 128, 103, 0.05);
 		padding: 20px;
 		border-radius: 15px;
-		border-left: 4px solid #cb6e5f;
+		border-left: 4px solid #6a8067;
 	}
 
 	.provider-item h4 {
@@ -1054,8 +818,8 @@ import Footer from "../components/Footer.astro"
 	/* Rights Grid */
 	.rights-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 20px;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 15px;
 		margin: 25px 0;
 	}
 
@@ -1092,51 +856,33 @@ import Footer from "../components/Footer.astro"
 		background: white;
 		padding: 15px 20px 15px 35px;
 		border-radius: 10px;
-		margin: 15px 0;
+		margin: 0;
 	}
 
-	/* Change Notifications */
-	.change-notifications {
+	/* Contact Grid */
+	.contact-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 20px;
 		margin: 25px 0;
 	}
 
-	.notification-type {
-		background: rgba(106, 128, 103, 0.05);
-		padding: 20px;
-		border-radius: 15px;
-		border-left: 4px solid #6a8067;
-	}
-
-	.notification-type h4 {
-		margin: 0 0 10px 0;
-		color: #37443a;
-		font-size: 1rem;
-	}
-
-	/* Contact Info */
-	.contact-info-detailed {
+	.contact-item {
 		background: rgba(203, 110, 95, 0.05);
 		padding: 25px;
 		border-radius: 15px;
 		border-left: 4px solid #cb6e5f;
-		margin: 20px 0;
 	}
 
-	.authority-contact {
-		background: rgba(106, 128, 103, 0.05);
-		padding: 25px;
-		border-radius: 15px;
-		border-left: 4px solid #6a8067;
-		margin: 20px 0;
-	}
-
-	.authority-contact h4 {
+	.contact-item h4 {
 		margin: 0 0 15px 0;
 		color: #37443a;
 		font-size: 1.1rem;
+	}
+
+	.contact-item ul {
+		margin: 0;
+		padding-left: 20px;
 	}
 
 	/* FAQ Section */
@@ -1242,11 +988,24 @@ import Footer from "../components/Footer.astro"
 			font-size: 1.2rem;
 		}
 
+		.purposes-grid,
 		.legal-bases,
-		.service-providers,
+		.providers-grid,
 		.rights-grid,
-		.change-notifications {
+		.contact-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.retention-table table,
+		.current-tech-table table {
+			font-size: 0.8rem;
+		}
+
+		.retention-table th,
+		.retention-table td,
+		.current-tech-table th,
+		.current-tech-table td {
+			padding: 8px;
 		}
 	}
 
@@ -1263,17 +1022,16 @@ import Footer from "../components/Footer.astro"
 			padding: 20px;
 		}
 
-		.responsible-info,
-		.highlight-box,
+		.info-box,
+		.purpose-item,
 		.legal-basis-item,
 		.provider-item,
 		.right-item,
 		.exercise-rights,
-		.notification-type,
-		.contact-info-detailed,
-		.authority-contact,
+		.contact-item,
 		.faq-item,
-		.legal-note {
+		.legal-note,
+		.no-sale-box {
 			padding: 20px;
 		}
 	}
@@ -1301,3 +1059,53 @@ import Footer from "../components/Footer.astro"
 		}
 	}
 </style>
+
+<script>
+	// Smooth scrolling for table of contents links
+	document.addEventListener("DOMContentLoaded", () => {
+		const tocLinks = document.querySelectorAll('.table-of-contents a[href^="#"]')
+
+		tocLinks.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault()
+				const targetId = link.getAttribute("href")
+				const targetElement = document.querySelector(targetId)
+
+				if (targetElement) {
+					targetElement.scrollIntoView({
+						behavior: "smooth",
+						block: "start",
+					})
+				}
+			})
+		})
+
+		// Highlight current section in table of contents
+		const sections = document.querySelectorAll(".policy-content section[id]")
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						// Remove active class from all links
+						tocLinks.forEach((link) => link.classList.remove("active"))
+
+						// Add active class to current link
+						const activeLink = document.querySelector(
+							`.table-of-contents a[href="#${entry.target.id}"]`
+						)
+						if (activeLink) {
+							activeLink.classList.add("active")
+						}
+					}
+				})
+			},
+			{
+				rootMargin: "-20% 0px -80% 0px",
+			}
+		)
+
+		sections.forEach((section) => {
+			observer.observe(section)
+		})
+	})
+</script>
