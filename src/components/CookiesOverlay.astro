@@ -321,6 +321,8 @@
 		border-top: 1px solid rgba(106, 128, 103, 0.1);
 		background: rgba(255, 245, 235, 0.5);
 		animation: slideDown 0.3s ease-in-out;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 	}
 
 	.cookies-advanced.hidden {
@@ -582,6 +584,11 @@
 		.cookie-settings-floating {
 			display: none;
 		}
+
+		/* Mobile-specific adjustments for advanced panel */
+		.cookies-advanced {
+			max-height: 100vh;
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -612,6 +619,11 @@
 
 		.cookie-details {
 			padding: 12px 20px;
+		}
+
+		/* Mobile-specific adjustments for advanced panel */
+		.cookies-advanced {
+			max-height: 100vh;
 		}
 	}
 
@@ -738,6 +750,9 @@
 			const advancedPanel = document.getElementById("cookies-advanced")
 			advancedPanel?.classList.remove("hidden")
 
+			// Prevent background scrolling on mobile
+			document.body.style.overflow = "hidden"
+
 			// Load current preferences into checkboxes
 			this.loadPreferencesIntoForm()
 		}
@@ -748,6 +763,9 @@
 		hideAdvancedSettings() {
 			const advancedPanel = document.getElementById("cookies-advanced")
 			advancedPanel?.classList.add("hidden")
+
+			// Restore background scrolling
+			document.body.style.overflow = ""
 		}
 
 		/**
@@ -930,6 +948,9 @@
 				overlay.classList.remove("fade-in")
 			}
 			this.hideAdvancedSettings()
+
+			// Restore background scrolling when overlay is hidden
+			document.body.style.overflow = ""
 		}
 
 		/**
