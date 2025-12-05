@@ -1,0 +1,314 @@
+---
+import MobileMenu from "@/components/includes/MobileMenu.astro"
+---
+
+<nav id="main-nav" class="nav">
+	<div class="nav-container">
+		<!-- Logo -->
+		<a href="/" class="nav-logo">
+			<img src="/images/logos/logo_icono.svg" alt="Femm Tribu" class="logo-image" />
+		</a>
+
+		<!-- Desktop Navigation -->
+		<div class="nav-links">
+			<a href="#videos" class="nav-link">Recursos</a>
+			<a href="#about" class="nav-link">Sobre Mí</a>
+			<a href="#contact" class="nav-link">Contacto</a>
+		</div>
+
+		<!-- Mobile Menu -->
+		<MobileMenu />
+	</div>
+</nav>
+
+<style>
+	/* Base Navigation */
+	.nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1000;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		background: transparent;
+		padding: 20px 0;
+
+		/* CSS Custom Properties for MobileMenu communication */
+		--hamburger-color: #fff5eb;
+		--hamburger-shadow: 0 2px 4px rgba(55, 68, 58, 0.2);
+	}
+
+	/* Scrolled state */
+	.nav.scrolled {
+		background: rgba(255, 245, 235, 0.95);
+		backdrop-filter: blur(20px);
+		box-shadow: 0 4px 30px rgba(55, 68, 58, 0.08);
+		padding: 12px 0;
+
+		/* Update CSS variables for scrolled state */
+		--hamburger-color: #37443a;
+		--hamburger-shadow: none;
+	}
+
+	.nav-container {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 40px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	/* Logo */
+	.nav-logo {
+		display: flex;
+		align-items: center;
+		transition: all 0.3s ease;
+		position: relative;
+		z-index: 1001;
+	}
+
+	.logo-image {
+		height: 60px;
+		width: auto;
+		transition: all 0.4s ease;
+		filter: drop-shadow(0 2px 8px rgba(55, 68, 58, 0.15));
+	}
+
+	.nav.scrolled .logo-image {
+		height: 50px;
+	}
+
+	.nav-logo:hover .logo-image {
+		transform: scale(1.05);
+		filter: drop-shadow(0 4px 12px rgba(203, 110, 95, 0.3));
+	}
+
+	/* Desktop Navigation Links */
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+	}
+
+	.nav-link {
+		font-family: "Questrial", sans-serif;
+		font-size: 1rem;
+		color: #fff5eb;
+		text-decoration: none;
+		position: relative;
+		padding: 8px 0;
+		transition: all 0.3s ease;
+		font-weight: 500;
+		letter-spacing: 0.5px;
+		text-shadow: 0 2px 4px rgba(55, 68, 58, 0.3);
+	}
+
+	.nav.scrolled .nav-link {
+		color: #37443a;
+		text-shadow: none;
+	}
+
+	.nav-link::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: linear-gradient(90deg, #cb6e5f 0%, #d5a18e 100%);
+		transition: width 0.3s ease;
+	}
+
+	.nav-link:hover {
+		color: #cb6e5f;
+		text-shadow: 0 2px 8px rgba(203, 110, 95, 0.3);
+	}
+
+	.nav.scrolled .nav-link:hover {
+		color: #cb6e5f;
+	}
+
+	.nav-link:hover::after {
+		width: 100%;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 1024px) {
+		.nav-container {
+			padding: 0 30px;
+		}
+
+		.nav-links {
+			gap: 30px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.nav {
+			padding: 15px 0;
+		}
+
+		.nav.scrolled {
+			padding: 10px 0;
+		}
+
+		.nav-container {
+			padding: 0 20px;
+		}
+
+		.nav-links {
+			display: none;
+		}
+
+		.logo-image {
+			height: 50px;
+		}
+
+		.nav.scrolled .logo-image {
+			height: 45px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.nav-container {
+			padding: 0 15px;
+		}
+
+		.logo-image {
+			height: 45px;
+		}
+
+		.nav.scrolled .logo-image {
+			height: 40px;
+		}
+	}
+</style>
+
+<script>
+	// Navigation scroll behavior
+	function initNav() {
+		const nav = document.getElementById("main-nav")
+		const mobileMenuButton = document.querySelector(".mobile-menu-button")
+		const mobileMenu = document.querySelector(".mobile-menu")
+
+		if (!nav) return
+
+		// Handle scroll to add background
+		let lastScroll = 0
+		const handleScroll = () => {
+			const currentScroll = window.pageYOffset
+
+			if (currentScroll > 100) {
+				nav.classList.add("scrolled")
+			} else {
+				nav.classList.remove("scrolled")
+			}
+
+			lastScroll = currentScroll
+		}
+
+		// Mobile menu toggle (if mobile menu exists)
+		if (mobileMenuButton && mobileMenu) {
+			const toggleMobileMenu = () => {
+				const isActive = mobileMenuButton.classList.toggle("active")
+				mobileMenu.classList.toggle("active")
+				mobileMenuButton.setAttribute("aria-expanded", isActive.toString())
+
+				// Prevent body scroll when menu is open
+				if (isActive) {
+					document.body.style.overflow = "hidden"
+				} else {
+					document.body.style.overflow = ""
+				}
+			}
+
+			// Close mobile menu
+			const closeMobileMenu = () => {
+				mobileMenuButton.classList.remove("active")
+				mobileMenu.classList.remove("active")
+				mobileMenuButton.setAttribute("aria-expanded", "false")
+				document.body.style.overflow = ""
+			}
+
+			// Event listeners for mobile menu
+			mobileMenuButton.addEventListener("click", toggleMobileMenu)
+
+			// Close mobile menu when clicking overlay
+			mobileMenu.addEventListener("click", (e) => {
+				if (e.target === mobileMenu) {
+					closeMobileMenu()
+				}
+			})
+
+			// Close mobile menu on escape key
+			document.addEventListener("keydown", (e) => {
+				if (e.key === "Escape" && mobileMenuButton.classList.contains("active")) {
+					closeMobileMenu()
+				}
+			})
+
+			// Smooth scroll for mobile links
+			const mobileLinks = document.querySelectorAll(".mobile-link")
+			mobileLinks.forEach((link) => {
+				link.addEventListener("click", (e) => {
+					const href = link.getAttribute("href")
+					if (href && href.startsWith("#")) {
+						e.preventDefault()
+						const targetElement = document.querySelector(href)
+
+						if (targetElement) {
+							const navHeight = nav.offsetHeight
+							const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
+							const offsetPosition = targetPosition - navHeight - 20
+
+							window.scrollTo({
+								top: offsetPosition,
+								behavior: "smooth",
+							})
+
+							closeMobileMenu()
+						}
+					}
+				})
+			})
+		}
+
+		// Smooth scroll for desktop nav links
+		const navLinks = document.querySelectorAll(".nav-link")
+		navLinks.forEach((link) => {
+			link.addEventListener("click", (e) => {
+				const href = link.getAttribute("href")
+
+				if (href && href.startsWith("#")) {
+					e.preventDefault()
+					const targetElement = document.querySelector(href)
+
+					if (targetElement) {
+						const navHeight = nav.offsetHeight
+						const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset
+						const offsetPosition = targetPosition - navHeight - 20
+
+						window.scrollTo({
+							top: offsetPosition,
+							behavior: "smooth",
+						})
+					}
+				}
+			})
+		})
+
+		// Event listeners
+		window.addEventListener("scroll", handleScroll, { passive: true })
+
+		// Initial scroll check
+		handleScroll()
+	}
+
+	// Initialize navigation
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initNav)
+	} else {
+		initNav()
+	}
+</script>

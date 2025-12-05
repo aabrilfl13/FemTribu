@@ -5,15 +5,31 @@ import Videos from "@/components/Videos.astro"
 import Footer from "@/components/Footer.astro"
 import AboutMe from "@/components/AboutMe.astro"
 import CookiesOverlay from "@/components/CookiesOverlay.astro"
+import Nav from "@/components/Nav.astro"
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
+	<Nav />
 	<Welcome />
 	<Videos />
 	<AboutMe />
 	<Footer />
 	<CookiesOverlay />
 </Layout>
+
+<style>
+	/* Ensure sections don't get hidden under fixed nav */
+	section {
+		scroll-margin-top: 80px; /* Adjust based on your nav height */
+	}
+
+	/* Remove default section padding if needed */
+	#about,
+	#contact {
+		padding: 0;
+		margin: 0;
+	}
+</style>
