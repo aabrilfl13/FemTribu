@@ -35,8 +35,11 @@ const { title = "Femm Tribu" } = Astro.props
 			content="Una guía femenina integral para todo el viaje corporal y emocional de ser mujer."
 		/>
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="https://femmtribu.es" />
-		<meta property="og:image" content="/images/og-hands-together.jpg" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta
+			property="og:image"
+			content={`${Astro.site || Astro.url.origin}/images/og-hands-together.jpg`}
+		/>
 
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -45,7 +48,10 @@ const { title = "Femm Tribu" } = Astro.props
 			name="twitter:description"
 			content="Una guía femenina integral para todo el viaje corporal y emocional de ser mujer."
 		/>
-		<meta name="twitter:image" content="/images/og-hands-together.jpg" />
+		<meta
+			name="twitter:image"
+			content={`${Astro.site || Astro.url.origin}/images/og-hands-together.jpg`}
+		/>
 
 		<!-- Fonts preload -->
 		<link

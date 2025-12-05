@@ -15,4 +15,5 @@ export default defineConfig({
 	adapter: vercel({
 		edgeMiddleware: true,
 	}),
+	site: "https://femmtribu.es",
 })
