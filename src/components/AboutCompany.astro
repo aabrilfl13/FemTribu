@@ -2,31 +2,23 @@
 // SVG icons matching lucide-react
 const CheckIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`
 
-const HeartIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>`
-
-const LeafIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`
-
-const MoonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`
-
-const plantIcon = "/images/icons/illustrations/ilustracion-negro_28-18.svg"
-
 const pillars = [
 	{
-		icon: HeartIcon,
+		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
 		title: "Ciencia",
 		description: "Basado en evidencia científica actualizada y mi experiencia como matrona",
 		color: "text-accent",
 		bgColor: "bg-accent/10",
 	},
 	{
-		icon: MoonIcon,
+		icon: "/images/icons/illustrations/ilustracion-negro_04.svg",
 		title: "Espiritualidad",
 		description: "Conectando con tu esencia femenina y los ciclos naturales de la vida",
 		color: "text-secondary",
 		bgColor: "bg-secondary/10",
 	},
 	{
-		icon: LeafIcon,
+		icon: "/images/icons/illustrations/ilustracion-negro_02.svg",
 		title: "Autocuidado",
 		description: "Herramientas prácticas para cuidarte en cada etapa de tu camino",
 		color: "text-coral",
@@ -163,7 +155,12 @@ const features = [
 								<div
 									class={`w-12 h-12 ${pillar.bgColor} rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
 								>
-									<span class={`w-6 h-6 ${pillar.color}`} set:html={pillar.icon} />
+									<img
+										src={pillar.icon}
+										alt={pillar.title}
+										class={`w-9 h-9 ${pillar.color}`}
+										style="filter: brightness(0) saturate(100%);"
+									/>
 								</div>
 								<h4 class="font-display text-lg text-primary mb-2">{pillar.title}</h4>
 								<p class="text-sm text-muted-foreground">{pillar.description}</p>
