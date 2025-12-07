@@ -45,7 +45,9 @@ const navItems = [
 			{/* CTA Button */}
 			<div class="hidden md:block">
 				<a
-					href="#contacto"
+					href={import.meta.env.CALENDLY_URL}
+					target="_blank"
+					rel="noopener noreferrer"
 					class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-medium rounded-full hover:bg-accent/90 transition-colors duration-300 opacity-0 [.scrolled_&]:opacity-100 transition-opacity duration-[400ms]"
 				>
 					Reserva tu cita
