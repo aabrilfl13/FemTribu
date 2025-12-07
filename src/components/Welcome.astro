@@ -11,77 +11,79 @@ const description =
 ---
 
 <Layout title="Femm Tribu">
-	<div class="background-overlay"></div>
-	<div class="w-full h-screen overflow-hidden relative">
-		{
-			images.map((image, index) => (
-				<img
-					src={image}
-					alt={`Background image ${index + 1}`}
-					class="absolute top-0 left-0 w-full h-screen object-cover transition-opacity duration-[2s] ease-in-out"
-					class:list={{
-						"opacity-100": index === 0,
-						"opacity-0": index !== 0,
-						"object-[38%_center] sm:object-center": image.includes("pregnant-woman"),
-					}}
-					data-index={index}
-					transition:animate={fade()}
-				/>
-			))
-		}
-	</div>
-	<div
-		class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white text-center z-100"
-	>
-		<!-- Logo centered in screen -->
-		<img
-			src="/images/logos/logo_principal_fullcolor.svg"
-			alt="Femm Tribu Logo"
-			class="logo"
-			style="max-width: min(500px, 90vw); width: 100%; height: auto;"
-		/>
-
-		<!-- Social Media Icons positioned above scroll indicator -->
-		<div class="absolute bottom-24 md:bottom-35 left-1/2 transform -translate-x-1/2 flex gap-6">
-			<a
-				href="https://www.instagram.com/femm.tribu/"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="social-icon"
-				aria-label="Instagram"
-			>
-				<InstagramIcon />
-			</a>
-			<a
-				href="https://www.tiktok.com/@merypebe"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="social-icon"
-				aria-label="TikTok"
-			>
-				<TikTokIcon />
-			</a>
+	<div id="home">
+		<div class="background-overlay"></div>
+		<div class="w-full h-screen overflow-hidden relative">
+			{
+				images.map((image, index) => (
+					<img
+						src={image}
+						alt={`Background image ${index + 1}`}
+						class="absolute top-0 left-0 w-full h-screen object-cover transition-opacity duration-[2s] ease-in-out"
+						class:list={{
+							"opacity-100": index === 0,
+							"opacity-0": index !== 0,
+							"object-[38%_center] sm:object-center": image.includes("pregnant-woman"),
+						}}
+						data-index={index}
+						transition:animate={fade()}
+					/>
+				))
+			}
 		</div>
+		<div
+			class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white text-center z-100"
+		>
+			<!-- Logo centered in screen -->
+			<img
+				src="/images/logos/logo_principal_fullcolor.svg"
+				alt="Femm Tribu Logo"
+				class="logo"
+				style="max-width: min(500px, 90vw); width: 100%; height: auto;"
+			/>
 
-		<!-- Scroll indicator -->
-		<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
-			<div class="flex items-center gap-3">
-				<p class="text-lg font-[questrial] tracking-wide">Descubrir más</p>
-				<div class="arrow-down">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="M7 10L12 15L17 10"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"></path>
-					</svg>
+			<!-- Social Media Icons positioned above scroll indicator -->
+			<div class="absolute bottom-24 md:bottom-35 left-1/2 transform -translate-x-1/2 flex gap-6">
+				<a
+					href="https://www.instagram.com/femm.tribu/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="social-icon"
+					aria-label="Instagram"
+				>
+					<InstagramIcon />
+				</a>
+				<a
+					href="https://www.tiktok.com/@merypebe"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="social-icon"
+					aria-label="TikTok"
+				>
+					<TikTokIcon />
+				</a>
+			</div>
+
+			<!-- Scroll indicator -->
+			<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
+				<div class="flex items-center gap-3">
+					<p class="text-lg font-[questrial] tracking-wide">Descubrir más</p>
+					<div class="arrow-down">
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M7 10L12 15L17 10"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"></path>
+						</svg>
+					</div>
 				</div>
 			</div>
 		</div>
