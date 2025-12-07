@@ -1,0 +1,165 @@
+---
+const services = [
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_01.svg",
+		title: "Salud Hormonal",
+		description:
+			"Entiende tu ciclo menstrual y vive en sintonía con tus fases. Aprende a escuchar las señales de tu cuerpo y toma decisiones desde el conocimiento.",
+		features: [
+			"Sesiones online personalizadas",
+			"Guías prácticas de nutrición y movimiento",
+			"Acompañamiento continuo",
+		],
+		price: "Desde 60€",
+		color: "terracotta",
+	},
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
+		title: "Preparación al Parto",
+		description:
+			"El parto es un proceso físico, emocional y mental. Te acompañamos a entender tu cuerpo, gestionar miedos y confiar en tu capacidad para parir.",
+		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
+		price: "Desde 90€",
+		color: "coral",
+	},
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
+		title: "Lactancia",
+		description:
+			"Cada lactancia es única. Te ayudamos a entender cómo funciona tu cuerpo, resolver dificultades y disfrutar de tu lactancia sin miedo ni culpa.",
+		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
+		price: "Consultar",
+		color: "sage",
+	},
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
+		title: "Menopausia",
+		description:
+			"Una etapa de cambios hormonales y emocionales. Te acompañamos a redescubrir tu energía y tomar decisiones conscientes sobre tu salud.",
+		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
+		price: "Consultar",
+		color: "forest",
+	},
+]
+
+const colorClasses = {
+	terracotta: {
+		bg: "bg-terracotta/10",
+		icon: "text-terracotta",
+		border: "border-terracotta/20",
+		hover: "hover:border-terracotta/40",
+	},
+	coral: {
+		bg: "bg-coral/10",
+		icon: "text-coral",
+		border: "border-coral/20",
+		hover: "hover:border-coral/40",
+	},
+	sage: {
+		bg: "bg-sage/10",
+		icon: "text-sage",
+		border: "border-sage/20",
+		hover: "hover:border-sage/40",
+	},
+	forest: {
+		bg: "bg-forest/10",
+		icon: "text-forest",
+		border: "border-forest/20",
+		hover: "hover:border-forest/40",
+	},
+}
+---
+
+<section id="servicios" class="py-20 lg:py-28 bg-cream relative overflow-hidden">
+	{/* Decorative blobs */}
+	<div
+		class="absolute top-0 right-0 w-96 h-96 bg-sage/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"
+	>
+	</div>
+	<div
+		class="absolute bottom-0 left-0 w-80 h-80 bg-coral/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"
+	>
+	</div>
+
+	<div class="container mx-auto px-4 relative z-10">
+		{/* Header */}
+		<div class="text-center max-w-3xl mx-auto mb-16">
+			<span
+				class="inline-block px-4 py-2 bg-sage/20 text-forest rounded-full text-sm font-body mb-4 animate-fade-up"
+			>
+				Nuestros Servicios
+			</span>
+			<h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-forest mb-6">
+				Te acompañamos en cada etapa
+			</h2>
+			<p class="text-lg text-forest/70 font-body leading-relaxed">
+				Desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto y la
+				lactancia. Una mirada integral y humana para cada momento de tu vida.
+			</p>
+		</div>
+
+		{/* Services Grid */}
+		<div class="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+			{
+				services.map((service, index) => {
+					const colors = colorClasses[service.color as keyof typeof colorClasses]
+
+					return (
+						<div
+							class={`group relative bg-background rounded-3xl p-8 border-2 ${colors.border} ${colors.hover} transition-all duration-300 hover:shadow-elegant animate-fade-up`}
+							style={{ animationDelay: `${index * 100}ms` }}
+						>
+							{/* Icon */}
+							<div
+								class={`w-16 h-16 ${colors.bg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+							>
+								<img
+									src={service.icon}
+									alt={service.title}
+									class={`w-16 h-16 ${service.color}`}
+									style="filter: brightness(0) saturate(100%);"
+								/>
+							</div>
+
+							{/* Content */}
+							<h3 class="font-display text-2xl lg:text-3xl text-forest mb-3">{service.title}</h3>
+							<p class="text-forest/70 font-body mb-6 leading-relaxed">{service.description}</p>
+
+							{/* Features */}
+							<ul class="space-y-2 mb-6">
+								{service.features.map((feature) => (
+									<li class="flex items-center gap-2 text-sm text-forest/60 font-body">
+										<span
+											class={`w-1.5 h-1.5 rounded-full ${colors.icon.replace("text-", "bg-")}`}
+										/>
+										{feature}
+									</li>
+								))}
+							</ul>
+
+							{/* Price & CTA */}
+							<div class="flex items-center justify-between pt-4 border-t border-forest/10">
+								<span class="font-display text-xl text-forest">{service.price}</span>
+								<button
+									class={`px-4 py-2 rounded-full bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic hover:scale-105 transition-all duration-300`}
+								>
+									Saber más
+								</button>
+							</div>
+						</div>
+					)
+				})
+			}
+		</div>
+
+		{/* CTA */}
+		<div class="text-center mt-16">
+			<p class="text-forest/60 font-body mb-4">¿No sabes por dónde empezar?</p>
+			<button
+				class="px-8 py-4 bg-accent text-cream rounded-full font-body text-lg transition-all duration-300 hover:bg-accent/90 hover:shadow-elegant hover:scale-105"
+			>
+				Agenda una llamada gratuita
+			</button>
+		</div>
+	</div>
+</section>
