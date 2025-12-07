@@ -1,187 +1,72 @@
 ---
 import MobileMenu from "@/components/includes/MobileMenu.astro"
+
+const navItems = [
+	{ label: "Inicio", href: "#" },
+	{ label: "Servicios", href: "#servicios" },
+	{ label: "Sobre mí", href: "#sobre-mi" },
+	{ label: "Contacto", href: "#contacto" },
+]
 ---
 
-<nav id="main-nav" class="nav">
-	<div class="nav-container">
-		<!-- Logo -->
-		<a href="/" class="nav-logo">
-			<img src="/images/logos/logo_icono.svg" alt="Femm Tribu" class="logo-image" />
-		</a>
+<header
+	id="main-nav"
+	class="fixed top-0 left-0 right-0 z-[1000] bg-transparent transition-all duration-[400ms] ease-[cubic-bezier(0.4,0,0.2,1)] py-5 [&.scrolled]:bg-background/95 [&.scrolled]:backdrop-blur-[20px] [&.scrolled]:shadow-[0_4px_30px_rgba(55,68,58,0.08)] [&.scrolled]:py-3"
+>
+	<div class="container mx-auto px-4 lg:px-8">
+		<div class="flex items-center justify-between h-20">
+			{/* Logo */}
+			<a href="/" class="flex items-center relative z-[1001] transition-all duration-300 group">
+				<img
+					src="/images/logos/logo_icono.svg"
+					alt="Femm Tribu"
+					class="h-[60px] w-auto transition-all duration-[400ms] drop-shadow-[0_2px_8px_rgba(55,68,58,0.15)] group-hover:scale-105 group-hover:drop-shadow-[0_4px_12px_rgba(203,110,95,0.3)] [.scrolled_&]:h-[50px]"
+				/>
+				<div class="block">
+					<span class="font-display text-2xl text-primary">Femm</span>
+					<span class="font-display text-2xl text-accent">tribu</span>
+				</div>
+			</a>
 
-		<!-- Desktop Navigation -->
-		<div class="nav-links">
-			<a href="#videos" class="nav-link">Recursos</a>
-			<a href="#about" class="nav-link">Sobre Mí</a>
-			<a href="#contact" class="nav-link">Contacto</a>
+			{/* Desktop Navigation */}
+			<nav class="hidden md:flex items-center gap-10">
+				{
+					navItems.map((item) => (
+						<a
+							href={item.href}
+							class="nav-link text-base text-[#fff5eb] no-underline relative py-2 transition-all duration-300 font-medium tracking-[0.5px] [text-shadow:0_2px_4px_rgba(55,68,58,0.3)] [.scrolled_&]:text-[#37443a] [.scrolled_&]:[text-shadow:none] hover:text-[#cb6e5f] hover:[text-shadow:0_2px_8px_rgba(203,110,95,0.3)] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-[#cb6e5f] after:to-[#d5a18e] after:transition-[width] after:duration-300 hover:after:w-full"
+						>
+							{item.label}
+						</a>
+					))
+				}
+			</nav>
+
+			{/* CTA Button */}
+			<div class="hidden md:block">
+				<a
+					href="#contacto"
+					class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-medium rounded-lg hover:bg-accent/90 transition-colors duration-300"
+				>
+					Reserva tu cita
+				</a>
+			</div>
+
+			<MobileMenu navItems={navItems} />
 		</div>
-
-		<!-- Mobile Menu -->
-		<MobileMenu />
 	</div>
-</nav>
+</header>
 
 <style>
-	/* Base Navigation */
-	.nav {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 1000;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		background: transparent;
-		padding: 20px 0;
-
-		/* CSS Custom Properties for MobileMenu communication */
+	/* CSS Custom Properties for MobileMenu communication */
+	#main-nav {
 		--hamburger-color: #fff5eb;
 		--hamburger-shadow: 0 2px 4px rgba(55, 68, 58, 0.2);
 	}
 
-	/* Scrolled state */
-	.nav.scrolled {
-		background: rgba(255, 245, 235, 0.95);
-		backdrop-filter: blur(20px);
-		box-shadow: 0 4px 30px rgba(55, 68, 58, 0.08);
-		padding: 12px 0;
-
-		/* Update CSS variables for scrolled state */
+	#main-nav.scrolled {
 		--hamburger-color: #37443a;
 		--hamburger-shadow: none;
-	}
-
-	.nav-container {
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 0 40px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	/* Logo */
-	.nav-logo {
-		display: flex;
-		align-items: center;
-		transition: all 0.3s ease;
-		position: relative;
-		z-index: 1001;
-	}
-
-	.logo-image {
-		height: 60px;
-		width: auto;
-		transition: all 0.4s ease;
-		filter: drop-shadow(0 2px 8px rgba(55, 68, 58, 0.15));
-	}
-
-	.nav.scrolled .logo-image {
-		height: 50px;
-	}
-
-	.nav-logo:hover .logo-image {
-		transform: scale(1.05);
-		filter: drop-shadow(0 4px 12px rgba(203, 110, 95, 0.3));
-	}
-
-	/* Desktop Navigation Links */
-	.nav-links {
-		display: flex;
-		align-items: center;
-		gap: 40px;
-	}
-
-	.nav-link {
-		font-family: "Questrial", sans-serif;
-		font-size: 1rem;
-		color: #fff5eb;
-		text-decoration: none;
-		position: relative;
-		padding: 8px 0;
-		transition: all 0.3s ease;
-		font-weight: 500;
-		letter-spacing: 0.5px;
-		text-shadow: 0 2px 4px rgba(55, 68, 58, 0.3);
-	}
-
-	.nav.scrolled .nav-link {
-		color: #37443a;
-		text-shadow: none;
-	}
-
-	.nav-link::after {
-		content: "";
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		width: 0;
-		height: 2px;
-		background: linear-gradient(90deg, #cb6e5f 0%, #d5a18e 100%);
-		transition: width 0.3s ease;
-	}
-
-	.nav-link:hover {
-		color: #cb6e5f;
-		text-shadow: 0 2px 8px rgba(203, 110, 95, 0.3);
-	}
-
-	.nav.scrolled .nav-link:hover {
-		color: #cb6e5f;
-	}
-
-	.nav-link:hover::after {
-		width: 100%;
-	}
-
-	/* Responsive Design */
-	@media (max-width: 1024px) {
-		.nav-container {
-			padding: 0 30px;
-		}
-
-		.nav-links {
-			gap: 30px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.nav {
-			padding: 15px 0;
-		}
-
-		.nav.scrolled {
-			padding: 10px 0;
-		}
-
-		.nav-container {
-			padding: 0 20px;
-		}
-
-		.nav-links {
-			display: none;
-		}
-
-		.logo-image {
-			height: 50px;
-		}
-
-		.nav.scrolled .logo-image {
-			height: 45px;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.nav-container {
-			padding: 0 15px;
-		}
-
-		.logo-image {
-			height: 45px;
-		}
-
-		.nav.scrolled .logo-image {
-			height: 40px;
-		}
 	}
 </style>
 
@@ -215,7 +100,6 @@ import MobileMenu from "@/components/includes/MobileMenu.astro"
 				mobileMenu.classList.toggle("active")
 				mobileMenuButton.setAttribute("aria-expanded", isActive.toString())
 
-				// Prevent body scroll when menu is open
 				if (isActive) {
 					document.body.style.overflow = "hidden"
 				} else {
@@ -223,7 +107,6 @@ import MobileMenu from "@/components/includes/MobileMenu.astro"
 				}
 			}
 
-			// Close mobile menu
 			const closeMobileMenu = () => {
 				mobileMenuButton.classList.remove("active")
 				mobileMenu.classList.remove("active")
@@ -231,24 +114,20 @@ import MobileMenu from "@/components/includes/MobileMenu.astro"
 				document.body.style.overflow = ""
 			}
 
-			// Event listeners for mobile menu
 			mobileMenuButton.addEventListener("click", toggleMobileMenu)
 
-			// Close mobile menu when clicking overlay
 			mobileMenu.addEventListener("click", (e) => {
 				if (e.target === mobileMenu) {
 					closeMobileMenu()
 				}
 			})
 
-			// Close mobile menu on escape key
 			document.addEventListener("keydown", (e) => {
 				if (e.key === "Escape" && mobileMenuButton.classList.contains("active")) {
 					closeMobileMenu()
 				}
 			})
 
-			// Smooth scroll for mobile links
 			const mobileLinks = document.querySelectorAll(".mobile-link")
 			mobileLinks.forEach((link) => {
 				link.addEventListener("click", (e) => {
@@ -298,14 +177,10 @@ import MobileMenu from "@/components/includes/MobileMenu.astro"
 			})
 		})
 
-		// Event listeners
 		window.addEventListener("scroll", handleScroll, { passive: true })
-
-		// Initial scroll check
 		handleScroll()
 	}
 
-	// Initialize navigation
 	if (document.readyState === "loading") {
 		document.addEventListener("DOMContentLoaded", initNav)
 	} else {

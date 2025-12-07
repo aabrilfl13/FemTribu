@@ -1,6 +1,20 @@
 ---
 import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
+
+// Define the interface for navigation items
+interface NavItem {
+	href: string
+	label: string
+	disabled?: boolean
+}
+
+// Accept navItems as a prop
+interface Props {
+	navItems: NavItem[]
+}
+
+const { navItems } = Astro.props
 ---
 
 <!-- Mobile Menu Button -->
@@ -13,9 +27,34 @@ import TikTokIcon from "@/assets/iconos/tiktok.svg"
 <!-- Mobile Menu -->
 <div class="mobile-menu">
 	<div class="mobile-menu-content">
-		<a href="#videos" class="mobile-link">Recursos</a>
-		<a href="#about" class="mobile-link">Sobre Mí</a>
-		<a href="#contact" class="mobile-link">Contacto</a>
+		<nav class="mt-20 flex flex-col gap-2 flex-1">
+			<div class="flex flex-col gap-4">
+				{
+					navItems.map((item, index) => (
+						<a
+							href={item.href}
+							class:list={[
+								"mobile-link",
+								{
+									"pointer-events-none cursor-not-allowed opacity-50": item.disabled,
+								},
+							]}
+							aria-disabled={item.disabled}
+						>
+							{item.label}
+						</a>
+					))
+				}
+				<div class="mt-6 flex justify-center">
+					<a
+						href="#contacto"
+						class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-medium rounded-lg hover:bg-accent/90 transition-colors duration-300"
+					>
+						Reserva tu cita
+					</a>
+				</div>
+			</div>
+		</nav>
 
 		<!-- Social Links in Mobile Menu -->
 		<div class="mobile-social">
