@@ -9,6 +9,15 @@ import vercel from "@astrojs/vercel"
 export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
+		build: {
+			// Additional optimizations
+			cssCodeSplit: true,
+			assetsInlineLimit: 4096,
+		},
+	},
+	build: {
+		// Inline CSS to eliminate render-blocking requests
+		inlineStylesheets: "always",
 	},
 
 	output: "static",
@@ -16,4 +25,5 @@ export default defineConfig({
 		edgeMiddleware: true,
 	}),
 	site: "https://femmtribu.es",
+	compressHTML: true,
 })
