@@ -86,10 +86,20 @@ const navItems = [
 		const handleScroll = () => {
 			const currentScroll = window.pageYOffset
 
+			// Add scrolled class for background
 			if (currentScroll > 100) {
 				nav.classList.add("scrolled")
 			} else {
 				nav.classList.remove("scrolled")
+			}
+
+			// Hide/show nav based on scroll direction
+			if (currentScroll > lastScroll && currentScroll > 100) {
+				// Scrolling down & past threshold
+				nav.style.transform = "translateY(-100%)"
+			} else {
+				// Scrolling up or at top
+				nav.style.transform = "translateY(0)"
 			}
 
 			lastScroll = currentScroll
