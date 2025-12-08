@@ -1,0 +1,41 @@
+# Robots.txt para femmtribu.es
+# María Belenguer - Salud de la Mujer y Maternidad
+
+# Permitir a todos los motores de búsqueda
+User-agent: *
+Allow: /
+
+# Bloquear rutas privadas o de API
+Disallow: /api/
+Disallow: /*.json$
+
+# Permitir contenido importante para SEO
+# Blog sobre maternidad, lactancia, menopausia
+Allow: /blog/
+Allow: /talleres/
+Allow: /salud-hormonal/
+Allow: /embarazo-maternidad/
+Allow: /menopausia/
+Allow: /sobre-mi/
+
+# Permitir cursos
+Allow: /cursos/
+
+# Permitir recursos estáticos
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.png$
+Allow: /*.svg$
+
+# Ubicación del sitemap
+Sitemap: https://femmtribu.es/sitemap.xml
+
+# GoogleBot específico (opcional)
+User-agent: Googlebot
+Allow: /
+
+# Bingbot específico (opcional)
+User-agent: Bingbot
+Allow: /
