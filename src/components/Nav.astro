@@ -2,9 +2,9 @@
 import MobileMenu from "@/components/includes/MobileMenu.astro"
 
 const navItems = [
-	{ label: "Inicio", href: "#home" },
-	{ label: "Servicios", href: "#servicios" },
-	{ label: "Sobre mí", href: "#sobre-mi" },
+	{ label: "Inicio", href: "/" },
+	{ label: "Servicios", href: "/#servicios" },
+	{ label: "Sobre mí", href: "/#sobre-mi" },
 	{ label: "Cursos", href: "/cursos/curso-lactancia" },
 ]
 ---
@@ -86,10 +86,14 @@ const navItems = [
 		const handleScroll = () => {
 			const currentScroll = window.pageYOffset
 
+			console.log("Scroll position:", currentScroll)
+
 			// Add scrolled class for background
 			if (currentScroll > 100) {
+				console.log("Adding scrolled class")
 				nav.classList.add("scrolled")
 			} else {
+				console.log("Removing scrolled class")
 				nav.classList.remove("scrolled")
 			}
 
@@ -144,6 +148,8 @@ const navItems = [
 			mobileLinks.forEach((link) => {
 				link.addEventListener("click", (e) => {
 					const href = link.getAttribute("href")
+
+					// Handle hash links on same page
 					if (href && href.startsWith("#")) {
 						e.preventDefault()
 						const targetElement = document.querySelector(href)
@@ -161,6 +167,15 @@ const navItems = [
 							closeMobileMenu()
 						}
 					}
+					// Handle links to home sections from other pages (like /#servicios)
+					else if (href && href.includes("#")) {
+						closeMobileMenu()
+						// Let the browser handle the navigation naturally
+					}
+					// Handle regular page links
+					else {
+						closeMobileMenu()
+					}
 				})
 			})
 		}
@@ -171,6 +186,7 @@ const navItems = [
 			link.addEventListener("click", (e) => {
 				const href = link.getAttribute("href")
 
+				// Only prevent default for hash links on the same page
 				if (href && href.startsWith("#")) {
 					e.preventDefault()
 					const targetElement = document.querySelector(href)
@@ -186,6 +202,7 @@ const navItems = [
 						})
 					}
 				}
+				// For links like "/#servicios" or regular page links, let them navigate naturally
 			})
 		})
 
