@@ -1,6 +1,7 @@
 ---
 import "@/styles/global.css"
 import Analytics from "@vercel/analytics/astro"
+import SpeedInsights from "@vercel/speed-insights/astro"
 
 export interface Props {
 	title?: string
@@ -80,6 +81,7 @@ const { title = "Femm Tribu" } = Astro.props
 	</head>
 	<body>
 		<slot />
+		<SpeedInsights />
 		<Analytics />
 	</body>
 	<script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
