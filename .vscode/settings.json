@@ -1,23 +1,28 @@
 {
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "prettier.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "prettier.documentSelectors": ["**/*.astro"],
-  "prettier.requireConfig": true,
   "[astro]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "prettier.prettier-vscode",
+    "editor.formatOnSave": true
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "prettier.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "prettier.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+    "editor.defaultFormatter": "prettier.prettier-vscode"
+  },
+  // Add these lines
+  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.enable": true,
+  "prettier.requireConfig": false,
+  "prettier.resolveGlobalModules": true,
+  "prettier.useEditorConfig": false
 }

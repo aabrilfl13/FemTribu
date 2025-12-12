@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+.yarn/
+
+# Build outputs
+dist/
+.astro/
+.vercel/
+
+# Assets that shouldn't be formatted
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.eot
+
+# Config files that might cause issues
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Other
+.DS_Store
