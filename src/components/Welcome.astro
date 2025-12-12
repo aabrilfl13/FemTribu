@@ -1,10 +1,12 @@
 ---
 import { fade } from "astro:transitions"
 
+import CalendarIcon from "@/assets/iconos/calendar.svg"
 import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
+import WhatsAppIcon from "@/assets/iconos/whatsapp.svg"
 
-const images = ["/images/hands-together.webp", "/images/pregnant-woman.webp"]
+const images = ["/images/hands-together.webp"]
 
 const description =
 	"Apoyando a las madres en su camino con un cuidado compasivo y una fuerza inquebrantable."
@@ -37,17 +39,42 @@ const description =
 		<img
 			src="/images/logos/logo_principal_fullcolor.svg"
 			alt="Femm Tribu Logo"
-			class="logo"
+      class="logo -mt-20 sm:mt-0"
 			style="max-width: min(500px, 90vw); width: 100%; height: auto;"
 		/>
 
+		<!-- CTA Buttons -->
+		<div
+			class="cta-buttons absolute bottom-24 flex flex-col gap-2 sm:flex-row sm:gap-6 md:bottom-55"
+		>
+			<a
+				href={import.meta.env.WHATSAPP_COMMUNITY_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="cta-button cta-whatsapp group animate-fade-up [animation-duration:2s]"
+			>
+				<WhatsAppIcon />
+				<span>Únete a nuestra comunidad</span>
+			</a>
+			<a
+				href={import.meta.env.CALENDLY_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="cta-button cta-primary group animate-fade-up [animation-duration:2s]"
+			>
+				<CalendarIcon />
+				<span>Reserva tu cita</span>
+			</a>
+		</div>
+
 		<!-- Social Media Icons positioned above scroll indicator -->
+		<!-- TODO: Add buttons to overlay in page -->
 		<div class="absolute bottom-24 left-1/2 flex -translate-x-1/2 transform gap-6 md:bottom-35">
 			<a
 				href="https://www.instagram.com/femm.tribu/"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="animate-fade-up social-icon [animation-duration:2s]"
+				class="animate-fade-up social-icon rounded-full [animation-duration:2s]"
 				aria-label="Instagram"
 			>
 				<InstagramIcon />
@@ -174,5 +201,75 @@ const description =
 		transform: translateY(-3px);
 		background: rgba(255, 255, 255, 0.2);
 		box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+	}
+
+	/* CTA Buttons Styles */
+	.cta-buttons {
+		z-index: 30;
+	}
+
+	.cta-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 14px 28px;
+		border-radius: 50px;
+		font-size: 1rem;
+		font-weight: 500;
+		text-decoration: none;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		backdrop-filter: blur(10px);
+		position: relative;
+		overflow: hidden;
+		border: 2px solid transparent;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	}
+
+	.cta-button::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 0;
+		height: 0;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.3);
+		transform: translate(-50%, -50%);
+		transition:
+			width 0.5s,
+			height 0.5s;
+	}
+
+	.cta-button:hover::before {
+		width: 300px;
+		height: 300px;
+	}
+
+	.cta-whatsapp {
+		background: rgba(37, 211, 102, 0.8);
+		color: white;
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.cta-whatsapp:hover {
+		background: rgba(37, 211, 102, 1);
+		transform: translateY(-3px);
+		box-shadow:
+			0 10px 25px rgba(37, 211, 102, 0.4),
+			0 0 20px rgba(37, 211, 102, 0.3);
+	}
+
+	.cta-primary {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 0.8), rgba(213, 161, 142, 0.8));
+		color: white;
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.cta-primary:hover {
+		background: linear-gradient(135deg, rgba(203, 110, 95, 1), rgba(213, 161, 142, 1));
+		transform: translateY(-3px);
+		box-shadow:
+			0 10px 25px rgba(203, 110, 95, 0.4),
+			0 0 20px rgba(203, 110, 95, 0.3);
 	}
 </style>
