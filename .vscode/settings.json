@@ -6,6 +6,8 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
+  "prettier.documentSelectors": ["**/*.astro"],
+  "prettier.requireConfig": true,
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

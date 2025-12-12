@@ -11,8 +11,8 @@ export default {
 	endOfLine: "lf",
 	arrowParens: "always",
 	plugins: [
-		"@ianvs/prettier-plugin-sort-imports",
 		"prettier-plugin-astro",
+		"@ianvs/prettier-plugin-sort-imports",
 		"prettier-plugin-tailwindcss",
 	],
 	importOrder: ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "", "^@/(.*)$", "", "^[./]"],
