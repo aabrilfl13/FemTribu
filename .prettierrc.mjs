@@ -10,8 +10,19 @@ export default {
 	useTabs: true,
 	endOfLine: "lf",
 	arrowParens: "always",
-	plugins: ["prettier-plugin-tailwindcss"],
+	plugins: [
+		"@ianvs/prettier-plugin-sort-imports",
+		"prettier-plugin-astro",
+		"prettier-plugin-tailwindcss",
+	],
+	importOrder: ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "", "^@/(.*)$", "", "^[./]"],
 	overrides: [
+		{
+			files: "*.astro",
+			options: {
+				parser: "astro",
+			},
+		},
 		{
 			files: ["*.json", "*.md", "*.toml", "*.yml"],
 			options: {
