@@ -86,27 +86,12 @@ const navItems = [
 		const handleScroll = () => {
 			const currentScroll = window.pageYOffset
 
-			console.log("Scroll position:", currentScroll)
-
 			// Add scrolled class for background
 			if (currentScroll > 100) {
-				console.log("Adding scrolled class")
 				nav.classList.add("scrolled")
 			} else {
-				console.log("Removing scrolled class")
 				nav.classList.remove("scrolled")
 			}
-
-			// Hide/show nav based on scroll direction
-			if (currentScroll > lastScroll && currentScroll > 100) {
-				// Scrolling down & past threshold
-				nav.style.transform = "translateY(-100%)"
-			} else {
-				// Scrolling up or at top
-				nav.style.transform = "translateY(0)"
-			}
-
-			lastScroll = currentScroll
 		}
 
 		// Mobile menu toggle (if mobile menu exists)
