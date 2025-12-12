@@ -1,5 +1,6 @@
 ---
 import { fade } from "astro:transitions"
+
 import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
 
@@ -11,13 +12,13 @@ const description =
 
 <div id="home">
 	<div class="background-overlay"></div>
-	<div class="w-full h-screen overflow-hidden relative">
+	<div class="relative h-screen w-full overflow-hidden">
 		{
 			images.map((image, index) => (
 				<img
 					src={image}
 					alt={`Background image ${index + 1}`}
-					class="absolute top-0 left-0 w-full h-screen object-cover transition-opacity duration-[2s] ease-in-out"
+					class="absolute top-0 left-0 h-screen w-full object-cover transition-opacity duration-[2s] ease-in-out"
 					class:list={{
 						"opacity-100": index === 0,
 						"opacity-0": index !== 0,
@@ -30,7 +31,7 @@ const description =
 		}
 	</div>
 	<div
-		class="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center text-white text-center z-100"
+		class="absolute top-0 left-0 z-100 flex h-full w-full flex-col items-center justify-center text-center text-white"
 	>
 		<!-- Logo centered in screen -->
 		<img
@@ -41,7 +42,7 @@ const description =
 		/>
 
 		<!-- Social Media Icons positioned above scroll indicator -->
-		<div class="absolute bottom-24 md:bottom-35 left-1/2 transform -translate-x-1/2 flex gap-6">
+		<div class="absolute bottom-24 left-1/2 flex -translate-x-1/2 transform gap-6 md:bottom-35">
 			<a
 				href="https://www.instagram.com/femm.tribu/"
 				target="_blank"
@@ -63,9 +64,9 @@ const description =
 		</div>
 
 		<!-- Scroll indicator -->
-		<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
+		<div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 transform">
 			<div class="flex items-center gap-3">
-				<p class="text-lg font-[questrial] tracking-wide">Descubrir más</p>
+				<p class="font-[questrial] text-lg tracking-wide">Descubrir más</p>
 				<div class="arrow-down">
 					<svg
 						width="24"
@@ -110,6 +111,7 @@ const description =
 </script>
 <script>
 	import { animate } from "animejs"
+
 	// Relaxed sleeping heartbeat at 55 BPM (~1090ms per beat)
 	animate(".logo", {
 		scale: [

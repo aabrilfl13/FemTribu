@@ -27,7 +27,7 @@ const { navItems } = Astro.props
 <!-- Mobile Menu -->
 <div class="mobile-menu">
 	<div class="mobile-menu-content">
-		<nav class="mt-20 flex flex-col gap-2 flex-1">
+		<nav class="mt-20 flex flex-1 flex-col gap-2">
 			<div class="flex flex-col gap-4">
 				{
 					navItems.map((item, index) => (
@@ -48,7 +48,7 @@ const { navItems } = Astro.props
 				<div class="mt-6 flex justify-center">
 					<a
 						href="#contacto"
-						class="inline-flex items-center justify-center px-6 py-3 bg-accent text-accent-foreground font-medium rounded-lg hover:bg-accent/90 transition-colors duration-300"
+						class="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex items-center justify-center rounded-lg px-6 py-3 font-medium transition-colors duration-300"
 					>
 						Reserva tu cita
 					</a>

@@ -34,56 +34,56 @@ const features = [
 ]
 ---
 
-<section id="sobre-mi" class="py-24 lg:py-32 relative overflow-hidden">
+<section id="sobre-mi" class="relative overflow-hidden py-24 lg:py-32">
 	<!-- Background decorations -->
 	<div
-		class="absolute top-0 right-0 w-96 h-96 bg-coral-light/10 shape-organic -translate-y-1/2 translate-x-1/2"
+		class="bg-coral-light/10 shape-organic absolute top-0 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
 	>
 	</div>
 	<div
-		class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 shape-blob translate-y-1/2 -translate-x-1/2"
+		class="bg-secondary/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
 	>
 	</div>
 
-	<div class="container mx-auto px-4 lg:px-8 relative z-10">
+	<div class="relative z-10 container mx-auto px-4 lg:px-8">
 		<!-- Section header -->
-		<div class="text-center max-w-3xl mx-auto mb-16 lg:mb-18">
+		<div class="mx-auto mb-16 max-w-3xl text-center lg:mb-18">
 			<span
-				class="inline-flex items-center gap-2 bg-coral-light/30 text-primary px-4 py-1 rounded-full text-sm mb-6"
+				class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm"
 			>
 				<img
 					src="/images/icons/illustrations/ilustracion-negro_11.svg"
 					alt="Plant icon"
-					class="w-8 h-8"
+					class="h-8 w-8"
 				/>
 				Sobre FemmTribu
 			</span>
-			<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl text-primary mb-6">
+			<h2 class="font-display text-primary mb-6 text-3xl sm:text-4xl lg:text-5xl">
 				¿Qué es{" "}
 				<span class="text-accent">Femm</span><span class="text-secondary">Tribu</span>?
 			</h2>
-			<p class="text-lg text-muted-foreground">
+			<p class="text-muted-foreground text-lg">
 				Un espacio online creado por mujeres, para mujeres. Donde la ciencia se encuentra con la
 				espiritualidad para acompañarte en cada momento de tu vida.
 			</p>
 		</div>
 
-		<div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+		<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
 			<!-- Image -->
 			<div class="relative order-2 lg:order-1">
 				<div class="relative">
 					<!-- Background shape -->
-					<div class="absolute -inset-6 bg-gradient-organic shape-blob opacity-10"></div>
+					<div class="bg-gradient-organic shape-blob absolute -inset-6 opacity-10"></div>
 
 					<!-- Main image -->
-					<div class="relative overflow-hidden rounded-3xl shadow-organic">
+					<div class="shadow-organic relative overflow-hidden rounded-3xl">
 						<img
 							src="/images/mujeres-circulo.webp"
 							alt="Círculo de mujeres en FemmTribu"
-							class="w-full h-auto object-cover aspect-[4/5]"
+							class="aspect-[4/5] h-auto w-full object-cover"
 						/>
 						<div
-							class="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent"
+							class="from-primary/30 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
 						>
 						</div>
 					</div>
@@ -91,20 +91,20 @@ const features = [
 					<!-- Floating card -->
 					<!-- TODO: Fix animate-float that rotates instead of jump -->
 					<div
-						class="absolute -bottom-8 -right-4 lg:-right-8 bg-background shadow-warm rounded-2xl p-5 max-w-xs animate-fade-in animation-delay-600"
+						class="bg-background shadow-warm animate-fade-in animation-delay-600 absolute -right-4 -bottom-8 max-w-xs rounded-2xl p-5 lg:-right-8"
 					>
-						<p class="font-display text-lg text-primary mb-2">
+						<p class="font-display text-primary mb-2 text-lg">
 							"Crear un espacio donde las mujeres puedan encontrar un sitio dedicado para ellas"
 						</p>
-						<p class="text-sm text-accent font-medium">— María Belenguer</p>
+						<p class="text-accent text-sm font-medium">— María Belenguer</p>
 					</div>
 				</div>
 			</div>
 
 			<!-- Content -->
-			<div class="space-y-8 order-1 lg:order-2">
+			<div class="order-1 space-y-8 lg:order-2">
 				<div class="space-y-4">
-					<h3 class="font-display text-2xl lg:text-3xl text-primary">
+					<h3 class="font-display text-primary text-2xl lg:text-3xl">
 						Acompañamiento integral en todas tus etapas
 					</h3>
 					<p class="text-muted-foreground leading-relaxed">
@@ -137,9 +137,9 @@ const features = [
 				<div class="space-y-3">
 					{
 						features.map((feature) => (
-							<div class="flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors duration-300">
-								<div class="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0">
-									<span class="w-4 h-4 text-accent" set:html={CheckIcon} />
+							<div class="bg-muted/50 hover:bg-muted flex items-center gap-3 rounded-xl p-3 transition-colors duration-300">
+								<div class="bg-accent/20 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
+									<span class="text-accent h-4 w-4" set:html={CheckIcon} />
 								</div>
 								<span class="text-primary">{feature}</span>
 							</div>
@@ -148,22 +148,22 @@ const features = [
 				</div>
 
 				<!-- Three pillars -->
-				<div class="grid sm:grid-cols-3 gap-4 pt-4">
+				<div class="grid gap-4 pt-4 sm:grid-cols-3">
 					{
 						pillars.map((pillar) => (
-							<div class="group p-5 rounded-2xl bg-background shadow-soft hover:shadow-warm transition-all duration-300 hover:-translate-y-1">
+							<div class="group bg-background shadow-soft hover:shadow-warm rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1">
 								<div
-									class={`w-12 h-12 ${pillar.bgColor} rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`}
+									class={`h-12 w-12 ${pillar.bgColor} mb-4 flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110`}
 								>
 									<img
 										src={pillar.icon}
 										alt={pillar.title}
-										class={`w-9 h-9 ${pillar.color}`}
+										class={`h-9 w-9 ${pillar.color}`}
 										style="filter: brightness(0) saturate(100%);"
 									/>
 								</div>
-								<h4 class="font-display text-lg text-primary mb-2">{pillar.title}</h4>
-								<p class="text-sm text-muted-foreground">{pillar.description}</p>
+								<h4 class="font-display text-primary mb-2 text-lg">{pillar.title}</h4>
+								<p class="text-muted-foreground text-sm">{pillar.description}</p>
 							</div>
 						))
 					}

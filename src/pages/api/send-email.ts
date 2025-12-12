@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro"
+
 import { getWebhookConfig } from "@/utils/config.ts"
 
 export const prerender = false
