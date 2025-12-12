@@ -3,6 +3,7 @@ import "@/styles/global.css"
 import Analytics from "@vercel/analytics/astro"
 import SpeedInsights from "@vercel/speed-insights/astro"
 import Nav from "@/components/Nav.astro"
+import CookiesOverlay from "@/components/CookiesOverlay.astro"
 
 export interface Props {
 	title?: string
@@ -84,6 +85,7 @@ const { title = "Femm Tribu" } = Astro.props
 		<div class="min-h-screen bg-background">
 			<Nav />
 			<slot />
+			<CookiesOverlay />
 		</div>
 		<SpeedInsights />
 		<Analytics />
