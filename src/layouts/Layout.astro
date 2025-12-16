@@ -20,10 +20,19 @@ const { title = "Femm Tribu" } = Astro.props
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" media="(prefers-color-scheme: light)" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" media="(prefers-color-scheme: light)" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="icon" media="(prefers-color-scheme: light)" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" media="(prefers-color-scheme: dark)" type="image/png" sizes="32x32" href="/favicon-dark-32x32.png" />
+		<link rel="icon" media="(prefers-color-scheme: dark)" type="image/png" sizes="16x16" href="/favicon-dark-16x16.png" />
+		<link rel="icon" media="(prefers-color-scheme: dark)" type="image/x-icon" href="/favicon-dark.ico" />
+
+		<!-- Keep SVG for browsers that support it -->
 		<!-- SEO and Social Meta -->
 		<title>{title}</title>
 		<meta
