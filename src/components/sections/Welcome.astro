@@ -146,11 +146,15 @@ const description = "Salud integral femenina"
 	import { animate } from "animejs"
 
 	// Relaxed sleeping heartbeat at 55 BPM (~1090ms per beat)
+	// Reduced scale on mobile to minimize CLS
+	const isMobile = window.innerWidth < 640
+	const scaleMultiplier = isMobile ? 0.3 : 1 // 40% of the animation on mobile
+
 	animate(".logo", {
 		scale: [
-			{ to: 1.05, duration: 100, ease: "easeOutQuad" }, // first strong thump
-			{ to: 0.98, duration: 80, ease: "easeInQuad" }, // quick release
-			{ to: 1.03, duration: 90, ease: "easeOutQuad" }, // softer second thump
+			{ to: 1 + 0.05 * scaleMultiplier, duration: 100, ease: "easeOutQuad" }, // first strong thump
+			{ to: 1 - 0.02 * scaleMultiplier, duration: 80, ease: "easeInQuad" }, // quick release
+			{ to: 1 + 0.03 * scaleMultiplier, duration: 90, ease: "easeOutQuad" }, // softer second thump
 			{ to: 1, duration: 230, ease: "easeInOutQuad" }, // return to rest
 		],
 		loop: true,
