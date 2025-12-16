@@ -8,8 +8,7 @@ import WhatsAppIcon from "@/assets/iconos/whatsapp.svg"
 
 const images = ["/images/hands-together.webp"]
 
-const description =
-	"Apoyando a las madres en su camino con un cuidado compasivo y una fuerza inquebrantable."
+const description = "Salud integral femenina"
 ---
 
 <div id="home">
@@ -33,20 +32,25 @@ const description =
 		}
 	</div>
 	<div
-		class="absolute top-0 left-0 z-100 flex h-full w-full flex-col items-center justify-center text-center text-white"
+		class="absolute top-5 left-0 z-100 flex h-full w-full flex-col items-center justify-center px-4 text-center text-white"
 	>
-		<!-- Logo centered in screen -->
-		<img
-			src="/images/logos/logo_principal_fullcolor.svg"
-			alt="Femm Tribu Logo"
-      class="logo -mt-20 sm:mt-0"
-			style="max-width: min(500px, 90vw); width: 100%; height: auto;"
-		/>
+		<!-- Logo and Description grouped together -->
+		<div class="mb-12 flex w-full flex-col items-center gap-1">
+			<img
+				src="/images/logos/logo_principal_fullcolor.svg"
+				alt="Femm Tribu Logo"
+				class="logo"
+				style="max-width: min(500px, 90vw); width: 100%; height: auto;"
+			/>
+			<p
+				class="animate-fade-up text-xl font-light tracking-wide [animation-duration:2s] sm:text-2xl"
+			>
+				{description}
+			</p>
+		</div>
 
 		<!-- CTA Buttons -->
-		<div
-			class="cta-buttons absolute bottom-24 flex flex-col gap-2 sm:flex-row sm:gap-6 md:bottom-55"
-		>
+		<div class="cta-buttons mb-4 flex flex-col gap-2 sm:flex-row sm:gap-6">
 			<a
 				href={import.meta.env.WHATSAPP_COMMUNITY_URL}
 				target="_blank"
@@ -67,9 +71,8 @@ const description =
 			</a>
 		</div>
 
-		<!-- Social Media Icons positioned above scroll indicator -->
-		<!-- TODO: Add buttons to overlay in page -->
-		<div class="absolute bottom-24 left-1/2 flex -translate-x-1/2 transform gap-6 md:bottom-35">
+		<!-- Social Media Icons -->
+		<div class="mb-12 flex gap-6">
 			<a
 				href="https://www.instagram.com/femm.tribu/"
 				target="_blank"
