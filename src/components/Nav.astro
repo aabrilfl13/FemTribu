@@ -2,10 +2,10 @@
 import MobileMenu from "@/components/includes/MobileMenu.astro"
 
 const navItems = [
-	{ label: "Inicio", href: "/" },
+	{ label: "Inicio", href: "/#" },
+	{ label: "Sobre Femm tribu", href: "/#sobre-femm-tribu" },
 	{ label: "Servicios", href: "/#servicios" },
-	{ label: "Sobre mí", href: "/#sobre-mi" },
-	{ label: "Cursos", href: "/cursos/curso-lactancia" },
+	{ label: "Talleres y eventos ", href: "/cursos/curso-lactancia" },
 ]
 ---
 
@@ -133,11 +133,17 @@ const navItems = [
 			mobileLinks.forEach((link) => {
 				link.addEventListener("click", (e) => {
 					const href = link.getAttribute("href")
+					if (!href) return
 
-					// Handle hash links on same page
-					if (href && href.startsWith("#")) {
+					// Check if we're on the same page (home or current path)
+					const url = new URL(href, window.location.href)
+					const isCurrentPage = url.pathname === window.location.pathname
+					const hash = url.hash
+
+					// Only handle smooth scroll if we're on the same page and there's a hash
+					if (isCurrentPage && hash) {
 						e.preventDefault()
-						const targetElement = document.querySelector(href)
+						const targetElement = document.querySelector(hash)
 
 						if (targetElement) {
 							const navHeight = nav.offsetHeight
@@ -148,16 +154,10 @@ const navItems = [
 								top: offsetPosition,
 								behavior: "smooth",
 							})
-
-							closeMobileMenu()
 						}
-					}
-					// Handle links to home sections from other pages (like /#servicios)
-					else if (href && href.includes("#")) {
 						closeMobileMenu()
-						// Let the browser handle the navigation naturally
 					}
-					// Handle regular page links
+					// For links to other pages, close menu and let them navigate naturally
 					else {
 						closeMobileMenu()
 					}
@@ -171,10 +171,15 @@ const navItems = [
 			link.addEventListener("click", (e) => {
 				const href = link.getAttribute("href")
 
-				// Only prevent default for hash links on the same page
-				if (href && href.startsWith("#")) {
+				// Check if we're on the same page (home or current path)
+				const url = new URL(href, window.location.href)
+				const isCurrentPage = url.pathname === window.location.pathname
+				const hash = url.hash
+
+				// Only handle smooth scroll if we're on the same page and there's a hash
+				if (isCurrentPage && hash) {
 					e.preventDefault()
-					const targetElement = document.querySelector(href)
+					const targetElement = document.querySelector(hash)
 
 					if (targetElement) {
 						const navHeight = nav.offsetHeight
@@ -187,7 +192,7 @@ const navItems = [
 						})
 					}
 				}
-				// For links like "/#servicios" or regular page links, let them navigate naturally
+				// For links to other pages, let them navigate naturally
 			})
 		})
 
