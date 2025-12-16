@@ -82,6 +82,13 @@
 /* Base styles */
 * {
 	border-color: var(--color-border);
+	/* outline: 1px solid red !important; */
+}
+
+html,
+body {
+	max-width: 100%;
+	overflow-x: hidden;
 }
 
 body {
