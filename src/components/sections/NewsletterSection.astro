@@ -1,0 +1,91 @@
+---
+import EmailIcon from "@/assets/iconos/email.svg"
+import Button from "@/components/ui/button.astro"
+import Input from "@/components/ui/input.astro"
+
+const benefits = [
+	{
+		text: "Consejos mensuales",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Consejos mensuales",
+	},
+	{
+		text: "Recursos gratuitos",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Recursos gratuitos",
+	},
+	{
+		text: "Acceso prioritario",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Acceso prioritario",
+	},
+]
+---
+
+<section id="newsletter" class="bg-cream relative overflow-hidden bg-gradient-to-br py-10 lg:py-18">
+	{/* Decorative elements */}
+	<div
+		class="bg-sage/20 absolute top-0 left-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+	>
+	</div>
+	<div
+		class="bg-coral/10 absolute right-0 bottom-0 h-96 w-96 translate-x-1/3 translate-y-1/3 rounded-full blur-3xl"
+	>
+	</div>
+	<div class="bg-coral-light/40 animate-pulse-soft absolute top-1/2 left-1/4 h-4 w-4 rounded-full">
+	</div>
+	<div
+		class="bg-sage/40 animate-pulse-soft absolute top-1/3 right-1/4 h-3 w-3 rounded-full"
+		style={{ animationDelay: "1s" }}
+	>
+	</div>
+
+	<div class="relative z-10 container mx-auto px-4">
+		<div class="mx-auto max-w-2xl text-center">
+			{/* Icon */}
+			<div
+				class="bg-coral/20 animate-pulse-soft mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full"
+			>
+				<EmailIcon />
+			</div>
+
+			{/* Title */}
+			<h2 class="font-display text-primary mb-4 text-3xl md:text-4xl lg:text-5xl">
+				Únete a nuestra tribu
+			</h2>
+
+			{/* Subtitle */}
+			<p class="text-primary/80 mx-auto mb-8 max-w-lg text-lg leading-relaxed">
+				Recibe consejos exclusivos sobre salud femenina, novedades y recursos gratuitos directamente
+				en tu correo.
+			</p>
+
+			{/* Benefits */}
+			<div class="mb-8 flex flex-wrap justify-center gap-4">
+				{
+					benefits.map((benefit) => (
+						<div class="text-primary/70 flex items-center gap-2 text-sm">
+							<img src={benefit.icon} alt={benefit.title} class="h-6 w-6" />
+							<span>{benefit.text}</span>
+						</div>
+					))
+				}
+			</div>
+
+			{/* Form */}
+			<form id="newsletter-form" class="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+				<Input
+					type="email"
+					name="email"
+					placeholder="Tu correo electrónico"
+					required
+					class="bg-cream/10 border-cream/20 text-primary placeholder:text-primary/50 focus:border-coral-light focus:ring-coral-light/20 h-12 flex-1"
+				/>
+				<Button type="submit" variant="hero" class="whitespace-nowrap"> Suscribirme </Button>
+
+				{/* Privacy note */}
+			</form>
+			<p class="text-primary/50 mt-4 text-xs">Sin spam. Puedes darte de baja cuando quieras.</p>
+		</div>
+	</div>
+</section>
