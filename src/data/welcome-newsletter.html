@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Bienvenida a Femm Tribu</title>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Playfair+Display:wght@400;700&display=swap");
+
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "Questrial", Arial, sans-serif;
+				background-color: #fff5eb;
+				color: #37443a;
+				line-height: 1.6;
+			}
+
+			/* Dark Theme */
+			@media (prefers-color-scheme: dark) {
+				body {
+					background-color: #18201a;
+					color: #d5a18e;
+				}
+
+				.container {
+					background-color: #24322a;
+				}
+
+				.content {
+					background-color: #24322a;
+				}
+
+				.company-name {
+					color: #fff5eb;
+				}
+
+				.welcome-title {
+					color: #fff5eb;
+				}
+
+				.welcome-text {
+					color: #d5a18e;
+				}
+
+				.course-section {
+					background: linear-gradient(135deg, #37443a 0%, #24322a 100%);
+					border: 1px solid rgba(203, 110, 95, 0.2);
+				}
+
+				.course-title {
+					color: #fff5eb;
+				}
+
+				.course-description {
+					color: #d5a18e;
+				}
+
+				.benefit-item {
+					background-color: #37443a;
+					border-left-color: #cb6e5f;
+				}
+
+				.benefit-text {
+					color: #d5a18e;
+				}
+
+				.signature {
+					background-color: #37443a;
+				}
+
+				.signature-name {
+					color: #fff5eb;
+				}
+
+				.signature-title {
+					color: #d5a18e;
+				}
+			}
+
+			.container {
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			.header {
+				background: linear-gradient(135deg, #fff5eb 0%, #d5a18e 100%);
+				padding: 40px 30px;
+				text-align: center;
+				position: relative;
+			}
+
+			.header::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: url("");
+				opacity: 0.3;
+			}
+
+			.company-name {
+				position: relative;
+				z-index: 2;
+				color: #37443a;
+				font-family: "Playfair Display", serif;
+				font-size: 42px;
+				font-weight: 700;
+				margin: 0;
+				letter-spacing: 1px;
+			}
+
+			.company-tagline {
+				position: relative;
+				z-index: 2;
+				color: #6a8067;
+				font-size: 16px;
+				margin-top: 10px;
+				font-style: italic;
+			}
+
+			.content {
+				padding: 40px 30px;
+				background-color: #ffffff;
+			}
+
+			.welcome-title {
+				color: #37443a;
+				font-size: 28px;
+				margin-bottom: 20px;
+				text-align: center;
+				font-weight: bold;
+			}
+
+			.welcome-text {
+				color: #6a8067;
+				font-size: 16px;
+				margin-bottom: 25px;
+				text-align: center;
+			}
+
+			.course-section {
+				background: linear-gradient(135deg, #fff5eb 0%, #d5a18e 100%);
+				color: #fff5eb;
+				padding: 30px;
+				border-radius: 15px;
+				margin: 30px 0;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.course-section::before {
+				content: "";
+				position: absolute;
+				top: -20px;
+				right: -20px;
+				width: 80px;
+				height: 80px;
+				background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20 30 Q50 10 80 30 Q50 50 20 30" fill="none" stroke="rgba(55,68,58,0.1)" stroke-width="2"/><circle cx="30" cy="40" r="3" fill="rgba(55,68,58,0.1)"/><circle cx="70" cy="40" r="3" fill="rgba(55,68,58,0.1)"/></svg>');
+				opacity: 0.5;
+			}
+
+			.course-title {
+				color: #37443a;
+				font-size: 24px;
+				margin-bottom: 15px;
+				font-weight: bold;
+			}
+
+			.course-description {
+				color: #6a8067;
+				font-size: 16px;
+				margin-bottom: 25px;
+				line-height: 1.7;
+			}
+
+			.steps-section {
+				background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
+				padding: 30px;
+				border-radius: 15px;
+				margin: 30px 0;
+				text-align: center;
+				position: relative;
+				overflow: hidden;
+			}
+
+			.steps-section::before {
+				content: "";
+				position: absolute;
+				top: -20px;
+				right: -20px;
+				width: 80px;
+				height: 80px;
+				background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20 30 Q50 10 80 30 Q50 50 20 30" fill="none" stroke="rgba(55,68,58,0.1)" stroke-width="2"/><circle cx="30" cy="40" r="3" fill="rgba(55,68,58,0.1)"/><circle cx="70" cy="40" r="3" fill="rgba(55,68,58,0.1)"/></svg>');
+				opacity: 0.5;
+			}
+
+			.steps-title {
+				color: #fff5eb;
+				font-size: 24px;
+				margin-bottom: 15px;
+				font-weight: bold;
+			}
+
+			.steps-description {
+				color: #fff5eb;
+				font-size: 16px;
+				margin-bottom: 25px;
+				line-height: 1.7;
+			}
+
+			.cta-button {
+				display: inline-block;
+				background: linear-gradient(135deg, #cb6e5f 0%, #a22f11 100%);
+				color: #fff5eb;
+				padding: 15px 35px;
+				text-decoration: none;
+				border-radius: 30px;
+				font-size: 16px;
+				font-weight: bold;
+				transition:
+					transform 0.3s ease,
+					box-shadow 0.3s ease;
+				box-shadow: 0 4px 15px rgba(203, 110, 95, 0.3);
+			}
+
+			.cta-button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(203, 110, 95, 0.4);
+			}
+
+			.benefits {
+				margin: 30px 0;
+			}
+
+			.benefit-item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15px;
+				padding: 15px;
+				background-color: #fff5eb;
+				border-radius: 10px;
+				border-left: 4px solid #cb6e5f;
+			}
+
+			.benefit-icon {
+				width: 24px;
+				height: 24px;
+				margin-right: 15px;
+				fill: #cb6e5f;
+			}
+
+			.benefit-text {
+				color: #37443a;
+				font-size: 15px;
+			}
+
+			.footer {
+				background-color: #37443a;
+				padding: 30px 20px;
+				text-align: center;
+			}
+
+			.footer-content {
+				color: #d5a18e;
+				font-size: 14px;
+				margin-bottom: 20px;
+			}
+
+			.footer-contact {
+				color: #6a8067;
+				font-size: 13px;
+				margin-bottom: 15px;
+			}
+
+			.social-links {
+				margin-top: 20px;
+			}
+
+			.social-link {
+				color: #cb6e5f;
+				text-decoration: none;
+				margin: 0 15px;
+				font-size: 14px;
+				display: inline-flex;
+				align-items: center;
+				transition:
+					color 0.3s ease,
+					transform 0.3s ease;
+			}
+
+			.social-link:hover {
+				color: #d5a18e;
+				transform: translateY(-2px);
+			}
+
+			.signature {
+				margin-top: 30px;
+				padding: 20px;
+				background-color: #fff5eb;
+				border-radius: 10px;
+				text-align: center;
+			}
+
+			.signature-name {
+				color: #37443a;
+				font-size: 18px;
+				font-weight: bold;
+				margin-bottom: 5px;
+			}
+
+			.signature-title {
+				color: #6a8067;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- Header -->
+			<div class="header">
+				<h1 class="company-name">Femm Tribu</h1>
+			</div>
+
+			<!-- Content -->
+			<div class="content">
+				<h2 class="welcome-title">¡Suscrito con éxito! 🌿</h2>
+				
+				<p class="welcome-text">
+					"Cada mujer lleva en sí la sabiduría de generaciones. Mi misión es ayudarte a reconectarte
+					con esa fuerza ancestral que ya vive en ti."
+				</p>
+
+				<!-- Signature -->
+				<div class="signature">
+					<div class="signature-name">María Belenguer</div>
+					<div class="signature-title">Matrona • Tu guía en este camino</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<div class="footer">
+				<div class="footer-content">
+					<p>¿Tienes alguna pregunta? Estoy aquí para acompañarte en cada paso.</p>
+				</div>
+				<div class="footer-contact">
+					<p>✉️ info@femmtribu.es</p>
+				</div>
+				<div class="social-links">
+					<a
+						href="https://www.instagram.com/femm.tribu/"
+						class="social-link"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							style="vertical-align: middle; margin-right: 8px"
+						>
+							<path
+								d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+							/>
+						</svg>
+						Instagram
+					</a>
+					<a
+						href="https://www.tiktok.com/@merypebe"
+						class="social-link"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							style="vertical-align: middle; margin-right: 8px"
+						>
+							<path
+								d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"
+							/>
+						</svg>
+						TikTok
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
