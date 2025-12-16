@@ -73,7 +73,15 @@ const benefits = [
 			</div>
 
 			{/* Form */}
-			<form id="newsletter-form" class="mx-auto max-w-md flex-col gap-3 sm:flex-row">
+			<!-- src/components/sections/NewsletterSection.astro -->{
+				/* Agrega method="post" y action="#" para prevenir comportamiento default */
+			}
+			<form
+				id="newsletter-form"
+				class="mx-auto max-w-md flex-col gap-3 sm:flex-row"
+				method="post"
+				action="#"
+			>
 				<div class="flex w-full gap-3">
 					{/* Email input */}
 					<Input
@@ -90,8 +98,6 @@ const benefits = [
 				</div>
 				<div id="newsletter-message" class="mt-3 hidden rounded-lg px-4 py-2 text-sm"></div>
 			</form>
-			{/* Privacy note */}
-			<p class="text-primary/50 mt-4 text-xs">Sin spam. Puedes darte de baja cuando quieras.</p>
 		</div>
 	</div>
 </section>
@@ -106,8 +112,15 @@ const benefits = [
 
 	form?.addEventListener("submit", async (e) => {
 		e.preventDefault()
+		e.stopPropagation()
 
-		if (isSubmitting) return
+		// Debug - agrega esto temporalmente para ver qué está pasando
+		console.log("Form submitted", { isSubmitting, email: emailInput.value })
+
+		if (isSubmitting) {
+			console.log("Already submitting, aborting")
+			return
+		}
 
 		const email = emailInput.value.trim()
 
@@ -124,6 +137,8 @@ const benefits = [
 		hideMessage()
 
 		try {
+			console.log("Making POST request to /api/newsletter")
+
 			const response = await fetch("/api/newsletter", {
 				method: "POST",
 				headers: {
@@ -131,6 +146,8 @@ const benefits = [
 				},
 				body: JSON.stringify({ email }),
 			})
+
+			console.log("Response received", { status: response.status })
 
 			const data = await response.json()
 
