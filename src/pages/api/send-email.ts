@@ -43,7 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
 		}
 
 		// Call the n8n webhook
-		const response = await fetch(webhookConfig.webhookUrl, {
+		const response = await fetch(`${webhookConfig.webhookUrl}/send-email`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
