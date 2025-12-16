@@ -30,7 +30,7 @@ Allow: /*.png$
 Allow: /*.svg$
 
 # Ubicación del sitemap
-Sitemap: https://femmtribu.es/sitemap.xml
+Sitemap: https://femmtribu.es/sitemap-index.xml
 
 # GoogleBot específico (opcional)
 User-agent: Googlebot
