@@ -1,7 +1,7 @@
-// API Endpoint: src/pages/api/newsletter.ts
 import type { APIRoute } from "astro"
 
 import { getWebhookConfig } from "@/utils/config.ts"
+import { logger } from "@/utils/logger.ts"
 
 export const prerender = false
 
@@ -10,8 +10,11 @@ export const POST: APIRoute = async ({ request }) => {
 		const body = await request.json()
 		const { email } = body
 
+		logger.info("Newsletter subscription attempt", { email })
+
 		// Validate email
 		if (!email || !email.includes("@")) {
+			logger.warn("Invalid email provided", { email })
 			return new Response(
 				JSON.stringify({
 					success: false,
@@ -24,12 +27,11 @@ export const POST: APIRoute = async ({ request }) => {
 			)
 		}
 
-		// Get webhook configuration from shared config utility
 		let webhookConfig
 		try {
 			webhookConfig = getWebhookConfig()
 		} catch (error) {
-			console.error("Webhook configuration error:", error)
+			logger.error("Webhook configuration error", error as Error)
 			return new Response(JSON.stringify({ error: "Server configuration error" }), {
 				status: 500,
 				headers: { "Content-Type": "application/json" },
@@ -47,10 +49,15 @@ export const POST: APIRoute = async ({ request }) => {
 		})
 
 		if (!response.ok) {
-			throw new Error("Webhook failed")
+			throw new Error(`Webhook failed with status ${response.status}`)
 		}
 
 		let webhookData = await response.json()
+
+		logger.info("Newsletter subscription successful", {
+			email,
+			subscribed: webhookData.subscribed,
+		})
 
 		return new Response(
 			JSON.stringify({
@@ -64,7 +71,9 @@ export const POST: APIRoute = async ({ request }) => {
 			}
 		)
 	} catch (error) {
-		console.error("Newsletter subscription error:", error)
+		logger.error("Newsletter subscription error", error as Error, {
+			endpoint: "/api/newsletter",
+		})
 
 		return new Response(
 			JSON.stringify({
