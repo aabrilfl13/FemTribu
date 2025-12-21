@@ -1,0 +1,170 @@
+---
+import EmailIcon from "@/assets/iconos/email.svg"
+import Button from "@/components/ui/button.astro"
+import Input from "@/components/ui/input.astro"
+import Modal from "@/components/ui/Modal.astro"
+
+const benefits = [
+	{
+		text: "Consejos mensuales",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Consejos mensuales",
+	},
+	{
+		text: "Recursos gratuitos",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Recursos gratuitos",
+	},
+	{
+		text: "Acceso prioritario",
+		icon: "/images/icons/illustrations/ilustracion-negro_10.svg",
+		title: "Acceso prioritario",
+	},
+]
+---
+
+<Modal id="newsletter-modal" size="md">
+	<div class="relative">
+		<div class="mx-auto max-w-2xl text-center">
+			{/* Icon */}
+			<div
+				class="bg-coral/20 animate-pulse-soft mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full"
+			>
+				<EmailIcon />
+			</div>
+
+			{/* Title */}
+			<h2 class="font-display text-primary mb-4 text-2xl md:text-3xl">Únete a nuestra tribu</h2>
+
+			{/* Subtitle */}
+			<p class="text-primary/80 mb-6 text-base leading-relaxed">
+				Recibe consejos exclusivos sobre salud femenina, novedades y recursos gratuitos directamente
+				en tu correo.
+			</p>
+
+			{/* Benefits */}
+			<div class="mb-6 flex flex-wrap justify-center gap-3">
+				{
+					benefits.map((benefit) => (
+						<div class="text-primary/70 flex items-center gap-2 text-sm">
+							<img src={benefit.icon} alt={benefit.title} class="h-5 w-5" />
+							<span>{benefit.text}</span>
+						</div>
+					))
+				}
+			</div>
+
+			{/* Form */}
+			<form id="newsletter-modal-form" class="flex flex-col gap-3" method="post" action="#">
+				{/* Email input */}
+				<Input
+					id="newsletter-modal-email"
+					type="email"
+					name="email"
+					placeholder="Tu correo electrónico"
+					required
+					class="bg-cream/10 border-coral text-primary placeholder:text-primary/50 focus:border-coral-light focus:ring-coral-light/20 h-12 w-full"
+				/>
+				<Button id="newsletter-modal-submit" type="submit" variant="hero" class="w-full">
+					Suscribirme
+				</Button>
+				<div id="newsletter-modal-message" class="hidden rounded-lg px-4 py-2 text-sm"></div>
+			</form>
+		</div>
+	</div>
+</Modal>
+
+<script>
+	const form = document.getElementById("newsletter-modal-form") as HTMLFormElement
+	const emailInput = document.getElementById("newsletter-modal-email") as HTMLInputElement
+	const submitButton = document.getElementById("newsletter-modal-submit") as HTMLButtonElement
+	const messageDiv = document.getElementById("newsletter-modal-message") as HTMLDivElement
+
+	let isSubmitting = false
+
+	form?.addEventListener("submit", async (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+
+		console.log("Modal form submitted", { isSubmitting, email: emailInput.value })
+
+		if (isSubmitting) {
+			console.log("Already submitting, aborting")
+			return
+		}
+
+		const email = emailInput.value.trim()
+
+		// Basic email validation
+		if (!email || !email.includes("@")) {
+			showMessage("Por favor, introduce un email válido.", "error")
+			return
+		}
+
+		// Set loading state
+		isSubmitting = true
+		submitButton.disabled = true
+		submitButton.textContent = "Suscribiendo..."
+		hideMessage()
+
+		try {
+			console.log("Making POST request to /api/newsletter")
+
+			const response = await fetch("/api/newsletter", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			})
+
+			console.log("Response received", { status: response.status })
+
+			const data = await response.json()
+
+			if (data.success) {
+				console.log("Newsletter subscription successful:", data)
+				showMessage(data.message, "success")
+				submitButton.textContent = "¡Suscrita!"
+				emailInput.value = ""
+
+				// Close modal after 2 seconds
+				setTimeout(() => {
+					window.modalManager.close("newsletter-modal")
+					// Reset form state after modal closes
+					setTimeout(() => {
+						submitButton.textContent = "Suscribirme"
+						submitButton.disabled = false
+						isSubmitting = false
+						hideMessage()
+					}, 300)
+				}, 2000)
+			} else {
+				showMessage(data.message, "error")
+				resetButton()
+			}
+		} catch (error) {
+			console.error("Newsletter error:", error)
+			showMessage("Error al suscribirse. Por favor, intenta de nuevo.", "error")
+			resetButton()
+		}
+	})
+
+	function showMessage(message: string, type: "success" | "error") {
+		messageDiv.textContent = message
+		messageDiv.className = `mt-4 text-sm ${
+			type === "success" ? "text-green-700" : "text-red-700"
+		} px-4 py-2 rounded-lg`
+		messageDiv.classList.remove("hidden")
+	}
+
+	function hideMessage() {
+		messageDiv.classList.add("hidden")
+	}
+
+	function resetButton() {
+		submitButton.textContent = "Suscribirme"
+		submitButton.disabled = false
+		isSubmitting = false
+	}
+</script>
