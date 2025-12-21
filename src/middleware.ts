@@ -1,8 +1,14 @@
 import { defineMiddleware } from "astro:middleware"
 
 export const onRequest = defineMiddleware(async (context, next) => {
-	const response = await next()
 	const path = context.url.pathname
+
+	// Skip middleware for API routes to avoid header modification issues
+	if (path.startsWith("/api/")) {
+		return next()
+	}
+
+	const response = await next()
 
 	// Allow AI training on blog content to spread expertise
 	if (path.startsWith("/blog/")) {

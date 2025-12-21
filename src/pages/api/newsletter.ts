@@ -5,6 +5,17 @@ import { logger } from "@/utils/logger.ts"
 
 export const prerender = false
 
+export const HEAD: APIRoute = async () => {
+	return new Response(null, {
+		status: 200,
+		headers: {
+			"Cache-Control": "no-cache, no-store, must-revalidate",
+			"Pragma": "no-cache",
+			"Expires": "0",
+		},
+	})
+}
+
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const body = await request.json()
