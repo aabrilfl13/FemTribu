@@ -1,5 +1,7 @@
 ---
 import MobileMenu from "@/components/layout/MobileMenu.astro"
+import NewsletterModal from "@/components/modals/NewsletterModal.astro"
+import Button from "@/components/ui/button.astro"
 
 const navItems = [
 	{ label: "Inicio", href: "/#" },
@@ -47,8 +49,12 @@ const navItems = [
 
 			{/* CTA Buttons */}
 			<div class="hidden items-center gap-3 md:hidden md:[.scrolled_&]:flex">
-			{/* CTA Button */}
-			<div class="hidden md:block">
+				<Button
+					id="newsletter-modal-trigger"
+					class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-[400ms] hover:scale-105"
+				>
+					Únete a la newsletter
+				</Button>
 				<a
 					href={import.meta.env.CALENDLY_URL}
 					target="_blank"
@@ -63,6 +69,9 @@ const navItems = [
 		</div>
 	</div>
 </header>
+
+{/* Newsletter Modal */}
+<NewsletterModal />
 
 <style>
 	/* CSS Custom Properties for MobileMenu communication */
@@ -83,8 +92,14 @@ const navItems = [
 		const nav = document.getElementById("main-nav")
 		const mobileMenuButton = document.querySelector(".mobile-menu-button")
 		const mobileMenu = document.querySelector(".mobile-menu")
+		const newsletterModalTrigger = document.getElementById("newsletter-modal-trigger")
 
 		if (!nav) return
+
+		// Newsletter modal trigger
+		newsletterModalTrigger?.addEventListener("click", () => {
+			window.modalManager.open("newsletter-modal")
+		})
 
 		// Handle scroll to add background
 		let lastScroll = 0
