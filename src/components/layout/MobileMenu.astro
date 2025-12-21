@@ -1,6 +1,7 @@
 ---
 import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
+import Button from "@/components/ui/button.astro"
 
 // Define the interface for navigation items
 interface NavItem {
@@ -45,10 +46,16 @@ const { navItems } = Astro.props
 						</a>
 					))
 				}
-				<div class="mt-6 flex justify-center">
+				<div class="mt-6 flex w-full flex-col gap-4">
+					<Button
+						id="newsletter-modal-trigger"
+						class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex w-full items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-[400ms] hover:scale-105"
+					>
+						Únete a la newsletter
+					</Button>
 					<a
 						href="#contacto"
-						class="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex items-center justify-center rounded-lg px-6 py-3 font-medium transition-colors duration-300"
+						class="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex w-full items-center justify-center rounded-full px-6 py-3 font-medium transition-colors duration-300"
 					>
 						Reserva tu cita
 					</a>
