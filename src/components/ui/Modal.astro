@@ -19,13 +19,11 @@ const sizeClasses = {
 
 <dialog
 	id={id}
-	class={`modal-dialog fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 max-h-[calc(100vh-4rem)] overflow-y-auto w-full max-w-[calc(100%-2rem)] rounded-3xl border border-forest/20 bg-cream p-8 shadow-[0_20px_60px_rgba(55,68,58,0.3)] backdrop:bg-forest/50 backdrop:backdrop-blur-sm ${sizeClasses[size]} ${className}`}
+	class={`modal-dialog outline-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 max-h-[calc(100vh-4rem)] overflow-y-auto w-full max-w-[calc(100%-2rem)] rounded-3xl border border-forest/20 bg-cream p-8 shadow-[0_20px_60px_rgba(55,68,58,0.3)] backdrop:bg-forest/50 backdrop:backdrop-blur-sm ${sizeClasses[size]} ${className}`}
 	data-modal
 >
-	<!-- Slot for custom content - SIN FORM wrapper -->
 	<slot />
 
-	<!-- Close button - usa JavaScript directamente -->
 	<Button
 		data-modal-close
 		class="modal-close text-sage hover:bg-sage/10 hover:text-forest absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300"
@@ -128,6 +126,7 @@ const sizeClasses = {
 			const modal = document.getElementById(modalId) as HTMLDialogElement
 			if (modal && !modal.open) {
 				modal.showModal()
+				modal.focus()
 				modal.dispatchEvent(new CustomEvent("modal:opened", { detail: { modalId } }))
 			}
 		}
