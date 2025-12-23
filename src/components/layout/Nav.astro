@@ -27,12 +27,12 @@ const navItems = [
 >
 	<div class="container mx-auto px-4 lg:px-8">
 		<div
-			class="flex h-15 items-center justify-between md:justify-center md:[.scrolled_&]:justify-between"
+			class="flex h-15 items-center justify-between lg:justify-center lg:[.scrolled_&]:justify-between"
 		>
 			{/* Logo */}
 			<a
 				href="/"
-				class="group relative z-[1001] flex items-center transition-all duration-300 md:absolute md:left-4 lg:left-8 md:[.scrolled_&]:relative"
+				class="group relative z-[1001] flex items-center transition-all duration-300 lg:absolute lg:left-8 lg:[.scrolled_&]:relative"
 			>
 				<img
 					src="/images/logos/logo_icono.svg"
@@ -46,7 +46,7 @@ const navItems = [
 			</a>
 
 			{/* Desktop Navigation */}
-			<nav class="hidden items-center gap-10 md:flex">
+			<nav class="hidden items-center gap-10 lg:flex">
 				{
 					navItems.map((item) => (
 						<a
@@ -65,7 +65,9 @@ const navItems = [
 					id="newsletter-modal-trigger"
 					class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-[400ms] hover:scale-105"
 				>
-					Únete a la newsletter
+					<span class="lg:hidden">Únete a la newsletter</span><span
+						class="hidden lg:inline xl:hidden">Únete</span
+					><span class="hidden xl:inline">Únete a la newsletter</span>
 				</Button>
 				<a
 					href={import.meta.env.CALENDLY_URL}
@@ -108,9 +110,6 @@ const navItems = [
 
 		if (!nav) return
 
-		// Use the variable passed from frontmatter
-		console.log("Force scrolled:", forceScrolled)
-
 		// Newsletter modal trigger
 		newsletterModalTrigger?.addEventListener("click", () => {
 			window.modalManager.open("newsletter-modal")
@@ -124,9 +123,7 @@ const navItems = [
 			// Add scrolled class for background
 			if (forceScrolled || currentScroll > 100) {
 				nav.classList.add("scrolled")
-				console.log("Scrolled class added to nav")
 			} else {
-				console.log("Scrolled class removed from nav")
 				nav.classList.remove("scrolled")
 			}
 		}
