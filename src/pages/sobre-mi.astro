@@ -1,5 +1,32 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+
+const credentials = [
+	{
+		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		title: "Graduada en Enfermería",
+		place: "Escuela de Enfermería La Fe",
+		year: "2016",
+	},
+	{
+		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		title: "Especialización en Obstetricia y Ginecología (EIR)",
+		place: "Hospital Can Misses de Ibiza",
+		year: "2019",
+	},
+	{
+		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		title: "Máster en Lactancia Materna Avanzada",
+		place: "IFSES",
+		year: "2021",
+	},
+	{
+		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		title: "Matrona en Hospital",
+		place: "Valencia",
+		current: true,
+	},
+]
 ---
 
 <Layout title="Sobre Mí - Femm Tribu" navScrolled={true}>
@@ -121,6 +148,80 @@ import Layout from "@/layouts/Layout.astro"
 				</div>
 			</div>
 		</section>
+		<section class="bg-muted/30 py-16 lg:py-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-12 text-center">
+					<h2 class="font-display text-primary text-2xl lg:text-3xl">
+						¿Qué hay detrás de FemmTribu?
+					</h2>
+				</div>
+
+				<div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
+					{/* Image */}
+					<div class="relative">
+						<div class="bg-gradient-organic shape-blob absolute -inset-6 opacity-10"></div>
+						<div class="shadow-organic relative overflow-hidden rounded-3xl">
+							<img
+								src="/images/about-me/mery-portrait.jpg"
+								alt="María Belenguer, matrona, CEO y Fundadora de FemmTribu"
+								class="aspect-[4/5] h-auto w-full object-cover"
+							/>
+							<div
+								class="from-primary/30 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+							>
+							</div>
+						</div>
+						<div
+							class="bg-background shadow-warm absolute -bottom-6 left-6 rounded-2xl px-6 py-4 lg:left-8"
+						>
+							<p class="font-display text-primary text-xl">María Belenguer</p>
+							<p class="text-accent flex items-center gap-2 text-sm font-medium">
+								<img class="h-4 w-4" src="/images/decoratives/ilustracion-negro_24.svg" alt="" />
+
+								CEO & Fundadora
+							</p>
+						</div>
+					</div>
+
+					{/* Content */}
+					<div class="space-y-6">
+						<p class="text-muted-foreground text-lg leading-relaxed">
+							Soy <strong class="text-primary">María Belenguer</strong>, matrona de vocación y la
+							creadora de FemmTribu. Después de años acompañando a mujeres en hospitales, sentí la
+							necesidad de crear un espacio donde el cuidado fuera más allá de lo clínico.
+						</p>
+						<p class="text-muted-foreground leading-relaxed">
+							Mi sueño siempre ha sido que cada mujer se sienta <strong class="text-primary"
+								>escuchada, acompañada y empoderada</strong
+							> en cada etapa de su vida. FemmTribu es la materialización de ese sueño.
+						</p>
+
+						{/* Credentials Grid */}
+						<div class="grid grid-cols-2 gap-3 pt-4">
+							{
+								credentials.map((credential, index) => (
+									<div key={index} class="bg-background shadow-soft rounded-xl p-4">
+										<div class="bg-accent/20 mb-2 flex h-8 w-8 items-center justify-center rounded-lg">
+											<credential.icon class="text-accent h-4 w-4" />
+										</div>
+										<h3 class="font-display text-primary mb-1 text-sm">{credential.title}</h3>
+										<p class="text-muted-foreground text-xs">{credential.place}</p>
+										{credential.year && (
+											<span class="bg-muted text-muted-foreground mt-1 inline-block rounded-full px-2 py-0.5 text-xs">
+												{credential.year}
+											</span>
+										)}
+										{credential.current && (
+											<span class="bg-accent/20 text-accent mt-1 inline-block rounded-full px-2 py-0.5 text-xs">
+												Actualmente
+											</span>
+										)}
+									</div>
+								))
+							}
+						</div>
+					</div>
+				</div>
 			</div>
 		</section>
 	</main>
