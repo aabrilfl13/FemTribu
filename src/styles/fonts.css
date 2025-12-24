@@ -2,66 +2,67 @@
 
 /* The Seasons Light */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-lt.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-lt.woff2") format("woff2");
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* The Seasons Light Italic */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-ltit.woff2') format('woff2');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-ltit.woff2") format("woff2");
+	font-weight: 300;
+	font-style: italic;
+	font-display: swap;
 }
 
 /* The Seasons Regular */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-reg.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-reg.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* The Seasons Regular Italic */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-it.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-it.woff2") format("woff2");
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
 }
 
 /* The Seasons Bold */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-bd.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-bd.woff2") format("woff2");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* The Seasons Bold Italic */
 @font-face {
-  font-family: 'The Seasons';
-  src: url('/fonts/Fontspring-DEMO-theseasons-bdit.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
+	font-family: "The Seasons";
+	src: url("/fonts/Fontspring-DEMO-theseasons-bdit.woff2") format("woff2");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
 }
 
 /* ===== QUESTRIAL FONT FAMILY ===== */
 
 /* Questrial Regular */
 @font-face {
-  font-family: 'Questrial';
-  src: url('/fonts/Questrial-Regular.woff2') format('woff2'),
-       url('/fonts/Questrial-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+	font-family: "Questrial";
+	src:
+		url("/fonts/Questrial-Regular.woff2") format("woff2"),
+		url("/fonts/Questrial-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
