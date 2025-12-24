@@ -55,15 +55,23 @@ const benefits = [
 			</div>
 
 			{/* Form */}
-			<form id="newsletter-modal-form" class="flex flex-col gap-3" method="post" action="#">
+			<form
+				id="newsletter-modal-form"
+				novalidate
+				class="flex flex-col gap-3"
+				method="post"
+				action="#"
+			>
 				{/* Email input */}
 				<Input
 					id="newsletter-modal-email"
+					class="bg-cream/10 border-coral text-primary placeholder:text-primary/50 focus:border-coral-light focus:ring-coral-light/20 h-12 w-full"
 					type="email"
 					name="email"
 					placeholder="Tu correo electrónico"
 					required
-					class="bg-cream/10 border-coral text-primary placeholder:text-primary/50 focus:border-coral-light focus:ring-coral-light/20 h-12 w-full"
+					autocomplete="email"
+					pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
 				/>
 				<Button id="newsletter-modal-submit" type="submit" variant="hero" class="w-full">
 					Suscribirme
@@ -82,24 +90,26 @@ const benefits = [
 
 	let isSubmitting = false
 
+	form?.addEventListener("keydown", (e) => {
+		if (e.key === "Enter") {
+			e.preventDefault()
+			form.requestSubmit()
+		}
+	})
+
 	form?.addEventListener("submit", async (e) => {
 		e.preventDefault()
-		e.stopPropagation()
 
-		console.log("Modal form submitted", { isSubmitting, email: emailInput.value })
+		if (!form.checkValidity()) {
+			form.reportValidity()
+			return
+		}
 
 		if (isSubmitting) {
-			console.log("Already submitting, aborting")
 			return
 		}
 
 		const email = emailInput.value.trim()
-
-		// Basic email validation
-		if (!email || !email.includes("@")) {
-			showMessage("Por favor, introduce un email válido.", "error")
-			return
-		}
 
 		// Set loading state
 		isSubmitting = true
@@ -108,8 +118,6 @@ const benefits = [
 		hideMessage()
 
 		try {
-			console.log("Making POST request to /api/newsletter")
-
 			const response = await fetch("/api/newsletter", {
 				method: "POST",
 				headers: {
@@ -118,15 +126,11 @@ const benefits = [
 				body: JSON.stringify({ email }),
 			})
 
-			console.log("Response received", { status: response.status })
-
 			const data = await response.json()
 
 			if (data.success) {
-				console.log("Newsletter subscription successful:", data)
 				showMessage(data.message, "success")
 				submitButton.textContent = "¡Suscrita!"
-				emailInput.value = ""
 
 				// Close modal after 2 seconds
 				setTimeout(() => {
