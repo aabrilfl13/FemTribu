@@ -2,6 +2,9 @@
 @import "tailwindcss";
 
 @theme {
+	/* Breakpoints */
+	--breakpoint-2xl: 1400px;
+
 	/* Font families */
 	--font-display: "The Seasons", Georgia, serif;
 	--font-body: "Questrial", sans-serif;
@@ -291,4 +294,16 @@ section {
 #contact {
 	padding: 0;
 	margin: 0;
+}
+
+.container {
+	width: 100%;
+	margin-inline: auto;
+	padding-inline: 2rem;
+}
+
+@media (min-width: 1536px) {
+	.container {
+		max-width: 1400px;
+	}
 }
