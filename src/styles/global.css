@@ -22,14 +22,14 @@
 	--color-foreground: oklch(20% 0.02 155);
 
 	/* Named colors from brand manual */
-	--color-coral: oklch(67% 0.1 25); /* #CB6E5F */
-	--color-coral-light: oklch(77% 0.08 30); /* #D5A18E */
-	--color-terracotta: oklch(56% 0.14 30); /* #A22F11 */
-	--color-terracotta-dark: oklch(42% 0.12 28); /* #621B00 */
-	--color-sage: oklch(58% 0.04 145); /* #6A8067 */
-	--color-forest: oklch(33% 0.03 155); /* #37443A */
-	--color-forest-dark: oklch(20% 0.02 155); /* #18201A */
-	--color-cream: oklch(97% 0.02 85); /* #FFF5EB */
+	--color-coral: rgb(204, 124, 118); /* #CB6E5F */
+	--color-coral-light: rgb(227, 161, 150); /* #D5A18E */
+	--color-terracotta: rgb(184, 79, 64); /* #A22F11 */
+	--color-terracotta-dark: rgb(130, 44, 37); /* #621B00 */
+	--color-sage: rgb(108, 129, 108); /* #6A8067 */
+	--color-forest: #293a2f; /* #37443A */
+	--color-forest-dark: rgb(15, 25, 18); /* #18201A */
+	--color-cream: rgb(251, 244, 230); /* #FFF5EB */
 
 	/* Card surfaces */
 	--color-card: oklch(97% 0.02 85);
