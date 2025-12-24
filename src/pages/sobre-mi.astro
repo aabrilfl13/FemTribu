@@ -10,20 +10,20 @@ const credentials = [
 	},
 	{
 		icon: "/images/decoratives/ilustracion-negro_24.svg",
-		title: "Especialización en Obstetricia y Ginecología (EIR)",
+		title: "Matrona especialización en Obstetricia y Ginecología (EIR)",
 		place: "Hospital Can Misses de Ibiza",
 		year: "2019",
 	},
 	{
 		icon: "/images/decoratives/ilustracion-negro_24.svg",
-		title: "Máster en Lactancia Materna Avanzada",
-		place: "IFSES",
-		year: "2021",
+		title: "Intructora de Barre",
+		place: "The Barre Lab",
+		current: true,
 	},
 	{
 		icon: "/images/decoratives/ilustracion-negro_24.svg",
-		title: "Matrona en Hospital",
-		place: "Valencia",
+		title: "Máster en Entrenamiento, Nutrición y Salud en la Mujer",
+		place: "ENFAF",
 		current: true,
 	},
 ]
@@ -31,7 +31,7 @@ const credentials = [
 
 <Layout title="Sobre Mí - Femm Tribu" navScrolled={true}>
 	<main class="pt-24 pb-16">
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+		<section class="bg-background container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
 			<div class="mx-auto max-w-4xl text-center">
 				<span
 					class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
@@ -148,6 +148,11 @@ const credentials = [
 				</div>
 			</div>
 		</section>
+		<section
+			class="from-background to-muted/30 container m-0 flex items-center justify-center bg-gradient-to-b p-0"
+		>
+			<img class="h-10 w-100" src="/images/decoratives/ilustracion-negro_36.svg" alt="" />
+		</section>
 		<section class="bg-muted/30 py-16 lg:py-24">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mb-12 text-center">
@@ -199,10 +204,10 @@ const credentials = [
 						{/* Credentials Grid */}
 						<div class="grid grid-cols-2 gap-3 pt-4">
 							{
-								credentials.map((credential, index) => (
-									<div key={index} class="bg-background shadow-soft rounded-xl p-4">
+								credentials.map((credential) => (
+									<div class="bg-background shadow-soft rounded-xl p-4">
 										<div class="bg-accent/20 mb-2 flex h-8 w-8 items-center justify-center rounded-lg">
-											<credential.icon class="text-accent h-4 w-4" />
+											<img src={credential.icon} alt="" class="text-accent h-8 w-8" />
 										</div>
 										<h3 class="font-display text-primary mb-1 text-sm">{credential.title}</h3>
 										<p class="text-muted-foreground text-xs">{credential.place}</p>
