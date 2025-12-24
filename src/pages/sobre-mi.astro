@@ -3,25 +3,33 @@ import Layout from "@/layouts/Layout.astro"
 
 const credentials = [
 	{
-		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		icon: "/images/decoratives/nurse-person.svg",
+		heigh: "5",
+		width: "5",
 		title: "Graduada en Enfermería",
 		place: "Escuela de Enfermería La Fe",
-		year: "2016",
+		year: "2023",
 	},
 	{
-		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		icon: "/images/decoratives/ilustracion-negro_07.svg",
 		title: "Matrona especialización en Obstetricia y Ginecología (EIR)",
 		place: "Hospital Can Misses de Ibiza",
-		year: "2019",
+		year: "2025",
 	},
 	{
-		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		icon: "/images/decoratives/ilustracion-negro_05.svg",
+		title: "Máster en lactancia materna avanzada",
+		place: "IFSES",
+		year: "2025",
+	},
+	{
+		icon: "/images/decoratives/dancer-outline.svg",
 		title: "Intructora de Barre",
 		place: "The Barre Lab",
-		current: true,
+		year: "2025",
 	},
 	{
-		icon: "/images/decoratives/ilustracion-negro_24.svg",
+		icon: "/images/decoratives/exercise-health-fitness.svg",
 		title: "Máster en Entrenamiento, Nutrición y Salud en la Mujer",
 		place: "ENFAF",
 		current: true,
@@ -191,9 +199,9 @@ const credentials = [
 					{/* Content */}
 					<div class="space-y-6">
 						<p class="text-muted-foreground text-lg leading-relaxed">
-							Soy <strong class="text-primary">María Belenguer</strong>, matrona de vocación y la
-							creadora de FemmTribu. Después de años acompañando a mujeres en hospitales, sentí la
-							necesidad de crear un espacio donde el cuidado fuera más allá de lo clínico.
+							Soy <strong class="text-primary">María Belenguer</strong>, matrona y la creadora de
+							FemmTribu. Después de años acompañando a mujeres en hospitales, sentí la necesidad de
+							crear un espacio donde el cuidado fuera más allá de lo clínico.
 						</p>
 						<p class="text-muted-foreground leading-relaxed">
 							Mi sueño siempre ha sido que cada mujer se sienta <strong class="text-primary"
@@ -207,7 +215,11 @@ const credentials = [
 								credentials.map((credential) => (
 									<div class="bg-background shadow-soft rounded-xl p-4">
 										<div class="bg-accent/20 mb-2 flex h-8 w-8 items-center justify-center rounded-lg">
-											<img src={credential.icon} alt="" class="text-accent h-8 w-8" />
+											<img
+												src={credential.icon}
+												alt=""
+												class={`text-accent h-${credential.heigh || 6} w-${credential.width || 6}`}
+											/>
 										</div>
 										<h3 class="font-display text-primary mb-1 text-sm">{credential.title}</h3>
 										<p class="text-muted-foreground text-xs">{credential.place}</p>
