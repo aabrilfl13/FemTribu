@@ -26,16 +26,15 @@ const pillars = [
 	},
 ]
 
-const features = [
-	"Atención integral cuerpo-mente-alma",
+const keyPoints = [
 	"Acompañamiento online y presencial en Valencia",
-	"Todas las etapas: ciclo, embarazo, parto, lactancia, menopausia",
+	"Todas las etapas: embarazo, parto, postparto, lactancia, menopausia",
 	"Comunidad de mujeres que se apoyan",
 ]
 ---
 
-<section id="sobre-femm-tribu" class="relative overflow-hidden py-24 lg:py-32">
-	<!-- Background decorations -->
+<section id="sobre-mi" class="relative overflow-hidden py-24 lg:py-32">
+	{/* Background decorations */}
 	<div
 		class="bg-coral-light/10 shape-organic absolute top-0 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
 	>
@@ -46,10 +45,10 @@ const features = [
 	</div>
 
 	<div class="relative z-10 container mx-auto px-4 lg:px-8">
-		<!-- Section header -->
-		<div class="mx-auto mb-16 max-w-3xl text-center lg:mb-18">
+		{/* FemmTribu Section - Main Focus */}
+		<div class="mx-auto mb-16 max-w-4xl text-center lg:mb-20">
 			<span
-				class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm"
+				class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
 			>
 				<img
 					src="/images/icons/illustrations/ilustracion-negro_11.svg"
@@ -58,117 +57,52 @@ const features = [
 				/>
 				Sobre Femm tribu
 			</span>
-			<h2 class="font-display text-primary mb-6 text-3xl sm:text-4xl lg:text-5xl">
+			<h2 class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl">
 				¿Qué es{" "}
-				<span class="text-accent">Femm</span><span class="text-secondary">tribu</span>?
+				<span class="text-accent">Femm</span>
+				<span class="text-secondary">Tribu</span>?
 			</h2>
-			<p class="text-muted-foreground text-lg">
-				Un espacio online creado por mujeres, para mujeres. Donde la ciencia se encuentra con la
-				espiritualidad para acompañarte en cada momento de tu vida.
+			<p class="text-muted-foreground mx-auto mb-8 max-w-3xl text-lg lg:text-xl">
+				Un espacio online creado por mujeres, para mujeres. Donde la <strong class="text-primary"
+					>ciencia</strong
+				> se encuentra con la <strong class="text-primary">espiritualidad</strong> para acompañarte en
+				cada momento de tu vida.
 			</p>
-		</div>
 
-		<div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-			<!-- Image -->
-			<div class="relative order-2 lg:order-1">
-				<div class="relative">
-					<!-- Background shape -->
-					<div class="bg-gradient-organic shape-blob absolute -inset-6 opacity-10"></div>
-
-					<!-- Main image -->
-					<div class="shadow-organic relative overflow-hidden rounded-3xl">
-						<img
-							src="/images/mujeres-circulo.webp"
-							alt="Círculo de mujeres en Femm tribu"
-							class="aspect-[4/5] h-auto w-full object-cover"
-						/>
+			{/* Three Pillars - Compact */}
+			<div class="mb-8 flex flex-wrap justify-center gap-4">
+				{
+					pillars.map((pillar) => (
 						<div
-							class="from-primary/30 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
+							class={`flex items-center gap-2 rounded-full px-5 py-3 ${pillar.bgColor} border-border/30 border`}
 						>
+							<pillar.icon class={`h-5 w-5 ${pillar.color}`} />
+							<span class="text-primary font-medium">{pillar.title}</span>
 						</div>
-					</div>
-
-					<!-- Floating card -->
-					<!-- TODO: Fix animate-float that rotates instead of jump -->
-					<div
-						class="bg-background shadow-warm animate-fade-in animation-delay-600 absolute -right-4 -bottom-8 max-w-xs rounded-2xl p-5 lg:-right-8"
-					>
-						<p class="font-display text-primary mb-2 text-lg">
-							"Crear un espacio donde las mujeres puedan encontrar un sitio dedicado para ellas"
-						</p>
-						<p class="text-accent text-sm font-medium">— María Belenguer</p>
-					</div>
-				</div>
+					))
+				}
 			</div>
 
-			<!-- Content -->
-			<div class="order-1 space-y-8 lg:order-2">
-				<div class="space-y-4">
-					<h3 class="font-display text-primary text-2xl lg:text-3xl">
-						Acompañamiento integral en todas tus etapas
-					</h3>
-					<p class="text-muted-foreground leading-relaxed">
-						Femm tribu es un espacio creado para acompañarte en todas las etapas de tu vida como
-						mujer. Un lugar donde la ciencia, la intuición y el autocuidado se encuentran para
-						ofrecerte una mirada completa, humana y respetuosa de tu salud.
-					</p>
-					<p class="text-muted-foreground leading-relaxed">
-						Aquí no solo atendemos síntomas: escuchamos tu historia, tus ritmos, tus miedos y tus
-						necesidades. Te acompañamos en <strong class="text-primary"
-							>todas las etapas de tu vida</strong
-						>: desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto, la
-						lactancia y el posparto, para que vivas cada etapa desde la calma, el conocimiento y la
-						conexión con tu cuerpo.
-					</p>
-					<p class="text-muted-foreground leading-relaxed">
-						Femm tribu nace del deseo de crear un espacio seguro: un lugar donde puedas sentirte
-						sostenida, comprendida y libre de vivir tu proceso sin juicios.
-					</p>
-					<p class="text-muted-foreground leading-relaxed">
-						<strong class="text-primary">Somos una tribu.</strong>
-					</p>
-					<p class="text-muted-foreground leading-relaxed">
-						Una comunidad de mujeres que comparten, se inspiran y se acompañan. Y tú también formas
-						parte de ella.
-					</p>
-				</div>
-
-				<!-- Features list -->
-				<div class="space-y-3">
-					{
-						features.map((feature) => (
-							<div class="bg-muted/50 hover:bg-muted flex items-center gap-3 rounded-xl p-3 transition-colors duration-300">
-								<div class="bg-accent/20 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full">
-									<span class="text-accent h-4 w-4" set:html={CheckIcon} />
-								</div>
-								<span class="text-primary">{feature}</span>
-							</div>
-						))
-					}
-				</div>
-
-				<!-- Three pillars -->
-				<div class="grid gap-4 pt-4 sm:grid-cols-3">
-					{
-						pillars.map((pillar) => (
-							<div class="group bg-background shadow-soft hover:shadow-warm rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1">
-								<div
-									class={`h-12 w-12 ${pillar.bgColor} mb-4 flex items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110`}
-								>
-									<img
-										src={pillar.icon}
-										alt={pillar.title}
-										class={`h-9 w-9 ${pillar.color}`}
-										style="filter: brightness(0) saturate(100%);"
-									/>
-								</div>
-								<h4 class="font-display text-primary mb-2 text-lg">{pillar.title}</h4>
-								<p class="text-muted-foreground text-sm">{pillar.description}</p>
-							</div>
-						))
-					}
-				</div>
+			{/* Key Points */}
+			<div class="mb-8 flex flex-wrap justify-center gap-3">
+				{
+					keyPoints.map((point) => (
+						<div class="bg-muted/50 flex items-center gap-2 rounded-full px-4 py-2 text-sm">
+							<span class="text-accent h-4 w-4 flex-shrink-0" set:html={CheckIcon} />
+							<span class="text-muted-foreground">{point}</span>
+						</div>
+					))
+				}
 			</div>
+		</div>
+		{/* CTA */}
+		<div class="mt-16 text-center">
+			<a
+				href="/sobre-mi"
+				class="bg-accent text-cream font-body hover:bg-accent/90 hover:shadow-elegant rounded-full px-8 py-4 text-lg transition-all duration-300 hover:scale-105"
+			>
+				Conoce la historia completa <span aria-hidden="true">→</span>
+			</a>
 		</div>
 	</div>
 </section>
