@@ -15,6 +15,7 @@ const services = [
 		],
 		price: "Desde 60€",
 		color: "terracotta",
+		href: "#",
 	},
 	{
 		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
@@ -24,6 +25,7 @@ const services = [
 		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
 		price: "Desde 90€",
 		color: "coral",
+		href: "/servicios/preparacion-al-parto",
 	},
 	{
 		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
@@ -33,6 +35,7 @@ const services = [
 		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
 		price: "Consultar",
 		color: "sage",
+		href: "#",
 	},
 	{
 		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
@@ -42,6 +45,7 @@ const services = [
 		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
 		price: "Consultar",
 		color: "forest",
+		href: "#",
 	},
 ]
 
@@ -71,6 +75,8 @@ const colorClasses = {
 		hover: "hover:border-forest/40",
 	},
 }
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
 <section id="servicios" class="bg-coral-light/10 relative overflow-hidden py-20 lg:py-28">
@@ -143,8 +149,20 @@ const colorClasses = {
 								<Button
 									class="bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic service-info-btn rounded-full px-4 py-2 transition-all duration-300 hover:scale-105"
 									data-service-name={service.title}
+									data-service-href={service.href}
 								>
-									Saber más
+									Reservar Consulta
+								</Button>
+							</div>
+							<div class="mt-4 flex justify-center">
+								<Button
+									href={service.href !== "#" ? service.href : undefined}
+									variant="linkMuted"
+									size="sm"
+									class={service.href === "#" ? "mas-info-btn cursor-pointer" : ""}
+									data-service-name={service.title}
+								>
+									Más información
 								</Button>
 							</div>
 						</div>
@@ -170,12 +188,37 @@ const colorClasses = {
 	<ServiceInfoModal />
 </section>
 
-<script>
+<script define:vars={{ phoneNumber }}>
 	document.addEventListener("DOMContentLoaded", () => {
 		const serviceButtons = document.querySelectorAll(".service-info-btn")
 
 		serviceButtons.forEach((button) => {
 			button.addEventListener("click", () => {
+				const serviceName = button.getAttribute("data-service-name") || "nuestros servicios"
+				const href = button.getAttribute("data-service-href")
+				const whatsappBtn = document.getElementById("whatsapp-service-btn")
+
+				if (href != "#" && href != null && whatsappBtn) {
+					const message = encodeURIComponent(
+						`¡Hola! Quiero reservar una cita para el servicio de *${serviceName}* de *Femm tribu*.`
+					)
+					window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+				}
+				// Update the WhatsApp button's data attribute in the modal
+				else if (whatsappBtn) {
+					whatsappBtn.setAttribute("data-service-name", serviceName)
+					// Open the modal
+					window.modalManager.open("service-info-modal")
+				}
+			})
+		})
+
+		// Handle "Más información" buttons
+		const masInfoButtons = document.querySelectorAll(".mas-info-btn")
+
+		masInfoButtons.forEach((button) => {
+			button.addEventListener("click", (e) => {
+				e.preventDefault()
 				const serviceName = button.getAttribute("data-service-name") || "nuestros servicios"
 
 				// Update the WhatsApp button's data attribute in the modal
