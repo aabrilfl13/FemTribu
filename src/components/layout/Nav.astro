@@ -12,7 +12,11 @@ const { scrolled = false } = Astro.props
 const navItems = [
 	{ label: "Inicio", href: "/#" },
 	{ label: "Sobre Femm tribu", href: "/#sobre-femm-tribu" },
-	{ label: "Servicios", href: "/#servicios" },
+	{
+		label: "Servicios",
+		href: "/#servicios",
+		subItems: [{ label: "Preparación al Parto", href: "/servicios/preparacion-al-parto" }],
+	},
 	{ label: "Talleres y eventos ", href: "/cursos/curso-lactancia" },
 ]
 ---
@@ -49,12 +53,48 @@ const navItems = [
 			<nav class="hidden items-center gap-10 lg:flex">
 				{
 					navItems.map((item) => (
-						<a
-							href={item.href}
-							class="nav-link relative py-2 text-base font-medium tracking-[0.5px] text-[#fff5eb] no-underline transition-all duration-300 [text-shadow:0_2px_4px_rgba(55,68,58,0.3)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#cb6e5f] after:to-[#d5a18e] after:transition-[width] after:duration-300 after:content-[''] hover:text-[#cb6e5f] hover:[text-shadow:0_2px_8px_rgba(203,110,95,0.3)] hover:after:w-full [.scrolled_&]:text-[#37443a] [.scrolled_&]:[text-shadow:none]"
-						>
-							{item.label}
-						</a>
+						<div class="nav-item-wrapper relative">
+							{item.subItems ? (
+								<>
+									<button
+										class="nav-link nav-dropdown-trigger relative flex items-center gap-1 border-none bg-transparent py-2 text-base font-medium tracking-[0.5px] text-[#fff5eb] no-underline transition-all duration-300 [text-shadow:0_2px_4px_rgba(55,68,58,0.3)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#cb6e5f] after:to-[#d5a18e] after:transition-[width] after:duration-300 after:content-[''] hover:cursor-pointer hover:text-[#cb6e5f] hover:[text-shadow:0_2px_8px_rgba(203,110,95,0.3)] hover:after:w-full [.scrolled_&]:text-[#37443a] [.scrolled_&]:[text-shadow:none]"
+										data-main-href={item.href}
+									>
+										{item.label}
+										<svg
+											class="dropdown-arrow h-4 w-4 transition-transform duration-300"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M19 9l-7 7-7-7"
+											/>
+										</svg>
+									</button>
+									<div class="dropdown-menu invisible absolute top-full left-0 mt-2 min-w-[220px] rounded-lg bg-white py-2 opacity-0 shadow-lg transition-all duration-300">
+										{item.subItems.map((subItem) => (
+											<a
+												href={subItem.href}
+												class="dropdown-item block px-4 py-2 text-sm text-[#37443a] transition-colors duration-200 hover:bg-[#f5f5f5] hover:text-[#cb6e5f]"
+											>
+												{subItem.label}
+											</a>
+										))}
+									</div>
+								</>
+							) : (
+								<a
+									href={item.href}
+									class="nav-link relative py-2 text-base font-medium tracking-[0.5px] text-[#fff5eb] no-underline transition-all duration-300 [text-shadow:0_2px_4px_rgba(55,68,58,0.3)] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-gradient-to-r after:from-[#cb6e5f] after:to-[#d5a18e] after:transition-[width] after:duration-300 after:content-[''] hover:text-[#cb6e5f] hover:[text-shadow:0_2px_8px_rgba(203,110,95,0.3)] hover:after:w-full [.scrolled_&]:text-[#37443a] [.scrolled_&]:[text-shadow:none]"
+								>
+									{item.label}
+								</a>
+							)}
+						</div>
 					))
 				}
 			</nav>
@@ -227,6 +267,50 @@ const navItems = [
 					}
 				}
 				// For links to other pages, let them navigate naturally
+			})
+		})
+
+		// Handle dropdown menus
+		const dropdownTriggers = document.querySelectorAll(".nav-dropdown-trigger")
+		dropdownTriggers.forEach((trigger) => {
+			const wrapper = trigger.closest(".nav-item-wrapper")
+			const dropdownMenu = wrapper?.querySelector(".dropdown-menu")
+			const arrow = trigger.querySelector(".dropdown-arrow")
+
+			if (!wrapper || !dropdownMenu) return
+
+			let isOpen = false
+
+			const openDropdown = () => {
+				isOpen = true
+				dropdownMenu.classList.remove("opacity-0", "invisible")
+				dropdownMenu.classList.add("opacity-100", "visible")
+				arrow?.classList.add("rotate-180")
+			}
+
+			const closeDropdown = () => {
+				isOpen = false
+				dropdownMenu.classList.add("opacity-0", "invisible")
+				dropdownMenu.classList.remove("opacity-100", "visible")
+				arrow?.classList.remove("rotate-180")
+			}
+
+			// Open on hover
+			wrapper.addEventListener("mouseenter", openDropdown)
+			wrapper.addEventListener("mouseleave", closeDropdown)
+
+			// Toggle on click (for touch devices)
+			trigger.addEventListener("click", (e) => {
+				e.preventDefault()
+				if (isOpen) {
+					// If already open, navigate to main section
+					const mainHref = trigger.getAttribute("data-main-href")
+					if (mainHref) {
+						window.location.href = mainHref
+					}
+				} else {
+					openDropdown()
+				}
 			})
 		})
 

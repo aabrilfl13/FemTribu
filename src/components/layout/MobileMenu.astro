@@ -8,6 +8,7 @@ interface NavItem {
 	href: string
 	label: string
 	disabled?: boolean
+	subItems?: { label: string; href: string }[]
 }
 
 // Accept navItems as a prop
@@ -32,18 +33,60 @@ const { navItems } = Astro.props
 			<div class="flex flex-col gap-4">
 				{
 					navItems.map((item, index) => (
-						<a
-							href={item.href}
-							class:list={[
-								"mobile-link",
-								{
-									"pointer-events-none cursor-not-allowed opacity-50": item.disabled,
-								},
-							]}
-							aria-disabled={item.disabled}
-						>
-							{item.label}
-						</a>
+						<div class="mobile-nav-item">
+							{item.subItems ? (
+								<>
+									<button
+										class:list={[
+											"mobile-link mobile-dropdown-trigger flex w-full items-center justify-between gap-2",
+											{
+												"pointer-events-none cursor-not-allowed opacity-50": item.disabled,
+											},
+										]}
+										aria-disabled={item.disabled}
+										data-main-href={item.href}
+									>
+										<span class="flex-1 text-left">{item.label}</span>
+										<svg
+											class="mobile-dropdown-arrow h-5 w-5 flex-shrink-0 transition-transform duration-300"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M19 9l-7 7-7-7"
+											/>
+										</svg>
+									</button>
+									<div class="mobile-submenu max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+										<div class="flex flex-col gap-2 pt-2 pl-4">
+											{item.subItems.map((subItem) => (
+												<a href={subItem.href} class="mobile-link mobile-sublink text-sm">
+													{subItem.label}
+												</a>
+											))}
+										</div>
+									</div>
+								</>
+							) : (
+								<a
+									href={item.href}
+									class:list={[
+										"mobile-link",
+										{
+											"pointer-events-none cursor-not-allowed opacity-50": item.disabled,
+										},
+									]}
+									aria-disabled={item.disabled}
+								>
+									{item.label}
+								</a>
+							)}
+						</div>
 					))
 				}
 				<div class="mt-6 flex w-full flex-col gap-4">
@@ -191,6 +234,36 @@ const { navItems } = Astro.props
 		width: 40px;
 	}
 
+	.mobile-dropdown-trigger {
+		background: none;
+		border: none;
+		text-align: left;
+		cursor: pointer;
+		display: flex !important;
+	}
+
+	.mobile-dropdown-trigger.active .mobile-dropdown-arrow {
+		transform: rotate(180deg);
+	}
+
+	.mobile-submenu {
+		transition: max-height 0.3s ease-in-out;
+	}
+
+	.mobile-submenu.active {
+		max-height: 500px;
+	}
+
+	.mobile-sublink {
+		font-size: 1.1rem;
+		padding: 10px 0;
+		opacity: 0.9;
+	}
+
+	.mobile-sublink:hover {
+		opacity: 1;
+	}
+
 	/* Mobile Social Links */
 	.mobile-social {
 		display: flex;
@@ -319,6 +392,35 @@ const { navItems } = Astro.props
 		const newsletterModalMobileTrigger = document.getElementById("newsletter-modal-mobile-trigger")
 		newsletterModalMobileTrigger?.addEventListener("click", () => {
 			window.modalManager.open("newsletter-modal")
+		})
+
+		// Handle mobile dropdown menus
+		const mobileDropdownTriggers = document.querySelectorAll(".mobile-dropdown-trigger")
+		mobileDropdownTriggers.forEach((trigger) => {
+			trigger.addEventListener("click", (e) => {
+				e.preventDefault()
+				const navItem = trigger.closest(".mobile-nav-item")
+				const submenu = navItem?.querySelector(".mobile-submenu")
+				const arrow = trigger.querySelector(".mobile-dropdown-arrow")
+
+				if (!submenu) return
+
+				const isActive = trigger.classList.contains("active")
+
+				if (isActive) {
+					// Close submenu
+					trigger.classList.remove("active")
+					submenu.classList.remove("active")
+					submenu.style.maxHeight = "0"
+					arrow?.classList.remove("rotate-180")
+				} else {
+					// Open submenu
+					trigger.classList.add("active")
+					submenu.classList.add("active")
+					submenu.style.maxHeight = submenu.scrollHeight + "px"
+					arrow?.classList.add("rotate-180")
+				}
+			})
 		})
 	}
 
