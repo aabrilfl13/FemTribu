@@ -24,6 +24,7 @@ const packs = [
 		ideal:
 			"Estás en tu primer embarazo o quieres una preparación breve pero completa para entender y confiar en tu cuerpo.",
 		highlight: false,
+		tier: "basic",
 	},
 	{
 		name: "Fluye con tu parto",
@@ -39,6 +40,7 @@ const packs = [
 		ideal:
 			"Buscas una preparación más completa, con herramientas prácticas y corporales que te ayuden a vivir tu parto de forma activa y consciente.",
 		highlight: true,
+		tier: "medium",
 	},
 	{
 		name: "El viaje de nacer",
@@ -57,6 +59,7 @@ const packs = [
 		ideal:
 			"Quieres una preparación completa, en pareja o en solitario, con acompañamiento cercano y recursos prácticos antes, durante y después del parto.",
 		highlight: false,
+		tier: "premium",
 	},
 ]
 
@@ -66,6 +69,8 @@ const seoData = {
 		"Acompañamiento presencial en Valencia y online con matrona María Belenguer. Prepara tu parto con ciencia y alma: fisiología, gestión del miedo y posparto. ¡Confía en tu cuerpo!",
 	type: "website" as const,
 }
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
 <Layout navScrolled={true} {...seoData}>
@@ -165,7 +170,12 @@ const seoData = {
 										</p>
 									</div>
 									{/* CTA Button */}
-									<Button variant={pack.highlight ? "hero" : "outline"} class="w-full" size="lg">
+									<Button
+										variant={pack.highlight ? "hero" : "outline"}
+										class="w-full"
+										size="lg"
+										data-service-tier={pack.tier}
+									>
 										Reservar {pack.subtitle}
 									</Button>
 								</CardFooter>
@@ -178,3 +188,19 @@ const seoData = {
 		<AdditionalInfo serviceName="Preparación al Parto" />
 	</main>
 </Layout>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll("button[data-service-tier]")
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const tier = button.getAttribute("data-service-tier") || "basic"
+				const message = encodeURIComponent(
+					`Hola! Me interesa saber más sobre *Preparación al Parto* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+			})
+		})
+	})
+</script>
