@@ -1,0 +1,197 @@
+---
+import Button from "@/components/ui/Button.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const packs = [
+	{
+		name: "Confía en tu cuerpo",
+		subtitle: "Pack Básico",
+		price: 90,
+		description:
+			"Un acompañamiento esencial para comprender la fisiología del parto y trabajar los miedos más comunes. A través de dos sesiones online, aprenderás qué sucede en tu cuerpo durante el parto y descubrirás herramientas prácticas para afrontarlo con seguridad y confianza.",
+		features: [
+			"Sesión 1: Fisiología del parto — qué ocurre en tu cuerpo, fases, hormonas y señales",
+			"Sesión 2: Miedo al parto y herramientas para gestionarlo",
+			"Formulario previo para adaptar la preparación a tus necesidades",
+		],
+		ideal:
+			"Estás en tu primer embarazo o quieres una preparación breve pero completa para entender y confiar en tu cuerpo.",
+		highlight: false,
+		icon: "/images/icons/cookie.svg",
+	},
+	{
+		name: "Fluye con tu parto",
+		subtitle: "Pack Medio",
+		price: 170,
+		description:
+			"Un acompañamiento integral para trabajar el cuerpo y la mente de forma conjunta. Además de la información teórica y emocional, aprenderás movilidad y posturas útiles para el parto, y técnicas de visualización y meditación para conectar con tu respiración y mantener la calma.",
+		features: [
+			"Todo lo del Pack Básico",
+			"Sesión 3: Movilidad y movimiento para el parto",
+			"Sesión 4: Meditación y visualización para conectar con la calma interior",
+		],
+		ideal:
+			"Buscas una preparación más completa, con herramientas prácticas y corporales que te ayuden a vivir tu parto de forma activa y consciente.",
+		highlight: true,
+		icon: "/images/icons/cookie.svg",
+	},
+	{
+		name: "El viaje de nacer",
+		subtitle: "Pack Premium",
+		price: 250,
+		description:
+			"Un programa de preparación profundo y personalizado que abarca todas las dimensiones del parto: cuerpo, mente, emociones, vínculo y posparto. Te acompañamos paso a paso para que vivas esta etapa con confianza, seguridad y apoyo constante.",
+		features: [
+			"Todo lo del Pack Medio",
+			"Sesión 5: Dinámica de conexión en pareja — comunicación, roles y acompañamiento emocional",
+			"Sesión 6: Postparto inmediato y cuidados del recién nacido",
+			"Entregables en PDF con resúmenes, ejercicios y recursos prácticos",
+			"Acompañamiento por WhatsApp durante el proceso",
+			"Sesión de resolución de dudas extra",
+		],
+		ideal:
+			"Quieres una preparación completa, en pareja o en solitario, con acompañamiento cercano y recursos prácticos antes, durante y después del parto.",
+		highlight: false,
+		icon: "/images/icons/cookie.svg",
+	},
+]
+---
+
+<Layout title="Sobre Mí - Femm Tribu" navScrolled={true}>
+	<main class="pt-24">
+		<section class="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24">
+			{/* Background decorations */}
+			<div
+				class="bg-coral-light/20 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
+			>
+			</div>
+			<div
+				class="bg-secondary/15 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+			>
+			</div>
+
+			<div class="relative z-10 container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-4xl text-center">
+					<span
+						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					>
+						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
+						Acompañamiento personalizado
+					</span>
+					<h1 class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl">
+						Preparación al{" "}
+						<span class="text-accent">Parto</span>
+					</h1>
+					<p class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl">
+						Un acompañamiento online diseñado para que vivas tu parto con confianza, seguridad y
+						conexión. Elige el pack que mejor se adapte a ti.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		{/* Pricing Cards */}
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+					<!-- {
+						packs.map((pack, index) => (
+							<Card
+								key={index}
+								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
+									pack.highlight
+										? "border-accent ring-accent/20 shadow-lg ring-2"
+										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
+								}`}
+							>
+								{pack.highlight && (
+									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
+										Más popular
+									</div>
+								)}
+
+								<CardHeader class={pack.highlight ? "pt-12" : ""}>
+									<div class="mb-4 flex items-center gap-3">
+										<div
+											class={`flex h-12 w-12 items-center justify-center rounded-xl ${
+												pack.highlight ? "bg-accent/20" : "bg-muted"
+											}`}
+										>
+											<pack.icon
+												class={`h-6 w-6 ${pack.highlight ? "text-accent" : "text-primary"}`}
+											/>
+										</div>
+										<div>
+											<CardTitle class="font-display text-primary text-xl">{pack.name}</CardTitle>
+											<CardDescription class="text-accent font-medium">
+												{pack.subtitle}
+											</CardDescription>
+										</div>
+									</div>
+
+									<div class="mb-4 flex items-baseline gap-1">
+										<span class="font-display text-primary text-4xl">{pack.price}€</span>
+									</div>
+
+									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
+								</CardHeader>
+
+								<CardContent class="space-y-6">
+									{/* Features */}
+									<div class="space-y-3">
+										{pack.features.map((feature, featureIndex) => (
+											<div key={featureIndex} class="flex items-start gap-3">
+												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+													<Check class="text-accent h-3 w-3" />
+												</div>
+												<span class="text-muted-foreground text-sm">{feature}</span>
+											</div>
+										))}
+									</div>
+
+									{/* Ideal for */}
+									<div class="bg-muted/50 rounded-xl p-4">
+										<p class="text-sm">
+											<span class="text-primary font-medium">Ideal para ti si: </span>
+											<span class="text-muted-foreground">{pack.ideal}</span>
+										</p>
+									</div>
+
+									{/* CTA Button */}
+									<Button variant={pack.highlight ? "hero" : "outline"} class="w-full" size="lg">
+										Reservar {pack.subtitle}
+									</Button>
+								</CardContent>
+							</Card>
+						))
+					} -->
+				</div>
+			</div>
+		</section>
+
+		{/* Additional Info Section */}
+		<section class="bg-muted/30 py-16 lg:py-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-4xl text-center">
+					<h2 class="font-display text-primary mb-6 text-3xl lg:text-4xl">
+						¿Tienes dudas sobre qué pack elegir?
+					</h2>
+					<p class="text-muted-foreground mb-8 text-lg">
+						Reserva una llamada gratuita de 15 minutos y te ayudo a elegir el acompañamiento que
+						mejor se adapte a tu situación.
+					</p>
+					<div class="flex flex-col justify-center gap-4 sm:flex-row">
+						<Button variant="hero" size="lg" class="gap-2">
+							<img src="/images/icons/calendar.svg" alt="Icono de calendario" class="h-5 w-5" />
+							Agendar llamada gratuita
+						</Button>
+						<Button variant="outline" size="lg" class="gap-2">
+							<img src="/images/icons/message-circle.svg" alt="Icono de mensaje" class="h-5 w-5" />
+							Contactar por WhatsApp
+						</Button>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
