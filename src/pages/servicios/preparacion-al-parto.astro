@@ -1,5 +1,11 @@
 ---
 import Button from "@/components/ui/Button.astro"
+import Card from "@/components/ui/Card.astro"
+import CardContent from "@/components/ui/CardContent.astro"
+import CardDescription from "@/components/ui/CardDescription.astro"
+import CardFooter from "@/components/ui/CardFooter.astro"
+import CardHeader from "@/components/ui/CardHeader.astro"
+import CardTitle from "@/components/ui/CardTitle.astro"
 import Layout from "@/layouts/Layout.astro"
 
 const packs = [
@@ -17,7 +23,6 @@ const packs = [
 		ideal:
 			"Estás en tu primer embarazo o quieres una preparación breve pero completa para entender y confiar en tu cuerpo.",
 		highlight: false,
-		icon: "/images/icons/cookie.svg",
 	},
 	{
 		name: "Fluye con tu parto",
@@ -33,7 +38,6 @@ const packs = [
 		ideal:
 			"Buscas una preparación más completa, con herramientas prácticas y corporales que te ayuden a vivir tu parto de forma activa y consciente.",
 		highlight: true,
-		icon: "/images/icons/cookie.svg",
 	},
 	{
 		name: "El viaje de nacer",
@@ -52,7 +56,6 @@ const packs = [
 		ideal:
 			"Quieres una preparación completa, en pareja o en solitario, con acompañamiento cercano y recursos prácticos antes, durante y después del parto.",
 		highlight: false,
-		icon: "/images/icons/cookie.svg",
 	},
 ]
 
@@ -60,18 +63,17 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
 <Layout title="Sobre Mí - Femm Tribu" navScrolled={true}>
-	<main class="pt-22">
-		<section class="relative overflow-hidden pb-16 lg:pt-40 lg:pb-24">
-			{/* Background decorations */}
-			<div
-				class="bg-coral-light/20 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
-			>
-			</div>
-			<div
-				class="bg-secondary/15 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-			>
-			</div>
-
+	<main class="relative mt-21 overflow-x-hidden">
+		{/* Background decorations */}
+		<div
+			class="bg-coral-light/20 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
+		>
+		</div>
+		<div
+			class="bg-secondary/15 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+		>
+		</div>
+		<section class="relative container mx-auto mt-16 mb-16 overflow-hidden px-4 lg:mb-24 lg:px-8">
 			<div class="relative z-10 container mx-auto px-4 lg:px-8">
 				<div class="mx-auto max-w-4xl text-center">
 					<span
@@ -96,10 +98,9 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		<section class="pb-24 lg:pb-32">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-					<!-- {
-						packs.map((pack, index) => (
+					{
+						packs.map((pack) => (
 							<Card
-								key={index}
 								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
 									pack.highlight
 										? "border-accent ring-accent/20 shadow-lg ring-2"
@@ -113,22 +114,13 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 								)}
 
 								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4 flex items-center gap-3">
-										<div
-											class={`flex h-12 w-12 items-center justify-center rounded-xl ${
-												pack.highlight ? "bg-accent/20" : "bg-muted"
-											}`}
-										>
-											<pack.icon
-												class={`h-6 w-6 ${pack.highlight ? "text-accent" : "text-primary"}`}
-											/>
-										</div>
-										<div>
-											<CardTitle class="font-display text-primary text-xl">{pack.name}</CardTitle>
-											<CardDescription class="text-accent font-medium">
-												{pack.subtitle}
-											</CardDescription>
-										</div>
+									<div class="mb-4">
+										<CardTitle class="font-display text-primary mb-1 text-2xl">
+											{pack.name}
+										</CardTitle>
+										<CardDescription class="text-accent text-base font-medium">
+											{pack.subtitle}
+										</CardDescription>
 									</div>
 
 									<div class="mb-4 flex items-baseline gap-1">
@@ -138,35 +130,46 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
 								</CardHeader>
 
-								<CardContent class="space-y-6">
+								<CardContent>
 									{/* Features */}
 									<div class="space-y-3">
-										{pack.features.map((feature, featureIndex) => (
-											<div key={featureIndex} class="flex items-start gap-3">
+										{pack.features.map((feature) => (
+											<div class="flex items-start gap-3">
 												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<Check class="text-accent h-3 w-3" />
+													<svg
+														class="text-accent h-3 w-3"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="3"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+													>
+														<polyline points="20 6 9 17 4 12" />
+													</svg>
 												</div>
 												<span class="text-muted-foreground text-sm">{feature}</span>
 											</div>
 										))}
 									</div>
+								</CardContent>
 
+								<CardFooter class="flex-col gap-4">
 									{/* Ideal for */}
-									<div class="bg-muted/50 rounded-xl p-4">
+									<div class="bg-muted/50 w-full rounded-xl p-4">
 										<p class="text-sm">
 											<span class="text-primary font-medium">Ideal para ti si: </span>
 											<span class="text-muted-foreground">{pack.ideal}</span>
 										</p>
 									</div>
-
 									{/* CTA Button */}
 									<Button variant={pack.highlight ? "hero" : "outline"} class="w-full" size="lg">
 										Reservar {pack.subtitle}
 									</Button>
-								</CardContent>
+								</CardFooter>
 							</Card>
 						))
-					} -->
+					}
 				</div>
 			</div>
 		</section>
@@ -227,19 +230,19 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			</div>
 		</section>
 	</main>
-</Layout>
 
-<script define:vars={{ phoneNumber }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		const whatsappBtn = document.getElementById("whatsapp-service-btn")
+	<script define:vars={{ phoneNumber }}>
+		document.addEventListener("DOMContentLoaded", () => {
+			const whatsappBtn = document.getElementById("whatsapp-service-btn")
 
-		whatsappBtn?.addEventListener("click", () => {
-			const serviceName = whatsappBtn.dataset.serviceName || "los servicios"
-			const message = encodeURIComponent(
-				`Hola! Me interesa saber más sobre *${serviceName}* de *Femm tribu*.`
-			)
-			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			window.modalManager.close("service-info-modal")
+			whatsappBtn?.addEventListener("click", () => {
+				const serviceName = whatsappBtn.dataset.serviceName || "los servicios"
+				const message = encodeURIComponent(
+					`Hola! Me interesa saber más sobre *${serviceName}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+				window.modalManager.close("service-info-modal")
+			})
 		})
-	})
-</script>
+	</script>
+</Layout>
