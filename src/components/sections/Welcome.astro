@@ -6,6 +6,8 @@ import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
 import WhatsAppIcon from "@/assets/iconos/whatsapp.svg"
 
+import Button from "../ui/Button.astro"
+
 const images = ["/images/hands-together.webp"]
 
 const description = "Salud integral femenina"
@@ -51,24 +53,24 @@ const description = "Salud integral femenina"
 
 		<!-- CTA Buttons -->
 		<div class="cta-buttons mb-4 flex flex-col gap-2 sm:flex-row sm:gap-6">
-			<a
+			<Button
 				href={import.meta.env.WHATSAPP_COMMUNITY_URL}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="cta-button cta-whatsapp group animate-fade-up [animation-duration:2s]"
+				variant="secondary"
 			>
 				<WhatsAppIcon />
 				<span>Únete a nuestra comunidad</span>
-			</a>
-			<a
+			</Button>
+			<Button
 				href={import.meta.env.CALENDLY_URL}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="cta-button cta-primary group animate-fade-up [animation-duration:2s]"
+				variant="organic"
 			>
 				<CalendarIcon />
 				<span>Reserva tu cita</span>
-			</a>
+			</Button>
 		</div>
 
 		<!-- Social Media Icons -->
