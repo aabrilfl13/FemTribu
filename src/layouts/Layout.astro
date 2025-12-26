@@ -14,16 +14,10 @@ export interface Props {
 	description?: string
 	image?: string
 	type?: "website" | "article"
+	noindex?: boolean
 	navScrolled?: boolean
 }
-
-const {
-	title = "Femm Tribu",
-	description = "Acompañamiento a mujeres en todas las etapas de su vida para entender su cuerpo y mejorar su salud. Salud hormonal, embarazo, lactancia, menopausia.",
-	image = "images/og-hands-together.jpg",
-	type = "website",
-	navScrolled = false,
-} = Astro.props
+const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
 ---
 
 <!doctype html>
@@ -83,7 +77,7 @@ const {
 
 		<!-- Keep SVG for browsers that support it -->
 		<!-- SEO and Social Meta -->
-		<SEO title={title} description={description} image={image} type={type} />
+		<SEO title={title} description={description} image={image} type={type} noindex={noindex} />
 		<meta
 			name="keywords"
 			content="maternidad, lactancia, embarazo, matrona, mujer, mujeres, salud femenina, María Belenguer"
