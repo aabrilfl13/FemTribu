@@ -60,10 +60,15 @@ const packs = [
 	},
 ]
 
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+const seoData = {
+	title: "Preparación al Parto | Femm tribu",
+	description:
+		"Prepárate para el parto con nuestro curso online. Aprende técnicas de respiración, manejo del dolor y qué esperar durante el trabajo de parto con María Belenguer, matrona.",
+	type: "website" as const,
+}
 ---
 
-<Layout title="Sobre Mí - Femm Tribu" navScrolled={true}>
+<Layout navScrolled={true} {...seoData}>
 	<main class="pt-21">
 		{/* Background decorations */}
 		<div

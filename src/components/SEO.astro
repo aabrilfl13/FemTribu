@@ -1,0 +1,45 @@
+---
+interface Props {
+	title?: string
+	description?: string
+	image?: string
+	type?: "website" | "article"
+	noindex?: boolean
+}
+
+const {
+	title = "Femm tribu",
+	description = "Acompañamiento a mujeres en todas las etapas de su vida para entender su cuerpo y mejorar su salud. Salud hormonal, embarazo, lactancia, menopausia.",
+	image = "images/og-hands-together.jpg", // imagen por defecto
+	type = "website",
+	noindex = false,
+} = Astro.props
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const fullImageUrl = new URL(image, Astro.site).toString()
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:site_name" content="Femm tribu" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullImageUrl} />
