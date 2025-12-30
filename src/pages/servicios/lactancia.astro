@@ -1,0 +1,209 @@
+---
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import Card from "@/components/ui/Card.astro"
+import CardContent from "@/components/ui/CardContent.astro"
+import CardDescription from "@/components/ui/CardDescription.astro"
+import CardFooter from "@/components/ui/CardFooter.astro"
+import CardHeader from "@/components/ui/CardHeader.astro"
+import CardTitle from "@/components/ui/CardTitle.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const packs = [
+	{
+		name: "Tu lactancia paso a paso",
+		subtitle: "Pack Básico",
+		price: 70,
+		description:
+			"Una sesión personalizada para abordar el motivo que te preocupa (dolor, grietas, agarre, producción, dudas sobre suplementos, etc.) y encontrar soluciones adaptadas a tu situación. Incluye acompañamiento posterior para que no te sientas sola en el proceso y puedas poner en práctica lo aprendido con seguridad.",
+		features: [
+			"Sesión individual (online o presencial) para resolver el problema.",
+			"15 días de seguimiento para revisar avances y resolver dudas.",
+			"PDF con recomendaciones personalizadas.",
+		],
+		ideal:
+			"Estás viviendo un reto puntual en tu lactancia y quieres resolverlo con información clara y apoyo cercano.",
+		highlight: false,
+		tier: "basic",
+	},
+	{
+		name: "Acompañando tu lactancia",
+		subtitle: "Pack Medio",
+		price: 150,
+		description:
+			"Un seguimiento más profundo para acompañarte durante todo el primer mes de lactancia, con sesiones adaptadas a tus necesidades: seguimiento, banco de leche, reincorporación al trabajo o destete.",
+		features: [
+			"Todo lo del Pack Básico.",
+			"Sesión a la semana: seguimiento o taller de creación y conservación de banco de leche.",
+			"Sesión a las 2 semanas: seguimiento o taller de incorporación al trabajo remunerado.",
+			"Sesión al mes: seguimiento o taller de destete.",
+		],
+		ideal:
+			"quieres un acompañamiento completo durante el primer mes o estás viviendo una lactancia con altibajos y buscas seguridad, guía y herramientas.",
+		highlight: true,
+		tier: "medium",
+	},
+	{
+		name: "Lactancia plena",
+		subtitle: "Pack Premium",
+		price: 220,
+		description:
+			"Este pack está diseñado para acompañarte desde antes del nacimiento de tu bebé, ayudándote a prepararte con información, confianza y herramientas reales. Incluye seguimiento continuo durante los primeros meses y una sesión extra para resolver dudas o abordar cualquier cambio en el futuro.",
+		features: [
+			"Todo lo del Pack Medio",
+			"Sesión pre-mamá: todo lo que necesitas saber antes de comenzar tu lactancia.",
+			"Sesión a la semana del nacimiento.",
+			"Sesión a las 2 semanas.",
+			"Sesión al mes.",
+			"Sesión extra a usar en los siguientes 6 meses.",
+			"Descargables y recursos prácticos.",
+			"Acompañamiento por WhatsApp durante el primer mes.",
+		],
+		ideal:
+			"estás embarazada o acabas de dar a luz y quieres vivir tu lactancia con acompañamiento profesional, continuo y personalizado.",
+		highlight: false,
+		tier: "premium",
+	},
+]
+
+const seoData = {
+	title: "Matrona Lactancia | Femm tribu",
+	description:
+		"Acompañamiento presencial en Valencia y online con matrona María Belenguer. Prepara tu parto con ciencia y alma: fisiología, gestión del miedo y posparto. ¡Confía en tu cuerpo!",
+	type: "website" as const,
+}
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+---
+
+<Layout navScrolled={true} {...seoData}>
+	<main class="pt-21">
+		{/* Background decorations */}
+		<div
+			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+		>
+		</div>
+		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="z-10 container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-4xl text-center">
+					<span
+						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					>
+						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
+						Acompañamiento personalizado
+					</span>
+					<h1 class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl">
+						Asesoría de{" "}
+						<span class="text-accent">Lactancia</span>
+					</h1>
+					<p class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl">
+						Un acompañamiento profesional para que vivas tu lactancia con confianza, información y
+						apoyo continuo. Elige el pack que mejor se adapte a ti.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		{/* Pricing Cards */}
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+					{
+						packs.map((pack) => (
+							<Card
+								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
+									pack.highlight
+										? "border-accent ring-accent/20 shadow-lg ring-2"
+										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
+								}`}
+							>
+								{pack.highlight && (
+									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
+										Recomendado
+									</div>
+								)}
+
+								<CardHeader class={pack.highlight ? "pt-12" : ""}>
+									<div class="mb-4">
+										<CardTitle class="font-display text-primary mb-1 text-2xl">
+											{pack.name}
+										</CardTitle>
+										<CardDescription class="text-accent text-base font-medium">
+											{pack.subtitle}
+										</CardDescription>
+									</div>
+
+									<div class="mb-4 flex items-baseline gap-1">
+										<span class="font-display text-primary text-4xl">{pack.price}€</span>
+									</div>
+
+									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
+								</CardHeader>
+
+								<CardContent>
+									{/* Features */}
+									<div class="space-y-3">
+										{pack.features.map((feature) => (
+											<div class="flex items-start gap-3">
+												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+													<svg
+														class="text-accent h-3 w-3"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="3"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+													>
+														<polyline points="20 6 9 17 4 12" />
+													</svg>
+												</div>
+												<span class="text-muted-foreground text-sm">{feature}</span>
+											</div>
+										))}
+									</div>
+								</CardContent>
+
+								<CardFooter class="flex-col gap-4">
+									{/* Ideal for */}
+									<div class="bg-muted/50 w-full rounded-xl p-4">
+										<p class="text-sm">
+											<span class="text-primary font-medium">Ideal para ti si: </span>
+											<span class="text-muted-foreground">{pack.ideal}</span>
+										</p>
+									</div>
+									{/* CTA Button */}
+									<Button
+										variant={pack.highlight ? "hero" : "outline"}
+										class="w-full"
+										size="lg"
+										data-service-tier={pack.tier}
+									>
+										Reservar {pack.subtitle}
+									</Button>
+								</CardFooter>
+							</Card>
+						))
+					}
+				</div>
+			</div>
+		</section>
+		<AdditionalInfo serviceName="Preparación al Parto" />
+	</main>
+</Layout>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll("button[data-service-tier]")
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const tier = button.getAttribute("data-service-tier") || "basic"
+				const message = encodeURIComponent(
+					`Hola! Me interesa saber más sobre *Preparación al Parto* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+			})
+		})
+	})
+</script>
