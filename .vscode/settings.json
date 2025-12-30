@@ -26,5 +26,8 @@
   "prettier.enable": true,
   "prettier.requireConfig": false,
   "prettier.resolveGlobalModules": true,
-  "prettier.useEditorConfig": false
+  "prettier.useEditorConfig": false,
+  "[html]": {
+    "editor.defaultFormatter": "prettier.prettier-vscode"
+  }
 }
