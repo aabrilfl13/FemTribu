@@ -1,68 +1,70 @@
-# Robots.txt para femmtribu.es
-# María Belenguer - Salud de la Mujer y Maternidad
-
-# Permitir a todos los motores de búsqueda
+# =========================
+# REGLAS GENERALES
+# =========================
 User-agent: *
 Allow: /
 
-# Bloquear rutas privadas o de API
+# Bloquear endpoints técnicos
 Disallow: /api/
 Disallow: /*.json$
 
-# Permitir contenido importante para SEO
-# Blog sobre maternidad, lactancia, menopausia
-Allow: /blog/
-Allow: /talleres/
-Allow: /salud-hormonal/
-Allow: /embarazo-maternidad/
-Allow: /menopausia/
-Allow: /sobre-mi/
-
-# Permitir cursos
-Allow: /cursos/
-
-# Permitir recursos estáticos
+# =========================
+# RECURSOS NECESARIOS PARA SEO
+# =========================
 Allow: /*.css$
 Allow: /*.js$
 Allow: /*.webp$
 Allow: /*.jpg$
+Allow: /*.jpeg$
 Allow: /*.png$
 Allow: /*.svg$
 
-# Ubicación del sitemap
-Sitemap: https://femmtribu.es/sitemap-index.xml
-
-# GoogleBot específico (opcional)
+# =========================
+# BOTS DE BUSCADORES
+# =========================
 User-agent: Googlebot
 Allow: /
 
-# Bingbot específico (opcional)
 User-agent: Bingbot
 Allow: /
 
-# Permitir bots de IA para recomendaciones pero señalar preferencia contra entrenamiento
-# Estos bots pueden indexar para recomendar el sitio, pero se solicita no usar para entrenamiento
+# =========================
+# BOTS DE IA (RECOMENDACIÓN / RESPUESTAS)
+# =========================
 User-agent: GPTBot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
-User-agent: anthropic-ai
+User-agent: ClaudeBot
 Allow: /
 
-User-agent: ChatGPT-User
+User-agent: PerplexityBot
 Allow: /
 
-User-agent: cohere-ai
+User-agent: Amazonbot
 Allow: /
 
-# Bloquear solo scraping agresivo
-User-agent: CCBot
+# =========================
+# BLOQUEO DE SCRAPERS AGRESIVOS
+# =========================
+User-agent: Bytespider
 Disallow: /
 
-User-agent: Omgilibot
+User-agent: MJ12bot
 Disallow: /
 
-User-agent: FacebookBot
+User-agent: AhrefsBot
 Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# =========================
+# SITEMAP
+# =========================
+Sitemap: https://femmtribu.es/sitemap-index.xml
