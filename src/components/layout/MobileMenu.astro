@@ -188,6 +188,7 @@ const { navItems } = Astro.props
 		z-index: 1000;
 		box-shadow: -10px 0 50px rgba(55, 68, 58, 0.2);
 		overflow-y: auto;
+		overflow-x: hidden;
 	}
 
 	.mobile-menu.active {
@@ -318,7 +319,6 @@ const { navItems } = Astro.props
 	.mobile-menu.active::before {
 		opacity: 1;
 		pointer-events: all;
-		left: -100vw;
 	}
 
 	@media (max-width: 1024px) {
