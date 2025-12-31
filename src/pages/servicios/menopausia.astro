@@ -9,6 +9,8 @@ import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
 import Layout from "@/layouts/Layout.astro"
 
+const serviceName = "Menopausia"
+
 const packs = [
 	{
 		name: "Descubre tu menopausia",
@@ -186,7 +188,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				</div>
 			</div>
 		</section>
-		<AdditionalInfo serviceName="Menopausia" />
+		<AdditionalInfo serviceName={serviceName} />
 	</main>
 </Layout>
 
@@ -198,7 +200,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			button.addEventListener("click", () => {
 				const tier = button.getAttribute("data-service-tier") || "basic"
 				const message = encodeURIComponent(
-					`Hola! Me interesa saber más sobre *Menopausia* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
+					`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
 				)
 				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
 			})
