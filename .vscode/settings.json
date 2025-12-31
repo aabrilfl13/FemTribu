@@ -29,5 +29,8 @@
   "prettier.useEditorConfig": false,
   "[html]": {
     "editor.defaultFormatter": "prettier.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "prettier.prettier-vscode"
   }
 }
