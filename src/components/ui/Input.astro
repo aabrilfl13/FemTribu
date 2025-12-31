@@ -3,16 +3,26 @@ import { cn } from "@/utils/cn"
 
 const className = Astro.props.class ?? ""
 const type = Astro.props.type ?? "text"
+const as = Astro.props.as ?? "input" // Add 'as' prop to choose element type
 
-// Collect all other props except class and type
-const { class: _c, type: _t, ...rest } = Astro.props
+// Collect all other props except class, type, and as
+const { class: _c, type: _t, as: _a, ...rest } = Astro.props
 
 // Base input classes
 const baseClasses =
 	"flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
 
+// Textarea specific classes
+const textareaClasses = "min-h-[80px] resize-y"
+
 // Build final class string
-const inputClass = cn(baseClasses, className)
+const inputClass = cn(baseClasses, as === "textarea" && textareaClasses, className)
 ---
 
-<input type={type} class={inputClass} {...rest} />
+{
+	as === "textarea" ? (
+		<textarea class={inputClass} {...rest} />
+	) : (
+		<input type={type} class={inputClass} {...rest} />
+	)
+}
