@@ -98,7 +98,7 @@ const preconceptionPacks = [
 			"Sesión de seguimiento a los dos meses",
 		],
 		ideal: "Quieres una valoración inicial antes de buscar el embarazo.",
-		highlight: false,
+		highlight: true,
 		tier: "preconception",
 	},
 ]
@@ -228,22 +228,124 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			</div>
 		</section>
 
-		<AdditionalInfo serviceName={serviceName} />
+		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="z-10 container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-4xl text-center">
+					<span
+						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					>
+						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
+						Preparación para la maternidad
+					</span>
+					<h2 class="font-display text-primary mb-4 text-3xl md:text-4xl">
+						Consulta Preconcepcional
+					</h2>
+					<p class="text-muted-foreground mx-auto max-w-2xl">
+						Prepara tu cuerpo y tu mente para recibir una nueva vida
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="grid gap-8 md:grid-cols-2 lg:gap-6">
+					{
+						preconceptionPacks.map((pack) => (
+							<Card
+								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
+									pack.highlight
+										? "border-accent ring-accent/20 shadow-lg ring-2"
+										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
+								}`}
+							>
+								{pack.highlight && (
+									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
+										Recomendado
+									</div>
+								)}
+
+								<CardHeader class={pack.highlight ? "pt-12" : ""}>
+									<div class="mb-4">
+										<CardTitle class="font-display text-primary mb-1 text-2xl">
+											{pack.name}
+										</CardTitle>
+										<CardDescription class="text-accent text-base font-medium">
+											{pack.subtitle}
+										</CardDescription>
+									</div>
+
+									<div class="mb-4 flex items-baseline gap-1">
+										<span class="font-display text-primary text-4xl">{pack.price}€</span>
+									</div>
+
+									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
+								</CardHeader>
+
+								<CardContent>
+									{/* Features */}
+									<div class="space-y-3">
+										{pack.features.map((feature) => (
+											<div class="flex items-start gap-3">
+												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+													<svg
+														class="text-accent h-3 w-3"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="3"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+													>
+														<polyline points="20 6 9 17 4 12" />
+													</svg>
+												</div>
+												<span class="text-muted-foreground text-sm">{feature}</span>
+											</div>
+										))}
+									</div>
+								</CardContent>
+
+								<CardFooter class="flex-col gap-4">
+									{/* Ideal for */}
+									<div class="bg-muted/50 w-full rounded-xl p-4">
+										<p class="text-sm">
+											<span class="text-primary font-medium">Ideal para ti si: </span>
+											<span class="text-muted-foreground">{pack.ideal}</span>
+										</p>
+									</div>
+									{/* CTA Button */}
+									<Button
+										variant={pack.highlight ? "hero" : "outline"}
+										class="w-full"
+										size="lg"
+										data-service-tier={pack.tier}
+									>
+										Reservar {pack.subtitle}
+									</Button>
+								</CardFooter>
+							</Card>
+						))
+					}
+				</div>
+			</div>
+		</section>
 	</main>
-</Layout>
 
-<script define:vars={{ phoneNumber }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-tier]")
+	<AdditionalInfo serviceName={serviceName} />
 
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const tier = button.getAttribute("data-service-tier") || "basic"
-				const message = encodeURIComponent(
-					`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+	<script define:vars={{ phoneNumber }}>
+		document.addEventListener("DOMContentLoaded", () => {
+			const buttons = document.querySelectorAll("button[data-service-tier]")
+
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					const tier = button.getAttribute("data-service-tier") || "basic"
+					const message = encodeURIComponent(
+						`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
+					)
+					window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+				})
 			})
 		})
-	})
-</script>
+	</script>
+</Layout>
