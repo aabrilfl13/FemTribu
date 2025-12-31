@@ -1,0 +1,22 @@
+---
+import Button from "@/components/ui/Button.astro"
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout
+	title="404 - Femm Tribu"
+	description="La página que buscas no existe o ha sido movida."
+	navScrolled={true}
+	noindex={true}
+>
+	<div class="flex min-h-screen items-center justify-center px-4">
+		<div class="mx-auto max-w-2xl text-center">
+			<h1 class="text-coral mb-4 text-6xl font-bold">404</h1>
+			<h2 class="text-sage mb-6 text-3xl font-semibold">Página no encontrada</h2>
+			<p class="mb-8 text-lg text-gray-700">
+				Lo sentimos, la página que buscas no existe o ha sido movida.
+			</p>
+			<Button href="/" variant="soft"> Volver al inicio </Button>
+		</div>
+	</div>
+</Layout>
