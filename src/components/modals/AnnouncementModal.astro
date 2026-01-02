@@ -1,0 +1,226 @@
+---
+import Button from "@/components/ui/Button.astro"
+import Modal from "@/components/ui/Modal.astro"
+
+interface Props {
+	id?: string
+	title: string
+	description: string
+	ctaText: string
+	ctaLink: string
+	imageSrc?: string
+	delay?: number // in milliseconds
+	scrollTrigger?: number // percentage (0-100)
+	expiryDays?: number // days until modal can be shown again
+}
+
+const {
+	id = "announcement-modal",
+	title,
+	description,
+	ctaText,
+	ctaLink,
+	imageSrc,
+	delay = 5000, // 5 seconds default
+	scrollTrigger = 0, // 0 = time-based only
+	expiryDays = 7, // 7 days default
+} = Astro.props
+---
+
+<Modal id={id} size="lg">
+	<div class="announcement-content">
+		{
+			imageSrc && (
+				<div class="announcement-image">
+					<img src={imageSrc} alt={title} />
+				</div>
+			)
+		}
+
+		<div class="announcement-text">
+			<h2 class="font-display text-forest text-3xl leading-tight font-normal md:text-4xl">
+				{title}
+			</h2>
+
+			<p class="text-sage mt-4 text-base leading-relaxed md:text-lg">
+				{description}
+			</p>
+
+			<div class="announcement-actions mt-6 flex flex-col gap-3 sm:flex-row">
+				<Button
+					data-modal-close
+					class="bg-terracotta hover:bg-terracotta/90 w-full text-white sm:w-auto"
+				>
+					<a href={ctaLink} class="block w-full">
+						{ctaText}
+					</a>
+				</Button>
+
+				<Button
+					data-modal-close
+					variant="outline"
+					class="border-sage text-sage hover:bg-sage/10 w-full sm:w-auto"
+				>
+					Ahora no
+				</Button>
+			</div>
+		</div>
+	</div>
+</Modal>
+
+<style>
+	.announcement-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.announcement-image {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: 1rem;
+		overflow: hidden;
+		background: linear-gradient(135deg, rgba(106, 128, 103, 0.1) 0%, rgba(203, 110, 95, 0.1) 100%);
+	}
+
+	.announcement-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.announcement-image:hover img {
+		transform: scale(1.05);
+	}
+
+	.announcement-text {
+		padding: 0.5rem 0;
+	}
+
+	@media (min-width: 768px) {
+		.announcement-content {
+			gap: 2rem;
+		}
+	}
+
+	/* Animation for content */
+	.announcement-content {
+		animation: slideUp 0.4s ease-out;
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
+
+<script define:vars={{ id, delay, scrollTrigger, expiryDays }}>
+	class AnnouncementModalManager {
+		constructor(modalId, delay, scrollTrigger, expiryDays) {
+			this.modalId = modalId
+			this.delay = delay
+			this.scrollTrigger = scrollTrigger
+			this.expiryDays = expiryDays
+			this.storageKey = `announcement-modal-${modalId}-dismissed`
+			this.hasShown = false
+
+			this.init()
+		}
+
+		init() {
+			// Check if modal should be shown
+			if (this.shouldShowModal()) {
+				if (this.scrollTrigger > 0) {
+					// Scroll-based trigger
+					this.initScrollTrigger()
+				} else {
+					// Time-based trigger
+					setTimeout(() => this.showModal(), this.delay)
+				}
+			}
+
+			// Listen for modal close to save dismissal
+			const modal = document.getElementById(this.modalId)
+			modal?.addEventListener("modal:closed", () => this.onModalClosed())
+		}
+
+		shouldShowModal() {
+			// Check if modal was recently dismissed
+			const dismissedAt = localStorage.getItem(this.storageKey)
+			if (dismissedAt) {
+				const dismissedDate = new Date(dismissedAt)
+				const now = new Date()
+				const daysSinceDismissed = (now - dismissedDate) / (1000 * 60 * 60 * 24)
+
+				if (daysSinceDismissed < this.expiryDays) {
+					return false
+				}
+			}
+
+			return true
+		}
+
+		initScrollTrigger() {
+			let triggered = false
+
+			const handleScroll = () => {
+				if (triggered || this.hasShown) return
+
+				const scrollPercentage =
+					(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100
+
+				if (scrollPercentage >= this.scrollTrigger) {
+					triggered = true
+					this.showModal()
+					window.removeEventListener("scroll", handleScroll)
+				}
+			}
+
+			window.addEventListener("scroll", handleScroll, { passive: true })
+
+			// Also check on page load in case already scrolled
+			handleScroll()
+		}
+
+		showModal() {
+			if (this.hasShown) return
+
+			this.hasShown = true
+
+			// Use the global modal manager
+			if (window.modalManager) {
+				window.modalManager.open(this.modalId)
+			}
+		}
+
+		onModalClosed() {
+			// Save dismissal timestamp
+			localStorage.setItem(this.storageKey, new Date().toISOString())
+		}
+	}
+
+	// Initialize the announcement modal manager
+	// Wait for modalManager to be ready
+	function initAnnouncementModal() {
+		if (window.modalManager) {
+			new AnnouncementModalManager(id, delay, scrollTrigger, expiryDays)
+		} else {
+			// Wait a bit and try again
+			setTimeout(initAnnouncementModal, 100)
+		}
+	}
+
+	// Start initialization after DOM is ready
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initAnnouncementModal)
+	} else {
+		initAnnouncementModal()
+	}
+</script>

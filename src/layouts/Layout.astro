@@ -10,6 +10,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics.astro"
 import Footer from "@/components/layout/Footer.astro"
 import Nav from "@/components/layout/Nav.astro"
 import MicrosoftClarity from "@/components/MicrosoftClarity.astro"
+import AnnouncementModal from "@/components/modals/AnnouncementModal.astro"
 import LocalBusinessSchema from "@/components/schema/LocalBusinessSchema.astro"
 import OrganizationSchema from "@/components/schema/OrganizationSchema.astro"
 import PersonSchema from "@/components/schema/PersonSchema.astro"
@@ -151,6 +152,16 @@ const isDevelopment = import.meta.env.ENV === "development"
 			</div> -->
 			<Nav scrolled={navScrolled} />
 			<slot />
+			<AnnouncementModal
+				id="webinar-jan-2026"
+				title="Webinar gratuito: Prepárate para amamantar"
+				description="Únete a María Belenguer en un webinar exclusivo donde aprenderás todo lo necesario para comenzar tu experiencia de lactancia con confianza. Plazas limitadas."
+				ctaText="Reservar plaza gratis"
+				ctaLink="https://your-webinar-link.com"
+				imageSrc="/images/og-hands-together.webp"
+				delay={1000}
+				expiryDays={5}
+			/>
 			<Footer />
 			<CookiesOverlay />
 		</div>
