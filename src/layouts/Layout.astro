@@ -21,6 +21,7 @@ export interface Props {
 	navScrolled?: boolean
 }
 const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
+const isDevelopment = import.meta.env.ENV === "development"
 ---
 
 <!doctype html>
@@ -110,8 +111,8 @@ const { title, description, image, type, noindex = false, navScrolled = false } 
 		/>
 
 		<!-- Analytics placeholder (will be loaded based on cookie consent) -->
-		<GoogleAnalytics />
-		<MicrosoftClarity />
+		{!isDevelopment && <GoogleAnalytics />}
+		{!isDevelopment && <MicrosoftClarity />}
 		<script is:inline>
 			function handleConsent(preferences) {
 				// Si se aceptan analíticas, cargamos los servicios

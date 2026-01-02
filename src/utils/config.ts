@@ -49,10 +49,10 @@ export const env = {
 	get authToken() {
 		return import.meta.env.WEBHOOK_AUTH_TOKEN
 	},
-	get isDev() {
-		return import.meta.env.DEBUG == true
+	get isDevelopment() {
+		return import.meta.env.DEBUG == true && import.meta.env.ENV === "development"
 	},
 	get isProd() {
-		return import.meta.env.DEBUG == false
+		return import.meta.env.DEBUG == false && import.meta.env.ENV === "production"
 	},
 } as const

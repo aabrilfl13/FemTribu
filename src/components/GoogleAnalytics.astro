@@ -1,7 +1,10 @@
 ---
 const GA_ID = import.meta.env.PUBLIC_GA_ID || "G-XXXXXXXXXX"
+const ENV = import.meta.env.ENV || "production"
+const isDevelopment = ENV === "development"
 ---
 
+{!isDevelopment && (
 <script define:vars={{ GA_ID }}>
 	// Creamos una función para cargar el script de Google de forma dinámica
 	function loadGAScript() {
@@ -27,3 +30,4 @@ const GA_ID = import.meta.env.PUBLIC_GA_ID || "G-XXXXXXXXXX"
 	// Escuchar el evento que enviamos desde Layout.astro
 	window.addEventListener("load-analytics-services", loadGAScript)
 </script>
+)}
