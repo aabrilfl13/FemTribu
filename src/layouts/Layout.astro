@@ -112,6 +112,31 @@ const { title, description, image, type, noindex = false, navScrolled = false } 
 		<!-- Analytics placeholder (will be loaded based on cookie consent) -->
 		<GoogleAnalytics />
 		<MicrosoftClarity />
+		<script is:inline>
+			function handleConsent(preferences) {
+				// Si se aceptan analíticas, cargamos los servicios
+				if (preferences && preferences.analytics) {
+					console.log("Consentimiento recibido: Cargando Analytics y Clarity...")
+
+					// Disparamos un evento que los componentes específicos escucharán
+					window.dispatchEvent(new CustomEvent("load-analytics-services"))
+				}
+			}
+
+			// 1. Escuchar cambios en tiempo real
+			window.addEventListener("cookie-consent-updated", (event) => {
+				handleConsent(event.detail)
+			})
+
+			// 2. Comprobar al cargar la página si ya existía consentimiento
+			document.addEventListener("DOMContentLoaded", () => {
+				const stored = localStorage.getItem("femm-tribu-user-consent")
+				if (stored) {
+					const { preferences } = JSON.parse(stored)
+					handleConsent(preferences)
+				}
+			})
+		</script>
 	</head>
 	<body>
 		<div class="bg-background min-h-screen">

@@ -701,6 +701,11 @@
 			document.getElementById("preference-settings-btn")?.addEventListener("click", () => {
 				this.showPrivacyOverlay()
 			})
+
+			// Custom event to open cookie banner
+			window.addEventListener("open-cookie-banner", () => {
+				this.showPrivacyOverlay()
+			})
 		}
 
 		/**
@@ -919,6 +924,11 @@
 
 			try {
 				localStorage.setItem(this.storageKey, JSON.stringify(consent))
+				window.dispatchEvent(
+					new CustomEvent("cookie-consent-updated", {
+						detail: preferences,
+					})
+				)
 			} catch (error) {
 				console.error("Error saving user consent:", error)
 			}
@@ -947,6 +957,9 @@
 			if (overlay) {
 				overlay.classList.remove("hidden")
 				overlay.classList.add("fade-in")
+
+				// Bloqueamos el scroll del fondo para que el usuario se centre en el banner [cite: 1]
+				document.body.style.overflow = "hidden"
 			}
 			this.hideFloatingButton()
 		}
