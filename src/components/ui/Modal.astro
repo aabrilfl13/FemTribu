@@ -92,9 +92,14 @@ const sizeClasses = {
 			const modals = document.querySelectorAll<HTMLDialogElement>("[data-modal]")
 
 			modals.forEach((modal) => {
-				// Cerrar con botón de cerrar
-				const closeBtn = modal.querySelector("[data-modal-close]")
-				closeBtn?.addEventListener("click", () => this.close(modal.id))
+				// Cerrar con botones de cerrar (todos los que tengan data-modal-close)
+				const closeBtns = modal.querySelectorAll("[data-modal-close]")
+				closeBtns.forEach((btn) => {
+					btn.addEventListener("click", (e) => {
+						e.preventDefault()
+						this.close(modal.id)
+					})
+				})
 
 				// Cerrar al hacer click en el backdrop
 				modal.addEventListener("click", (e) => {
