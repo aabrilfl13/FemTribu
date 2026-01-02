@@ -1,126 +1,138 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const seoData = {
+	title: "Política de Privacidad | Femm tribu",
+	description:
+		"Consulta nuestra Política de Privacidad para entender cómo recopilamos, usamos y protegemos tus datos personales en Femm tribu.",
+}
 ---
 
-<Layout title="Política de Privacidad - Femm tribu">
-	<div class="privacy-page">
-		<div class="privacy-container">
-			<header class="privacy-header">
-				<div class="header-content">
-					<a href="/" class="back-link">
-						<svg viewBox="0 0 24 24" fill="currentColor"
-							><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"></path></svg
-						>
-						Volver al inicio
-					</a>
-					<h1>Política de Privacidad</h1>
-					<p class="last-updated">
-						Última actualización: <time datetime="2024-05-20">20 de mayo de 2024</time>
-					</p>
-				</div>
-			</header>
+<Layout {...seoData} navScrolled={true}>
+	<main class="animate-fade-up mt-21">
+		<div class="privacy-page">
+			<div class="privacy-container">
+				<header class="privacy-header">
+					<div class="header-content">
+						<a href="/" class="back-link">
+							<svg viewBox="0 0 24 24" fill="currentColor"
+								><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.42-1.41L7.83 13H20v-2z"></path></svg
+							>
+							Volver al inicio
+						</a>
+						<h1>Política de Privacidad</h1>
+						<p class="last-updated">
+							Última actualización: <time datetime="2024-05-20">20 de mayo de 2024</time>
+						</p>
+					</div>
+				</header>
 
-			<main class="privacy-content">
-				<div class="content-wrapper">
-					<aside class="table-of-contents">
-						<h2>Contenido</h2>
-						<nav>
-							<ul>
-								<li><a href="#responsable">1. Responsable</a></li>
-								<li><a href="#datos-recopilamos">2. Datos que Recopilamos</a></li>
-								<li><a href="#finalidad">3. Finalidad del Tratamiento</a></li>
-								<li><a href="#base-legal">4. Base Jurídica</a></li>
-								<li><a href="#destinatarios">5. Destinatarios y Herramientas</a></li>
-								<li><a href="#derechos">6. Tus Derechos</a></li>
-							</ul>
-						</nav>
-					</aside>
-
-					<article class="policy-content">
-						<section id="responsable">
-							<h2>1. Responsable del Tratamiento</h2>
-							<p>
-								El responsable de tus datos es <strong>Femm Tribu</strong>. Para cualquier duda,
-								puedes contactarnos en <a href="mailto:info@femmtribu.com">info@femmtribu.com</a>.
-							</p>
-						</section>
-
-						<section id="datos-recopilamos">
-							<h2>2. Datos que Recopilamos</h2>
-							<div class="info-box">
-								<p>Recogemos información a través de tres vías principales:</p>
+				<main class="privacy-content">
+					<div class="content-wrapper">
+						<aside class="table-of-contents">
+							<h2>Contenido</h2>
+							<nav>
 								<ul>
+									<li><a href="#responsable">1. Responsable</a></li>
+									<li><a href="#datos-recopilamos">2. Datos que Recopilamos</a></li>
+									<li><a href="#finalidad">3. Finalidad del Tratamiento</a></li>
+									<li><a href="#base-legal">4. Base Jurídica</a></li>
+									<li><a href="#destinatarios">5. Destinatarios y Herramientas</a></li>
+									<li><a href="#derechos">6. Tus Derechos</a></li>
+								</ul>
+							</nav>
+						</aside>
+
+						<article class="policy-content">
+							<section id="responsable">
+								<h2>1. Responsable del Tratamiento</h2>
+								<p>
+									El responsable de tus datos es <strong>Femm Tribu</strong>. Para cualquier duda,
+									puedes contactarnos en <a href="mailto:info@femmtribu.com">info@femmtribu.com</a>.
+								</p>
+							</section>
+
+							<section id="datos-recopilamos">
+								<h2>2. Datos que Recopilamos</h2>
+								<div class="info-box">
+									<p>Recogemos información a través de tres vías principales:</p>
+									<ul>
+										<li>
+											<strong>Formularios de Talleres/Webinars:</strong> Nombre, apellidos, email y perfil
+											de red social.
+										</li>
+										<li><strong>Newsletter:</strong> Dirección de correo electrónico.</li>
+										<li>
+											<strong>Navegación Técnica:</strong> Datos analíticos (IP anonimizada, comportamiento
+											en web) a través de Google Analytics y Microsoft Clarity.
+										</li>
+									</ul>
+								</div>
+							</section>
+
+							<section id="finalidad">
+								<h2>3. Finalidad del Tratamiento</h2>
+								<p>Tratamos tus datos para:</p>
+								<ul>
+									<li>Gestionar tu inscripción y participación en nuestros talleres y webinars.</li>
 									<li>
-										<strong>Formularios de Talleres/Webinars:</strong> Nombre, apellidos, email y perfil
-										de red social.
+										Enviar nuestra newsletter semanal con contenido sobre maternidad y salud
+										femenina.
 									</li>
-									<li><strong>Newsletter:</strong> Dirección de correo electrónico.</li>
 									<li>
-										<strong>Navegación Técnica:</strong> Datos analíticos (IP anonimizada, comportamiento
-										en web) a través de Google Analytics y Microsoft Clarity.
+										Crear perfiles de "leads" en nuestro CRM para ofrecerte información relevante
+										según tus intereses.
+									</li>
+									<li>
+										Optimizar la web mediante el análisis de mapas de calor y métricas de
+										rendimiento.
 									</li>
 								</ul>
-							</div>
-						</section>
+							</section>
 
-						<section id="finalidad">
-							<h2>3. Finalidad del Tratamiento</h2>
-							<p>Tratamos tus datos para:</p>
-							<ul>
-								<li>Gestionar tu inscripción y participación en nuestros talleres y webinars.</li>
-								<li>
-									Enviar nuestra newsletter semanal con contenido sobre maternidad y salud femenina.
-								</li>
-								<li>
-									Crear perfiles de "leads" en nuestro CRM para ofrecerte información relevante
-									según tus intereses.
-								</li>
-								<li>
-									Optimizar la web mediante el análisis de mapas de calor y métricas de rendimiento.
-								</li>
-							</ul>
-						</section>
+							<section id="base-legal">
+								<h2>4. Base Jurídica</h2>
+								<p>
+									La base legal para tratar tus datos es el <strong>consentimiento explícito</strong
+									> que nos otorgas al marcar la casilla de aceptación en nuestros formularios y en el
+									banner de cookies. Puedes retirar este consentimiento en cualquier momento.
+								</p>
+							</section>
 
-						<section id="base-legal">
-							<h2>4. Base Jurídica</h2>
-							<p>
-								La base legal para tratar tus datos es el <strong>consentimiento explícito</strong> que
-								nos otorgas al marcar la casilla de aceptación en nuestros formularios y en el banner
-								de cookies. Puedes retirar este consentimiento en cualquier momento.
-							</p>
-						</section>
+							<section id="destinatarios">
+								<h2>5. Destinatarios y Herramientas</h2>
+								<p>
+									Tus datos no se venden a terceros, pero utilizamos servicios de confianza para
+									operar:
+								</p>
+								<ul>
+									<li>
+										<strong>Vercel:</strong> Alojamiento de la web y analíticas de rendimiento.
+									</li>
+									<li><strong>Google Analytics:</strong> Análisis de audiencia.</li>
+									<li><strong>Microsoft Clarity:</strong> Análisis de experiencia de usuario.</li>
+									<li>
+										<strong>CRM (Gestión de Leads):</strong> Para la administración de inscripciones
+										y envíos de emails.
+									</li>
+								</ul>
+							</section>
 
-						<section id="destinatarios">
-							<h2>5. Destinatarios y Herramientas</h2>
-							<p>
-								Tus datos no se venden a terceros, pero utilizamos servicios de confianza para
-								operar:
-							</p>
-							<ul>
-								<li><strong>Vercel:</strong> Alojamiento de la web y analíticas de rendimiento.</li>
-								<li><strong>Google Analytics:</strong> Análisis de audiencia.</li>
-								<li><strong>Microsoft Clarity:</strong> Análisis de experiencia de usuario.</li>
-								<li>
-									<strong>CRM (Gestión de Leads):</strong> Para la administración de inscripciones y
-									envíos de emails.
-								</li>
-							</ul>
-						</section>
-
-						<section id="derechos">
-							<h2>6. Tus Derechos</h2>
-							<p>
-								Tienes derecho a acceder, rectificar, suprimir tus datos y otros derechos detallados
-								en el RGPD. Para ejercerlos, envía un email a <a href="mailto:info@femmtribu.com"
-									>info@femmtribu.com</a
-								> acompañando copia de tu DNI o documento identificativo.
-							</p>
-						</section>
-					</article>
-				</div>
-			</main>
+							<section id="derechos">
+								<h2>6. Tus Derechos</h2>
+								<p>
+									Tienes derecho a acceder, rectificar, suprimir tus datos y otros derechos
+									detallados en el RGPD. Para ejercerlos, envía un email a <a
+										href="mailto:info@femmtribu.com">info@femmtribu.com</a
+									> acompañando copia de tu DNI o documento identificativo.
+								</p>
+							</section>
+						</article>
+					</div>
+				</main>
+			</div>
 		</div>
-	</div>
+	</main>
 </Layout>
 
 <style>
