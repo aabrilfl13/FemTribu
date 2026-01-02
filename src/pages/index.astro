@@ -4,9 +4,15 @@ import NewsletterSection from "@/components/sections/NewsletterSection.astro"
 import Servicies from "@/components/sections/Services.astro"
 import Welcome from "@/components/sections/Welcome.astro"
 import Layout from "@/layouts/Layout.astro"
+
+const seoData = {
+	title: "Femm Tribu - Salud Integral Femenina",
+	description:
+		"En Femm Tribu, nos dedicamos a brindar apoyo integral a la salud femenina a través de servicios personalizados y una comunidad solidaria.",
+}
 ---
 
-<Layout navScrolled={false}>
+<Layout navScrolled={false} {...seoData}>
 	<main>
 		<Welcome />
 		<AboutCompany />
