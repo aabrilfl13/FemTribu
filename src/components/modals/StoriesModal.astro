@@ -1,0 +1,541 @@
+---
+// src/components/modals/StoriesModal.astro
+import Modal from "@/components/ui/Modal.astro"
+
+import Button from "../ui/Button.astro"
+
+export interface Story {
+	id: string
+	title: string
+	description: string
+	ctaText: string
+	ctaLink: string
+	imageSrc?: string
+	backgroundColor?: string
+	duration?: number // in milliseconds
+}
+
+interface Props {
+	id?: string
+	stories: Story[]
+	delay?: number // delay before showing modal
+	expiryDays?: number // days until modal can be shown again
+	autoAdvance?: boolean // auto-advance to next story
+}
+
+const {
+	id = "stories-modal",
+	stories,
+	delay = 5000,
+	expiryDays = 7,
+	autoAdvance = true,
+} = Astro.props
+---
+
+<Modal id={id} size="lg" class="stories-modal-wrapper">
+	<div class="stories-container">
+		<!-- Progress bars at the top -->
+		<div class="progress-bars">
+			{
+				stories.map((_, index) => (
+					<div class="progress-bar-wrapper">
+						<div class="progress-bar" data-story-index={index} />
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Story slides -->
+		<div class="stories-wrapper">
+			{
+				stories.map((story, index) => (
+					<div
+						class="story-slide"
+						data-story-index={index}
+						data-story-id={story.id}
+						style={{
+							backgroundColor: story.backgroundColor || "transparent",
+						}}
+					>
+						{story.imageSrc && (
+							<div class="story-background">
+								<img src={story.imageSrc} alt={story.title} />
+								<div class="story-gradient" />
+							</div>
+						)}
+
+						<div class="story-content">
+							<h2 class="font-display text-3xl leading-tight font-normal text-white md:text-4xl">
+								{story.title}
+							</h2>
+
+							<p class="mt-4 text-base leading-relaxed text-white/90 md:text-lg">
+								{story.description}
+							</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Navigation areas (tap left/right) -->
+		<button class="story-nav story-nav-prev" aria-label="Historia anterior">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</button>
+		<button class="story-nav story-nav-next" aria-label="Siguiente historia">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<polyline points="9 18 15 12 9 6"></polyline>
+			</svg>
+		</button>
+
+		<!-- Close button -->
+		<button class="story-close-button" data-modal-close aria-label="Cerrar historias">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+</Modal>
+
+<style>
+	:global(.stories-modal-wrapper .modal-dialog) {
+		max-width: 500px;
+		padding: 0;
+		border-radius: 20px;
+		overflow: hidden;
+		background: #37443a;
+	}
+
+	.stories-container {
+		position: relative;
+		width: 100%;
+		height: 600px;
+		max-height: 80vh;
+		overflow: hidden;
+	}
+
+	/* Progress bars */
+	.progress-bars {
+		position: absolute;
+		top: 16px;
+		left: 12px;
+		right: 12px;
+		display: flex;
+		gap: 6px;
+		z-index: 20;
+	}
+
+	.progress-bar-wrapper {
+		flex: 1;
+		height: 3px;
+		background: rgba(255, 255, 255, 0.3);
+		border-radius: 2px;
+		overflow: hidden;
+	}
+
+	.progress-bar {
+		height: 100%;
+		width: 0%;
+		background: white;
+		border-radius: 2px;
+		transition: width 0.1s linear;
+	}
+
+	.progress-bar.completed {
+		width: 100%;
+	}
+
+	/* Stories wrapper */
+	.stories-wrapper {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.story-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+		transform: translateX(100%);
+		display: flex;
+		align-items: flex-end;
+		padding: 60px 24px 24px;
+	}
+
+	.story-slide.active {
+		opacity: 1;
+		pointer-events: all;
+		transform: translateX(0);
+	}
+
+	.story-slide.previous {
+		transform: translateX(-100%);
+	}
+
+	/* Story background */
+	.story-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+	}
+
+	.story-background img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.story-gradient {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(55, 68, 58, 0.3) 0%,
+			rgba(55, 68, 58, 0.6) 50%,
+			rgba(55, 68, 58, 0.9) 100%
+		);
+	}
+
+	/* Story content */
+	.story-content {
+		position: relative;
+		z-index: 10;
+		width: 100%;
+		animation: slideUp 0.4s ease-out;
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* CTA Button */
+	.story-cta-button {
+		display: inline-block;
+		padding: 14px 32px;
+		border-radius: 25px;
+		font-family: "Questrial", sans-serif;
+		font-size: 1rem;
+		font-weight: 500;
+		text-decoration: none;
+		color: white;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.story-cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Navigation buttons */
+	.story-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 50px;
+		height: 50px;
+		background: rgba(255, 255, 255, 0.1);
+		border: none;
+		border-radius: 50%;
+		color: white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 15;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+	}
+
+	.story-nav:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: translateY(-50%) scale(1.1);
+	}
+
+	.story-nav svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.story-nav-prev {
+		left: 12px;
+	}
+
+	.story-nav-next {
+		right: 12px;
+	}
+
+	/* Close button */
+	.story-close-button {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 36px;
+		height: 36px;
+		background: rgba(255, 255, 255, 0.1);
+		border: none;
+		border-radius: 50%;
+		color: white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 20;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+	}
+
+	.story-close-button:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: scale(1.1);
+	}
+
+	.story-close-button svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	/* Mobile adjustments */
+	@media (max-width: 768px) {
+		.stories-container {
+			height: 100vh;
+			max-height: 100vh;
+		}
+
+		:global(.stories-modal-wrapper .modal-dialog) {
+			max-width: 100%;
+			height: 100vh;
+			border-radius: 0;
+		}
+
+		.story-nav {
+			width: 40px;
+			height: 40px;
+			opacity: 0.7;
+		}
+
+		.story-nav svg {
+			width: 20px;
+			height: 20px;
+		}
+	}
+</style>
+
+<script define:vars={{ id, stories, delay, expiryDays, autoAdvance }}>
+	class StoriesModalManager {
+		constructor(modalId, stories, delay, expiryDays, autoAdvance) {
+			this.modalId = modalId
+			this.stories = stories
+			this.delay = delay
+			this.expiryDays = expiryDays
+			this.autoAdvance = autoAdvance
+			this.storageKey = `stories-modal-${modalId}-dismissed`
+			this.currentIndex = 0
+			this.progressInterval = null
+			this.storyDuration = 7000 // 7 seconds per story
+			this.hasShown = false
+			this.touchStartX = 0
+			this.touchEndX = 0
+
+			this.init()
+		}
+
+		init() {
+			if (this.shouldShowModal()) {
+				setTimeout(() => this.showModal(), this.delay)
+			}
+
+			// Listen for modal events
+			const modal = document.getElementById(this.modalId)
+			modal?.addEventListener("modal:opened", () => this.onModalOpened())
+			modal?.addEventListener("modal:closed", () => this.onModalClosed())
+		}
+
+		shouldShowModal() {
+			const dismissedAt = localStorage.getItem(this.storageKey)
+			if (dismissedAt) {
+				const dismissedDate = new Date(dismissedAt)
+				const now = new Date()
+				const daysSinceDismissed = (now - dismissedDate) / (1000 * 60 * 60 * 24)
+
+				if (daysSinceDismissed < this.expiryDays) {
+					return false
+				}
+			}
+			return true
+		}
+
+		showModal() {
+			if (this.hasShown) return
+			this.hasShown = true
+
+			if (window.modalManager) {
+				window.modalManager.open(this.modalId)
+			}
+		}
+
+		onModalOpened() {
+			this.currentIndex = 0
+			this.showStory(0)
+			this.setupNavigation()
+			this.setupTouchGestures()
+		}
+
+		onModalClosed() {
+			this.stopProgress()
+			localStorage.setItem(this.storageKey, new Date().toISOString())
+		}
+
+		setupNavigation() {
+			const modal = document.getElementById(this.modalId)
+			const prevBtn = modal?.querySelector(".story-nav-prev")
+			const nextBtn = modal?.querySelector(".story-nav-next")
+
+			prevBtn?.addEventListener("click", () => this.previousStory())
+			nextBtn?.addEventListener("click", () => this.nextStory())
+		}
+
+		setupTouchGestures() {
+			const modal = document.getElementById(this.modalId)
+			const container = modal?.querySelector(".stories-container")
+
+			container?.addEventListener("touchstart", (e) => {
+				this.touchStartX = e.changedTouches[0].screenX
+			})
+
+			container?.addEventListener("touchend", (e) => {
+				this.touchEndX = e.changedTouches[0].screenX
+				this.handleSwipe()
+			})
+		}
+
+		handleSwipe() {
+			const swipeThreshold = 50
+			const diff = this.touchStartX - this.touchEndX
+
+			if (Math.abs(diff) > swipeThreshold) {
+				if (diff > 0) {
+					// Swipe left - next story
+					this.nextStory()
+				} else {
+					// Swipe right - previous story
+					this.previousStory()
+				}
+			}
+		}
+
+		showStory(index) {
+			const modal = document.getElementById(this.modalId)
+			const slides = modal?.querySelectorAll(".story-slide")
+			const progressBars = modal?.querySelectorAll(".progress-bar")
+
+			// Update slides
+			slides?.forEach((slide, i) => {
+				slide.classList.remove("active", "previous")
+				if (i === index) {
+					slide.classList.add("active")
+				} else if (i < index) {
+					slide.classList.add("previous")
+				}
+			})
+
+			// Update progress bars
+			progressBars?.forEach((bar, i) => {
+				bar.classList.remove("completed")
+				bar.style.width = "0%"
+				if (i < index) {
+					bar.classList.add("completed")
+				}
+			})
+
+			this.currentIndex = index
+			this.startProgress()
+		}
+
+		startProgress() {
+			this.stopProgress()
+
+			if (!this.autoAdvance) return
+
+			const modal = document.getElementById(this.modalId)
+			const currentBar = modal?.querySelector(
+				`.progress-bar[data-story-index="${this.currentIndex}"]`
+			)
+
+			let progress = 0
+			const interval = 50
+			const increment = (interval / this.storyDuration) * 100
+
+			this.progressInterval = setInterval(() => {
+				progress += increment
+				if (currentBar) {
+					currentBar.style.width = `${Math.min(progress, 100)}%`
+				}
+
+				if (progress >= 100) {
+					this.nextStory()
+				}
+			}, interval)
+		}
+
+		stopProgress() {
+			if (this.progressInterval) {
+				clearInterval(this.progressInterval)
+				this.progressInterval = null
+			}
+		}
+
+		nextStory() {
+			if (this.currentIndex < this.stories.length - 1) {
+				this.showStory(this.currentIndex + 1)
+			} else {
+				// Close modal after last story
+				window.modalManager?.close(this.modalId)
+			}
+		}
+
+		previousStory() {
+			if (this.currentIndex > 0) {
+				this.showStory(this.currentIndex - 1)
+			}
+		}
+	}
+
+	function initStoriesModal() {
+		if (window.modalManager) {
+			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance)
+		} else {
+			setTimeout(initStoriesModal, 100)
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initStoriesModal)
+	} else {
+		initStoriesModal()
+	}
+</script>
