@@ -20,7 +20,7 @@ const description = "Matrona en Valencia y Online: Salud Integral para cada etap
 			images.map((image, index) => (
 				<img
 					src={image}
-					alt={`Background image ${index + 1}`}
+					alt="Femm Tribu - Matrona Online y Salud Integral Femenina"
 					class="absolute top-0 left-0 h-screen w-full object-cover transition-opacity duration-[2s] ease-in-out"
 					class:list={{
 						"opacity-100": index === 0,
@@ -29,6 +29,9 @@ const description = "Matrona en Valencia y Online: Salud Integral para cada etap
 					}}
 					data-index={index}
 					transition:animate={fade()}
+					loading={index === 0 ? "eager" : "lazy"}
+					fetchpriority={index === 0 ? "high" : "low"}
+					decoding={index === 0 ? "sync" : "async"}
 				/>
 			))
 		}
