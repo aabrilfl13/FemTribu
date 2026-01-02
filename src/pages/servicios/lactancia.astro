@@ -195,7 +195,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	</main>
 </Layout>
 
-<script define:vars={{ phoneNumber }}>
+<script define:vars={{ phoneNumber, serviceName }}>
 	document.addEventListener("DOMContentLoaded", () => {
 		const buttons = document.querySelectorAll("button[data-service-tier]")
 

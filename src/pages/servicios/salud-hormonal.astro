@@ -81,7 +81,7 @@ const preconceptionPacks = [
 		],
 		ideal: "Quieres una valoración inicial antes de buscar el embarazo.",
 		highlight: false,
-		tier: "preconception",
+		tier: "Consulta Preconcepcional",
 	},
 	{
 		name: "Pack Preconcepcional",
@@ -99,7 +99,7 @@ const preconceptionPacks = [
 		],
 		ideal: "Quieres una valoración inicial antes de buscar el embarazo.",
 		highlight: true,
-		tier: "preconception",
+		tier: "Preconcepcional",
 	},
 ]
 
@@ -333,7 +333,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 
 	<AdditionalInfo serviceName={serviceName} />
 
-	<script define:vars={{ phoneNumber }}>
+	<script define:vars={{ phoneNumber, serviceName }}>
 		document.addEventListener("DOMContentLoaded", () => {
 			const buttons = document.querySelectorAll("button[data-service-tier]")
 
