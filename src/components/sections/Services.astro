@@ -4,6 +4,7 @@ import Button from "@/components/ui/Button.astro"
 
 const services = [
 	{
+		id: "salud-hormonal",
 		icon: "/images/icons/illustrations/ilustracion-negro_01.svg",
 		title: "Salud Hormonal",
 		description:
@@ -18,6 +19,7 @@ const services = [
 		href: "/servicios/salud-hormonal",
 	},
 	{
+		id: "preparacion-al-parto",
 		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
 		title: "Preparación al Parto",
 		description:
@@ -28,6 +30,7 @@ const services = [
 		href: "/servicios/preparacion-al-parto",
 	},
 	{
+		id: "lactancia",
 		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
 		title: "Lactancia",
 		description:
@@ -38,6 +41,7 @@ const services = [
 		href: "/servicios/lactancia",
 	},
 	{
+		id: "menopausia",
 		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
 		title: "Menopausia",
 		description:
@@ -112,19 +116,36 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 
 					return (
 						<div
-							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant animate-fade-up transition-all duration-300`}
+							id={service.id}
+							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant animate-fade-up transition-all duration-300 scroll-mt-24`}
 							style={{ animationDelay: `${index * 100}ms` }}
 						>
-							{/* Icon */}
-							<div
-								class={`h-16 w-16 ${colors.bg} mb-6 flex items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110`}
-							>
-								<img
-									src={service.icon}
-									alt={service.title}
-									class={`h-16 w-16 ${service.color}`}
-									style="filter: brightness(0) saturate(100%);"
-								/>
+							{/* Header con Icon y Share Button */}
+							<div class="mb-6 flex items-start justify-between">
+								<div
+									class={`h-16 w-16 ${colors.bg} flex items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110`}
+								>
+									<img
+										src={service.icon}
+										alt={service.title}
+										class={`h-16 w-16 ${service.color}`}
+										style="filter: brightness(0) saturate(100%);"
+									/>
+								</div>
+								<button
+									class="share-service-btn text-forest/40 hover:text-forest hover:bg-forest/5 rounded-lg p-2 transition-all duration-200"
+									data-service-id={service.id}
+									aria-label="Compartir servicio"
+									title="Copiar enlace"
+								>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<circle cx="18" cy="5" r="3"></circle>
+										<circle cx="6" cy="12" r="3"></circle>
+										<circle cx="18" cy="19" r="3"></circle>
+										<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+										<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+									</svg>
+								</button>
 							</div>
 
 							{/* Content */}
@@ -190,6 +211,47 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 
 <script define:vars={{ phoneNumber }}>
 	document.addEventListener("DOMContentLoaded", () => {
+		// Handle share buttons
+		const shareButtons = document.querySelectorAll(".share-service-btn")
+		
+		shareButtons.forEach((button) => {
+			button.addEventListener("click", async (e) => {
+				e.stopPropagation()
+				const serviceId = button.getAttribute("data-service-id")
+				const url = `${window.location.origin}${window.location.pathname}#${serviceId}`
+				
+				try {
+					await navigator.clipboard.writeText(url)
+					
+					// Visual feedback
+					const originalHTML = button.innerHTML
+					button.innerHTML = `
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<polyline points="20 6 9 17 4 12"></polyline>
+						</svg>
+					`
+					button.classList.add("text-sage")
+					
+					setTimeout(() => {
+						button.innerHTML = originalHTML
+						button.classList.remove("text-sage")
+					}, 2000)
+				} catch (err) {
+					console.error("Error al copiar el enlace:", err)
+				}
+			})
+		})
+		
+		// Handle hash navigation and smooth scroll
+		if (window.location.hash) {
+			setTimeout(() => {
+				const element = document.querySelector(window.location.hash)
+				if (element) {
+					element.scrollIntoView({ behavior: "smooth", block: "center" })
+				}
+			}, 100)
+		}
+		
 		const serviceButtons = document.querySelectorAll(".service-info-btn")
 
 		serviceButtons.forEach((button) => {
