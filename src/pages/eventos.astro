@@ -1,0 +1,200 @@
+---
+import CalendarIcon from "@/assets/iconos/calendar.svg"
+import Button from "@/components/ui/Button.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const upcomingEvents = [
+	{
+		id: 1,
+		title: "Webinar: Introducción a la Salud Hormonal",
+		date: "15 Enero 2026",
+		time: "18:00 - 19:30",
+		type: "Online",
+		description:
+			"Descubre cómo tus hormonas afectan tu bienestar diario y aprende estrategias para equilibrarlas de forma natural.",
+		spots: 20,
+		price: "Gratuito",
+		color: "from-sage/30 to-sage/10",
+		accent: "sage",
+	},
+	{
+		id: 2,
+		title: "Taller: Preparación al Parto Consciente",
+		date: "22 Enero 2026",
+		time: "10:00 - 13:00",
+		type: "Presencial - Madrid",
+		description:
+			"Un encuentro para conectar con tu cuerpo y prepararte física y emocionalmente para el momento del parto.",
+		spots: 12,
+		price: "45€",
+		color: "from-terracotta/30 to-terracotta/10",
+		accent: "terracotta",
+	},
+	{
+		id: 3,
+		title: "Círculo de Mujeres: Menopausia",
+		date: "5 Febrero 2026",
+		time: "17:00 - 19:00",
+		type: "Online",
+		description:
+			"Un espacio seguro para compartir experiencias, resolver dudas y encontrar apoyo en esta etapa de transformación.",
+		spots: 15,
+		price: "25€",
+		color: "from-amber-500/30 to-amber-500/10",
+		accent: "amber",
+	},
+]
+
+const seoData = {
+	title: "Eventos y Talleres | FemTribu",
+	description:
+		"Únete a nuestros encuentros, webinars y talleres diseñados para acompañarte en cada etapa de tu camino hacia el bienestar femenino.",
+	noindex: true,
+}
+---
+
+<Layout {...seoData} navScrolled={true}>
+	{/* Hero Section */}
+	<main class="animate-fade-up pt-21">
+		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="relative z-10 container mx-auto max-w-4xl text-center">
+				<div class="bg-sage/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2">
+					<CalendarIcon class="text-forest h-4 w-4" />
+					<span class="font-body text-forest text-sm">Próximos encuentros</span>
+				</div>
+
+				<h1 class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl">
+					Eventos y <span class="text-terracotta">Talleres</span>
+				</h1>
+
+				<p class="font-body text-forest/70 mx-auto max-w-2xl text-lg">
+					Únete a nuestros encuentros, webinars y talleres diseñados para acompañarte en cada etapa
+					de tu camino hacia el bienestar femenino.
+				</p>
+			</div>
+		</section>
+
+		{/* Events Grid */}
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="space-y-6">
+					{
+						upcomingEvents.map((event, index) => (
+							<div
+								class={`bg-gradient-to-r ${event.color} border-sage/20 rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
+								style={{ animationDelay: `${index * 100}ms` }}
+							>
+								<div class="flex flex-col gap-6 lg:flex-row lg:items-center">
+									{/* Date Badge */}
+									<div class="flex-shrink-0">
+										<div class="bg-cream w-24 rounded-2xl p-4 text-center shadow-sm">
+											<span class="font-display text-forest block text-2xl">
+												{event.date.split(" ")[0]}
+											</span>
+											<span class="font-body text-forest/60 block text-sm">
+												{event.date.split(" ")[1]}
+											</span>
+										</div>
+									</div>
+
+									{/* Event Info */}
+									<div class="flex-grow space-y-3">
+										<div class="flex flex-wrap items-center gap-3">
+											<span
+												class={`font-body rounded-full px-3 py-1 text-xs ${
+													event.type.includes("Online")
+														? "bg-sage/30 text-forest"
+														: "bg-terracotta/30 text-forest"
+												}`}
+											>
+												{event.type}
+											</span>
+											<span class="font-body text-forest/60 flex items-center gap-1 text-sm">
+												<svg
+													class="h-3 w-3"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<circle cx="12" cy="12" r="10" />
+													<polyline points="12 6 12 12 16 14" />
+												</svg>
+												{event.time}
+											</span>
+										</div>
+
+										<h3 class="font-display text-forest text-xl md:text-2xl">{event.title}</h3>
+
+										<p class="font-body text-forest/70 text-sm md:text-base">{event.description}</p>
+
+										<div class="text-forest/60 flex items-center gap-4 text-sm">
+											<span class="flex items-center gap-1">
+												<svg
+													class="h-4 w-4"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<circle cx="9" cy="7" r="4" />
+													<path d="M3 21v-2c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4v2" />
+													<circle cx="16" cy="7" r="3" />
+													<path d="M22 21v-2c0-1.7-1.1-3.1-2.6-3.7" />
+												</svg>
+												{event.spots} plazas
+											</span>
+										</div>
+									</div>
+
+									{/* Price & CTA */}
+									<div class="flex flex-shrink-0 flex-col items-center gap-3">
+										<span class="font-display text-forest text-2xl">{event.price}</span>
+										<Button variant="hero" size="lg" class="w-full lg:w-auto">
+											Reservar plaza
+											<svg
+												class="ml-2 h-4 w-4"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<line x1="5" y1="12" x2="19" y2="12" />
+												<polyline points="12 5 19 12 12 19" />
+											</svg>
+										</Button>
+									</div>
+								</div>
+							</div>
+						))
+					}
+				</div>
+
+				{/* Empty state hint */}
+				<div class="mt-16 text-center">
+					<p class="text-forest/60 font-body mb-4">
+						¿Quieres ser la primera en enterarte de nuevos eventos?
+					</p>
+					<Button id="newsletter-modal-triggerr" variant="outline" size="lg">
+						Únete a la newsletter
+					</Button>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	const newsletterModalTrigger = document.getElementById("newsletter-modal-triggerr")
+
+	// Newsletter modal trigger
+	newsletterModalTrigger?.addEventListener("click", () => {
+		window.modalManager.open("newsletter-modal")
+	})
+</script>
