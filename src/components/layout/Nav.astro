@@ -19,7 +19,7 @@ const navItems = [
 			{ label: "Preparación al Parto", href: "/servicios/preparacion-al-parto" },
 			{ label: "Lactancia", href: "/servicios/lactancia" },
 			{ label: "Menopausia", href: "/servicios/menopausia" },
-      { label: "Salud Hormonal", href: "/servicios/salud-hormonal" },
+			{ label: "Salud Hormonal", href: "/servicios/salud-hormonal" },
 		],
 	},
 	{ label: "Talleres y eventos ", href: "/cursos/curso-lactancia" },
@@ -157,7 +157,7 @@ const navItems = [
 
 		// Newsletter modal trigger
 		newsletterModalTrigger?.addEventListener("click", () => {
-			window.modalManager.open("newsletter-modal")
+			window.dispatchEvent(new CustomEvent("open-newsletter-modal"))
 		})
 
 		// Handle scroll to add background

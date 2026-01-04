@@ -193,8 +193,7 @@ const seoData = {
 <script>
 	const newsletterModalTrigger = document.getElementById("newsletter-modal-triggerr")
 
-	// Newsletter modal trigger
 	newsletterModalTrigger?.addEventListener("click", () => {
-		window.modalManager.open("newsletter-modal")
+		window.dispatchEvent(new CustomEvent("open-newsletter-modal"))
 	})
 </script>
