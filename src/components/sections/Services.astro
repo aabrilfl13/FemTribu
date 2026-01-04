@@ -117,7 +117,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					return (
 						<div
 							id={service.id}
-							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant animate-fade-up transition-all duration-300 scroll-mt-24`}
+							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant animate-fade-up scroll-mt-24 transition-all duration-300`}
 							style={{ animationDelay: `${index * 100}ms` }}
 						>
 							{/* Header con Icon y Share Button */}
@@ -138,12 +138,22 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 									aria-label="Compartir servicio"
 									title="Copiar enlace"
 								>
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-										<circle cx="18" cy="5" r="3"></circle>
-										<circle cx="6" cy="12" r="3"></circle>
-										<circle cx="18" cy="19" r="3"></circle>
-										<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-										<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="18" cy="5" r="3" />
+										<circle cx="6" cy="12" r="3" />
+										<circle cx="18" cy="19" r="3" />
+										<line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+										<line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
 									</svg>
 								</button>
 							</div>
@@ -156,9 +166,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 							<ul class="mb-6 space-y-2">
 								{service.features.map((feature) => (
 									<li class="text-forest/60 font-body flex items-center gap-2 text-sm">
-										<span
-											class={`h-1.5 w-1.5 rounded-full ${colors.icon.replace("text-", "bg-")}`}
-										/>
+										<span class={`bg-terracotta h-1.5 w-1.5 rounded-full`} />
 										{feature}
 									</li>
 								))}
@@ -213,16 +221,16 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	document.addEventListener("DOMContentLoaded", () => {
 		// Handle share buttons
 		const shareButtons = document.querySelectorAll(".share-service-btn")
-		
+
 		shareButtons.forEach((button) => {
 			button.addEventListener("click", async (e) => {
 				e.stopPropagation()
 				const serviceId = button.getAttribute("data-service-id")
 				const url = `${window.location.origin}${window.location.pathname}#${serviceId}`
-				
+
 				try {
 					await navigator.clipboard.writeText(url)
-					
+
 					// Visual feedback
 					const originalHTML = button.innerHTML
 					button.innerHTML = `
@@ -231,7 +239,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 						</svg>
 					`
 					button.classList.add("text-sage")
-					
+
 					setTimeout(() => {
 						button.innerHTML = originalHTML
 						button.classList.remove("text-sage")
@@ -241,7 +249,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				}
 			})
 		})
-		
+
 		// Handle hash navigation and smooth scroll
 		if (window.location.hash) {
 			setTimeout(() => {
@@ -251,7 +259,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				}
 			}, 100)
 		}
-		
+
 		const serviceButtons = document.querySelectorAll(".service-info-btn")
 
 		serviceButtons.forEach((button) => {
