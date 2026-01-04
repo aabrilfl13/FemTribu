@@ -7,6 +7,7 @@ Allow: /
 # Bloquear endpoints técnicos
 Disallow: /api/
 Disallow: /*.json$
+Disallow: /cdn-cgi/
 
 # =========================
 # RECURSOS NECESARIOS PARA SEO
