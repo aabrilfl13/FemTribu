@@ -1,166 +1,21 @@
 ---
-// src/pages/email-tool.astro
-import Button from "@/components/ui/Button.astro"
-import Input from "@/components/ui/Input.astro"
-import Layout from "@/layouts/Layout.astro"
+import { ShieldCheck } from "lucide-react"
 
-const seoData = {
-	noindex: true,
-}
+import EmailEditor from "@/components/react/admin/EmailEditor"
+import AdminLayout from "@/layouts/AdminLayout.astro"
 ---
 
-<Layout navScrolled={true} {...seoData}
-	><main class="pt-21">
-		<section class="container mx-auto max-w-6xl p-8">
-			<h1 class="mb-8 text-3xl font-bold">Email Campaign Tool</h1>
+<AdminLayout title="Editor de Emails">
+	<div class="mb-8">
+		<div class="text-coral mb-2 flex items-center gap-2">
+			<ShieldCheck size={18} />
+			<span class="text-xs font-bold tracking-[0.2em] uppercase">Herramienta Interna</span>
+		</div>
+		<h1 class="font-display text-primary text-4xl italic">Comunicación Directa</h1>
+		<p class="text-secondary mt-2">
+			Crea y previsualiza los emails que se enviarán a la base de datos de FemmTribu.
+		</p>
+	</div>
 
-			<div class="grid grid-cols-2 gap-6">
-				<!-- Editor Panel -->
-				<div class="rounded-lg bg-white p-6 shadow">
-					<h2 class="mb-4 text-xl font-semibold">Compose Email</h2>
-
-					<form id="emailForm">
-						<div class="mb-4">
-							<label class="mb-2 block font-medium">Subject</label>
-							<Input type="text" id="subject" placeholder="Email subject" required />
-						</div>
-
-						<div class="mb-4">
-							<label class="mb-2 block font-medium">Recipients (comma separated)</label>
-							<Input
-								id="recipients"
-								placeholder="email1@example.com, email2@example.com"
-								as="textarea"
-								required
-							/>
-						</div>
-
-						<div class="mb-4">
-							<label class="mb-2 block font-medium">HTML Body</label>
-							<textarea
-								id="htmlBody"
-								class="h-96 w-full rounded border px-3 py-2 font-mono text-sm"
-								placeholder="<html>...</html>"
-								required></textarea>
-						</div>
-
-						<button
-							type="button"
-							id="previewBtn"
-							class="mr-2 rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
-						>
-							Preview
-						</button>
-
-						<Button type="submit" variant="linkMuted"> Send Emails </Button>
-					</form>
-
-					<div id="status" class="mt-4"></div>
-				</div>
-
-				<!-- Preview Panel -->
-				<div class="rounded-lg bg-white p-6 shadow">
-					<h2 class="mb-4 text-xl font-semibold">Preview</h2>
-					<div class="h-full min-h-96 rounded border bg-gray-50 p-4">
-						<iframe
-							id="preview"
-							class="h-full min-h-[500px] w-full bg-white"
-							sandbox="allow-same-origin"></iframe>
-					</div>
-				</div>
-			</div>
-		</section>
-	</main>
-</Layout>
-
-<script>
-	const API_URL = "http://localhost:8000"
-
-	const previewBtn = document.getElementById("previewBtn")
-	const emailForm = document.getElementById("emailForm")
-	const htmlBody = document.getElementById("htmlBody")
-	const preview = document.getElementById("preview")
-	const statusDiv = document.getElementById("status")
-
-	// Live preview
-	previewBtn?.addEventListener("click", () => {
-		const html = htmlBody.value
-		const previewDoc = preview.contentDocument
-		previewDoc.open()
-		previewDoc.write(html)
-		previewDoc.close()
-	})
-
-	// Auto-preview on input (debounced)
-	let previewTimeout
-	htmlBody?.addEventListener("input", () => {
-		clearTimeout(previewTimeout)
-		previewTimeout = setTimeout(() => {
-			const html = htmlBody.value
-			const previewDoc = preview.contentDocument
-			previewDoc.open()
-			previewDoc.write(html)
-			previewDoc.close()
-		}, 500)
-	})
-
-	// Send emails
-	emailForm?.addEventListener("submit", async (e) => {
-		e.preventDefault()
-
-		const subject = document.getElementById("subject").value
-		const recipientsText = document.getElementById("recipients").value
-		const html = htmlBody.value
-
-		// Parse recipients
-		const recipients = recipientsText
-			.split(",")
-			.map((email) => email.trim())
-			.filter((email) => email)
-
-		if (recipients.length === 0) {
-			showStatus("error", "Please add at least one recipient")
-			return
-		}
-
-		showStatus("loading", "Sending emails...")
-
-		try {
-			const response = await fetch(`${API_URL}/api/send-emails`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					subject,
-					recipients,
-					html_body: html,
-				}),
-			})
-
-			const data = await response.json()
-
-			if (response.ok) {
-				showStatus("success", `✓ Successfully queued ${data.sent_count} emails!`)
-			} else {
-				showStatus("error", data.detail || "Failed to send emails")
-			}
-		} catch (error) {
-			showStatus("error", `Network error: ${error.message}`)
-		}
-	})
-
-	function showStatus(type, message) {
-		const colors = {
-			loading: "bg-blue-100 text-blue-800",
-			success: "bg-green-100 text-green-800",
-			error: "bg-red-100 text-red-800",
-		}
-
-		statusDiv.innerHTML = `
-                <div class="${colors[type]} p-3 rounded">
-                    ${message}
-                </div>
-            `
-	}
-</script>
+	<EmailEditor client:load />
+</AdminLayout>

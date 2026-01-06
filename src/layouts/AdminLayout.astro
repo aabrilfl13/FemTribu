@@ -1,0 +1,103 @@
+---
+// src/layouts/AdminLayout.astro
+import "@/styles/global.css"
+
+interface Props {
+	title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Panel FemmTribu</title>
+		<meta name="robots" content="noindex, nofollow" />
+	</head>
+	<body class="bg-background font-body text-primary antialiased">
+		<div class="flex h-screen overflow-hidden">
+			<aside class="border-coral-light/20 z-20 flex w-64 flex-col border-r bg-white">
+				<div class="p-8">
+					<span class="font-display text-terracotta text-2xl leading-none italic"
+						>Femm<br />tribu</span
+					>
+					<p class="text-secondary mt-2 text-[10px] tracking-widest uppercase">Backoffice</p>
+				</div>
+
+				<nav class="flex-1 space-y-1 px-4">
+					<a
+						href="/admin"
+						class="group hover:bg-background flex items-center rounded-xl px-4 py-3 text-sm font-medium transition-all"
+					>
+						<span
+							class="bg-coral mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-all group-hover:opacity-100"
+						></span>
+						Dashboard
+					</a>
+					<a
+						href="/admin/email-tool"
+						class="group hover:bg-background flex items-center rounded-xl px-4 py-3 text-sm font-medium transition-all"
+					>
+						<span
+							class="bg-coral mr-3 h-1.5 w-1.5 rounded-full opacity-0 transition-all group-hover:opacity-100"
+						></span>
+						Email Tool
+					</a>
+				</nav>
+
+				<div class="border-coral-light/10 border-t p-6">
+					<div class="flex items-center gap-3 px-2">
+						<div
+							class="bg-coral-light/20 font-display text-terracotta flex h-8 w-8 items-center justify-center rounded-full text-sm italic"
+						>
+							M
+						</div>
+						<div class="text-[11px]">
+							<p class="text-primary font-bold">Admin</p>
+							<a href="/" class="text-secondary hover:text-coral transition-colors"
+								>Volver a la web</a
+							>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<main class="relative flex min-w-0 flex-1 flex-col overflow-hidden">
+				<header
+					class="border-coral-light/10 flex h-16 shrink-0 items-center border-b bg-white/50 px-8 backdrop-blur-md"
+				>
+					<h2 class="font-display text-primary text-lg italic">{title}</h2>
+				</header>
+
+				<section class="bg-background/50 flex-1 overflow-y-auto p-8">
+					<slot />
+				</section>
+			</main>
+		</div>
+	</body>
+</html>
+
+<style is:global>
+	/* Optimizamos el scroll para que sea elegante y fino */
+	::-webkit-scrollbar {
+		width: 5px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background: var(--color-coral-light);
+		border-radius: 10px;
+	}
+	/* Aseguramos que los títulos usen la fuente display de Zodiak */
+	h1,
+	h2,
+	h3,
+	.font-display {
+		font-family: var(--font-display);
+	}
+</style>
