@@ -95,14 +95,26 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		{/* Header */}
 		<div class="mx-auto mb-16 max-w-3xl text-center">
 			<span
-				class="bg-sage/20 text-forest font-body animate-fade-up mb-4 inline-block rounded-full px-4 py-2 text-sm"
+				class="bg-sage/20 text-forest font-body mb-4 inline-block rounded-full px-4 py-2 text-sm"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
 			>
 				Nuestros Servicios
 			</span>
-			<h2 class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl">
+			<h2
+				class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.1s"
+			>
 				Te acompañamos en cada etapa
 			</h2>
-			<p class="text-forest/70 font-body text-lg leading-relaxed">
+			<p
+				class="text-forest/70 font-body text-lg leading-relaxed"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.2s"
+			>
 				Desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto y la
 				lactancia. Una mirada integral y humana para cada momento de tu vida.
 			</p>
@@ -117,8 +129,10 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					return (
 						<div
 							id={service.id}
-							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant animate-fade-up scroll-mt-24 transition-all duration-300`}
-							style={{ animationDelay: `${index * 100}ms` }}
+							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant scroll-mt-24 transition-all duration-300`}
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay={`${index * 100}ms`}
 						>
 							{/* Header con Icon y Share Button */}
 							<div class="mb-6 flex items-start justify-between">
@@ -203,7 +217,12 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</div>
 
 		{/* CTA */}
-		<div class="mt-16 text-center">
+		<div
+			class="mt-16 text-center"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.3s"
+		>
 			<p class="text-forest/60 font-body mb-4">¿No sabes por dónde empezar?</p>
 			<a
 				href={import.meta.env.CALENDLY_URL}
