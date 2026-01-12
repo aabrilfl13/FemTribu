@@ -76,7 +76,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
 <Layout navScrolled={true} {...seoData}>
-	<main class="animate-fade-up pt-21">
+	<main class="pt-21">
 		{/* Background decorations */}
 		<div
 			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
@@ -87,15 +87,27 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				<div class="mx-auto max-w-4xl text-center">
 					<span
 						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
 					>
 						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
 						Acompañamiento personalizado
 					</span>
-					<h1 class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl">
+					<h1
+						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
 						Preparación al{" "}
 						<span class="text-accent">Parto</span>
 					</h1>
-					<p class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl">
+					<p
+						class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.2s"
+					>
 						Tu matrona en Valencia y online. Un acompañamiento diseñado para que vivas tu parto con
 						ciencia, alma y seguridad. Elige el pack de preparación que mejor se adapte a tu viaje.
 					</p>
@@ -108,13 +120,16 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
 					{
-						packs.map((pack) => (
+						packs.map((pack, index) => (
 							<Card
 								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
 									pack.highlight
 										? "border-accent ring-accent/20 shadow-lg ring-2"
 										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
 								}`}
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 300}ms`}
 							>
 								{pack.highlight && (
 									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
