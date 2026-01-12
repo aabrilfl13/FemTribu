@@ -14,10 +14,19 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 <section class="bg-muted/30 py-16 lg:py-24">
 	<div class="container mx-auto px-4 lg:px-8">
 		<div class="mx-auto max-w-4xl text-center">
-			<h2 class="font-display text-primary mb-6 text-3xl lg:text-4xl">
+			<h2
+				class="font-display text-primary mb-6 text-3xl lg:text-4xl"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+			>
 				¿Tienes dudas sobre qué pack elegir?
 			</h2>
-			<p class="text-muted-foreground mb-8 text-lg">
+			<p
+				class="text-muted-foreground mb-8 text-lg"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.1s"
+			>
 				Reserva una llamada gratuita de 15 minutos y te ayudo a elegir el acompañamiento que mejor
 				se adapte a tu situación.
 			</p>
@@ -28,11 +37,21 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					rel="noopener noreferrer"
 					variant="organic"
 					data-modal-action="close"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
 				>
 					<CalendarIcon class="h-5 w-5" />
 					Concertar una cita gratuita
 				</Button>
-				<Button id="whatsapp-service-btn" variant="secondary" data-service-name={serviceName}>
+				<Button
+					id="whatsapp-service-btn"
+					variant="secondary"
+					data-service-name={serviceName}
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
 					<WhatsAppIcon class="h-5 w-5" />
 					Contactar por WhatsApp
 				</Button>
