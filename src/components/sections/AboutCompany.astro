@@ -49,6 +49,9 @@ const keyPoints = [
 		<div class="mx-auto mb-16 max-w-4xl text-center lg:mb-20">
 			<span
 				class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.1s"
 			>
 				<img
 					src="/images/icons/illustrations/ilustracion-negro_11.svg"
@@ -57,12 +60,22 @@ const keyPoints = [
 				/>
 				Sobre Femm tribu
 			</span>
-			<h2 class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl">
+			<h2
+				class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.2s"
+			>
 				¿Qué es{" "}
 				<span class="text-accent">Femm</span>
 				<span class="text-secondary">tribu</span>?
 			</h2>
-			<p class="text-muted-foreground mx-auto mb-8 max-w-3xl text-lg lg:text-xl">
+			<p
+				class="text-muted-foreground mx-auto mb-8 max-w-3xl text-lg lg:text-xl"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.3s"
+			>
 				Un espacio online creado por mujeres, para mujeres. Donde la <strong class="text-primary"
 					>ciencia</strong
 				> se encuentra con la <strong class="text-primary">espiritualidad</strong> para acompañarte en
@@ -72,9 +85,12 @@ const keyPoints = [
 			{/* Three Pillars - Compact */}
 			<div class="mb-8 flex flex-wrap justify-center gap-4">
 				{
-					pillars.map((pillar) => (
+					pillars.map((pillar, index) => (
 						<div
 							class={`flex items-center gap-2 rounded-full px-5 py-3 ${pillar.bgColor} border-border/30 border`}
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay={`${index * 150}ms`}
 						>
 							<pillar.icon class={`h-5 w-5 ${pillar.color}`} />
 							<span class="text-primary font-medium">{pillar.title}</span>
@@ -86,8 +102,13 @@ const keyPoints = [
 			{/* Key Points */}
 			<div class="mb-8 flex flex-wrap justify-center gap-3">
 				{
-					keyPoints.map((point) => (
-						<div class="bg-muted/50 flex items-center gap-2 rounded-full px-4 py-2 text-sm">
+					keyPoints.map((point, index) => (
+						<div
+							class="bg-muted/50 flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay={`${index * 150}ms`}
+						>
 							<span class="text-accent h-4 w-4 flex-shrink-0" set:html={CheckIcon} />
 							<span class="text-muted-foreground">{point}</span>
 						</div>
@@ -96,7 +117,12 @@ const keyPoints = [
 			</div>
 		</div>
 		{/* CTA */}
-		<div class="mt-16 text-center">
+		<div
+			class="mt-16 text-center"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.3s"
+		>
 			<a
 				href="/sobre-mi"
 				class="bg-accent text-cream font-body hover:bg-accent/90 hover:shadow-elegant rounded-full px-8 py-4 text-lg transition-all duration-300 hover:scale-105"
