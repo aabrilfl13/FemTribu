@@ -153,4 +153,14 @@ const isDevelopment = import.meta.env.ENV === "development"
 		<SpeedInsights />
 		<Analytics />
 	</body><script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+	<!-- Script de animaciones scroll - Reutilizando animaciones de global.css -->
+	<script>
+		import { initScrollAnimations } from "@/utils/scrollAnimations"
+
+		// Inicializar al cargar la página
+		initScrollAnimations()
+
+		// Reinicializar en navegación de Astro
+		document.addEventListener("astro:page-load", initScrollAnimations)
+	</script>
 </html>
