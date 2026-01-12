@@ -14,7 +14,7 @@ const services = [
 			"Guías prácticas de nutrición y movimiento",
 			"Acompañamiento continuo",
 		],
-		price: "Desde 60€",
+		price: "Ver más",
 		color: "terracotta",
 		href: "/servicios/salud-hormonal",
 	},
@@ -25,7 +25,7 @@ const services = [
 		description:
 			"El parto es un proceso físico, emocional y mental. Te acompañamos a entender tu cuerpo, gestionar miedos y confiar en tu capacidad para parir.",
 		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
-		price: "Desde 90€",
+		price: "Ver más",
 		color: "coral",
 		href: "/servicios/preparacion-al-parto",
 	},
@@ -36,7 +36,7 @@ const services = [
 		description:
 			"Cada lactancia es única. Te ayudamos a entender cómo funciona tu cuerpo, resolver dificultades y disfrutar de tu lactancia sin miedo ni culpa.",
 		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
-		price: "Consultar",
+		price: "Ver más",
 		color: "sage",
 		href: "/servicios/lactancia",
 	},
@@ -47,7 +47,7 @@ const services = [
 		description:
 			"Una etapa de cambios hormonales y emocionales. Te acompañamos a redescubrir tu energía y tomar decisiones conscientes sobre tu salud.",
 		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
-		price: "Consultar",
+		price: "Ver más",
 		color: "forest",
 		href: "/servicios/menopausia",
 	},
@@ -159,7 +159,13 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 							</div>
 
 							{/* Content */}
-							<h3 class="font-display text-forest mb-3 text-2xl lg:text-3xl">{service.title}</h3>
+							<Button
+								href={service.href !== "#" ? service.href : undefined}
+								variant="link"
+								class="p-0 no-underline hover:no-underline"
+							>
+								<h3 class="font-display text-forest mb-3 text-2xl lg:text-3xl">{service.title}</h3>
+							</Button>
 							<p class="text-forest/70 font-body mb-6 leading-relaxed">{service.description}</p>
 
 							{/* Features */}
@@ -174,24 +180,20 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 
 							{/* Price & CTA */}
 							<div class="border-forest/10 flex items-center justify-between border-t pt-4">
-								<span class="font-display text-forest text-xl">{service.price}</span>
+								<Button
+									href={service.href !== "#" ? service.href : undefined}
+									variant="linkMuted"
+									class="no-underline hover:no-underline"
+									size="sm"
+								>
+									<span class="font-display text-forest text-xl">{service.price}</span>
+								</Button>
 								<Button
 									class="bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic service-info-btn rounded-full px-4 py-2 transition-all duration-300 hover:scale-105"
 									data-service-name={service.title}
 									data-service-href={service.href}
 								>
 									Pedir cita
-								</Button>
-							</div>
-							<div class="mt-4 flex justify-center">
-								<Button
-									href={service.href !== "#" ? service.href : undefined}
-									variant="linkMuted"
-									size="sm"
-									class={service.href === "#" ? "mas-info-btn cursor-pointer" : ""}
-									data-service-name={service.title}
-								>
-									Ver los packs
 								</Button>
 							</div>
 						</div>
