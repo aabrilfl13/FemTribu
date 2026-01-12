@@ -35,7 +35,15 @@ export function initScrollAnimations() {
 
 					// Optionally add custom delay if specified
 					if (element.dataset.animateDelay) {
-						element.style.animationDelay = element.dataset.animateDelay
+						// Check if mobile (screen width < 768px)
+						const isMobile = window.innerWidth < 768
+						if (isMobile) {
+							// Set 100ms delay for all animated elements on mobile
+							element.style.animationDelay = "100ms"
+						} else {
+							// Use the specified delay for desktop
+							element.style.animationDelay = element.dataset.animateDelay
+						}
 					}
 
 					// Stop observing this element (animation only plays once)
