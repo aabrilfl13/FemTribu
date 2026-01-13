@@ -6,42 +6,17 @@ import Layout from "@/layouts/Layout.astro"
 const upcomingEvents = [
 	{
 		id: 1,
-		title: "Webinar: Introducción a la Salud Hormonal",
-		date: "15 Enero 2026",
-		time: "18:00 - 19:30",
-		type: "Online",
+		title: "No soy yo... es la menopausia",
+		date: "14 Enero 2026",
+		time: "19:00 - 20:00",
+		type: "Webinar",
 		description:
-			"Descubre cómo tus hormonas afectan tu bienestar diario y aprende estrategias para equilibrarlas de forma natural.",
-		spots: 20,
+			"Un webinar gratuito para mujeres que sienten que su cuerpo ha cambiado y nadie les explicó por qué.",
+		spots: "Ilimitado",
 		price: "Gratuito",
 		color: "from-sage/30 to-sage/10",
 		accent: "sage",
-	},
-	{
-		id: 2,
-		title: "Taller: Preparación al Parto Consciente",
-		date: "22 Enero 2026",
-		time: "10:00 - 13:00",
-		type: "Presencial - Madrid",
-		description:
-			"Un encuentro para conectar con tu cuerpo y prepararte física y emocionalmente para el momento del parto.",
-		spots: 12,
-		price: "45€",
-		color: "from-terracotta/30 to-terracotta/10",
-		accent: "terracotta",
-	},
-	{
-		id: 3,
-		title: "Círculo de Mujeres: Menopausia",
-		date: "5 Febrero 2026",
-		time: "17:00 - 19:00",
-		type: "Online",
-		description:
-			"Un espacio seguro para compartir experiencias, resolver dudas y encontrar apoyo en esta etapa de transformación.",
-		spots: 15,
-		price: "25€",
-		color: "from-amber-500/30 to-amber-500/10",
-		accent: "amber",
+		route: "https://femmtribu.my.canva.site/",
 	},
 ]
 
@@ -146,7 +121,8 @@ const seoData = {
 													<circle cx="16" cy="7" r="3" />
 													<path d="M22 21v-2c0-1.7-1.1-3.1-2.6-3.7" />
 												</svg>
-												{event.spots} plazas
+												{event.spots}
+												{typeof event.spots === "number" ? " plazas" : ""}
 											</span>
 										</div>
 									</div>
@@ -154,7 +130,13 @@ const seoData = {
 									{/* Price & CTA */}
 									<div class="flex flex-shrink-0 flex-col items-center gap-3">
 										<span class="font-display text-forest text-2xl">{event.price}</span>
-										<Button variant="hero" size="lg" class="w-full lg:w-auto">
+										<Button
+											variant="hero"
+											size="lg"
+											class="w-full lg:w-auto"
+											href={event.route}
+											rel="noopener noreferrer"
+										>
 											Reservar plaza
 											<svg
 												class="ml-2 h-4 w-4"
