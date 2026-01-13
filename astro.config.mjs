@@ -38,5 +38,12 @@ export default defineConfig({
 
 	site: "https://femmtribu.es",
 	compressHTML: true,
-	integrations: [sitemap()],
+	integrations: [
+		sitemap({
+			filter: (page) => {
+				const excludePaths = ["/newsletter/", "/admin/"]
+				return !excludePaths.some((path) => page.includes(path))
+			},
+		}),
+	],
 })
