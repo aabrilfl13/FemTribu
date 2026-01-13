@@ -9,7 +9,7 @@ export function initScrollAnimations() {
 	const observerOptions = {
 		root: null, // Use viewport as root
 		rootMargin: "0px 0px -100px 0px", // Trigger slightly before element is fully visible
-		threshold: 0.1, // Trigger when 10% of element is visible
+		threshold: 0.03, // Trigger when 3% of element is visible
 	}
 
 	// Find all elements with data-animate attribute
