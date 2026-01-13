@@ -65,6 +65,8 @@ const credentials = [
 				<div class="order-2 lg:order-1">
 					<span
 						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+						data-animate="animate-slide-in-right"
+						data-animate-duration="1s"
 					>
 						<img
 							src="/images/icons/illustrations/ilustracion-negro_14.svg"
@@ -73,11 +75,19 @@ const credentials = [
 						/>
 						Sobre Femm tribu
 					</span>
-					<h1 class="font-display text-primary mb-8 text-4xl sm:text-5xl lg:text-6xl">
+					<h1
+						class="font-display text-primary mb-8 text-4xl sm:text-5xl lg:text-6xl"
+						data-animate="animate-slide-in-left"
+						data-animate-duration="1s"
+					>
 						Bienvenida a <span class="text-accent">Femm</span>
 						<span class="text-secondary">tribu</span>
 					</h1>
-					<div class="mb-16 space-y-6">
+					<div
+						class="mb-16 space-y-6"
+						data-animate="animate-slide-in-right"
+						data-animate-duration="1s"
+					>
 						<p class="text-muted-foreground mb-8 text-lg leading-relaxed lg:text-xl">
 							Femm tribu nace de una necesidad que veía una y otra vez: mujeres que se sienten
 							acompañadas solo a medias. Acompañadas en lo físico, en lo médico, pero no siempre en
@@ -95,7 +105,11 @@ const credentials = [
 					</div>
 				</div>
 				{/* Hero Image */}
-				<div class="relative order-1 lg:order-2">
+				<div
+					class="relative order-1 lg:order-2"
+					data-animate="animate-scale-in"
+					data-animate-duration="1s"
+				>
 					<div class="shadow-organic relative overflow-hidden rounded-3xl">
 						<img
 							src="/images/mujeres-circulo.webp"
@@ -109,6 +123,8 @@ const credentials = [
 				<!-- Card 1 -->
 				<div
 					class="group hover:border-accent/30 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+					data-animate="animate-slide-in-diagonal-down-right"
+					data-animate-duration="1s"
 				>
 					<div
 						class="bg-coral-light/20 mb-6 flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
@@ -129,6 +145,8 @@ const credentials = [
 				<!-- Card 2 -->
 				<div
 					class="group hover:border-secondary/30 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+					data-animate="animate-slide-in-diagonal-down-left"
+					data-animate-duration="1s"
 				>
 					<div
 						class="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-purple-50/50 transition-transform duration-300 group-hover:scale-110"
@@ -149,6 +167,8 @@ const credentials = [
 				<!-- Card 3 -->
 				<div
 					class="group hover:border-accent/30 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+					data-animate="animate-slide-in-diagonal-up-right"
+					data-animate-duration="1s"
 				>
 					<div
 						class="bg-coral-light/20 mb-6 flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
@@ -170,6 +190,8 @@ const credentials = [
 				<!-- Card 4 -->
 				<div
 					class="group hover:border-secondary/30 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+					data-animate="animate-slide-in-diagonal-up-left"
+					data-animate-duration="1s"
 				>
 					<div
 						class="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-purple-50/50 transition-transform duration-300 group-hover:scale-110"
@@ -194,26 +216,43 @@ const credentials = [
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="grid items-center gap-12 lg:grid-cols-2">
 					<div class="order-2 space-y-6 lg:order-1">
-						<div class="text-accent inline-flex items-center gap-2">
+						<div
+							class="text-accent inline-flex items-center gap-2"
+							data-animate="animate-slide-in-left"
+							data-animate-duration="1s"
+						>
 							<!-- <Target class="h-5 w-5" /> -->
 							<span class="text-sm font-medium tracking-wider uppercase">Nuestra Misión</span>
 						</div>
-						<h2 class="font-display text-primary text-2xl lg:text-3xl">
+						<h2
+							class="font-display text-primary text-2xl lg:text-3xl"
+							data-animate="animate-slide-in-left"
+							data-animate-duration="1s"
+							data-animate-delay="0.2s"
+						>
 							Devolver al cuerpo su lugar de sabiduría
 						</h2>
-						<p class="text-muted-foreground leading-relaxed">
-							En Femm tribu queremos devolver al cuerpo su lugar de sabiduría. Nuestra misión es
-							acompañar a las mujeres en cada una de sus etapas vitales, ofreciéndoles información,
-							sostén y comunidad desde una mirada respetuosa, cercana y humana.
-						</p>
-						<p class="text-muted-foreground leading-relaxed">
-							Creamos espacios que inspiran y transforman: asesorías, cursos, encuentros y
-							experiencias donde la salud, el autocuidado y la conexión se entrelazan.
-						</p>
-						<p class="text-primary font-medium">
-							Queremos que cada mujer se sienta acompañada en su proceso, libre de vivir su propio
-							ritmo, y segura dentro de una tribu que la entiende, la respeta y la abraza.
-						</p>
+
+						<div
+							class="space-y-5"
+							data-animate="animate-slide-in-left"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
+						>
+							<p class="text-muted-foreground leading-relaxed">
+								En Femm tribu queremos devolver al cuerpo su lugar de sabiduría. Nuestra misión es
+								acompañar a las mujeres en cada una de sus etapas vitales, ofreciéndoles
+								información, sostén y comunidad desde una mirada respetuosa, cercana y humana.
+							</p>
+							<p class="text-muted-foreground leading-relaxed">
+								Creamos espacios que inspiran y transforman: asesorías, cursos, encuentros y
+								experiencias donde la salud, el autocuidado y la conexión se entrelazan.
+							</p>
+							<p class="text-primary font-medium">
+								Queremos que cada mujer se sienta acompañada en su proceso, libre de vivir su propio
+								ritmo, y segura dentro de una tribu que la entiende, la respeta y la abraza.
+							</p>
+						</div>
 					</div>
 
 					<div class="relative order-1 lg:order-2">
@@ -222,6 +261,9 @@ const credentials = [
 								src="/images/decoratives/ilustracion-negro_04.svg"
 								alt="Ilustración sobre nosotras"
 								class="aspect-[4/3] h-auto w-full object-contain mix-blend-multiply"
+								data-animate="animate-slide-in-right"
+								data-animate-duration="1s"
+								data-animate-delay="0.3s"
 							/>
 						</div>
 					</div>
@@ -230,7 +272,11 @@ const credentials = [
 		</section>
 		<section class="bg-muted/30 py-16 lg:py-24" id="detras-de-femm-tribu">
 			<div class="container mx-auto px-4 lg:px-8">
-				<div class="mb-12 text-center">
+				<div
+					class="mb-12 text-center"
+					data-animate="animate-slide-in-left"
+					data-animate-duration="1s"
+				>
 					<h2 class="font-display text-primary text-2xl lg:text-3xl">
 						¿Qué hay detrás de Femm tribu?
 					</h2>
@@ -245,6 +291,8 @@ const credentials = [
 								src="/images/about-me/mery-portrait.jpg"
 								alt="María Belenguer, matrona, CEO y Fundadora de Femm tribu"
 								class="aspect-[4/5] h-auto w-full object-cover"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
 							/>
 							<div
 								class="from-primary/30 absolute inset-0 bg-gradient-to-t via-transparent to-transparent"
@@ -253,6 +301,9 @@ const credentials = [
 						</div>
 						<div
 							class="bg-background shadow-warm absolute -bottom-6 left-6 rounded-2xl px-6 py-4 lg:left-8"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.5s"
 						>
 							<p class="font-display text-primary text-xl">María Belenguer</p>
 							<p class="text-accent flex items-center gap-2 text-sm font-medium">
@@ -265,12 +316,22 @@ const credentials = [
 
 					{/* Content */}
 					<div class="space-y-6">
-						<p class="text-muted-foreground text-lg leading-relaxed">
+						<p
+							class="text-muted-foreground text-lg leading-relaxed"
+							data-animate="animate-slide-in-left"
+							data-animate-duration="1s"
+							data-animate-delay="0.2s"
+						>
 							Soy <strong class="text-primary">María Belenguer</strong>, matrona y la creadora de
 							Femm tribu. Después de años acompañando a mujeres en hospitales, sentí la necesidad de
 							crear un espacio donde el cuidado fuera más allá de lo clínico.
 						</p>
-						<p class="text-muted-foreground leading-relaxed">
+						<p
+							class="text-muted-foreground leading-relaxed"
+							data-animate="animate-slide-in-left"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
+						>
 							Mi sueño siempre ha sido que cada mujer se sienta <strong class="text-primary"
 								>escuchada, acompañada y empoderada</strong
 							> en cada etapa de su vida. Femm tribu es la materialización de ese sueño.
@@ -279,8 +340,13 @@ const credentials = [
 						{/* Credentials Grid */}
 						<div class="grid grid-cols-2 gap-3 pt-4">
 							{
-								credentials.map((credential) => (
-									<div class="bg-background shadow-soft rounded-xl p-4">
+								credentials.map((credential, index) => (
+									<div
+										class="bg-background shadow-soft rounded-xl p-4"
+										data-animate="animate-slide-in-left"
+										data-animate-duration="1s"
+										data-animate-delay={`0.${index + 2}s`}
+									>
 										<div class="bg-accent/20 mb-2 flex h-8 w-8 items-center justify-center rounded-lg">
 											<img
 												src={credential.icon}
