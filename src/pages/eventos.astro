@@ -14,9 +14,10 @@ const upcomingEvents = [
 			"Un webinar gratuito para mujeres que sienten que su cuerpo ha cambiado y nadie les explicó por qué.",
 		spots: "Ilimitado",
 		price: "Gratuito",
-		color: "from-sage/30 to-sage/10",
-		accent: "sage",
+		color: "from-terracotta/20 to-terracotta/5",
+		accent: "terracotta",
 		route: "https://femmtribu.my.canva.site/",
+		image: "/images/decoratives/ilustracion-negro_08.svg",
 	},
 ]
 
@@ -30,7 +31,7 @@ const seoData = {
 
 <Layout {...seoData} navScrolled={true}>
 	{/* Hero Section */}
-	<main class="animate-fade-up pt-21">
+	<main class="pt-21">
 		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
 			<div class="relative z-10 container mx-auto max-w-4xl text-center">
 				<div class="bg-sage/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2">
@@ -56,10 +57,20 @@ const seoData = {
 					{
 						upcomingEvents.map((event, index) => (
 							<div
-								class={`bg-gradient-to-r ${event.color} border-sage/20 rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
-								style={{ animationDelay: `${index * 100}ms` }}
+								class={`bg-gradient-to-r ${event.color} border-sage/20 relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
+								data-animate="animate-slide-in-right"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 100}ms`}
 							>
-								<div class="flex flex-col gap-6 lg:flex-row lg:items-center">
+								{event.image && (
+									<div class="absolute inset-0 -z-10">
+										<div
+											class={`bg-${event.accent} h-full w-full opacity-20`}
+											style={`-webkit-mask: url(${event.image}) center/cover; mask: url(${event.image}) center/cover;`}
+										/>
+									</div>
+								)}
+								<div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center">
 									{/* Date Badge */}
 									<div class="flex-shrink-0">
 										<div class="bg-cream w-24 rounded-2xl p-4 text-center shadow-sm">
@@ -76,11 +87,8 @@ const seoData = {
 									<div class="flex-grow space-y-3">
 										<div class="flex flex-wrap items-center gap-3">
 											<span
-												class={`font-body rounded-full px-3 py-1 text-xs ${
-													event.type.includes("Online")
-														? "bg-sage/30 text-forest"
-														: "bg-terracotta/30 text-forest"
-												}`}
+												class="font-body text-forest rounded-full px-3 py-1 text-xs"
+												style={`background-color: color-mix(in srgb, ${event.type.includes("Online") ? "var(--color-sage)" : "var(--color-terracotta)"} 30%, white);`}
 											>
 												{event.type}
 											</span>
@@ -101,7 +109,7 @@ const seoData = {
 											</span>
 										</div>
 
-										<h3 class="font-display text-forest text-xl md:text-2xl">{event.title}</h3>
+										<h2 class="font-display text-forest text-2xl md:text-3xl">{event.title}</h2>
 
 										<p class="font-body text-forest/70 text-sm md:text-base">{event.description}</p>
 
