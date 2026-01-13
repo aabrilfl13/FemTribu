@@ -166,21 +166,33 @@ const description = "Matrona en Valencia y Online: Salud Integral para cada etap
 	import { animate } from "animejs"
 
 	document.addEventListener("DOMContentLoaded", () => {
-		// Relaxed sleeping heartbeat at 55 BPM (~1090ms per beat)
-		// Reduced scale on mobile to minimize CLS
 		const isMobile = window.innerWidth < 640
-		const scaleMultiplier = isMobile ? 0.3 : 1 // 40% of the animation on mobile
+		const scaleMultiplier = isMobile ? 0.3 : 1
 
 		animate(".logo", {
-			scale: [
-				{ to: 1 + 0.05 * scaleMultiplier, duration: 100, ease: "easeOutQuad" }, // first strong thump
-				{ to: 1 - 0.02 * scaleMultiplier, duration: 80, ease: "easeInQuad" }, // quick release
-				{ to: 1 + 0.03 * scaleMultiplier, duration: 90, ease: "easeOutQuad" }, // softer second thump
-				{ to: 1, duration: 230, ease: "easeInOutQuad" }, // return to rest
-			],
-			loop: true,
-			loopDelay: 500, // adjust so total ~900–1000ms (≈60–70 bpm)
+			translateY: [50, 0], // Move from 50px down to original position
+			opacity: [0, 1], // Fade from transparent to visible
+			duration: 1000, // Animation duration in milliseconds
+			easing: "easeOutExpo", // Easing function
+			delay: 0, // Start immediately (or add delay in ms)
 		})
+
+		// Wait for fade-up animation to complete (1.5s) before starting heartbeat
+		setTimeout(() => {
+			function heartbeat() {
+				animate(".logo", {
+					scale: [
+						{ to: 1 + 0.05 * scaleMultiplier, duration: 100, ease: "easeOutQuad" }, // first strong thump
+						{ to: 1 - 0.02 * scaleMultiplier, duration: 80, ease: "easeInQuad" }, // quick release
+						{ to: 1 + 0.03 * scaleMultiplier, duration: 90, ease: "easeOutQuad" }, // softer second thump
+						{ to: 1, duration: 230, ease: "easeInOutQuad" }, // return to rest
+					],
+					loop: true,
+					loopDelay: 500, // adjust so total ~900–1000ms (≈60–70 bpm)
+				})
+			}
+			heartbeat()
+		}, 1500)
 	})
 </script>
 <script>
