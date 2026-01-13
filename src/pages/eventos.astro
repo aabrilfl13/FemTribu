@@ -34,16 +34,30 @@ const seoData = {
 	<main class="pt-21">
 		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
 			<div class="relative z-10 container mx-auto max-w-4xl text-center">
-				<div class="bg-sage/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2">
+				<div
+					class="bg-sage/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+				>
 					<CalendarIcon class="text-forest h-4 w-4" />
 					<span class="font-body text-forest text-sm">Próximos encuentros</span>
 				</div>
 
-				<h1 class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl">
+				<h1
+					class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
 					Eventos y <span class="text-terracotta">Talleres</span>
 				</h1>
 
-				<p class="font-body text-forest/70 mx-auto max-w-2xl text-lg">
+				<p
+					class="font-body text-forest/70 mx-auto max-w-2xl text-lg"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
 					Únete a nuestros encuentros, webinars y talleres diseñados para acompañarte en cada etapa
 					de tu camino hacia el bienestar femenino.
 				</p>
@@ -58,7 +72,7 @@ const seoData = {
 						upcomingEvents.map((event, index) => (
 							<div
 								class={`bg-gradient-to-r ${event.color} border-sage/20 relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
-								data-animate="animate-slide-in-right"
+								data-animate="animate-slide-in-left"
 								data-animate-duration="1s"
 								data-animate-delay={`${index * 100}ms`}
 							>
@@ -168,10 +182,22 @@ const seoData = {
 
 				{/* Empty state hint */}
 				<div class="mt-16 text-center">
-					<p class="text-forest/60 font-body mb-4">
+					<p
+						class="text-forest/60 font-body mb-4"
+						data-animate="animate-fade-in"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
 						¿Quieres ser la primera en enterarte de nuevos eventos?
 					</p>
-					<Button id="newsletter-modal-triggerr" variant="outline" size="lg">
+					<Button
+						id="newsletter-modal-triggerr"
+						variant="outline"
+						size="lg"
+						data-animate="animate-fade-in"
+						data-animate-duration="1s"
+						data-animate-delay="0.2s"
+					>
 						Únete a la newsletter
 					</Button>
 				</div>
