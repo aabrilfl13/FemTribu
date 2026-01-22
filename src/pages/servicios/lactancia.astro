@@ -142,13 +142,21 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 								)}
 
 								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4">
-										<CardTitle class="font-display text-primary mb-1 text-2xl">
-											{pack.name}
-										</CardTitle>
-										<CardDescription class="text-accent text-base font-medium">
-											{pack.subtitle}
-										</CardDescription>
+									<div class="mb-4 flex items-center gap-3">
+										<div class="flex-1">
+											<CardTitle class="font-display text-primary mb-1 text-2xl">
+												{pack.name}
+											</CardTitle>
+											<CardDescription class="text-accent text-base font-medium">
+												{pack.subtitle}
+											</CardDescription>
+										</div>
+										<img
+											src="/images/logos/laura-jorge/laura-jorge-icon.png"
+											alt="Isotipo Laura Jorge Clínica"
+											loading="lazy"
+											class="h-12 w-auto flex-shrink-0 object-contain"
+										/>
 									</div>
 
 									<div class="mb-4 flex items-baseline gap-1">
