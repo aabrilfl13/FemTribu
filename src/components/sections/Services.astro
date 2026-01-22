@@ -146,6 +146,14 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 										style="filter: brightness(0) saturate(100%);"
 									/>
 								</div>
+								{service.id === "lactancia" && (
+									<img
+										src="/images/logos/laura-jorge/laura-jorge-icon.png"
+										alt="Laura Jorge"
+										loading="lazy"
+										class="ml-auto h-8 w-auto flex-shrink-0 object-contain"
+									/>
+								)}
 								<button
 									class="share-service-btn text-forest/40 hover:text-forest hover:bg-forest/5 rounded-lg p-2 transition-all duration-200"
 									data-service-id={service.id}
