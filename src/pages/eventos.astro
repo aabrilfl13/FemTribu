@@ -109,7 +109,10 @@ const isEventPast = (dateStr: string) => {
 								>
 									{/* Past Event Overlay */}
 									{isPast && (
-										<div class="bg-forest/10 absolute inset-0 z-20 flex items-center justify-center rounded-3xl backdrop-blur-sm">
+										<div
+											class="absolute inset-0 z-20 flex items-center justify-center rounded-3xl"
+											style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); isolation: isolate;"
+										>
 											<div class="bg-forest text-cream rotate-[-5deg] transform rounded-2xl px-8 py-4 shadow-lg">
 												<span class="font-display text-3xl md:text-4xl">Realizado</span>
 											</div>
