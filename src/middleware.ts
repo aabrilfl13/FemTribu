@@ -1,41 +1,42 @@
 import { defineMiddleware } from "astro:middleware"
 
 // Admin credentials - Move these to environment variables in production
-const ADMIN_USERNAME = import.meta.env.ADMIN_USERNAME || "admin"
-const ADMIN_PASSWORD = import.meta.env.ADMIN_PASSWORD || "change_this_password"
+const SECRET_KEY = import.meta.env.SECRET_KEY
+
+// Simple token validation
+function isValidToken(token: string): boolean {
+	try {
+		const decoded = atob(token)
+		const [timestamp, hash] = decoded.split(":")
+		const expiresAt = parseInt(timestamp)
+
+		// Check if token is expired (1 day = 86400000 ms)
+		if (Date.now() > expiresAt) {
+			return false
+		}
+
+		// Verify hash
+		const expectedHash = btoa(`${timestamp}:${SECRET_KEY}`)
+		return hash === expectedHash
+	} catch {
+		return false
+	}
+}
 
 export const onRequest = defineMiddleware(async (context, next) => {
 	const path = context.url.pathname
 
-	// Check if accessing admin pages
-	if (path.startsWith("/admin")) {
-		const authHeader = context.request.headers.get("Authorization")
+	// Check if accessing admin pages (but not login)
+	if (path.startsWith("/admin") && path !== "/admin/login") {
+		// Check for auth token in cookie
+		const authToken = context.cookies.get("admin_token")?.value
 
-		if (!authHeader) {
-			return new Response("Authentication required", {
-				status: 401,
-				headers: {
-					"WWW-Authenticate": 'Basic realm="Admin Area"',
-				},
-			})
+		if (!authToken || !isValidToken(authToken)) {
+			// Redirect to login page
+			return context.redirect("/admin/login")
 		}
 
-		// Parse Basic Auth header
-		const base64Credentials = authHeader.split(" ")[1]
-		const credentials = atob(base64Credentials)
-		const [username, password] = credentials.split(":")
-
-		// Verify credentials
-		if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {
-			return new Response("Invalid credentials", {
-				status: 401,
-				headers: {
-					"WWW-Authenticate": 'Basic realm="Admin Area"',
-				},
-			})
-		}
-
-		// Credentials valid, continue to admin page
+		// Token valid, continue to admin page
 	}
 
 	// Skip middleware for API routes to avoid header modification issues

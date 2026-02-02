@@ -56,13 +56,19 @@ const { title } = Astro.props
 						>
 							M
 						</div>
-						<div class="text-[11px]">
+						<div class="flex-1 text-[11px]">
 							<p class="text-primary font-bold">Admin</p>
 							<a href="/" class="text-secondary hover:text-coral transition-colors"
 								>Volver a la web</a
 							>
 						</div>
 					</div>
+					<button
+						id="logoutBtn"
+						class="mt-4 w-full rounded-lg px-2 py-2 text-left text-xs text-red-600 transition-colors hover:bg-red-50"
+					>
+						Cerrar sesión
+					</button>
 				</div>
 			</aside>
 
@@ -78,6 +84,38 @@ const { title } = Astro.props
 				</section>
 			</main>
 		</div>
+
+		<script>
+			// Check token validity on page load
+			const checkAuth = () => {
+				const expiresAt = localStorage.getItem("admin_token_expires")
+				if (!expiresAt || Date.now() > parseInt(expiresAt)) {
+					localStorage.removeItem("admin_token")
+					localStorage.removeItem("admin_token_expires")
+					window.location.href = "/admin/login"
+				}
+			}
+
+			// Logout functionality
+			const logoutBtn = document.getElementById("logoutBtn")
+			logoutBtn?.addEventListener("click", () => {
+				// Clear localStorage
+				localStorage.removeItem("admin_token")
+				localStorage.removeItem("admin_token_expires")
+
+				// Clear cookie by calling logout endpoint or just redirect
+				document.cookie = "admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+
+				// Redirect to login
+				window.location.href = "/admin/login"
+			})
+
+			// Check auth on load
+			checkAuth()
+
+			// Check auth every minute
+			setInterval(checkAuth, 60000)
+		</script>
 	</body>
 </html>
 
