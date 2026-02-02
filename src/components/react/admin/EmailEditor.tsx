@@ -43,6 +43,63 @@ export default function EmailEditor() {
 	const [showToken, setShowToken] = useState(false)
 	const [recipients, setRecipients] = useState("info@femmtribu.es")
 	const [sendToAllCRM, setSendToAllCRM] = useState(false)
+	const [isSending, setIsSending] = useState(false)
+
+	// Función para enviar el email
+	const sendEmail = async () => {
+		if (!html.trim()) {
+			alert("Por favor, escribe el contenido del email")
+			return
+		}
+
+		if (!token.trim()) {
+			alert("Por favor, configura el token de autenticación")
+			return
+		}
+
+		if (!sendToAllCRM && !recipients.trim()) {
+			alert("Por favor, especifica los destinatarios o activa el envío a CRM")
+			return
+		}
+
+		setIsSending(true)
+
+		try {
+			const body: any = {
+				html: html,
+			}
+
+			if (sendToAllCRM) {
+				body.all_crm_users = true
+			} else {
+				body.recipients = recipients.split(",").map((r) => r.trim())
+			}
+
+			const response = await fetch(endpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": token,
+				},
+				body: JSON.stringify(body),
+			})
+
+			if (!response.ok) {
+				const error = await response.text()
+				throw new Error(error || "Error al enviar el email")
+			}
+
+			const result = await response.json()
+			alert("Email enviado correctamente ✅")
+			console.log("Resultado:", result)
+		} catch (error: any) {
+			console.error("Error al enviar:", error)
+			alert(`Error al enviar el email: ${error.message}`)
+		} finally {
+			setIsSending(false)
+		}
+	}
+
 	// Función para generar el contenido del iframe con "Force Override"
 	const generateIframeContent = () => {
 		const isDark = emailTheme === "dark"
@@ -143,8 +200,12 @@ export default function EmailEditor() {
 					>
 						<Settings size={18} />
 					</button>
-					<button className="bg-terracotta shadow-terracotta/20 flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-transform hover:scale-[1.02]">
-						<Send size={16} /> Enviar
+					<button
+						onClick={sendEmail}
+						disabled={isSending}
+						className={`bg-terracotta shadow-terracotta/20 flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-bold text-white shadow-lg transition-transform ${isSending ? "cursor-not-allowed opacity-60" : "hover:scale-[1.02]"}`}
+					>
+						<Send size={16} /> {isSending ? "Enviando..." : "Enviar"}
 					</button>
 				</div>
 			</div>
