@@ -14,8 +14,21 @@ import "prismjs/themes/prism-tomorrow.css"
 
 const CodeEditor = (RawEditor as any).default || RawEditor
 
-const { Eye, Send, Smartphone, Users, Monitor, Columns2, Square, Settings, Moon, Sun, X, Globe } =
-	Lucide
+const {
+	Eye,
+	Send,
+	Smartphone,
+	Users,
+	Monitor,
+	Columns2,
+	Square,
+	Settings,
+	Moon,
+	Sun,
+	X,
+	Globe,
+	Key,
+} = Lucide
 
 export default function EmailEditor() {
 	const [html, setHtml] = useState("")
@@ -25,6 +38,7 @@ export default function EmailEditor() {
 	const [isConfigOpen, setIsConfigOpen] = useState(false)
 
 	const [endpoint, setEndpoint] = useState("/api/send-email")
+	const [token, setToken] = useState("")
 	const [recipients, setRecipients] = useState("info@femmtribu.es")
 	const [sendToAllCRM, setSendToAllCRM] = useState(false)
 	// Función para generar el contenido del iframe con "Force Override"
@@ -231,6 +245,13 @@ export default function EmailEditor() {
 										onChange={setEndpoint}
 									/>
 									<ConfigField
+										label="Token"
+										icon={<Key size={12} />}
+										value={token}
+										onChange={setToken}
+										isPassword
+									/>
+									<ConfigField
 										label="Destinatarios"
 										icon={<Users size={12} />}
 										value={recipients}
@@ -272,7 +293,7 @@ function ToolbarButton({ active, onClick, icon, label }: any) {
 	)
 }
 
-function ConfigField({ label, icon, value, onChange, isTextArea, disabled }: any) {
+function ConfigField({ label, icon, value, onChange, isTextArea, disabled, isPassword }: any) {
 	return (
 		<div className="space-y-2">
 			<label
@@ -289,7 +310,7 @@ function ConfigField({ label, icon, value, onChange, isTextArea, disabled }: any
 				/>
 			) : (
 				<input
-					type="text"
+					type={isPassword ? "password" : "text"}
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
 					disabled={disabled}
