@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion"
 import * as Lucide from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 // Estilos del editor de código
 import "@styles/prism-custom.css"
@@ -32,18 +32,63 @@ const {
 } = Lucide
 
 export default function EmailEditor() {
-	const [html, setHtml] = useState("")
+	const [html, setHtml] = useState(() => {
+		if (typeof window !== "undefined") {
+			return localStorage.getItem("emailEditor_html") || ""
+		}
+		return ""
+	})
 	const [viewMode, setViewMode] = useState<"split" | "editor" | "preview">("split")
 	const [device, setDevice] = useState<"mobile" | "desktop">("desktop")
 	const [emailTheme, setEmailTheme] = useState<"light" | "dark">("light")
 	const [isConfigOpen, setIsConfigOpen] = useState(false)
 
-	const [endpoint, setEndpoint] = useState("/api/send-email")
-	const [token, setToken] = useState("")
+	const [endpoint, setEndpoint] = useState(() => {
+		if (typeof window !== "undefined") {
+			return localStorage.getItem("emailEditor_endpoint") || "/api/send-email"
+		}
+		return "/api/send-email"
+	})
+	const [token, setToken] = useState(() => {
+		if (typeof window !== "undefined") {
+			return localStorage.getItem("emailEditor_token") || ""
+		}
+		return ""
+	})
 	const [showToken, setShowToken] = useState(false)
-	const [recipients, setRecipients] = useState("info@femmtribu.es")
+	const [recipients, setRecipients] = useState(() => {
+		if (typeof window !== "undefined") {
+			return localStorage.getItem("emailEditor_recipients") || "info@femmtribu.es"
+		}
+		return "info@femmtribu.es"
+	})
 	const [sendToAllCRM, setSendToAllCRM] = useState(false)
 	const [isSending, setIsSending] = useState(false)
+
+	// Guardar valores en localStorage cuando cambian
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("emailEditor_html", html)
+		}
+	}, [html])
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("emailEditor_endpoint", endpoint)
+		}
+	}, [endpoint])
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("emailEditor_token", token)
+		}
+	}, [token])
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("emailEditor_recipients", recipients)
+		}
+	}, [recipients])
 
 	// Función para enviar el email
 	const sendEmail = async () => {
@@ -74,6 +119,8 @@ export default function EmailEditor() {
 			} else {
 				body.recipients = recipients.split(",").map((r) => r.trim())
 			}
+
+			console.log("Enviando email con body:", body)
 
 			const response = await fetch(endpoint, {
 				method: "POST",
