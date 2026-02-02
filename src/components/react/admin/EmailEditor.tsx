@@ -16,6 +16,7 @@ const CodeEditor = (RawEditor as any).default || RawEditor
 
 const {
 	Eye,
+	EyeOff,
 	Send,
 	Smartphone,
 	Users,
@@ -39,6 +40,7 @@ export default function EmailEditor() {
 
 	const [endpoint, setEndpoint] = useState("/api/send-email")
 	const [token, setToken] = useState("")
+	const [showToken, setShowToken] = useState(false)
 	const [recipients, setRecipients] = useState("info@femmtribu.es")
 	const [sendToAllCRM, setSendToAllCRM] = useState(false)
 	// Función para generar el contenido del iframe con "Force Override"
@@ -250,6 +252,8 @@ export default function EmailEditor() {
 										value={token}
 										onChange={setToken}
 										isPassword
+										showPassword={showToken}
+										onTogglePassword={() => setShowToken(!showToken)}
 									/>
 									<ConfigField
 										label="Destinatarios"
@@ -293,7 +297,17 @@ function ToolbarButton({ active, onClick, icon, label }: any) {
 	)
 }
 
-function ConfigField({ label, icon, value, onChange, isTextArea, disabled, isPassword }: any) {
+function ConfigField({
+	label,
+	icon,
+	value,
+	onChange,
+	isTextArea,
+	disabled,
+	isPassword,
+	showPassword,
+	onTogglePassword,
+}: any) {
 	return (
 		<div className="space-y-2">
 			<label
@@ -309,13 +323,24 @@ function ConfigField({ label, icon, value, onChange, isTextArea, disabled, isPas
 					className={`h-32 w-full resize-none rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"}`}
 				/>
 			) : (
-				<input
-					type={isPassword ? "password" : "text"}
-					value={value}
-					onChange={(e) => onChange(e.target.value)}
-					disabled={disabled}
-					className={`w-full rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"}`}
-				/>
+				<div className="relative">
+					<input
+						type={isPassword && !showPassword ? "password" : "text"}
+						value={value}
+						onChange={(e) => onChange(e.target.value)}
+						disabled={disabled}
+						className={`w-full rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"} ${isPassword ? "pr-10" : ""}`}
+					/>
+					{isPassword && onTogglePassword && (
+						<button
+							type="button"
+							onClick={onTogglePassword}
+							className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600"
+						>
+							{showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+						</button>
+					)}
+				</div>
 			)}
 		</div>
 	)
