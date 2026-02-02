@@ -1,6 +1,7 @@
 // @ts-check
 import path from "path"
 import { fileURLToPath } from "url"
+import react from "@astrojs/react"
 import sitemap from "@astrojs/sitemap"
 import vercel from "@astrojs/vercel"
 import tailwindcss from "@tailwindcss/vite"
@@ -15,6 +16,7 @@ export default defineConfig({
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "./src"),
+				"@styles": path.resolve(__dirname, "./src/styles"),
 			},
 		},
 		build: {
@@ -45,5 +47,6 @@ export default defineConfig({
 				return !excludePaths.some((path) => page.includes(path))
 			},
 		}),
+		react(),
 	],
 })

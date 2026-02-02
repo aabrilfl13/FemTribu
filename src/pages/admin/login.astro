@@ -1,0 +1,103 @@
+---
+import Layout from "@/layouts/Layout.astro"
+---
+
+<Layout title="Admin Login">
+	<div
+		class="from-coral-light/20 to-terracotta/10 flex min-h-screen items-center justify-center bg-gradient-to-br px-4"
+	>
+		<div class="w-full max-w-md">
+			<div class="rounded-3xl bg-white p-8 shadow-xl">
+				<h1 class="font-display text-primary mb-8 text-center text-3xl italic">Acceso Admin</h1>
+
+				<form id="loginForm" class="space-y-6">
+					<div>
+						<label for="username" class="text-secondary mb-2 block text-sm font-medium">
+							Usuario
+						</label>
+						<input
+							type="text"
+							id="username"
+							name="username"
+							required
+							class="border-coral-light/30 focus:ring-terracotta/50 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:outline-none"
+							autocomplete="username"
+						/>
+					</div>
+
+					<div>
+						<label for="password" class="text-secondary mb-2 block text-sm font-medium">
+							Contraseña
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							required
+							class="border-coral-light/30 focus:ring-terracotta/50 w-full rounded-xl border px-4 py-3 focus:ring-2 focus:outline-none"
+							autocomplete="current-password"
+						/>
+					</div>
+
+					<div id="errorMessage" class="hidden text-center text-sm text-red-600"></div>
+
+					<button
+						type="submit"
+						class="bg-terracotta hover:bg-terracotta/90 w-full rounded-xl py-3 font-medium text-white transition-colors"
+					>
+						Iniciar sesión
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<script>
+	const form = document.getElementById("loginForm") as HTMLFormElement
+	const errorMessage = document.getElementById("errorMessage") as HTMLDivElement
+
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault()
+		errorMessage.classList.add("hidden")
+
+		const formData = new FormData(form)
+		const username = formData.get("username") as string
+		const password = formData.get("password") as string
+
+		try {
+			const response = await fetch("/api/admin-auth", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ username, password }),
+			})
+
+			const data = await response.json()
+
+			if (data.success) {
+				// Store token and expiration in localStorage
+				localStorage.setItem("admin_token", data.token)
+				localStorage.setItem("admin_token_expires", data.expiresAt.toString())
+
+				// Redirect to admin dashboard
+				window.location.href = "/admin"
+			} else {
+				errorMessage.textContent = data.error || "Error al iniciar sesión"
+				errorMessage.classList.remove("hidden")
+			}
+		} catch (error) {
+			errorMessage.textContent = "Error de conexión. Intenta de nuevo."
+			errorMessage.classList.remove("hidden")
+		}
+	})
+
+	// Check if already logged in
+	const token = localStorage.getItem("admin_token")
+	const expiresAt = localStorage.getItem("admin_token_expires")
+
+	if (token && expiresAt && Date.now() < parseInt(expiresAt)) {
+		window.location.href = "/admin"
+	}
+</script>

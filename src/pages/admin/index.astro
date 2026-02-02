@@ -1,0 +1,52 @@
+---
+// src/pages/admin/index.astro
+import AdminLayout from "@/layouts/AdminLayout.astro"
+---
+
+<AdminLayout title="Dashboard General">
+	<div class="animate-fade-up grid grid-cols-1 gap-6 md:grid-cols-3">
+		<div
+			class="border-coral-light/20 rounded-3xl border bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+		>
+			<p class="text-secondary mb-1 text-[10px] font-bold tracking-[0.2em] uppercase">Audiencia</p>
+			<h3 class="font-display text-primary text-4xl italic">1.240</h3>
+			<p class="text-secondary mt-2 text-sm italic">Mujeres suscritas a la Tribu</p>
+		</div>
+
+		<a
+			href="/admin/email-tool"
+			class="bg-terracotta shadow-terracotta/20 group rounded-3xl p-6 shadow-lg transition-all hover:-translate-y-1"
+		>
+			<p class="mb-1 text-[10px] font-bold tracking-[0.2em] text-white/60 uppercase">
+				Acción Rápida
+			</p>
+			<h3 class="font-display text-2xl text-white italic">Enviar Newsletter</h3>
+			<div class="mt-4 flex items-center gap-2 text-sm text-white">
+				<span>Abrir editor</span>
+				<span class="transition-transform group-hover:translate-x-1">→</span>
+			</div>
+		</a>
+
+		<div class="border-coral-light/20 rounded-3xl border bg-white p-6 shadow-sm">
+			<p class="text-secondary mb-1 text-[10px] font-bold tracking-[0.2em] uppercase">
+				Último Envío
+			</p>
+			<h3 class="font-display text-primary text-lg leading-tight italic">
+				"Ciclo Menstrual y Espiritualidad"
+			</h3>
+			<p class="mt-2 flex items-center gap-1 text-xs text-green-600">
+				<span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+				Enviado con éxito (20/12)
+			</p>
+		</div>
+	</div>
+
+	<div class="animate-fade-up animation-delay-200 mt-12">
+		<h4 class="text-secondary mb-6 text-sm font-bold tracking-widest uppercase">Próximos Pasos</h4>
+		<div
+			class="border-coral-light/10 text-secondary rounded-3xl border bg-white/50 p-8 text-center italic"
+		>
+			<p>Aquí aparecerán las métricas de tus próximos talleres y lanzamientos.</p>
+		</div>
+	</div>
+</AdminLayout>

@@ -1,0 +1,65 @@
+/* Reset base para el contenedor del editor */
+.prism-editor-wrapper {
+	background-color: #1a1b1e !important;
+	border-radius: 0 0 1.5rem 1.5rem; /* Redondeado inferior */
+	min-height: 100%;
+}
+
+/* Configuración del área de texto y previsualización de código */
+.prism-editor-wrapper textarea,
+.prism-editor-wrapper pre {
+	font-family: "Fira Code", "Fira Mono", monospace !important;
+	font-size: 14px !important;
+	line-height: 1.6 !important;
+	tab-size: 2;
+	color: #e0e0e0 !important; /* Texto base de alto contraste */
+	caret-color: #cb6e5f !important; /* Cursor en coral de la marca */
+	outline: none !important;
+}
+
+/* Colores de Syntax Highlighting (Femm Dark Theme) */
+.token.tag,
+.token.deleted {
+	color: #cb6e5f !important; /* Coral para etiquetas HTML */
+	font-weight: 500;
+}
+
+.token.attr-name {
+	color: #d5a18e !important; /* Coral claro para atributos */
+}
+
+.token.attr-value {
+	color: #9cdcfe !important; /* Azul suave para valores (muy legible) */
+}
+
+.token.string {
+	color: #ce9178 !important; /* Naranja tierra para strings */
+}
+
+.token.punctuation {
+	color: #888888 !important; /* Gris para <> y = */
+}
+
+.token.comment {
+	color: #6a9955 !important; /* Verde bosque para comentarios */
+	font-style: italic;
+}
+
+/* Limpieza de sombras por defecto de Prism tomorrow */
+code[class*="language-"],
+pre[class*="language-"] {
+	text-shadow: none !important;
+	background: none !important;
+}
+
+/* Scrollbar personalizada para el editor */
+.prism-editor-wrapper::-webkit-scrollbar {
+	width: 8px;
+}
+.prism-editor-wrapper::-webkit-scrollbar-track {
+	background: #1a1b1e;
+}
+.prism-editor-wrapper::-webkit-scrollbar-thumb {
+	background: #2d2e32;
+	border-radius: 10px;
+}

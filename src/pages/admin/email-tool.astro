@@ -1,0 +1,21 @@
+---
+import { ShieldCheck } from "lucide-react"
+
+import EmailEditor from "@/components/react/admin/EmailEditor"
+import AdminLayout from "@/layouts/AdminLayout.astro"
+---
+
+<AdminLayout title="Editor de Emails">
+	<div class="mb-8">
+		<div class="text-coral mb-2 flex items-center gap-2">
+			<ShieldCheck size={18} />
+			<span class="text-xs font-bold tracking-[0.2em] uppercase">Herramienta Interna</span>
+		</div>
+		<h1 class="font-display text-primary text-4xl italic">Comunicación Directa</h1>
+		<p class="text-secondary mt-2">
+			Crea y previsualiza los emails que se enviarán a la base de datos de FemmTribu.
+		</p>
+	</div>
+
+	<EmailEditor client:load />
+</AdminLayout>
