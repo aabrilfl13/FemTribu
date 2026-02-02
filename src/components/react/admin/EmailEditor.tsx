@@ -236,6 +236,7 @@ export default function EmailEditor() {
 										value={recipients}
 										onChange={setRecipients}
 										isTextArea
+										disabled={sendToAllCRM}
 									/>
 									<div className="space-y-2">
 										<label className="flex cursor-pointer items-center gap-3">
@@ -271,24 +272,28 @@ function ToolbarButton({ active, onClick, icon, label }: any) {
 	)
 }
 
-function ConfigField({ label, icon, value, onChange, isTextArea }: any) {
+function ConfigField({ label, icon, value, onChange, isTextArea, disabled }: any) {
 	return (
 		<div className="space-y-2">
-			<label className="flex items-center gap-2 text-[10px] font-bold tracking-widest text-gray-500 uppercase">
+			<label
+				className={`flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase ${disabled ? "text-gray-400" : "text-gray-500"}`}
+			>
 				{icon} {label}
 			</label>
 			{isTextArea ? (
 				<textarea
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
-					className="h-32 w-full resize-none rounded-xl border border-gray-100 bg-gray-50 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)]"
+					disabled={disabled}
+					className={`h-32 w-full resize-none rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"}`}
 				/>
 			) : (
 				<input
 					type="text"
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
-					className="w-full rounded-xl border border-gray-100 bg-gray-50 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)]"
+					disabled={disabled}
+					className={`w-full rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"}`}
 				/>
 			)}
 		</div>
