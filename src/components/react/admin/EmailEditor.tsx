@@ -26,6 +26,7 @@ export default function EmailEditor() {
 
 	const [endpoint, setEndpoint] = useState("/api/send-email")
 	const [recipients, setRecipients] = useState("info@femmtribu.es")
+	const [sendToAllCRM, setSendToAllCRM] = useState(false)
 	// Función para generar el contenido del iframe con "Force Override"
 	const generateIframeContent = () => {
 		const isDark = emailTheme === "dark"
@@ -236,6 +237,19 @@ export default function EmailEditor() {
 										onChange={setRecipients}
 										isTextArea
 									/>
+									<div className="space-y-2">
+										<label className="flex cursor-pointer items-center gap-3">
+											<input
+												type="checkbox"
+												checked={sendToAllCRM}
+												onChange={(e) => setSendToAllCRM(e.target.checked)}
+												className="h-4 w-4 rounded border-gray-300 text-[rgb(204,124,118)] focus:ring-[rgb(204,124,118)]"
+											/>
+											<span className="text-xs font-medium text-[rgb(55,68,58)]">
+												Enviar a todos los contactos del CRM
+											</span>
+										</label>
+									</div>
 								</div>
 							</motion.div>
 						</>
