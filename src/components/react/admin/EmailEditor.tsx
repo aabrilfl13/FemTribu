@@ -62,6 +62,12 @@ export default function EmailEditor() {
 		}
 		return "info@femmtribu.es"
 	})
+	const [subject, setSubject] = useState(() => {
+		if (typeof window !== "undefined") {
+			return localStorage.getItem("emailEditor_subject") || ""
+		}
+		return ""
+	})
 	const [sendToAllCRM, setSendToAllCRM] = useState(false)
 	const [isSending, setIsSending] = useState(false)
 
@@ -90,10 +96,21 @@ export default function EmailEditor() {
 		}
 	}, [recipients])
 
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			localStorage.setItem("emailEditor_subject", subject)
+		}
+	}, [subject])
+
 	// Función para enviar el email
 	const sendEmail = async () => {
 		if (!html.trim()) {
 			alert("Por favor, escribe el contenido del email")
+			return
+		}
+
+		if (!subject.trim()) {
+			alert("Por favor, añade un asunto al email")
 			return
 		}
 
@@ -112,6 +129,7 @@ export default function EmailEditor() {
 		try {
 			const body: any = {
 				html: html,
+				subject: subject,
 			}
 
 			if (sendToAllCRM) {
@@ -351,6 +369,21 @@ export default function EmailEditor() {
 								</div>
 								<div className="space-y-4">
 									<ConfigField
+										label="Asunto"
+										icon={<Send size={12} />}
+										value={subject}
+										onChange={setSubject}
+										placeholder="Asunto del email"
+									/>
+									<ConfigField
+										label="Destinatarios"
+										icon={<Users size={12} />}
+										value={recipients}
+										onChange={setRecipients}
+										isTextArea
+										disabled={sendToAllCRM}
+									/>
+									<ConfigField
 										label="API Endpoint"
 										icon={<Globe size={12} />}
 										value={endpoint}
@@ -364,14 +397,6 @@ export default function EmailEditor() {
 										isPassword
 										showPassword={showToken}
 										onTogglePassword={() => setShowToken(!showToken)}
-									/>
-									<ConfigField
-										label="Destinatarios"
-										icon={<Users size={12} />}
-										value={recipients}
-										onChange={setRecipients}
-										isTextArea
-										disabled={sendToAllCRM}
 									/>
 									<div className="space-y-2">
 										<label className="flex cursor-pointer items-center gap-3">
@@ -417,6 +442,7 @@ function ConfigField({
 	isPassword,
 	showPassword,
 	onTogglePassword,
+	placeholder,
 }: any) {
 	return (
 		<div className="space-y-2">
@@ -430,6 +456,7 @@ function ConfigField({
 					value={value}
 					onChange={(e) => onChange(e.target.value)}
 					disabled={disabled}
+					placeholder={placeholder}
 					className={`h-32 w-full resize-none rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"}`}
 				/>
 			) : (
@@ -439,6 +466,7 @@ function ConfigField({
 						value={value}
 						onChange={(e) => onChange(e.target.value)}
 						disabled={disabled}
+						placeholder={placeholder}
 						className={`w-full rounded-xl border border-gray-100 p-3 text-xs outline-none focus:ring-1 focus:ring-[rgb(204,124,118)] ${disabled ? "cursor-not-allowed bg-gray-100 text-gray-400" : "bg-gray-50"} ${isPassword ? "pr-10" : ""}`}
 					/>
 					{isPassword && onTogglePassword && (
