@@ -117,10 +117,12 @@ export default function EmailEditor() {
 			if (sendToAllCRM) {
 				body.all_crm_users = true
 			} else {
-				body.recipients = recipients.split(",").map((r) => r.trim())
+				body.recipients = recipients
+					.split(/[,\n]/)
+					.map((r) => r.trim())
+					.filter((r) => r.length > 0)
 			}
-
-			console.log("Enviando email con body:", body)
+			console.log("body:", body)
 
 			const response = await fetch(endpoint, {
 				method: "POST",
