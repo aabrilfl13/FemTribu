@@ -6,6 +6,7 @@
 interface Config {
 	webhookUrl: string
 	authToken: string
+	authTokenNewsletter: string
 }
 
 /**
@@ -15,6 +16,7 @@ interface Config {
 export function getWebhookConfig(): Config {
 	const webhookUrl = import.meta.env.WEBHOOK_URL
 	const authToken = import.meta.env.WEBHOOK_AUTH_TOKEN
+	const authTokenNewsletter = import.meta.env.WEBHOOK_NEWSLETTER_AUTH_TOKEN
 
 	if (!webhookUrl || !authToken) {
 		throw new Error("WEBHOOK_URL or WEBHOOK_AUTH_TOKEN environment variables are not set")
@@ -23,6 +25,7 @@ export function getWebhookConfig(): Config {
 	return {
 		webhookUrl,
 		authToken,
+		authTokenNewsletter,
 	}
 }
 
@@ -48,6 +51,9 @@ export const env = {
 	},
 	get authToken() {
 		return import.meta.env.WEBHOOK_AUTH_TOKEN
+	},
+	get authTokenNewsletter() {
+		return import.meta.env.WEBHOOK_NEWSLETTER_AUTH_TOKEN
 	},
 	get isDevelopment() {
 		return import.meta.env.DEBUG == true && import.meta.env.ENV === "development"
