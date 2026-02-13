@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>FemmTribu Newsletter</title>
+		<!--[if mso]>
+			<noscript>
+				<xml>
+					<o:OfficeDocumentSettings>
+						<o:PixelsPerInch>96</o:PixelsPerInch>
+					</o:OfficeDocumentSettings>
+				</xml>
+			</noscript>
+		<![endif]-->
+		<style>
+			body,
+			table,
+			td,
+			p,
+			a,
+			li {
+				-webkit-text-size-adjust: 100%;
+				-ms-text-size-adjust: 100%;
+			}
+			table,
+			td {
+				mso-table-lspace: 0pt;
+				mso-table-rspace: 0pt;
+			}
+			img {
+				-ms-interpolation-mode: bicubic;
+				border: 0;
+				outline: none;
+				text-decoration: none;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				width: 100% !important;
+				height: 100% !important;
+			}
+			@import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
+
+			@media only screen and (max-width: 600px) {
+				.container {
+					width: 100% !important;
+					border-radius: 16px !important;
+				}
+				.outer-td {
+					padding: 16px 10px !important;
+				}
+				.inner-pad {
+					padding-left: 20px !important;
+					padding-right: 20px !important;
+				}
+				.hero-title {
+					font-size: 26px !important;
+				}
+				.content-text {
+					font-size: 15px !important;
+				}
+				.footer-pad {
+					padding: 20px 20px 24px 20px !important;
+				}
+			}
+
+			@media (prefers-color-scheme: dark) {
+				body,
+				.body-bg {
+					background-color: #1a1a1a !important;
+				}
+				.card-bg {
+					background-color: #2a2a2a !important;
+				}
+				.hero-title,
+				.text-dark {
+					color: #f0ebe5 !important;
+				}
+				.text-body {
+					color: #d4cfc9 !important;
+				}
+				.text-sage {
+					color: #9bb498 !important;
+				}
+				.quote-text {
+					color: #b8c4b6 !important;
+				}
+				.footer-bg {
+					background-color: #1f2820 !important;
+				}
+				.divider {
+					background-color: #444 !important;
+				}
+				.logo-femm,
+				.logo-tribu {
+					color: #ffffff !important;
+				}
+			}
+		</style>
+	</head>
+	<body
+		class="body-bg"
+		style="
+			margin: 0;
+			padding: 0;
+			background-color: #fff5eb;
+			font-family: &quot;Questrial&quot;, Georgia, sans-serif;
+		"
+	>
+		<!-- ============================================
+       PLANTILLA BASE FEMMTRIBU
+       ============================================
+       
+       INSTRUCCIONES DE USO:
+       1. Copia este archivo y renómbralo (ej: newsletter-2025-01.html)
+       2. Cambia el PREHEADER (texto de vista previa del email)
+       3. Cambia el TÍTULO del hero
+       4. Reemplaza la zona de CONTENIDO con tus párrafos
+       5. El footer y la despedida NO se tocan
+       
+       Para añadir un párrafo, copia este bloque:
+       
+       <tr>
+         <td class="inner-pad" style="padding: 0 40px 20px 40px;">
+           <p class="content-text text-body" style="margin: 0; font-family: 'Questrial', Georgia, sans-serif; font-size: 17px; color: #37443A; line-height: 1.7; opacity: 0.85;">
+             Tu texto aquí
+           </p>
+         </td>
+       </tr>
+       
+       Para texto en negrita: <strong style="color: #A22F11;">texto</strong>
+       Para un emoji: simplemente pégalo en el texto
+       
+       ============================================ -->
+
+		<!-- PREHEADER — Cambia este texto (se ve en la vista previa del email) -->
+		<div style="display: none; max-height: 0; overflow: hidden; mso-hide: all">
+			✏️ CAMBIA ESTO: texto de vista previa del email
+		</div>
+
+		<table
+			role="presentation"
+			cellspacing="0"
+			cellpadding="0"
+			border="0"
+			width="100%"
+			class="body-bg"
+			style="background-color: #fff5eb"
+		>
+			<tr>
+				<td align="center" class="outer-td" style="padding: 40px 20px">
+					<table
+						role="presentation"
+						cellspacing="0"
+						cellpadding="0"
+						border="0"
+						class="card-bg container"
+						style="
+							max-width: 600px;
+							width: 100%;
+							background-color: #ffffff;
+							border-radius: 24px;
+							box-shadow: 0 8px 32px -8px rgba(162, 47, 17, 0.15);
+						"
+					>
+						<!-- ═══════════════════════════════════════
+               🔒 HERO (NO TOCAR)
+               ═══════════════════════════════════════ -->
+						<tr>
+							<td align="center" class="inner-pad" style="padding: 40px 40px 24px 40px">
+								<h2
+									style="
+										margin: 0;
+										font-family: Georgia, &quot;Times New Roman&quot;, serif;
+										font-size: 36px;
+										font-weight: 600;
+										letter-spacing: 0.5px;
+									"
+								>
+									<span class="logo-femm" style="color: #a22f11">Femm</span
+									><span class="logo-tribu" style="color: #6a8067">Tribu</span>
+								</h2>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" class="inner-pad" style="padding: 0 40px">
+								<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="60">
+									<tr>
+										<td
+											style="
+												height: 3px;
+												background: linear-gradient(90deg, #a22f11, #cb6e5f);
+												border-radius: 2px;
+											"
+										></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- ═══════════════════════════════════════ -->
+
+						<!-- TÍTULO — Cambia el texto del título -->
+						<tr>
+							<td align="center" class="inner-pad" style="padding: 32px 40px 16px 40px">
+								<h1
+									class="hero-title text-dark"
+									style="
+										margin: 0;
+										font-family: Georgia, &quot;Times New Roman&quot;, serif;
+										font-size: 32px;
+										font-weight: 400;
+										color: #37443a;
+										line-height: 1.3;
+									"
+								>
+									✏️ Tu título aquí
+								</h1>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" class="inner-pad" style="padding: 12px 40px 24px 40px">
+								<p
+									class="subtitle text-sage"
+									style="
+										margin: 0;
+										font-family: &quot;Questrial&quot;, Georgia, sans-serif;
+										font-size: 19px;
+										color: #a22f11;
+										line-height: 1.4;
+										font-weight: 500;
+									"
+								>
+									✏️ Tu subtítulo aquí
+								</p>
+							</td>
+						</tr>
+
+						<!-- ═══════════════════════════════════════
+               ✏️ CONTENIDO (EDITA AQUÍ)
+               Copia bloques <tr> para añadir párrafos
+               ═══════════════════════════════════════ -->
+
+						<tr>
+							<td class="inner-pad" style="padding: 0 40px 20px 40px">
+								<p
+									class="content-text text-body"
+									style="
+										margin: 0;
+										font-family: &quot;Questrial&quot;, Georgia, sans-serif;
+										font-size: 17px;
+										color: #37443a;
+										line-height: 1.7;
+										opacity: 0.85;
+									"
+								>
+									✏️ Escribe aquí tu primer párrafo...
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="inner-pad" style="padding: 0 40px 20px 40px">
+								<p
+									class="content-text text-body"
+									style="
+										margin: 0;
+										font-family: &quot;Questrial&quot;, Georgia, sans-serif;
+										font-size: 17px;
+										color: #37443a;
+										line-height: 1.7;
+										opacity: 0.85;
+									"
+								>
+									✏️ Segundo párrafo (copia este bloque para más)...
+								</p>
+							</td>
+						</tr>
+
+						<!-- ═══════════════════════════════════════
+               FIN CONTENIDO
+               ═══════════════════════════════════════ -->
+
+						<!-- ═══════════════════════════════════════
+               🔒 DESPEDIDA + FOOTER (NO TOCAR)
+               ═══════════════════════════════════════ -->
+						<tr>
+							<td class="inner-pad" style="padding: 12px 40px 0 40px">
+								<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+									<tr>
+										<td class="divider" style="height: 1px; background-color: #e8e0d8"></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+
+						<tr>
+							<td class="inner-pad" style="padding: 28px 40px 8px 40px">
+								<p
+									class="content-text text-body"
+									style="
+										margin: 0;
+										font-family: &quot;Questrial&quot;, Georgia, sans-serif;
+										font-size: 17px;
+										color: #37443a;
+										line-height: 1.7;
+										opacity: 0.85;
+									"
+								>
+									Con cariño,
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="inner-pad" style="padding: 4px 40px 32px 40px">
+								<p
+									class="text-dark"
+									style="
+										margin: 0;
+										font-family: Georgia, serif;
+										font-size: 18px;
+										color: #37443a;
+										font-weight: 600;
+									"
+								>
+									María 💚
+								</p>
+								<p
+									class="text-sage"
+									style="
+										margin: 4px 0 0 0;
+										font-family: &quot;Questrial&quot;, sans-serif;
+										font-size: 14px;
+										color: #6a8067;
+									"
+								>
+									Matrona · FemmTribu
+								</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td
+								class="footer-pad footer-bg"
+								style="
+									padding: 24px 40px 32px 40px;
+									background-color: #37443a;
+									border-radius: 0 0 24px 24px;
+								"
+							>
+								<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+									<tr>
+										<td align="center" style="padding-bottom: 20px">
+											<a
+												href="https://www.instagram.com/femm.tribu"
+												target="_blank"
+												style="display: inline-block; margin: 0 8px"
+											>
+												<img
+													src="https://cdn-icons-png.flaticon.com/512/174/174855.png"
+													alt="Instagram"
+													width="28"
+													height="28"
+													style="display: block; filter: brightness(0) invert(1); opacity: 0.9"
+												/>
+											</a>
+											<a
+												href="https://www.tiktok.com/@merypebe"
+												target="_blank"
+												style="display: inline-block; margin: 0 8px"
+											>
+												<img
+													src="https://cdn-icons-png.flaticon.com/512/3046/3046123.png"
+													alt="TikTok"
+													width="28"
+													height="28"
+													style="display: block; filter: brightness(0) invert(1); opacity: 0.9"
+												/>
+											</a>
+											<a
+												href="https://wa.me/34640912048"
+												target="_blank"
+												style="display: inline-block; margin: 0 8px"
+											>
+												<img
+													src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
+													alt="WhatsApp"
+													width="28"
+													height="28"
+													style="display: block; filter: brightness(0) invert(1); opacity: 0.9"
+												/>
+											</a>
+										</td>
+									</tr>
+									<tr>
+										<td align="center">
+											<p
+												style="
+													margin: 0 0 8px 0;
+													font-family: &quot;Questrial&quot;, sans-serif;
+													font-size: 13px;
+													color: #fff5eb;
+													opacity: 0.8;
+												"
+											>
+												© 2025 FemmTribu · Salud femenina con evidencia y cariño
+											</p>
+											<p
+												style="
+													margin: 0;
+													font-family: &quot;Questrial&quot;, sans-serif;
+													font-size: 12px;
+													color: #fff5eb;
+													opacity: 0.6;
+												"
+											>
+												<a
+													href="https://femmtribu.es/newsletter/unsubscribe"
+													style="color: #fff5eb; text-decoration: underline"
+													>Darme de baja</a
+												>
+												&nbsp;·&nbsp;
+												<a
+													href="https://femmtribu.es/privacy"
+													style="color: #fff5eb; text-decoration: underline"
+													>Política de privacidad</a
+												>
+											</p>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
