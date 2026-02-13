@@ -43,7 +43,7 @@ export default defineConfig({
 	integrations: [
 		sitemap({
 			filter: (page) => {
-				const excludePaths = ["/newsletter/", "/admin/"]
+				const excludePaths = ["/newsletter/", "/admin/", "/cookies/", "/privacy/"]
 				return !excludePaths.some((path) => page.includes(path))
 			},
 		}),

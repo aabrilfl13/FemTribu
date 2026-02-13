@@ -5,6 +5,10 @@ const API_KEY = "9d22c48cd13947aeb637d43e451f707c"
 const SITE_URL = "https://femmtribu.es"
 const SITEMAP_URL = `${SITE_URL}/sitemap-index.xml` // o sitemap-0.xml si usas ese
 
+// Parse command-line arguments
+const args = process.argv.slice(2)
+const VERBOSE = args.includes("--verbose") || args.includes("-v")
+
 async function getUrlsFromSitemap() {
 	try {
 		console.log("📡 Obteniendo URLs del sitemap...")
@@ -73,6 +77,13 @@ async function submitToIndexNow(urls) {
 		if (response.ok) {
 			console.log(`✓ Enviado exitosamente (${response.status})`)
 			console.log(`  URLs notificadas: ${urls.length}`)
+
+			if (VERBOSE) {
+				console.log("\n📋 URLs enviadas:")
+				urls.forEach((url, index) => {
+					console.log(`  ${index + 1}. ${url}`)
+				})
+			}
 		} else {
 			console.error(`✗ Error en la respuesta: ${response.status}: ${await response.text()}`)
 		}
@@ -84,6 +95,10 @@ async function submitToIndexNow(urls) {
 
 async function main() {
 	console.log("🚀 Iniciando notificación a IndexNow\n")
+
+	if (VERBOSE) {
+		console.log("📝 Modo verbose activado\n")
+	}
 
 	try {
 		const urls = await getUrlsFromSitemap()
