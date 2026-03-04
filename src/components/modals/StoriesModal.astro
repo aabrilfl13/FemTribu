@@ -377,12 +377,13 @@ const {
 	class StoriesModalManager {
 		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, enabled) {
 			this.modalId = modalId
-			this.stories = stories
+			this.allStories = stories
+			this.stories = [] // Will be filtered to unviewed stories
 			this.delay = delay
 			this.expiryDays = expiryDays
 			this.autoAdvance = autoAdvance
 			this.enabled = enabled
-			this.storageKey = `stories-modal-${modalId}-dismissed`
+			this.storageKey = `stories-modal-${modalId}-viewed`
 			this.currentIndex = 0
 			this.progressInterval = null
 			this.storyDuration = storyDuration
@@ -397,20 +398,28 @@ const {
 		}
 
 		init() {
+			// Filter stories to only include unviewed ones
+			const unviewedStories = this.getUnviewedStories()
+			this.stories = unviewedStories
+
 			console.log("[StoriesModal] Initializing...", {
 				enabled: this.enabled,
 				delay: this.delay,
+				totalStories: this.allStories.length,
+				unviewedStories: this.stories.length,
 				shouldShow: this.shouldShowModal(),
 			})
 
 			if (this.enabled && this.shouldShowModal()) {
-				console.log(`[StoriesModal] Scheduling modal to show in ${this.delay}ms`)
+				console.log(
+					`[StoriesModal] Scheduling modal to show in ${this.delay}ms with ${this.stories.length} unviewed stories`
+				)
 				setTimeout(() => this.showModal(), this.delay)
 			} else {
 				if (!this.enabled) {
 					console.log("[StoriesModal] Modal is disabled in config")
 				} else {
-					console.log("[StoriesModal] Modal was dismissed recently, cooldown active")
+					console.log("[StoriesModal] No unviewed stories to show")
 				}
 			}
 
@@ -425,31 +434,70 @@ const {
 			window.addEventListener("focus", () => this.handleWindowFocus())
 		}
 
-		shouldShowModal() {
-			const dismissedAt = localStorage.getItem(this.storageKey)
-			console.log("[StoriesModal] Checking if should show:", {
-				storageKey: this.storageKey,
-				dismissedAt,
-				expiryDays: this.expiryDays,
-			})
+		getViewedData() {
+			try {
+				const data = localStorage.getItem(this.storageKey)
+				if (!data) return { viewedStoryIds: [], lastReset: null }
+				return JSON.parse(data)
+			} catch (e) {
+				console.error("[StoriesModal] Error parsing viewed data:", e)
+				return { viewedStoryIds: [], lastReset: null }
+			}
+		}
 
-			if (dismissedAt) {
-				const dismissedDate = new Date(dismissedAt)
+		saveViewedData(data) {
+			try {
+				localStorage.setItem(this.storageKey, JSON.stringify(data))
+			} catch (e) {
+				console.error("[StoriesModal] Error saving viewed data:", e)
+			}
+		}
+
+		getUnviewedStories() {
+			const viewedData = this.getViewedData()
+
+			// Check if cooldown has passed - if so, reset viewed stories
+			if (viewedData.lastReset) {
+				const lastResetDate = new Date(viewedData.lastReset)
 				const now = new Date()
-				const daysSinceDismissed = (now - dismissedDate) / (1000 * 60 * 60 * 24)
+				const daysSinceReset = (now - lastResetDate) / (1000 * 60 * 60 * 24)
 
-				console.log("[StoriesModal] Cooldown check:", {
-					dismissedDate: dismissedDate.toISOString(),
-					daysSinceDismissed: daysSinceDismissed.toFixed(2),
-					expiryDays: this.expiryDays,
-					willShow: daysSinceDismissed >= this.expiryDays,
-				})
-
-				if (daysSinceDismissed < this.expiryDays) {
-					return false
+				if (daysSinceReset >= this.expiryDays) {
+					console.log("[StoriesModal] Cooldown period passed, resetting viewed stories")
+					this.saveViewedData({ viewedStoryIds: [], lastReset: now.toISOString() })
+					return this.allStories
 				}
 			}
-			return true
+
+			// Filter out viewed stories
+			const unviewed = this.allStories.filter(
+				(story) => !viewedData.viewedStoryIds.includes(story.id)
+			)
+
+			console.log("[StoriesModal] Viewed stories:", viewedData.viewedStoryIds)
+			console.log(
+				"[StoriesModal] Unviewed stories:",
+				unviewed.map((s) => s.id)
+			)
+
+			return unviewed
+		}
+
+		shouldShowModal() {
+			return this.stories.length > 0
+		}
+
+		markStoryAsViewed(storyId) {
+			const viewedData = this.getViewedData()
+
+			if (!viewedData.viewedStoryIds.includes(storyId)) {
+				viewedData.viewedStoryIds.push(storyId)
+				if (!viewedData.lastReset) {
+					viewedData.lastReset = new Date().toISOString()
+				}
+				this.saveViewedData(viewedData)
+				console.log("[StoriesModal] Marked story as viewed:", storyId)
+			}
 		}
 
 		showModal() {
@@ -473,6 +521,28 @@ const {
 			this.isModalOpen = true
 			this.isPaused = false
 			this.currentIndex = 0
+
+			// Hide viewed stories and their progress bars
+			const modal = document.getElementById(this.modalId)
+			const slides = modal?.querySelectorAll(".story-slide")
+			const progressBarContainers = modal?.querySelectorAll(".progress-bars > div")
+			const viewedData = this.getViewedData()
+
+			slides?.forEach((slide, i) => {
+				const storyId = slide.getAttribute("data-story-id")
+				if (viewedData.viewedStoryIds.includes(storyId)) {
+					slide.style.display = "none"
+					if (progressBarContainers[i]) {
+						progressBarContainers[i].style.display = "none"
+					}
+				} else {
+					slide.style.display = ""
+					if (progressBarContainers[i]) {
+						progressBarContainers[i].style.display = ""
+					}
+				}
+			})
+
 			this.showStory(0)
 			this.setupNavigation()
 			this.setupTouchGestures()
@@ -481,7 +551,7 @@ const {
 		onModalClosed() {
 			this.isModalOpen = false
 			this.stopProgress()
-			localStorage.setItem(this.storageKey, new Date().toISOString())
+			console.log("[StoriesModal] Modal closed")
 		}
 
 		handleVisibilityChange() {
@@ -552,13 +622,43 @@ const {
 			}
 		}
 
-		showStory(index) {
+		getVisibleStories() {
 			const modal = document.getElementById(this.modalId)
 			const slides = modal?.querySelectorAll(".story-slide")
-			const progressBars = modal?.querySelectorAll(".progress-bar")
+			const visible = []
+
+			slides?.forEach(slide => {
+				if (slide.style.display !== "none") {
+					visible.push(slide)
+				}
+			})
+
+			return visible
+		}
+
+		getVisibleProgressBars() {
+			const modal = document.getElementById(this.modalId)
+			const progressBarContainers = modal?.querySelectorAll(".progress-bars > div")
+			const visible = []
+
+			progressBarContainers?.forEach(container => {
+				if (container.style.display !== "none") {
+					const bar = container.querySelector(".progress-bar")
+					if (bar) visible.push(bar)
+				}
+			})
+
+			return visible
+		}
+
+		showStory(index) {
+			const visibleSlides = this.getVisibleStories()
+			const visibleProgressBars = this.getVisibleProgressBars()
+
+			if (index >= visibleSlides.length) return
 
 			// Update slides
-			slides?.forEach((slide, i) => {
+			visibleSlides.forEach((slide, i) => {
 				slide.classList.remove("active", "previous")
 				if (i === index) {
 					slide.classList.add("active")
@@ -568,7 +668,7 @@ const {
 			})
 
 			// Update progress bars
-			progressBars?.forEach((bar, i) => {
+			visibleProgressBars.forEach((bar, i) => {
 				bar.classList.remove("completed")
 				bar.style.width = "0%"
 				if (i < index) {
@@ -577,6 +677,16 @@ const {
 			})
 
 			this.currentIndex = index
+
+			// Mark current story as viewed
+			const currentSlide = visibleSlides[index]
+			if (currentSlide) {
+				const storyId = currentSlide.getAttribute("data-story-id")
+				if (storyId) {
+					this.markStoryAsViewed(storyId)
+				}
+			}
+
 			this.startProgress()
 		}
 
@@ -586,10 +696,8 @@ const {
 			if (!this.autoAdvance) return
 
 			this.currentProgress = 0
-			const modal = document.getElementById(this.modalId)
-			const currentBar = modal?.querySelector(
-				`.progress-bar[data-story-index="${this.currentIndex}"]`
-			)
+			const visibleProgressBars = this.getVisibleProgressBars()
+			const currentBar = visibleProgressBars[this.currentIndex]
 
 			const interval = 50
 			const increment = (interval / this.storyDuration) * 100
@@ -611,10 +719,8 @@ const {
 
 			if (!this.autoAdvance) return
 
-			const modal = document.getElementById(this.modalId)
-			const currentBar = modal?.querySelector(
-				`.progress-bar[data-story-index="${this.currentIndex}"]`
-			)
+			const visibleProgressBars = this.getVisibleProgressBars()
+			const currentBar = visibleProgressBars[this.currentIndex]
 
 			const interval = 50
 			const increment = (interval / this.storyDuration) * 100
@@ -639,7 +745,8 @@ const {
 		}
 
 		nextStory() {
-			if (this.currentIndex < this.stories.length - 1) {
+			const visibleStories = this.getVisibleStories()
+			if (this.currentIndex < visibleStories.length - 1) {
 				this.showStory(this.currentIndex + 1)
 			} else {
 				// Close modal after last story
