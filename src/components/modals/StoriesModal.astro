@@ -627,7 +627,7 @@ const {
 			const slides = modal?.querySelectorAll(".story-slide")
 			const visible = []
 
-			slides?.forEach(slide => {
+			slides?.forEach((slide) => {
 				if (slide.style.display !== "none") {
 					visible.push(slide)
 				}
@@ -641,7 +641,7 @@ const {
 			const progressBarContainers = modal?.querySelectorAll(".progress-bars > div")
 			const visible = []
 
-			progressBarContainers?.forEach(container => {
+			progressBarContainers?.forEach((container) => {
 				if (container.style.display !== "none") {
 					const bar = container.querySelector(".progress-bar")
 					if (bar) visible.push(bar)
