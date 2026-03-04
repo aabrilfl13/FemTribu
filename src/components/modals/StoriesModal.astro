@@ -33,7 +33,13 @@ const {
 } = Astro.props
 ---
 
-<Modal id={id} size="lg" class="stories-modal-wrapper" closeOnOutsideClick={false}>
+<Modal
+	id={id}
+	size="lg"
+	class="stories-modal-wrapper"
+	closeOnOutsideClick={false}
+	hideCloseButton={true}
+>
 	<div class="stories-container">
 		<!-- Progress bars at the top -->
 		<div class="progress-bars absolute top-4 right-3 left-3 z-20 flex gap-1.5">
