@@ -1,5 +1,5 @@
 /**
- * Fuente única de verdad para todos los servicios de Femm Tribu
+ * Fuente única de verdad para todos los servicios de Femm tribu
  * Si cambias precios o nombres aquí, se actualiza en toda la web automáticamente
  */
 
@@ -31,7 +31,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMax: 220,
 		serviceType: "Lactancia",
 		seo: {
-			title: "Asesoría de Lactancia | Matrona en Valencia y Online | Femm tribu",
+			title: "Asesoría Lactancia Valencia y Online | Femm tribu",
 			description:
 				"¿Dolor o dudas con tu lactancia? María Belenguer, matrona, te acompaña en Valencia y online. Soluciones reales para el agarre, banco de leche y destete.",
 		},
@@ -47,7 +47,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMax: 250,
 		serviceType: "Preparación al Parto",
 		seo: {
-			title: "Preparación al Parto | Matrona en Valencia y Online | Femm tribu",
+			title: "Preparación al Parto Valencia y Online | Femm tribu",
 			description:
 				"Acompañamiento presencial en Valencia y online con matrona María Belenguer. Prepara tu parto con ciencia y alma: fisiología, gestión del miedo y posparto. ¡Confía en tu cuerpo!",
 		},
@@ -63,7 +63,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMax: 250,
 		serviceType: "Menopausia",
 		seo: {
-			title: "Menopausia | Matrona en Valencia y Online | Femm tribu",
+			title: "Menopausia Valencia y Online | Femm tribu",
 			description:
 				"Redefine tu menopausia con María Belenguer. Acompañamiento integral: salud sexual, suelo pélvico y hábitos saludables. Ciencia y alma en Valencia.",
 		},
@@ -79,7 +79,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMax: 160,
 		serviceType: "Salud Hormonal",
 		seo: {
-			title: "Salud Hormonal | Matrona en Valencia y Online | Femm tribu",
+			title: "Salud Hormonal Valencia y Online | Femm tribu",
 			description:
 				"Aprende a escuchar tu cuerpo con María Belenguer. Asesoría en salud hormonal, nutrición y ciclo menstrual en Valencia y online. ¡Vive en sintonía contigo!",
 		},
