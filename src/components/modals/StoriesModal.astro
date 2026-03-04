@@ -84,6 +84,13 @@ const {
 							<p class="mt-4 text-base leading-relaxed text-white/90 md:text-lg">
 								{story.description}
 							</p>
+							<div class="story-cta-wrapper mt-6">
+								{story.ctaText && story.ctaLink && (
+									<Button href={story.ctaLink} variant="hero">
+										{story.ctaText}
+									</Button>
+								)}
+							</div>
 						</div>
 					</div>
 				))
@@ -168,7 +175,6 @@ const {
 		transition:
 			opacity 0.3s ease,
 			transform 0.3s ease;
-		transform: translateX(100%);
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
