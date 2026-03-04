@@ -39,6 +39,8 @@ const {
 	class="stories-modal-wrapper"
 	closeOnOutsideClick={false}
 	hideCloseButton={true}
+	noPadding={true}
+	noBorder={true}
 >
 	<div class="stories-container">
 		<!-- Progress bars at the top -->
@@ -113,7 +115,6 @@ const {
 <style>
 	:global(.stories-modal-wrapper .modal-dialog) {
 		max-width: 500px;
-		padding: 0;
 		border-radius: 20px;
 		overflow: hidden;
 		background: #37443a;
@@ -125,6 +126,7 @@ const {
 		height: 600px;
 		max-height: 80vh;
 		overflow: hidden;
+		background: #37443a;
 	}
 
 	/* Progress bars */
@@ -163,7 +165,8 @@ const {
 		transform: translateX(100%);
 		display: flex;
 		align-items: flex-end;
-		padding: 60px 24px 24px;
+		padding: 80px 24px 32px;
+		background: #37443a;
 	}
 
 	.story-slide.active {
