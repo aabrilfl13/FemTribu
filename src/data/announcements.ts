@@ -11,7 +11,7 @@ const mockAnnouncementStories: Story[] = [
 		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
 		ctaText: "Mantenerme informada",
 		ctaLink: "/#newsletter",
-		imageSrc: "/images/pregnant-woman.webp",
+		imageSrc: "/images/events/maria-exercise.webp",
 		backgroundColor: "#37443a",
 	},
 ]
