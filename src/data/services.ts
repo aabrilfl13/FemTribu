@@ -1,0 +1,111 @@
+/**
+ * Fuente única de verdad para todos los servicios de Femm Tribu
+ * Si cambias precios o nombres aquí, se actualiza en toda la web automáticamente
+ */
+
+export interface ServiceData {
+	id: string
+	name: string
+	nameShort: string
+	description: string
+	url: string
+	priceMin: number
+	priceMax: number
+	serviceType: string
+	// SEO específico
+	seo: {
+		title: string
+		description: string
+	}
+}
+
+export const SERVICES: Record<string, ServiceData> = {
+	lactancia: {
+		id: "lactancia",
+		name: "Asesoría de Lactancia",
+		nameShort: "Lactancia",
+		description:
+			"Acompañamiento profesional y cercano en Valencia y online para resolver problemas de lactancia. Soluciones reales para el agarre, banco de leche, destete y más.",
+		url: "/servicios/lactancia",
+		priceMin: 70,
+		priceMax: 220,
+		serviceType: "Lactancia",
+		seo: {
+			title: "Asesoría de Lactancia | Matrona en Valencia y Online | Femm tribu",
+			description:
+				"¿Dolor o dudas con tu lactancia? María Belenguer, matrona, te acompaña en Valencia y online. Soluciones reales para el agarre, banco de leche y destete.",
+		},
+	},
+	preparacionParto: {
+		id: "preparacion-parto",
+		name: "Preparación al Parto",
+		nameShort: "Preparación al Parto",
+		description:
+			"Prepara tu parto con ciencia y alma. Acompañamiento presencial en Valencia y online con matrona. Fisiología del parto, gestión del miedo, meditación y posparto.",
+		url: "/servicios/preparacion-al-parto",
+		priceMin: 90,
+		priceMax: 250,
+		serviceType: "Preparación al Parto",
+		seo: {
+			title: "Preparación al Parto | Matrona en Valencia y Online | Femm tribu",
+			description:
+				"Acompañamiento presencial en Valencia y online con matrona María Belenguer. Prepara tu parto con ciencia y alma: fisiología, gestión del miedo y posparto. ¡Confía en tu cuerpo!",
+		},
+	},
+	menopausia: {
+		id: "menopausia",
+		name: "Acompañamiento en Menopausia",
+		nameShort: "Menopausia",
+		description:
+			"Redefine tu menopausia con acompañamiento integral. Salud sexual, suelo pélvico, nutrición y hábitos saludables. Matrona en Valencia y online.",
+		url: "/servicios/menopausia",
+		priceMin: 80,
+		priceMax: 250,
+		serviceType: "Menopausia",
+		seo: {
+			title: "Menopausia | Matrona en Valencia y Online | Femm tribu",
+			description:
+				"Redefine tu menopausia con María Belenguer. Acompañamiento integral: salud sexual, suelo pélvico y hábitos saludables. Ciencia y alma en Valencia.",
+		},
+	},
+	saludHormonal: {
+		id: "salud-hormonal",
+		name: "Acompañamiento en Salud Hormonal",
+		nameShort: "Salud Hormonal",
+		description:
+			"Aprende a escuchar tu cuerpo. Asesoría en salud hormonal, ciclo menstrual, nutrición y consulta preconcepcional. Matrona en Valencia y online.",
+		url: "/servicios/salud-hormonal",
+		priceMin: 50,
+		priceMax: 160,
+		serviceType: "Salud Hormonal",
+		seo: {
+			title: "Salud Hormonal | Matrona en Valencia y Online | Femm tribu",
+			description:
+				"Aprende a escuchar tu cuerpo con María Belenguer. Asesoría en salud hormonal, nutrición y ciclo menstrual en Valencia y online. ¡Vive en sintonía contigo!",
+		},
+	},
+} as const
+
+/**
+ * Helper para obtener todos los servicios como array
+ */
+export function getAllServices(): ServiceData[] {
+	return Object.values(SERVICES)
+}
+
+/**
+ * Helper para obtener un servicio por ID
+ */
+export function getServiceById(id: string): ServiceData | undefined {
+	return Object.values(SERVICES).find((service) => service.id === id)
+}
+
+/**
+ * Helper para obtener el rango de precios como string
+ */
+export function getPriceRange(service: ServiceData): string {
+	if (service.priceMin === service.priceMax) {
+		return `${service.priceMin}€`
+	}
+	return `${service.priceMin}€ - ${service.priceMax}€`
+}

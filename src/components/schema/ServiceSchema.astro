@@ -1,0 +1,123 @@
+---
+/**
+ * Service Schema - Schema reutilizable para cada servicio
+ * Uso:
+ * <ServiceSchema
+ *   name="Asesoría de Lactancia"
+ *   description="..."
+ *   priceMin={70}
+ *   priceMax={220}
+ *   serviceType="Lactancia"
+ * />
+ */
+
+export interface Props {
+	name: string
+	description: string
+	priceMin: number
+	priceMax?: number
+	serviceType: string
+	image?: string
+	url?: string
+}
+
+const { name, description, priceMin, priceMax, serviceType, image, url } = Astro.props
+
+const siteUrl = Astro.site?.toString() || "https://femmtribu.es"
+const pageUrl = url || new URL(Astro.url.pathname, siteUrl).toString()
+const serviceImage = image || `${siteUrl}/images/og-hands-together.webp`
+
+const serviceSchema = {
+	"@context": "https://schema.org",
+	"@type": "Service",
+	"@id": `${pageUrl}#service`,
+	name: name,
+	description: description,
+	serviceType: serviceType,
+	image: serviceImage,
+	url: pageUrl,
+
+	// Proveedor del servicio
+	provider: {
+		"@id": `${siteUrl}#person`,
+		"@type": "Person",
+		name: "María Belenguer",
+		jobTitle: "Matrona",
+	},
+
+	// Organización
+	broker: {
+		"@id": `${siteUrl}#organization`,
+	},
+
+	// Área de servicio
+	areaServed: [
+		{
+			"@type": "City",
+			name: "Valencia",
+		},
+		{
+			"@type": "Country",
+			name: "España",
+		},
+	],
+
+	// Disponibilidad
+	availableChannel: [
+		{
+			"@type": "ServiceChannel",
+			serviceLocation: {
+				"@type": "Place",
+				address: {
+					"@type": "PostalAddress",
+					addressLocality: "Valencia",
+					addressRegion: "Comunidad Valenciana",
+					addressCountry: "ES",
+				},
+			},
+		},
+		{
+			"@type": "ServiceChannel",
+			name: "Online",
+		},
+	],
+
+	// Oferta con precio
+	offers: {
+		"@type": "AggregateOffer",
+		priceCurrency: "EUR",
+		lowPrice: priceMin,
+		highPrice: priceMax || priceMin,
+		price: priceMin,
+		availability: "https://schema.org/InStock",
+		url: pageUrl,
+		priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+			.toISOString()
+			.split("T")[0],
+		validFrom: new Date().toISOString().split("T")[0],
+		acceptedPaymentMethod: [
+			{
+				"@type": "PaymentMethod",
+				name: "Cash",
+			},
+			{
+				"@type": "PaymentMethod",
+				name: "Credit Card",
+			},
+			{
+				"@type": "PaymentMethod",
+				name: "Bank Transfer",
+			},
+		],
+	},
+
+	// Categoría
+	category: "Healthcare Services",
+	audience: {
+		"@type": "PeopleAudience",
+		suggestedGender: "female",
+	},
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
