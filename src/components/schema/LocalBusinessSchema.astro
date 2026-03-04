@@ -1,0 +1,95 @@
+---
+/**
+ * LocalBusiness Schema - For local searches "midwife valencia"
+ * Combines organization aspects with specific location
+ */
+
+import { getAllServices } from "@/data/services"
+import { BUSINESS_INFO, getSchemaAddress, getImageUrls } from "@/data/business-info"
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const services = getAllServices()
+const images = getImageUrls(siteUrl)
+
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": ["MedicalBusiness", "LocalBusiness", "HealthAndBeautyBusiness"],
+	"@id": `${siteUrl}#localbusiness`,
+	name: `Femm Tribu - Matrona ${BUSINESS_INFO.address.locality}`,
+	alternateName: `${BUSINESS_INFO.founder.name} Matrona`,
+	description: `Matrona en ${BUSINESS_INFO.address.locality} especializada en lactancia, preparación al parto, menopausia y salud hormonal. Atención presencial en ${BUSINESS_INFO.address.locality} y online.`,
+
+	// Location
+	address: getSchemaAddress(true),
+
+	// Geographic area
+	geo: {
+		"@type": "GeoCoordinates",
+		latitude: BUSINESS_INFO.geo.latitude,
+		longitude: BUSINESS_INFO.geo.longitude,
+	},
+
+	// URL & Img
+	url: siteUrl,
+	image: images.ogImage,
+	logo: images.logo,
+
+	// Contact
+	telephone: import.meta.env.WHATSAPP_NUMBER || BUSINESS_INFO.phone,
+	email: BUSINESS_INFO.email,
+
+	// Schedule
+	openingHoursSpecification: BUSINESS_INFO.openingHours.specification.map((spec) => ({
+		"@type": "OpeningHoursSpecification",
+		dayOfWeek: spec.days,
+		opens: spec.opens,
+		closes: spec.closes,
+	})),
+
+  // Services
+	hasOfferCatalog: {
+		"@type": "OfferCatalog",
+		name: "Servicios de Matrona",
+		itemListElement: services.map((service) => ({
+			"@type": "Offer",
+			itemOffered: {
+				"@type": "Service",
+				name: `${service.name} ${BUSINESS_INFO.address.locality}`,
+				description: service.description,
+			},
+			priceSpecification: {
+				"@type": "PriceSpecification",
+				price: service.priceMin.toString(),
+				priceCurrency: "EUR",
+				minPrice: service.priceMin.toString(),
+				maxPrice: service.priceMax.toString(),
+			},
+		})),
+	},
+
+	medicalSpecialty: "Midwifery",
+
+  // Price range
+	priceRange: BUSINESS_INFO.priceRange,
+
+	// Payment methods
+	paymentAccepted: BUSINESS_INFO.paymentMethods,
+
+	// Service area
+	areaServed: [
+		{
+			"@type": "City",
+			name: BUSINESS_INFO.address.locality,
+		},
+		{
+			"@type": "State",
+			name: BUSINESS_INFO.address.region,
+		},
+	],
+
+	// Social media
+	sameAs: BUSINESS_INFO.socialLinks,
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />

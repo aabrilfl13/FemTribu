@@ -1,0 +1,94 @@
+---
+/**
+ * Organization Schema - Información de la organización Femm Tribu
+ * Se usa en todas las páginas para que Google entienda quién eres
+ */
+
+import { getAllServices } from "@/data/services"
+import { BUSINESS_INFO, getSchemaAddress, getImageUrls } from "@/data/business-info"
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const services = getAllServices()
+const images = getImageUrls(siteUrl)
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "MedicalBusiness",
+	"@id": `${siteUrl}#organization`,
+	name: "Femm Tribu",
+	alternateName: `Femm tribu - ${BUSINESS_INFO.founder.name}`,
+	description:
+		"Acompañamiento integral a mujeres en todas las etapas de su vida. Servicios de matrona especializados en lactancia, preparación al parto, menopausia y salud hormonal.",
+	url: siteUrl,
+	logo: {
+		"@type": "ImageObject",
+		url: images.logo,
+	},
+	image: images.ogImage,
+
+	// Ubicación
+	address: getSchemaAddress(false),
+
+	// Área de servicio
+	areaServed: [
+		{
+			"@type": "City",
+			name: BUSINESS_INFO.address.locality,
+		},
+		{
+			"@type": "Country",
+			name: "España",
+		},
+	],
+
+	// Especialidad médica
+	medicalSpecialty: "Midwifery",
+
+	// Contacto
+	contactPoint: {
+		"@type": "ContactPoint",
+		contactType: "customer service",
+		availableLanguage: ["Spanish"],
+		contactOption: "TollFree",
+	},
+
+	// Redes sociales
+	sameAs: BUSINESS_INFO.socialLinks,
+
+	// Fundador
+	founder: {
+		"@type": "Person",
+		name: BUSINESS_INFO.founder.name,
+		jobTitle: BUSINESS_INFO.founder.jobTitle,
+	},
+
+	// Servicios ofrecidos (dinámico desde services.ts)
+	hasOfferCatalog: {
+		"@type": "OfferCatalog",
+		name: "Servicios de Matrona",
+		itemListElement: services.map((service) => ({
+			"@type": "OfferCatalog",
+			name: service.nameShort,
+			itemListElement: [
+				{
+					"@type": "Offer",
+					itemOffered: {
+						"@type": "Service",
+						name: service.name,
+						description: service.description,
+					},
+				},
+			],
+		})),
+	},
+
+	// Modo de operación
+	priceRange: BUSINESS_INFO.priceRange,
+	paymentAccepted: BUSINESS_INFO.paymentMethods.join(", "),
+
+	// Disponibilidad
+	openingHours: BUSINESS_INFO.openingHours.simple,
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />

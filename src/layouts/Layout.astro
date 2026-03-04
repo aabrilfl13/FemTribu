@@ -10,6 +10,9 @@ import GoogleAnalytics from "@/components/GoogleAnalytics.astro"
 import Footer from "@/components/layout/Footer.astro"
 import Nav from "@/components/layout/Nav.astro"
 import MicrosoftClarity from "@/components/MicrosoftClarity.astro"
+import LocalBusinessSchema from "@/components/schema/LocalBusinessSchema.astro"
+import OrganizationSchema from "@/components/schema/OrganizationSchema.astro"
+import PersonSchema from "@/components/schema/PersonSchema.astro"
 import SEO from "@/components/SEO.astro"
 
 export interface Props {
@@ -82,6 +85,11 @@ const isDevelopment = import.meta.env.ENV === "development"
 			name="keywords"
 			content="maternidad, lactancia, embarazo, matrona, mujer, mujeres, salud femenina, María Belenguer"
 		/>
+
+		<!-- Structured Data (Schema.org) -->
+		<OrganizationSchema />
+		<PersonSchema />
+		<LocalBusinessSchema />
 
 		<!-- Fonts preload -->
 		<link
