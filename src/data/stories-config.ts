@@ -10,6 +10,8 @@ export interface StoriesConfig {
 	autoAdvance: boolean
 	/** Duration in milliseconds for each story */
 	storyDuration: number
+	/** Duration in minutes to snooze the modal after clicking a CTA button */
+	snoozeDurationMinutes: number
 }
 
 export const storiesConfig: StoriesConfig = {
@@ -18,4 +20,5 @@ export const storiesConfig: StoriesConfig = {
 	cooldownDays: 7, // Don't show again for 7 days after dismissal
 	autoAdvance: true,
 	storyDuration: 7000, // 7 seconds per story
+	snoozeDurationMinutes: 15, 
 }

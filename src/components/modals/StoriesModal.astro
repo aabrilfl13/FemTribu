@@ -427,11 +427,12 @@ const {
 		expiryDays,
 		autoAdvance,
 		storyDuration: storiesConfig.storyDuration,
+		snoozeDurationMinutes: storiesConfig.snoozeDurationMinutes,
 		enabled: storiesConfig.enabled,
 	}}
 >
 	class StoriesModalManager {
-		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, enabled) {
+		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled) {
 			this.modalId = modalId
 			this.allStories = stories
 			this.stories = [] // Will be filtered to unviewed stories
@@ -440,6 +441,8 @@ const {
 			this.autoAdvance = autoAdvance
 			this.enabled = enabled
 			this.storageKey = `stories-modal-${modalId}-viewed`
+			this.snoozeKey = `stories-modal-${modalId}-snooze`
+			this.snoozeDuration = snoozeDurationMinutes * 60 * 1000 // Convert minutes to milliseconds
 			this.currentIndex = 0
 			this.progressInterval = null
 			this.storyDuration = storyDuration
@@ -463,6 +466,7 @@ const {
 				delay: this.delay,
 				totalStories: this.allStories.length,
 				unviewedStories: this.stories.length,
+				isSnoozed: this.isSnoozed(),
 				shouldShow: this.shouldShowModal(),
 			})
 
@@ -474,6 +478,9 @@ const {
 			} else {
 				if (!this.enabled) {
 					console.log("[StoriesModal] Modal is disabled in config")
+				} else if (this.isSnoozed()) {
+					const minutes = Math.round(this.snoozeDuration / 60000)
+					console.log(`[StoriesModal] Modal is snoozed for ${minutes} minutes`)
 				} else {
 					console.log("[StoriesModal] No unviewed stories to show")
 				}
@@ -540,7 +547,47 @@ const {
 		}
 
 		shouldShowModal() {
-			return this.stories.length > 0
+			if (this.stories.length === 0) return false
+
+			// Check if modal is snoozed
+			if (this.isSnoozed()) {
+				console.log("[StoriesModal] Modal is snoozed")
+				return false
+			}
+
+			return true
+		}
+
+		isSnoozed() {
+			try {
+				const snoozeTime = localStorage.getItem(this.snoozeKey)
+				if (!snoozeTime) return false
+
+				const snoozeTimestamp = parseInt(snoozeTime, 10)
+				const now = Date.now()
+
+				// Check if snooze period has expired
+				if (now - snoozeTimestamp < this.snoozeDuration) {
+					return true
+				}
+
+				// Snooze expired, clear it
+				localStorage.removeItem(this.snoozeKey)
+				return false
+			} catch (e) {
+				console.error("[StoriesModal] Error checking snooze:", e)
+				return false
+			}
+		}
+
+		setSnooze() {
+			try {
+				localStorage.setItem(this.snoozeKey, Date.now().toString())
+				const minutes = Math.round(this.snoozeDuration / 60000)
+				console.log(`[StoriesModal] Modal snoozed for ${minutes} minutes`)
+			} catch (e) {
+				console.error("[StoriesModal] Error setting snooze:", e)
+			}
 		}
 
 		markStoryAsViewed(storyId) {
@@ -670,6 +717,8 @@ const {
 
 			ctaButtons?.forEach((button) => {
 				button.addEventListener("click", () => {
+					// Snooze modal (duration configured in stories-config.ts)
+					this.setSnooze()
 					// Close modal when CTA is clicked
 					window.modalManager?.close(this.modalId)
 				})
@@ -833,7 +882,7 @@ const {
 	function initStoriesModal() {
 		if (window.modalManager) {
 			console.log("[StoriesModal] window.modalManager found, creating manager")
-			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance, storyDuration, enabled)
+			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled)
 		} else {
 			console.log("[StoriesModal] Waiting for window.modalManager...")
 			setTimeout(initStoriesModal, 100)
