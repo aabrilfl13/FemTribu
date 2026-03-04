@@ -193,8 +193,9 @@ const {
 			transform 0.3s ease;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
-		padding: 80px 24px 32px;
+		justify-content: center;
+		align-items: center;
+		padding: 80px 40px;
 		background: #37443a;
 		overflow: hidden;
 	}
@@ -248,6 +249,7 @@ const {
 		min-height: 0;
 		overflow: hidden;
 		animation: slideUp 0.4s ease-out;
+		text-align: center;
 	}
 
 	@keyframes slideUp {
@@ -279,6 +281,12 @@ const {
 
 	.story-description p {
 		line-height: 1.6;
+	}
+
+	.story-cta-wrapper {
+		display: flex;
+		justify-content: center;
+		width: 100%;
 	}
 
 	/* Text overflow handling */
@@ -390,6 +398,10 @@ const {
 			border-radius: 0;
 		}
 
+		.story-slide {
+			padding: 60px 24px;
+		}
+
 		.story-nav {
 			width: 30px;
 			height: 30px;
@@ -402,9 +414,7 @@ const {
 		}
 
 		.story-cta-wrapper :global(a) {
-			display: block;
 			width: 100%;
-			text-align: center;
 		}
 	}
 </style>
@@ -592,6 +602,7 @@ const {
 			this.showStory(0)
 			this.setupNavigation()
 			this.setupTouchGestures()
+			this.setupCTAButtons()
 		}
 
 		onModalClosed() {
@@ -650,6 +661,18 @@ const {
 			container?.addEventListener("touchend", (e) => {
 				this.touchEndX = e.changedTouches[0].screenX
 				this.handleSwipe()
+			})
+		}
+
+		setupCTAButtons() {
+			const modal = document.getElementById(this.modalId)
+			const ctaButtons = modal?.querySelectorAll(".story-cta-wrapper a")
+
+			ctaButtons?.forEach((button) => {
+				button.addEventListener("click", () => {
+					// Close modal when CTA is clicked
+					window.modalManager?.close(this.modalId)
+				})
 			})
 		}
 
