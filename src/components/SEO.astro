@@ -24,7 +24,21 @@ const isDevelopment = import.meta.env.ENV === "development"
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
-{(noindex || isDevelopment) && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Robots Meta Tags -->
+{
+	(noindex || isDevelopment) ? (
+		<>
+			<meta name="robots" content="noindex, nofollow" />
+			<meta name="googlebot" content="noindex, nofollow" />
+		</>
+	) : (
+		<>
+			<meta name="robots" content="index, follow, noai, noimageai" />
+			<meta name="googlebot" content="index, follow, noai, noimageai" />
+		</>
+	)
+}
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
