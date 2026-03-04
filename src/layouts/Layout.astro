@@ -15,45 +15,8 @@ import LocalBusinessSchema from "@/components/schema/LocalBusinessSchema.astro"
 import OrganizationSchema from "@/components/schema/OrganizationSchema.astro"
 import PersonSchema from "@/components/schema/PersonSchema.astro"
 import SEO from "@/components/SEO.astro"
+import { getAnnouncements } from "@/data/announcements"
 
-const announcementStories = [
-	{
-		id: "webinar-lactancia",
-		title: "Webinar gratuito: Lactancia materna",
-		description:
-			"Únete a María este sábado para aprender técnicas esenciales de lactancia. Plazas limitadas.",
-		ctaText: "Reservar plaza gratis",
-		ctaLink: "/webinars/lactancia",
-		imageSrc: "/images/og-hands-together.webp",
-	},
-	{
-		id: "taller-postparto",
-		title: "Taller: Recuperación postparto",
-		description:
-			"Descubre cómo cuidar tu cuerpo después del parto con nuestro taller presencial en Valencia.",
-		ctaText: "Más información",
-		ctaLink: "/talleres/postparto",
-		imageSrc: "/images/mujeres-circulo.webp",
-	},
-	{
-		id: "evento-menopausia",
-		title: "Círculo de mujeres: Menopausia consciente",
-		description:
-			"Un espacio seguro para compartir experiencias y aprender sobre esta etapa de transformación.",
-		ctaText: "Apuntarme",
-		ctaLink: "/eventos/menopausia",
-		imageSrc: "/images/pregnant-woman.webp",
-	},
-	{
-		id: "descuento-cursos",
-		title: "20% en todos los cursos",
-		description:
-			"Aprovecha esta oferta especial. Usa el código BIENVENIDA20 al finalizar tu compra.",
-		ctaText: "Ver cursos",
-		ctaLink: "/cursos",
-		backgroundColor: "#cb6e5f",
-	},
-]
 export interface Props {
 	title?: string
 	description?: string
@@ -64,6 +27,9 @@ export interface Props {
 }
 const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
 const isDevelopment = import.meta.env.ENV === "development"
+
+// Fetch announcements (simulates API call, runs at build time or request time depending on SSR/SSG)
+const announcementStories = await getAnnouncements()
 ---
 
 <!doctype html>
