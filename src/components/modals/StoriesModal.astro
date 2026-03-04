@@ -8,6 +8,7 @@ import Button from "../ui/Button.astro"
 export interface Story {
 	id: string
 	title: string
+	subtitle?: string
 	description: string
 	ctaText: string
 	ctaLink: string
@@ -77,14 +78,29 @@ const {
 						)}
 
 						<div class="story-content">
-							<h2 class="font-display text-3xl leading-tight font-normal text-white md:text-4xl">
+							{story.subtitle && (
+								<p class="story-subtitle mb-4 text-xs font-medium tracking-widest uppercase">
+									{story.subtitle}
+								</p>
+							)}
+							<h2 class="story-title font-display text-4xl leading-tight font-normal md:text-5xl">
 								{story.title}
 							</h2>
 
-							<p class="mt-4 text-base leading-relaxed text-white/90 md:text-lg">
-								{story.description}
-							</p>
-							<div class="story-cta-wrapper mt-6">
+							<div class="story-description mt-6 text-sm leading-relaxed md:text-base">
+								{story.description.split("\n").map((line) => (
+									<p
+										class={
+											line.trim() === line.toUpperCase()
+												? "mt-4 font-semibold tracking-wide uppercase"
+												: "mt-2"
+										}
+									>
+										{line}
+									</p>
+								))}
+							</div>
+							<div class="story-cta-wrapper mt-8">
 								{story.ctaText && story.ctaLink && (
 									<Button href={story.ctaLink} variant="hero">
 										{story.ctaText}
@@ -245,6 +261,26 @@ const {
 		}
 	}
 
+	/* Text styling */
+	.story-subtitle {
+		color: white;
+		letter-spacing: 0.15em;
+	}
+
+	.story-title {
+		color: white;
+		font-style: italic;
+		line-height: 1.1;
+	}
+
+	.story-description {
+		color: white;
+	}
+
+	.story-description p {
+		line-height: 1.6;
+	}
+
 	/* Text overflow handling */
 	.story-content h2 {
 		overflow: hidden;
@@ -253,7 +289,7 @@ const {
 		-webkit-box-orient: vertical;
 	}
 
-	.story-content p {
+	.story-content .story-description {
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-line-clamp: 6;

@@ -5,40 +5,14 @@ import type { Story } from "@/components/modals/StoriesModal.astro"
  */
 const mockAnnouncementStories: Story[] = [
 	{
-		id: "webinar-lactancia",
-		title: "Webinar gratuito: Lactancia materna",
-		description:
-			"Únete a María este sábado para aprender técnicas esenciales de lactancia. Plazas limitadas.",
-		ctaText: "Reservar plaza gratis",
-		ctaLink: "/webinars/lactancia",
-		imageSrc: "/images/og-hands-together.webp",
-	},
-	{
-		id: "taller-postparto",
-		title: "Taller: Recuperación postparto",
-		description:
-			"Descubre cómo cuidar tu cuerpo después del parto con nuestro taller presencial en Valencia.",
-		ctaText: "Más información",
-		ctaLink: "/talleres/postparto",
-		imageSrc: "/images/mujeres-circulo.webp",
-	},
-	{
-		id: "evento-menopausia",
-		title: "Círculo de mujeres: Menopausia consciente",
-		description:
-			"Un espacio seguro para compartir experiencias y aprender sobre esta etapa de transformación.",
-		ctaText: "Apuntarme",
-		ctaLink: "/eventos/menopausia",
+		id: "nuevos-eventos-2026",
+		subtitle: "VALENCIA... ALGO ESTÁ PASANDO",
+		title: "Coming soon!",
+		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
+		ctaText: "Mantenerme informada",
+		ctaLink: "/newsletter",
 		imageSrc: "/images/pregnant-woman.webp",
-	},
-	{
-		id: "descuento-cursos",
-		title: "20% en todos los cursos",
-		description:
-			"Aprovecha esta oferta especial. Usa el código BIENVENIDA20 al finalizar tu compra.",
-		ctaText: "Ver cursos",
-		ctaLink: "/cursos",
-		backgroundColor: "#cb6e5f",
+		backgroundColor: "#37443a",
 	},
 ]
 
