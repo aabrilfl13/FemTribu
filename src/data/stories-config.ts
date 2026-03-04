@@ -16,9 +16,9 @@ export interface StoriesConfig {
 
 export const storiesConfig: StoriesConfig = {
 	enabled: true,
-	delayMs: 5000, // 5 seconds after page load
-	cooldownDays: 7, // Don't show again for 7 days after dismissal
+	delayMs: 5000,
+	cooldownDays: 7,
 	autoAdvance: true,
-	storyDuration: 7000, // 7 seconds per story
-	snoozeDurationMinutes: 15, 
+	storyDuration: 20000,
+	snoozeDurationMinutes: 15,
 }
