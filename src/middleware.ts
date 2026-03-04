@@ -32,8 +32,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
 		const authToken = context.cookies.get("admin_token")?.value
 
 		if (!authToken || !isValidToken(authToken)) {
-			// Redirect to login page
-			return context.redirect("/admin/login")
+			// Redirect to login page with next parameter
+			const nextUrl = encodeURIComponent(context.url.pathname + context.url.search)
+			return context.redirect(`/admin/login?next=${nextUrl}`)
 		}
 
 		// Token valid, continue to admin page

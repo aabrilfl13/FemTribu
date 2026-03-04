@@ -57,6 +57,36 @@ import Layout from "@/layouts/Layout.astro"
 	const form = document.getElementById("loginForm") as HTMLFormElement
 	const errorMessage = document.getElementById("errorMessage") as HTMLDivElement
 
+	// Get the next parameter from URL
+	const urlParams = new URLSearchParams(window.location.search)
+	const nextUrl = urlParams.get("next")
+
+	// Validate and sanitize the next URL to prevent open redirect attacks
+	function getSafeRedirectUrl(next: string | null): string {
+		// Default to admin dashboard
+		if (!next) return "/admin"
+
+		try {
+			// Ensure it's a relative URL (starts with /)
+			if (!next.startsWith("/")) return "/admin"
+
+			// Prevent protocol-relative URLs (//example.com)
+			if (next.startsWith("//")) return "/admin"
+
+			// Decode to check for encoded attempts
+			const decoded = decodeURIComponent(next)
+			if (decoded.includes("://") || decoded.startsWith("//")) return "/admin"
+
+			// Valid internal path
+			return decoded
+		} catch {
+			// If decoding fails, default to admin
+			return "/admin"
+		}
+	}
+
+	const redirectUrl = getSafeRedirectUrl(nextUrl)
+
 	form.addEventListener("submit", async (e) => {
 		e.preventDefault()
 		errorMessage.classList.add("hidden")
@@ -81,8 +111,8 @@ import Layout from "@/layouts/Layout.astro"
 				localStorage.setItem("admin_token", data.token)
 				localStorage.setItem("admin_token_expires", data.expiresAt.toString())
 
-				// Redirect to admin dashboard
-				window.location.href = "/admin"
+				// Redirect to the originally requested page or admin dashboard
+				window.location.href = redirectUrl
 			} else {
 				errorMessage.textContent = data.error || "Error al iniciar sesión"
 				errorMessage.classList.remove("hidden")
@@ -98,6 +128,7 @@ import Layout from "@/layouts/Layout.astro"
 	const expiresAt = localStorage.getItem("admin_token_expires")
 
 	if (token && expiresAt && Date.now() < parseInt(expiresAt)) {
-		window.location.href = "/admin"
+		// If already logged in, redirect to the next URL or admin dashboard
+		window.location.href = redirectUrl
 	}
 </script>
