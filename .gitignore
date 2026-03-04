@@ -164,3 +164,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# Skills
+skills-lock.json
+.claude
+.agents
