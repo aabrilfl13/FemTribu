@@ -1,0 +1,176 @@
+---
+import ArticleSchema from "@/components/blog/ArticleSchema.astro"
+import AuthorInfo from "@/components/blog/AuthorInfo.astro"
+import CategoryBadge from "@/components/blog/CategoryBadge.astro"
+import PostCard from "@/components/blog/PostCard.astro"
+import Button from "@/components/ui/Button.astro"
+import Layout from "@/layouts/Layout.astro"
+import { calculateReadTime, formatDate, getRelatedPosts } from "@/utils/blog"
+import type { GetStaticPaths } from "astro"
+import { getCollection } from "astro:content"
+
+export const prerender = true
+
+export const getStaticPaths = (async () => {
+	const blogEntries = await getCollection("blog", ({ data }) => !data.draft)
+	return blogEntries.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}))
+}) satisfies GetStaticPaths
+
+const { entry } = Astro.props
+const { Content } = await entry.render()
+const { title, description, pubDate, updatedDate, author, heroImage, categories, tags } =
+	entry.data
+
+// Get all posts for related posts
+const allPosts = await getCollection("blog", ({ data }) => !data.draft)
+const relatedPosts = getRelatedPosts(entry, allPosts, 3)
+
+const readTime = calculateReadTime(entry.body)
+const postUrl = new URL(Astro.url.pathname, Astro.site).toString()
+
+const seoData = {
+	title: `${title} | Blog Femm Tribu`,
+	description,
+	image: heroImage,
+	type: "article" as const,
+}
+---
+
+<Layout {...seoData} navScrolled={true}>
+	<ArticleSchema post={entry} url={postUrl} />
+
+	<main class="pt-21">
+		{/* Hero Section */}
+		<section class="relative overflow-hidden">
+			{
+				heroImage && (
+					<div class="absolute inset-0 -z-10">
+						<img
+							src={heroImage}
+							alt={title}
+							class="h-full w-full object-cover opacity-20 blur-sm"
+						/>
+						<div class="bg-background/90 absolute inset-0" />
+					</div>
+				)
+			}
+
+			<div class="container mx-auto px-4 py-16 lg:px-8 lg:py-24">
+				<div class="mx-auto max-w-4xl">
+					{/* Category & Read Time */}
+					<div
+						class="mb-6 flex flex-wrap items-center gap-3"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						<CategoryBadge category={categories[0]} />
+						<span class="text-muted-foreground text-sm">•</span>
+						<span class="text-muted-foreground text-sm">{readTime} min lectura</span>
+						<span class="text-muted-foreground text-sm">•</span>
+						<time class="text-muted-foreground text-sm" datetime={pubDate.toISOString()}>
+							{formatDate(pubDate)}
+						</time>
+						{
+							updatedDate && updatedDate > pubDate && (
+								<>
+									<span class="text-muted-foreground text-sm">•</span>
+									<span class="text-muted-foreground text-sm">
+										Actualizado: {formatDate(updatedDate)}
+									</span>
+								</>
+							)
+						}
+					</div>
+
+					{/* Title */}
+					<h1
+						class="font-display text-primary mb-8 text-4xl sm:text-5xl lg:text-6xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
+						{title}
+					</h1>
+
+					{/* Author Info */}
+					<div
+						class="mb-8 flex items-center justify-between"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.2s"
+					>
+						<AuthorInfo {...author} />
+					</div>
+
+					{/* Tags */}
+					{
+						tags && tags.length > 0 && (
+							<div
+								class="flex flex-wrap gap-2"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay="0.3s"
+							>
+								{tags.map((tag) => (
+									<span class="bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs">
+										#{tag}
+									</span>
+								))}
+							</div>
+						)
+					}
+				</div>
+			</div>
+		</section>
+
+		{/* Article Content */}
+		<article class="bg-background py-16">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="prose prose-lg prose-primary mx-auto max-w-4xl prose-headings:font-display prose-headings:text-primary prose-a:text-accent hover:prose-a:text-accent/80 prose-strong:text-primary prose-img:rounded-2xl"
+				>
+					<Content />
+				</div>
+			</div>
+		</article>
+
+		{/* Call to Action */}
+		<section class="bg-muted/30 py-16">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="bg-background mx-auto max-w-4xl rounded-3xl p-8 text-center shadow-sm lg:p-12">
+					<h2 class="font-display text-primary mb-4 text-2xl lg:text-3xl">
+						¿Necesitas acompañamiento personalizado?
+					</h2>
+					<p class="text-muted-foreground mx-auto mb-8 max-w-2xl">
+						Si te ha resultado útil este artículo y necesitas ayuda profesional, estoy aquí para
+						acompañarte.
+					</p>
+					<Button href={import.meta.env.CALENDLY_URL} variant="hero" size="lg">
+						Reserva tu cita
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		{/* Related Posts */}
+		{
+			relatedPosts.length > 0 && (
+				<section class="bg-background py-16 lg:py-24">
+					<div class="container mx-auto px-4 lg:px-8">
+						<h2 class="font-display text-primary mb-8 text-center text-2xl lg:text-3xl">
+							Artículos relacionados
+						</h2>
+						<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+							{relatedPosts.map((post, index) => (
+								<PostCard post={post} index={index} />
+							))}
+						</div>
+					</div>
+				</section>
+			)
+		}
+	</main>
+</Layout>

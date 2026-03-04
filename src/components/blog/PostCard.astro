@@ -1,0 +1,63 @@
+---
+import { calculateReadTime, formatDate } from "@/utils/blog"
+import AuthorInfo from "./AuthorInfo.astro"
+import CategoryBadge from "./CategoryBadge.astro"
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+	post: CollectionEntry<"blog">
+	index?: number
+}
+
+const { post, index = 0 } = Astro.props
+const { title, description, pubDate, author, heroImage, categories } = post.data
+const readTime = calculateReadTime(post.body)
+---
+
+<article
+	class="bg-background hover:shadow-warm group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1"
+	data-animate="animate-fade-up"
+	data-animate-duration="1s"
+	data-animate-delay={`${index * 100}ms`}
+>
+	{
+		heroImage && (
+			<a href={`/blog/${post.slug}`} class="block overflow-hidden">
+				<img
+					src={heroImage}
+					alt={title}
+					class="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+				/>
+			</a>
+		)
+	}
+
+	<div class="flex flex-1 flex-col p-6">
+		{/* Category Badge */}
+		<div class="mb-3 flex items-center gap-2">
+			<CategoryBadge category={categories[0]} />
+			<span class="text-muted-foreground text-xs">•</span>
+			<span class="text-muted-foreground text-xs">{readTime} min lectura</span>
+		</div>
+
+		{/* Title */}
+		<h2 class="font-display text-primary group-hover:text-accent mb-3 text-xl transition-colors">
+			<a href={`/blog/${post.slug}`} class="hover:underline">
+				{title}
+			</a>
+		</h2>
+
+		{/* Description/Excerpt */}
+		<p class="text-muted-foreground mb-4 flex-1 text-sm leading-relaxed line-clamp-3">
+			{description}
+		</p>
+
+		{/* Footer: Author & Date */}
+		<div class="flex items-center justify-between border-t border-gray-100 pt-4">
+			<AuthorInfo {...author} showRole={false} />
+			<time class="text-muted-foreground text-xs" datetime={pubDate.toISOString()}>
+				{formatDate(pubDate)}
+			</time>
+		</div>
+	</div>
+</article>
