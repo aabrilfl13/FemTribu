@@ -10,10 +10,12 @@ import GoogleAnalytics from "@/components/GoogleAnalytics.astro"
 import Footer from "@/components/layout/Footer.astro"
 import Nav from "@/components/layout/Nav.astro"
 import MicrosoftClarity from "@/components/MicrosoftClarity.astro"
+import StoriesModal from "@/components/modals/StoriesModal.astro"
 import LocalBusinessSchema from "@/components/schema/LocalBusinessSchema.astro"
 import OrganizationSchema from "@/components/schema/OrganizationSchema.astro"
 import PersonSchema from "@/components/schema/PersonSchema.astro"
 import SEO from "@/components/SEO.astro"
+import { getAnnouncements } from "@/data/announcements"
 
 export interface Props {
 	title?: string
@@ -25,6 +27,9 @@ export interface Props {
 }
 const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
 const isDevelopment = import.meta.env.ENV === "development"
+
+// Fetch announcements (simulates API call, runs at build time or request time depending on SSR/SSG)
+const announcementStories = await getAnnouncements()
 ---
 
 <!doctype html>
@@ -151,6 +156,7 @@ const isDevelopment = import.meta.env.ENV === "development"
 			</div> -->
 			<Nav scrolled={navScrolled} />
 			<slot />
+			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />
 			<CookiesOverlay />
 		</div>

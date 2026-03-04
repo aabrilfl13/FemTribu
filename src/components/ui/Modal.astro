@@ -5,9 +5,21 @@ interface Props {
 	id: string
 	size?: "sm" | "md" | "lg" | "xl"
 	class?: string
+	closeOnOutsideClick?: boolean
+	hideCloseButton?: boolean
+	noPadding?: boolean
+	noBorder?: boolean
 }
 
-const { id, size = "md", class: className = "" } = Astro.props
+const {
+	id,
+	size = "md",
+	class: className = "",
+	closeOnOutsideClick = true,
+	hideCloseButton = false,
+	noPadding = false,
+	noBorder = false,
+} = Astro.props
 
 const sizeClasses = {
 	sm: "sm:max-w-md",
@@ -19,24 +31,29 @@ const sizeClasses = {
 
 <dialog
 	id={id}
-	class={`modal-dialog outline-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 max-h-[calc(100vh-4rem)] overflow-y-auto w-full max-w-[calc(100%-2rem)] rounded-3xl border border-forest/20 bg-cream p-8 shadow-[0_20px_60px_rgba(55,68,58,0.3)] backdrop:bg-forest/50 backdrop:backdrop-blur-sm ${sizeClasses[size]} ${className}`}
+	class={`modal-dialog outline-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 max-h-[calc(100vh-4rem)] overflow-y-auto w-full max-w-[calc(100%-2rem)] rounded-3xl ${noBorder ? "" : "border border-forest/20"} bg-cream ${noPadding ? "" : "p-8"} shadow-[0_20px_60px_rgba(55,68,58,0.3)] backdrop:bg-forest/50 backdrop:backdrop-blur-sm ${sizeClasses[size]} ${className}`}
 	data-modal
+	data-close-on-outside-click={closeOnOutsideClick}
 >
 	<slot />
 
-	<Button
-		data-modal-close
-		class="modal-close text-sage hover:bg-sage/10 hover:text-forest absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300"
-		variant="ghost"
-		size="icon"
-		aria-label="Cerrar modal"
-		value="cancel"
-	>
-		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
-			<line x1="18" y1="6" x2="6" y2="18"></line>
-			<line x1="6" y1="6" x2="18" y2="18"></line>
-		</svg>
-	</Button>
+	{
+		!hideCloseButton && (
+			<Button
+				data-modal-close
+				class="modal-close text-sage hover:bg-sage/10 hover:text-forest absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300"
+				variant="ghost"
+				size="icon"
+				aria-label="Cerrar modal"
+				value="cancel"
+			>
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5">
+					<line x1="18" y1="6" x2="6" y2="18" />
+					<line x1="6" y1="6" x2="18" y2="18" />
+				</svg>
+			</Button>
+		)
+	}
 </dialog>
 
 <style>
@@ -103,6 +120,9 @@ const sizeClasses = {
 
 				// Cerrar al hacer click en el backdrop
 				modal.addEventListener("click", (e) => {
+					const closeOnOutsideClick = modal.dataset.closeOnOutsideClick !== "false"
+					if (!closeOnOutsideClick) return
+
 					const rect = modal.getBoundingClientRect()
 					const isInDialog =
 						rect.top <= e.clientY &&

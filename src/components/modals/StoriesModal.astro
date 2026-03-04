@@ -1,0 +1,897 @@
+---
+// src/components/modals/StoriesModal.astro
+import Modal from "@/components/ui/Modal.astro"
+import { storiesConfig } from "@/data/stories-config"
+
+import Button from "../ui/Button.astro"
+
+export interface Story {
+	id: string
+	title: string
+	subtitle?: string
+	description: string
+	ctaText: string
+	ctaLink: string
+	imageSrc?: string
+	backgroundColor?: string
+	duration?: number // in milliseconds
+}
+
+interface Props {
+	id?: string
+	stories: Story[]
+	delay?: number // delay before showing modal
+	expiryDays?: number // days until modal can be shown again
+	autoAdvance?: boolean // auto-advance to next story
+}
+
+const {
+	id = "stories-modal",
+	stories,
+	delay = storiesConfig.delayMs,
+	expiryDays = storiesConfig.cooldownDays,
+	autoAdvance = storiesConfig.autoAdvance,
+} = Astro.props
+---
+
+<Modal
+	id={id}
+	size="lg"
+	class="stories-modal-wrapper"
+	closeOnOutsideClick={true}
+	hideCloseButton={true}
+	noPadding={true}
+	noBorder={true}
+>
+	<div class="stories-container">
+		<!-- Progress bars at the top -->
+		<div class="progress-bars absolute top-4 right-3 left-3 z-20 flex gap-1.5">
+			{
+				stories.map((_, index) => (
+					<div class="h-[3px] flex-1 overflow-hidden rounded-sm bg-white/30">
+						<div
+							class="progress-bar h-full w-0 rounded-sm bg-white transition-[width] duration-100 ease-linear"
+							data-story-index={index}
+						/>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Story slides -->
+		<div class="stories-wrapper">
+			{
+				stories.map((story, index) => (
+					<div
+						class="story-slide"
+						data-story-index={index}
+						data-story-id={story.id}
+						style={{
+							backgroundColor: story.backgroundColor || "transparent",
+						}}
+					>
+						{story.imageSrc && (
+							<div class="story-background">
+								<img src={story.imageSrc} alt={story.title} />
+								<div class="story-gradient" />
+							</div>
+						)}
+
+						<div class="story-content">
+							{story.subtitle && (
+								<p class="story-subtitle mb-4 text-xs font-medium tracking-widest uppercase">
+									{story.subtitle}
+								</p>
+							)}
+							<h2 class="story-title font-display text-4xl leading-tight font-normal md:text-5xl">
+								{story.title}
+							</h2>
+
+							<div class="story-description mt-6 text-sm leading-relaxed md:text-base">
+								{story.description.split("\n").map((line) => (
+									<p
+										class={
+											line.trim() === line.toUpperCase()
+												? "mt-4 font-semibold tracking-wide uppercase"
+												: "mt-2"
+										}
+									>
+										{line}
+									</p>
+								))}
+							</div>
+							<div class="story-cta-wrapper mt-8">
+								{story.ctaText && story.ctaLink && (
+									<Button href={story.ctaLink} variant="hero">
+										{story.ctaText}
+									</Button>
+								)}
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</div>
+
+		<!-- Navigation areas (tap left/right) -->
+		<button class="story-nav story-nav-prev" aria-label="Historia anterior">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<polyline points="15 18 9 12 15 6"></polyline>
+			</svg>
+		</button>
+		<button class="story-nav story-nav-next" aria-label="Siguiente historia">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<polyline points="9 18 15 12 9 6"></polyline>
+			</svg>
+		</button>
+
+		<!-- Close button -->
+		<button class="story-close-button" data-modal-close aria-label="Cerrar historias">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+				<line x1="18" y1="6" x2="6" y2="18"></line>
+				<line x1="6" y1="6" x2="18" y2="18"></line>
+			</svg>
+		</button>
+	</div>
+</Modal>
+
+<style>
+	:global(.stories-modal-wrapper .modal-dialog) {
+		max-width: 500px;
+		max-height: none !important;
+		border-radius: 20px;
+		overflow: hidden !important;
+		background: #37443a;
+		padding: 0 !important;
+	}
+
+	.stories-container {
+		position: relative;
+		width: 100%;
+		height: 600px;
+		max-height: 80vh;
+		overflow: hidden;
+		background: #37443a;
+		display: flex;
+		flex-direction: column;
+	}
+
+	/* Progress bars */
+
+	.progress-bar {
+		height: 100%;
+		width: 0%;
+		background: white;
+		border-radius: 2px;
+		transition: width 0.1s linear;
+	}
+
+	.progress-bar.completed {
+		width: 100%;
+	}
+
+	/* Stories wrapper */
+	.stories-wrapper {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		flex: 1;
+		min-height: 0;
+	}
+
+	.story-slide {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		pointer-events: none;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 80px 40px;
+		background: #37443a;
+		overflow: hidden;
+	}
+
+	.story-slide.active {
+		opacity: 1;
+		pointer-events: all;
+		transform: translateX(0);
+	}
+
+	.story-slide.previous {
+		transform: translateX(-100%);
+	}
+
+	/* Story background */
+	.story-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+	}
+
+	.story-background img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.story-gradient {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(55, 68, 58, 0.3) 0%,
+			rgba(55, 68, 58, 0.6) 50%,
+			rgba(55, 68, 58, 0.9) 100%
+		);
+	}
+
+	/* Story content */
+	.story-content {
+		position: relative;
+		z-index: 10;
+		width: 100%;
+		flex-shrink: 1;
+		min-height: 0;
+		overflow: hidden;
+		animation: slideUp 0.4s ease-out;
+		text-align: center;
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Text styling */
+	.story-subtitle {
+		color: white;
+		letter-spacing: 0.15em;
+	}
+
+	.story-title {
+		color: white;
+		font-style: italic;
+		line-height: 1.1;
+	}
+
+	.story-description {
+		color: white;
+	}
+
+	.story-description p {
+		line-height: 1.6;
+	}
+
+	.story-cta-wrapper {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+	}
+
+	/* Text overflow handling */
+	.story-content h2 {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+	}
+
+	.story-content .story-description {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 6;
+		-webkit-box-orient: vertical;
+	}
+
+	/* CTA Button */
+	.story-cta-button {
+		display: inline-block;
+		padding: 14px 32px;
+		border-radius: 25px;
+		font-family: "Questrial", sans-serif;
+		font-size: 1rem;
+		font-weight: 500;
+		text-decoration: none;
+		color: white;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	}
+
+	.story-cta-button:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Navigation buttons */
+	.story-nav {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 30px;
+		height: 30px;
+		border: none;
+		border-radius: 50%;
+		color: white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 15;
+		transition: all 0.3s ease;
+	}
+
+	.story-nav:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: translateY(-50%) scale(1.1);
+	}
+
+	.story-nav svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.story-nav-prev {
+		left: 1px;
+	}
+
+	.story-nav-next {
+		right: 1px;
+	}
+
+	/* Close button */
+	.story-close-button {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 18px;
+		height: 18px;
+		background: rgba(255, 255, 255, 0.1);
+		border: none;
+		border-radius: 50%;
+		color: white;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 20;
+		transition: all 0.3s ease;
+		backdrop-filter: blur(10px);
+	}
+
+	.story-close-button:hover {
+		background: rgba(255, 255, 255, 0.2);
+		transform: scale(1.1);
+	}
+
+	.story-close-button svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	/* Mobile adjustments */
+	@media (max-width: 768px) {
+		:global(.stories-modal-wrapper .modal-dialog) {
+			max-width: 100%;
+			height: 100vh;
+			max-height: 100vh !important;
+			border-radius: 0;
+		}
+
+		.story-slide {
+			padding: 60px 24px;
+		}
+
+		.story-nav {
+			width: 30px;
+			height: 30px;
+			opacity: 0.7;
+		}
+
+		.story-nav svg {
+			width: 20px;
+			height: 20px;
+		}
+
+		.story-cta-wrapper :global(a) {
+			width: 100%;
+		}
+	}
+</style>
+
+<script
+	define:vars={{
+		id,
+		stories,
+		delay,
+		expiryDays,
+		autoAdvance,
+		storyDuration: storiesConfig.storyDuration,
+		snoozeDurationMinutes: storiesConfig.snoozeDurationMinutes,
+		enabled: storiesConfig.enabled,
+	}}
+>
+	class StoriesModalManager {
+		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled) {
+			this.modalId = modalId
+			this.allStories = stories
+			this.stories = [] // Will be filtered to unviewed stories
+			this.delay = delay
+			this.expiryDays = expiryDays
+			this.autoAdvance = autoAdvance
+			this.enabled = enabled
+			this.storageKey = `stories-modal-${modalId}-viewed`
+			this.snoozeKey = `stories-modal-${modalId}-snooze`
+			this.snoozeDuration = snoozeDurationMinutes * 60 * 1000 // Convert minutes to milliseconds
+			this.currentIndex = 0
+			this.progressInterval = null
+			this.storyDuration = storyDuration
+			this.hasShown = false
+			this.touchStartX = 0
+			this.touchEndX = 0
+			this.isPaused = false
+			this.currentProgress = 0
+			this.isModalOpen = false
+
+			this.init()
+		}
+
+		init() {
+			// Filter stories to only include unviewed ones
+			const unviewedStories = this.getUnviewedStories()
+			this.stories = unviewedStories
+
+			console.log("[StoriesModal] Initializing...", {
+				enabled: this.enabled,
+				delay: this.delay,
+				totalStories: this.allStories.length,
+				unviewedStories: this.stories.length,
+				isSnoozed: this.isSnoozed(),
+				shouldShow: this.shouldShowModal(),
+			})
+
+			if (this.enabled && this.shouldShowModal()) {
+				console.log(
+					`[StoriesModal] Scheduling modal to show in ${this.delay}ms with ${this.stories.length} unviewed stories`
+				)
+				setTimeout(() => this.showModal(), this.delay)
+			} else {
+				if (!this.enabled) {
+					console.log("[StoriesModal] Modal is disabled in config")
+				} else if (this.isSnoozed()) {
+					const minutes = Math.round(this.snoozeDuration / 60000)
+					console.log(`[StoriesModal] Modal is snoozed for ${minutes} minutes`)
+				} else {
+					console.log("[StoriesModal] No unviewed stories to show")
+				}
+			}
+
+			// Listen for modal events
+			const modal = document.getElementById(this.modalId)
+			modal?.addEventListener("modal:opened", () => this.onModalOpened())
+			modal?.addEventListener("modal:closed", () => this.onModalClosed())
+
+			// Listen for visibility changes to pause/resume timer
+			document.addEventListener("visibilitychange", () => this.handleVisibilityChange())
+			window.addEventListener("blur", () => this.handleWindowBlur())
+			window.addEventListener("focus", () => this.handleWindowFocus())
+		}
+
+		getViewedData() {
+			try {
+				const data = localStorage.getItem(this.storageKey)
+				if (!data) return { viewedStoryIds: [], lastReset: null }
+				return JSON.parse(data)
+			} catch (e) {
+				console.error("[StoriesModal] Error parsing viewed data:", e)
+				return { viewedStoryIds: [], lastReset: null }
+			}
+		}
+
+		saveViewedData(data) {
+			try {
+				// localStorage.setItem(this.storageKey, JSON.stringify(data))
+			} catch (e) {
+				console.error("[StoriesModal] Error saving viewed data:", e)
+			}
+		}
+
+		getUnviewedStories() {
+			const viewedData = this.getViewedData()
+
+			// Check if cooldown has passed - if so, reset viewed stories
+			if (viewedData.lastReset) {
+				const lastResetDate = new Date(viewedData.lastReset)
+				const now = new Date()
+				const daysSinceReset = (now - lastResetDate) / (1000 * 60 * 60 * 24)
+
+				if (daysSinceReset >= this.expiryDays) {
+					console.log("[StoriesModal] Cooldown period passed, resetting viewed stories")
+					this.saveViewedData({ viewedStoryIds: [], lastReset: now.toISOString() })
+					return this.allStories
+				}
+			}
+
+			// Filter out viewed stories
+			const unviewed = this.allStories.filter(
+				(story) => !viewedData.viewedStoryIds.includes(story.id)
+			)
+
+			console.log("[StoriesModal] Viewed stories:", viewedData.viewedStoryIds)
+			console.log(
+				"[StoriesModal] Unviewed stories:",
+				unviewed.map((s) => s.id)
+			)
+
+			return unviewed
+		}
+
+		shouldShowModal() {
+			if (this.stories.length === 0) return false
+
+			// Check if modal is snoozed
+			if (this.isSnoozed()) {
+				console.log("[StoriesModal] Modal is snoozed")
+				return false
+			}
+
+			return true
+		}
+
+		isSnoozed() {
+			try {
+				const snoozeTime = localStorage.getItem(this.snoozeKey)
+				if (!snoozeTime) return false
+
+				const snoozeTimestamp = parseInt(snoozeTime, 10)
+				const now = Date.now()
+
+				// Check if snooze period has expired
+				if (now - snoozeTimestamp < this.snoozeDuration) {
+					return true
+				}
+
+				// Snooze expired, clear it
+				localStorage.removeItem(this.snoozeKey)
+				return false
+			} catch (e) {
+				console.error("[StoriesModal] Error checking snooze:", e)
+				return false
+			}
+		}
+
+		setSnooze() {
+			try {
+				localStorage.setItem(this.snoozeKey, Date.now().toString())
+				const minutes = Math.round(this.snoozeDuration / 60000)
+				console.log(`[StoriesModal] Modal snoozed for ${minutes} minutes`)
+			} catch (e) {
+				console.error("[StoriesModal] Error setting snooze:", e)
+			}
+		}
+
+		markStoryAsViewed(storyId) {
+			const viewedData = this.getViewedData()
+
+			if (!viewedData.viewedStoryIds.includes(storyId)) {
+				viewedData.viewedStoryIds.push(storyId)
+				if (!viewedData.lastReset) {
+					viewedData.lastReset = new Date().toISOString()
+				}
+				this.saveViewedData(viewedData)
+				console.log("[StoriesModal] Marked story as viewed:", storyId)
+			}
+		}
+
+		showModal() {
+			console.log("[StoriesModal] showModal() called", {
+				hasShown: this.hasShown,
+				modalManagerExists: !!window.modalManager,
+			})
+
+			if (this.hasShown) return
+			this.hasShown = true
+
+			if (window.modalManager) {
+				console.log("[StoriesModal] Opening modal:", this.modalId)
+				window.modalManager.open(this.modalId)
+			} else {
+				console.error("[StoriesModal] window.modalManager not available")
+			}
+		}
+
+		onModalOpened() {
+			this.isModalOpen = true
+			this.isPaused = false
+			this.currentIndex = 0
+
+			// Hide viewed stories and their progress bars
+			const modal = document.getElementById(this.modalId)
+			const slides = modal?.querySelectorAll(".story-slide")
+			const progressBarContainers = modal?.querySelectorAll(".progress-bars > div")
+			const viewedData = this.getViewedData()
+
+			slides?.forEach((slide, i) => {
+				const storyId = slide.getAttribute("data-story-id")
+				if (viewedData.viewedStoryIds.includes(storyId)) {
+					slide.style.display = "none"
+					if (progressBarContainers[i]) {
+						progressBarContainers[i].style.display = "none"
+					}
+				} else {
+					slide.style.display = ""
+					if (progressBarContainers[i]) {
+						progressBarContainers[i].style.display = ""
+					}
+				}
+			})
+
+			this.showStory(0)
+			this.setupNavigation()
+			this.setupTouchGestures()
+			this.setupCTAButtons()
+		}
+
+		onModalClosed() {
+			this.isModalOpen = false
+			this.stopProgress()
+			console.log("[StoriesModal] Modal closed")
+		}
+
+		handleVisibilityChange() {
+			if (document.hidden) {
+				this.pauseProgress()
+			} else {
+				this.resumeProgress()
+			}
+		}
+
+		handleWindowBlur() {
+			this.pauseProgress()
+		}
+
+		handleWindowFocus() {
+			this.resumeProgress()
+		}
+
+		pauseProgress() {
+			if (this.progressInterval && !this.isPaused && this.isModalOpen) {
+				this.isPaused = true
+				this.stopProgress()
+			}
+		}
+
+		resumeProgress() {
+			if (this.isPaused && this.isModalOpen && this.autoAdvance) {
+				this.isPaused = false
+				this.continueProgress()
+			}
+		}
+
+		setupNavigation() {
+			const modal = document.getElementById(this.modalId)
+			const prevBtn = modal?.querySelector(".story-nav-prev")
+			const nextBtn = modal?.querySelector(".story-nav-next")
+
+			prevBtn?.addEventListener("click", () => this.previousStory())
+			nextBtn?.addEventListener("click", () => this.nextStory())
+		}
+
+		setupTouchGestures() {
+			const modal = document.getElementById(this.modalId)
+			const container = modal?.querySelector(".stories-container")
+
+			container?.addEventListener("touchstart", (e) => {
+				this.touchStartX = e.changedTouches[0].screenX
+			})
+
+			container?.addEventListener("touchend", (e) => {
+				this.touchEndX = e.changedTouches[0].screenX
+				this.handleSwipe()
+			})
+		}
+
+		setupCTAButtons() {
+			const modal = document.getElementById(this.modalId)
+			const ctaButtons = modal?.querySelectorAll(".story-cta-wrapper a")
+
+			ctaButtons?.forEach((button) => {
+				button.addEventListener("click", () => {
+					// Snooze modal (duration configured in stories-config.ts)
+					this.setSnooze()
+					// Close modal when CTA is clicked
+					window.modalManager?.close(this.modalId)
+				})
+			})
+		}
+
+		handleSwipe() {
+			const swipeThreshold = 50
+			const diff = this.touchStartX - this.touchEndX
+
+			if (Math.abs(diff) > swipeThreshold) {
+				if (diff > 0) {
+					// Swipe left - next story
+					this.nextStory()
+				} else {
+					// Swipe right - previous story
+					this.previousStory()
+				}
+			}
+		}
+
+		getVisibleStories() {
+			const modal = document.getElementById(this.modalId)
+			const slides = modal?.querySelectorAll(".story-slide")
+			const visible = []
+
+			slides?.forEach((slide) => {
+				if (slide.style.display !== "none") {
+					visible.push(slide)
+				}
+			})
+
+			return visible
+		}
+
+		getVisibleProgressBars() {
+			const modal = document.getElementById(this.modalId)
+			const progressBarContainers = modal?.querySelectorAll(".progress-bars > div")
+			const visible = []
+
+			progressBarContainers?.forEach((container) => {
+				if (container.style.display !== "none") {
+					const bar = container.querySelector(".progress-bar")
+					if (bar) visible.push(bar)
+				}
+			})
+
+			return visible
+		}
+
+		showStory(index) {
+			const visibleSlides = this.getVisibleStories()
+			const visibleProgressBars = this.getVisibleProgressBars()
+
+			if (index >= visibleSlides.length) return
+
+			// Update slides
+			visibleSlides.forEach((slide, i) => {
+				slide.classList.remove("active", "previous")
+				if (i === index) {
+					slide.classList.add("active")
+				} else if (i < index) {
+					slide.classList.add("previous")
+				}
+			})
+
+			// Update progress bars
+			visibleProgressBars.forEach((bar, i) => {
+				bar.classList.remove("completed")
+				bar.style.width = "0%"
+				if (i < index) {
+					bar.classList.add("completed")
+				}
+			})
+
+			this.currentIndex = index
+
+			// Mark current story as viewed
+			const currentSlide = visibleSlides[index]
+			if (currentSlide) {
+				const storyId = currentSlide.getAttribute("data-story-id")
+				if (storyId) {
+					this.markStoryAsViewed(storyId)
+				}
+			}
+
+			this.startProgress()
+		}
+
+		startProgress() {
+			this.stopProgress()
+
+			if (!this.autoAdvance) return
+
+			this.currentProgress = 0
+			const visibleProgressBars = this.getVisibleProgressBars()
+			const currentBar = visibleProgressBars[this.currentIndex]
+
+			const interval = 50
+			const increment = (interval / this.storyDuration) * 100
+
+			this.progressInterval = setInterval(() => {
+				this.currentProgress += increment
+				if (currentBar) {
+					currentBar.style.width = `${Math.min(this.currentProgress, 100)}%`
+				}
+
+				if (this.currentProgress >= 100) {
+					this.nextStory()
+				}
+			}, interval)
+		}
+
+		continueProgress() {
+			this.stopProgress()
+
+			if (!this.autoAdvance) return
+
+			const visibleProgressBars = this.getVisibleProgressBars()
+			const currentBar = visibleProgressBars[this.currentIndex]
+
+			const interval = 50
+			const increment = (interval / this.storyDuration) * 100
+
+			this.progressInterval = setInterval(() => {
+				this.currentProgress += increment
+				if (currentBar) {
+					currentBar.style.width = `${Math.min(this.currentProgress, 100)}%`
+				}
+
+				if (this.currentProgress >= 100) {
+					this.nextStory()
+				}
+			}, interval)
+		}
+
+		stopProgress() {
+			if (this.progressInterval) {
+				clearInterval(this.progressInterval)
+				this.progressInterval = null
+			}
+		}
+
+		nextStory() {
+			const visibleStories = this.getVisibleStories()
+			if (this.currentIndex < visibleStories.length - 1) {
+				this.showStory(this.currentIndex + 1)
+			} else {
+				// Close modal after last story
+				window.modalManager?.close(this.modalId)
+			}
+		}
+
+		previousStory() {
+			if (this.currentIndex > 0) {
+				this.showStory(this.currentIndex - 1)
+			}
+		}
+	}
+
+	function initStoriesModal() {
+		if (window.modalManager) {
+			console.log("[StoriesModal] window.modalManager found, creating manager")
+			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled)
+		} else {
+			console.log("[StoriesModal] Waiting for window.modalManager...")
+			setTimeout(initStoriesModal, 100)
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initStoriesModal)
+	} else {
+		initStoriesModal()
+	}
+</script>
