@@ -8,7 +8,10 @@ export const BUSINESS_INFO = {
 	// URLs y contacto
 	siteUrl: "https://femmtribu.es",
 	email: "info@femmtribu.es",
-	phone: "+34640912048", // Sin guiones para WhatsApp
+	phone: (() => {
+		const number = import.meta.env.WHATSAPP_NUMBER || "640912048"
+		return number.startsWith("+") ? number : `+34${number}`
+	})(),
 
 	// Dirección física
 	address: {
