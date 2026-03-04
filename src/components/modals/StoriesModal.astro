@@ -1,6 +1,7 @@
 ---
 // src/components/modals/StoriesModal.astro
 import Modal from "@/components/ui/Modal.astro"
+import { storiesConfig } from "@/data/stories-config"
 
 import Button from "../ui/Button.astro"
 
@@ -26,20 +27,23 @@ interface Props {
 const {
 	id = "stories-modal",
 	stories,
-	delay = 5000,
-	expiryDays = 7,
-	autoAdvance = true,
+	delay = storiesConfig.delayMs,
+	expiryDays = storiesConfig.cooldownDays,
+	autoAdvance = storiesConfig.autoAdvance,
 } = Astro.props
 ---
 
-<Modal id={id} size="lg" class="stories-modal-wrapper">
+<Modal id={id} size="lg" class="stories-modal-wrapper" closeOnOutsideClick={false}>
 	<div class="stories-container">
 		<!-- Progress bars at the top -->
-		<div class="progress-bars">
+		<div class="progress-bars absolute top-4 right-3 left-3 z-20 flex gap-1.5">
 			{
 				stories.map((_, index) => (
-					<div class="progress-bar-wrapper">
-						<div class="progress-bar" data-story-index={index} />
+					<div class="h-[3px] flex-1 overflow-hidden rounded-sm bg-white/30">
+						<div
+							class="progress-bar h-full w-0 rounded-sm bg-white transition-[width] duration-100 ease-linear"
+							data-story-index={index}
+						/>
 					</div>
 				))
 			}
@@ -118,23 +122,6 @@ const {
 	}
 
 	/* Progress bars */
-	.progress-bars {
-		position: absolute;
-		top: 16px;
-		left: 12px;
-		right: 12px;
-		display: flex;
-		gap: 6px;
-		z-index: 20;
-	}
-
-	.progress-bar-wrapper {
-		flex: 1;
-		height: 3px;
-		background: rgba(255, 255, 255, 0.3);
-		border-radius: 2px;
-		overflow: hidden;
-	}
 
 	.progress-bar {
 		height: 100%;
@@ -345,42 +332,87 @@ const {
 	}
 </style>
 
-<script define:vars={{ id, stories, delay, expiryDays, autoAdvance }}>
+<script
+	define:vars={{
+		id,
+		stories,
+		delay,
+		expiryDays,
+		autoAdvance,
+		storyDuration: storiesConfig.storyDuration,
+		enabled: storiesConfig.enabled,
+	}}
+>
 	class StoriesModalManager {
-		constructor(modalId, stories, delay, expiryDays, autoAdvance) {
+		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, enabled) {
 			this.modalId = modalId
 			this.stories = stories
 			this.delay = delay
 			this.expiryDays = expiryDays
 			this.autoAdvance = autoAdvance
+			this.enabled = enabled
 			this.storageKey = `stories-modal-${modalId}-dismissed`
 			this.currentIndex = 0
 			this.progressInterval = null
-			this.storyDuration = 7000 // 7 seconds per story
+			this.storyDuration = storyDuration
 			this.hasShown = false
 			this.touchStartX = 0
 			this.touchEndX = 0
+			this.isPaused = false
+			this.currentProgress = 0
+			this.isModalOpen = false
 
 			this.init()
 		}
 
 		init() {
-			if (this.shouldShowModal()) {
+			console.log("[StoriesModal] Initializing...", {
+				enabled: this.enabled,
+				delay: this.delay,
+				shouldShow: this.shouldShowModal(),
+			})
+
+			if (this.enabled && this.shouldShowModal()) {
+				console.log(`[StoriesModal] Scheduling modal to show in ${this.delay}ms`)
 				setTimeout(() => this.showModal(), this.delay)
+			} else {
+				if (!this.enabled) {
+					console.log("[StoriesModal] Modal is disabled in config")
+				} else {
+					console.log("[StoriesModal] Modal was dismissed recently, cooldown active")
+				}
 			}
 
 			// Listen for modal events
 			const modal = document.getElementById(this.modalId)
 			modal?.addEventListener("modal:opened", () => this.onModalOpened())
 			modal?.addEventListener("modal:closed", () => this.onModalClosed())
+
+			// Listen for visibility changes to pause/resume timer
+			document.addEventListener("visibilitychange", () => this.handleVisibilityChange())
+			window.addEventListener("blur", () => this.handleWindowBlur())
+			window.addEventListener("focus", () => this.handleWindowFocus())
 		}
 
 		shouldShowModal() {
 			const dismissedAt = localStorage.getItem(this.storageKey)
+			console.log("[StoriesModal] Checking if should show:", {
+				storageKey: this.storageKey,
+				dismissedAt,
+				expiryDays: this.expiryDays,
+			})
+
 			if (dismissedAt) {
 				const dismissedDate = new Date(dismissedAt)
 				const now = new Date()
 				const daysSinceDismissed = (now - dismissedDate) / (1000 * 60 * 60 * 24)
+
+				console.log("[StoriesModal] Cooldown check:", {
+					dismissedDate: dismissedDate.toISOString(),
+					daysSinceDismissed: daysSinceDismissed.toFixed(2),
+					expiryDays: this.expiryDays,
+					willShow: daysSinceDismissed >= this.expiryDays,
+				})
 
 				if (daysSinceDismissed < this.expiryDays) {
 					return false
@@ -390,15 +422,25 @@ const {
 		}
 
 		showModal() {
+			console.log("[StoriesModal] showModal() called", {
+				hasShown: this.hasShown,
+				modalManagerExists: !!window.modalManager,
+			})
+
 			if (this.hasShown) return
 			this.hasShown = true
 
 			if (window.modalManager) {
+				console.log("[StoriesModal] Opening modal:", this.modalId)
 				window.modalManager.open(this.modalId)
+			} else {
+				console.error("[StoriesModal] window.modalManager not available")
 			}
 		}
 
 		onModalOpened() {
+			this.isModalOpen = true
+			this.isPaused = false
 			this.currentIndex = 0
 			this.showStory(0)
 			this.setupNavigation()
@@ -406,8 +448,39 @@ const {
 		}
 
 		onModalClosed() {
+			this.isModalOpen = false
 			this.stopProgress()
 			localStorage.setItem(this.storageKey, new Date().toISOString())
+		}
+
+		handleVisibilityChange() {
+			if (document.hidden) {
+				this.pauseProgress()
+			} else {
+				this.resumeProgress()
+			}
+		}
+
+		handleWindowBlur() {
+			this.pauseProgress()
+		}
+
+		handleWindowFocus() {
+			this.resumeProgress()
+		}
+
+		pauseProgress() {
+			if (this.progressInterval && !this.isPaused && this.isModalOpen) {
+				this.isPaused = true
+				this.stopProgress()
+			}
+		}
+
+		resumeProgress() {
+			if (this.isPaused && this.isModalOpen && this.autoAdvance) {
+				this.isPaused = false
+				this.continueProgress()
+			}
 		}
 
 		setupNavigation() {
@@ -481,22 +554,47 @@ const {
 
 			if (!this.autoAdvance) return
 
+			this.currentProgress = 0
 			const modal = document.getElementById(this.modalId)
 			const currentBar = modal?.querySelector(
 				`.progress-bar[data-story-index="${this.currentIndex}"]`
 			)
 
-			let progress = 0
 			const interval = 50
 			const increment = (interval / this.storyDuration) * 100
 
 			this.progressInterval = setInterval(() => {
-				progress += increment
+				this.currentProgress += increment
 				if (currentBar) {
-					currentBar.style.width = `${Math.min(progress, 100)}%`
+					currentBar.style.width = `${Math.min(this.currentProgress, 100)}%`
 				}
 
-				if (progress >= 100) {
+				if (this.currentProgress >= 100) {
+					this.nextStory()
+				}
+			}, interval)
+		}
+
+		continueProgress() {
+			this.stopProgress()
+
+			if (!this.autoAdvance) return
+
+			const modal = document.getElementById(this.modalId)
+			const currentBar = modal?.querySelector(
+				`.progress-bar[data-story-index="${this.currentIndex}"]`
+			)
+
+			const interval = 50
+			const increment = (interval / this.storyDuration) * 100
+
+			this.progressInterval = setInterval(() => {
+				this.currentProgress += increment
+				if (currentBar) {
+					currentBar.style.width = `${Math.min(this.currentProgress, 100)}%`
+				}
+
+				if (this.currentProgress >= 100) {
 					this.nextStory()
 				}
 			}, interval)
@@ -527,8 +625,10 @@ const {
 
 	function initStoriesModal() {
 		if (window.modalManager) {
-			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance)
+			console.log("[StoriesModal] window.modalManager found, creating manager")
+			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance, storyDuration, enabled)
 		} else {
+			console.log("[StoriesModal] Waiting for window.modalManager...")
 			setTimeout(initStoriesModal, 100)
 		}
 	}

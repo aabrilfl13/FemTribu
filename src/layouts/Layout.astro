@@ -190,13 +190,7 @@ const isDevelopment = import.meta.env.ENV === "development"
 			</div> -->
 			<Nav scrolled={navScrolled} />
 			<slot />
-			<StoriesModal
-				id="announcements-stories"
-				stories={announcementStories}
-				delay={1000}
-				expiryDays={3}
-				autoAdvance={true}
-			/>
+			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />
 			<CookiesOverlay />
 		</div>
