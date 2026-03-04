@@ -19,6 +19,21 @@ const upcomingEvents = [
 		route: "https://femmtribu.my.canva.site/",
 		image: "/images/decoratives/ilustracion-negro_08.svg",
 	},
+	{
+		id: 2,
+		title: "¡Algo especial está por llegar!",
+		date: "27 Marzo 2026",
+		time: "Os lo diremos pronto",
+		type: "Presencial · Valencia",
+		description:
+			"No es solo salud, no es solo barre... ES AUTOTOCUIDADO VERSIÓN AVANZADA. Un evento especial para descubrir una nueva forma de cuidarte.",
+		spots: 15,
+		price: "Coming soon",
+		color: "from-sage/20 to-sage/5",
+		accent: "sage",
+		route: "/#newsletter",
+		image: "/images/decoratives/ilustracion-negro_08.svg",
+	},
 ]
 
 const seoData = {
@@ -56,6 +71,11 @@ const isEventPast = (dateStr: string) => {
 
 	return eventDate < today
 }
+
+// Separate active and past events
+const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
+const pastEvents = upcomingEvents.filter((event) => isEventPast(event.date))
+const sortedEvents = [...activeEvents, ...pastEvents]
 ---
 
 <Layout {...seoData} navScrolled={true}>
@@ -98,7 +118,7 @@ const isEventPast = (dateStr: string) => {
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="space-y-6">
 					{
-						upcomingEvents.map((event, index) => {
+						sortedEvents.map((event, index) => {
 							const isPast = isEventPast(event.date)
 							return (
 								<div
