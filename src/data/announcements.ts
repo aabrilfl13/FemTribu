@@ -5,9 +5,9 @@ import type { Story } from "@/components/modals/StoriesModal.astro"
  */
 const mockAnnouncementStories: Story[] = [
 	{
-		id: "nuevos-eventos-2026",
-		subtitle: "VALENCIA... ALGO ESTÁ PASANDO",
-		title: "Coming soon!",
+		id: "evento-27-marzo",
+		subtitle: "27 DE MARZO • VALENCIA",
+		title: "¡Algo especial está por llegar!",
 		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
 		ctaText: "Mantenerme informada",
 		ctaLink: "/#newsletter",
