@@ -8,7 +8,8 @@ export const clubLecturaEvents: ClubLecturaEvent[] = [
 		date: "27 de Marzo 2026",
 		dateISO: "2026-03-27",
 		time: "19:00h",
-		timeISO: "19:00:00",
+		startTime: "19:00:00",
+		endTime: "20:00:00",
 		duration: "Encuentro virtual de 1h aprox.",
 		book: {
 			title: "El sexo de las madres",
@@ -32,3 +33,17 @@ export const clubLecturaEvents: ClubLecturaEvent[] = [
 		},
 	},
 ]
+
+/**
+ * Get a specific club de lectura event by slug
+ */
+export function getClubLecturaEvent(slug: string): ClubLecturaEvent | undefined {
+	return clubLecturaEvents.find((event) => event.slug === slug)
+}
+
+/**
+ * Get all club de lectura events
+ */
+export function getAllClubLecturaEvents(): ClubLecturaEvent[] {
+	return clubLecturaEvents
+}

@@ -9,8 +9,9 @@ export interface ClubLecturaEvent {
 	subtitle: string
 	date: string // Format: "27 de Marzo 2026"
 	dateISO: string // Format: "2026-03-27"
-	time: string // Format: "19:00h"
-	timeISO: string // Format: "19:00:00"
+	time: string // Format: "19:00h" (display time)
+	startTime: string // Format: "19:00:00" (HH:mm:ss)
+	endTime: string // Format: "20:00:00" (HH:mm:ss)
 	duration: string
 	book: {
 		title: string
@@ -116,8 +117,9 @@ export function generateCalendarLink(
 	event: ClubLecturaEvent,
 	websiteUrl: string = "https://femmtribu.es"
 ): string {
-	const startDateTime = `${event.dateISO.replace(/-/g, "")}T${event.timeISO.replace(/:/g, "").substring(0, 6)}`
-	const endDateTime = `${event.dateISO.replace(/-/g, "")}T${event.timeISO.replace(/:/g, "").substring(0, 4)}00` // +1 hour
+	// Format: YYYYMMDDTHHMMSS
+	const startDateTime = `${event.dateISO.replace(/-/g, "")}T${event.startTime.replace(/:/g, "")}`
+	const endDateTime = `${event.dateISO.replace(/-/g, "")}T${event.endTime.replace(/:/g, "")}`
 
 	const eventTitle = encodeURIComponent(event.title)
 	const eventDescription = encodeURIComponent(
