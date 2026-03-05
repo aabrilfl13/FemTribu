@@ -5,13 +5,24 @@ import type { Story } from "@/components/modals/StoriesModal.astro"
  */
 const mockAnnouncementStories: Story[] = [
 	{
-		id: "evento-27-marzo",
-		subtitle: "27 DE MARZO • VALENCIA",
+		id: "evento-28-marzo",
+		subtitle: "28 DE MARZO • VALENCIA",
 		title: "¡Algo especial está por llegar!",
 		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
 		ctaText: "Mantenerme informada",
 		ctaLink: "/#newsletter",
 		imageSrc: "/images/events/maria-exercise.webp",
+		backgroundColor: "#37443a",
+	},
+	{
+		id: "evento-27-marzo-lectura",
+		subtitle: "27 DE MARZO • 19H • ONLINE",
+		title: "Club de Lectura FEMM",
+		description:
+			"Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros.\n\nEn esta edición: \n\nEl sexo de las madres de Sonia Encinas",
+		ctaText: "¡Quiero apuntarme!",
+		ctaLink: "/eventos/club-lectura-marzo-2026",
+		imageSrc: "/images/events/club-lectura-marzo-27.webp",
 		backgroundColor: "#37443a",
 	},
 ]

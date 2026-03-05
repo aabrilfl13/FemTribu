@@ -1,0 +1,368 @@
+---
+import Button from "@/components/ui/Button.astro"
+import Card from "@/components/ui/Card.astro"
+import CardContent from "@/components/ui/CardContent.astro"
+import CardDescription from "@/components/ui/CardDescription.astro"
+import CardHeader from "@/components/ui/CardHeader.astro"
+import CardTitle from "@/components/ui/CardTitle.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const seoData = {
+	title: "Club de Lectura FEMM - 27 de Marzo 2026 | Femm Tribu",
+	description:
+		"Únete al Club de Lectura FEMM. Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros. En esta edición leeremos 'El sexo de las madres' de Sonia Encinas.",
+	noindex: false,
+}
+
+const eventDetails = {
+	date: "27 de Marzo 2026",
+	time: "19:00h",
+	type: "Online",
+	duration: "Encuentro virtual de 1h aprox.",
+	book: "El sexo de las madres",
+	author: "Sonia Encinas",
+	whatsappLink: "https://chat.whatsapp.com/L7nULEtmL38BfPJDgjKSUh?mode=gi_t",
+}
+
+const howItWorks = [
+	{
+		icon: "📚",
+		title: "Lee a tu ritmo",
+		description:
+			"Cada participante realiza la lectura de forma individual durante el mes. No hay presión, cada una avanza según su tiempo.",
+	},
+	{
+		icon: "💬",
+		title: "Compartimos en grupo",
+		description:
+			"Mientras leemos, compartimos reflexiones y aprendizajes en un grupo privado de WhatsApp. Un espacio seguro para expresar lo que sentimos.",
+	},
+	{
+		icon: "🎥",
+		title: "Encuentro virtual",
+		description:
+			"Al final del mes nos reunimos online para comentar el libro juntas y crear un espacio de conversación, aprendizaje y tribu.",
+	},
+]
+
+const bookInfo = {
+	title: "El sexo de las madres",
+	author: "Sonia Encinas",
+	description:
+		"Un libro imprescindible que habla sobre la sexualidad durante la maternidad, un tema del que poco se habla pero que muchas vivimos. Sonia Encinas nos invita a reconectar con nuestro cuerpo y nuestra sexualidad desde una perspectiva honesta, cercana y libre de juicios.",
+	topics: [
+		"La sexualidad durante el embarazo",
+		"El posparto y los cambios en el deseo",
+		"La reconexión con el placer",
+		"Maternidad y pareja",
+		"El cuerpo que cambia y se transforma",
+	],
+}
+---
+
+<Layout {...seoData} navScrolled={true}>
+	<main class="pt-21">
+		{/* Hero Section */}
+		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="relative z-10 container mx-auto max-w-4xl text-center">
+				<div
+					class="bg-sage/20 mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+				>
+					<svg
+						class="text-forest h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+						<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+					</svg>
+					<span class="font-body text-forest text-sm">Jueves 27 de Marzo • 19:00h • Online</span>
+				</div>
+
+				<h1
+					class="font-display text-forest mb-6 text-4xl md:text-5xl lg:text-6xl"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					Club de Lectura <span class="text-terracotta">FEMM</span>
+				</h1>
+
+				<p
+					class="font-body text-forest/70 mx-auto max-w-2xl text-lg"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a
+					través de los libros.
+				</p>
+
+				<div
+					class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.4s"
+				>
+					<Button
+						variant="hero"
+						size="lg"
+						href={eventDetails.whatsappLink}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Unirme al grupo de WhatsApp
+						<svg
+							class="ml-2 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		{/* Event Details */}
+		<section class="pb-16 lg:pb-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-5xl">
+					<div
+						class="bg-gradient-to-r from-sage/20 to-sage/5 border-sage/20 rounded-3xl border p-8"
+						data-animate="animate-fade-in"
+						data-animate-duration="1s"
+					>
+						<div class="grid gap-8 md:grid-cols-2">
+							<div>
+								<h2 class="font-display text-forest mb-4 text-2xl md:text-3xl">
+									Edición de Marzo 2026
+								</h2>
+								<div class="space-y-3">
+									<div class="flex items-center gap-3">
+										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+											<svg
+												class="text-forest h-5 w-5"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+												<line x1="16" y1="2" x2="16" y2="6"></line>
+												<line x1="8" y1="2" x2="8" y2="6"></line>
+												<line x1="3" y1="10" x2="21" y2="10"></line>
+											</svg>
+										</div>
+										<div>
+											<p class="font-body text-forest/60 text-sm">Fecha</p>
+											<p class="font-body text-forest font-medium">{eventDetails.date}</p>
+										</div>
+									</div>
+									<div class="flex items-center gap-3">
+										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+											<svg
+												class="text-forest h-5 w-5"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<circle cx="12" cy="12" r="10"></circle>
+												<polyline points="12 6 12 12 16 14"></polyline>
+											</svg>
+										</div>
+										<div>
+											<p class="font-body text-forest/60 text-sm">Hora</p>
+											<p class="font-body text-forest font-medium">{eventDetails.time}</p>
+										</div>
+									</div>
+									<div class="flex items-center gap-3">
+										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+											<svg
+												class="text-forest h-5 w-5"
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											>
+												<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+												<circle cx="12" cy="10" r="3"></circle>
+											</svg>
+										</div>
+										<div>
+											<p class="font-body text-forest/60 text-sm">Modalidad</p>
+											<p class="font-body text-forest font-medium">{eventDetails.type}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-center">
+								<div class="bg-cream max-w-sm rounded-2xl p-6 shadow-lg">
+									<div class="text-center">
+										<p class="text-forest/60 font-body mb-2 text-sm">Libro de esta edición</p>
+										<h3 class="font-display text-forest mb-1 text-2xl">{bookInfo.title}</h3>
+										<p class="text-terracotta font-body text-lg">de {bookInfo.author}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* How it works */}
+		<section class="pb-16 lg:pb-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-5xl">
+					<h2
+						class="font-display text-forest mb-12 text-center text-3xl md:text-4xl"
+						data-animate="animate-fade-in"
+						data-animate-duration="1s"
+					>
+						¿Cómo funciona?
+					</h2>
+
+					<div class="grid gap-6 md:grid-cols-3">
+						{
+							howItWorks.map((step, index) => (
+								<Card
+									class="border-sage/20 hover:border-sage/50 transition-all duration-300 hover:shadow-lg"
+									data-animate="animate-fade-in"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 200}ms`}
+								>
+									<CardHeader>
+										<div class="mb-4 text-4xl">{step.icon}</div>
+										<CardTitle class="font-display text-forest text-xl">
+											{step.title}
+										</CardTitle>
+									</CardHeader>
+									<CardContent>
+										<CardDescription class="text-forest/70 text-sm leading-relaxed">
+											{step.description}
+										</CardDescription>
+									</CardContent>
+								</Card>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* Book Info */}
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-5xl">
+					<div
+						class="bg-gradient-to-r from-terracotta/20 to-terracotta/5 border-terracotta/20 rounded-3xl border p-8 md:p-12"
+						data-animate="animate-fade-in"
+						data-animate-duration="1s"
+					>
+						<div class="grid gap-8 md:grid-cols-2 md:gap-12">
+							<div>
+								<h2 class="font-display text-forest mb-4 text-3xl md:text-4xl">
+									Sobre el libro
+								</h2>
+								<h3 class="font-display text-terracotta mb-3 text-2xl">
+									{bookInfo.title}
+								</h3>
+								<p class="text-forest/60 font-body mb-2 text-lg">de {bookInfo.author}</p>
+								<p class="text-forest/80 font-body mb-6 leading-relaxed">
+									{bookInfo.description}
+								</p>
+							</div>
+							<div>
+								<h3 class="font-display text-forest mb-4 text-xl">Temas que aborda:</h3>
+								<ul class="space-y-3">
+									{
+										bookInfo.topics.map((topic) => (
+											<li class="flex items-start gap-3">
+												<div class="bg-terracotta/20 mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+													<svg
+														class="text-terracotta h-3 w-3"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="3"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+													>
+														<polyline points="20 6 9 17 4 12" />
+													</svg>
+												</div>
+												<span class="text-forest/80 font-body text-sm">{topic}</span>
+											</li>
+										))
+									}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* CTA Section */}
+		<section class="pb-24 lg:pb-32">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="bg-forest mx-auto max-w-4xl rounded-3xl px-8 py-16 text-center"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+				>
+					<h2 class="text-cream font-display mb-4 text-3xl md:text-4xl">
+						¿Te unes a nosotras?
+					</h2>
+					<p class="text-cream/80 font-body mx-auto mb-8 max-w-2xl text-lg">
+						Únete al grupo de WhatsApp para recibir toda la información y empezar a compartir con
+						otras mujeres que, como tú, quieren aprender y crecer juntas.
+					</p>
+					<Button
+						variant="secondary"
+						size="lg"
+						href={eventDetails.whatsappLink}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Unirme al grupo de WhatsApp
+						<svg
+							class="ml-2 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="5" y1="12" x2="19" y2="12"></line>
+							<polyline points="12 5 19 12 12 19"></polyline>
+						</svg>
+					</Button>
+					<p class="text-cream/60 font-body mt-6 text-sm">
+						Gratuito • Online • Para todas las mujeres
+					</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
