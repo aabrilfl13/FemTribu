@@ -15,14 +15,14 @@ const mockAnnouncementStories: Story[] = [
 		backgroundColor: "#37443a",
 	},
 	{
-		id: "evento-27-marzo-lectura",
-		subtitle: "27 DE MARZO • 19H • ONLINE",
+		id: "evento-26-marzo-lectura",
+		subtitle: "26 DE MARZO • 19H • ONLINE",
 		title: "Club de Lectura FEMM",
 		description:
 			"Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros.\n\nEn esta edición: \n\nEl sexo de las madres de Sonia Encinas",
 		ctaText: "¡Quiero apuntarme!",
 		ctaLink: "/eventos/club-lectura/club-lectura-marzo-2026",
-		imageSrc: "/images/events/club-lectura-marzo-27.webp",
+		imageSrc: "/images/events/club-lectura.webp",
 		backgroundColor: "#37443a",
 	},
 ]

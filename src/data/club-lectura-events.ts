@@ -5,8 +5,8 @@ export const clubLecturaEvents: ClubLecturaEvent[] = [
 		slug: "club-lectura-marzo-2026",
 		title: "Club de Lectura FEMM",
 		subtitle: "Edición de Marzo 2026",
-		date: "27 de Marzo 2026",
-		dateISO: "2026-03-27",
+		date: "26 de Marzo 2026",
+		dateISO: "2026-03-26",
 		time: "19:00h",
 		startTime: "19:00:00",
 		endTime: "20:00:00",
@@ -27,7 +27,7 @@ export const clubLecturaEvents: ClubLecturaEvent[] = [
 		},
 		whatsappLink: "https://chat.whatsapp.com/L7nULEtmL38BfPJDgjKSUh?mode=gi_t",
 		seo: {
-			title: "Club de Lectura FEMM - 27 de Marzo 2026 | Femm tribu",
+			title: "Club de Lectura FEMM - 26 de Marzo 2026 | Femm tribu",
 			description:
 				"Únete al Club de Lectura FEMM. Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros. En esta edición leeremos 'El sexo de las madres' de Sonia Encinas.",
 		},
