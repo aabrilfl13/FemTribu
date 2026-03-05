@@ -432,7 +432,16 @@ const {
 	}}
 >
 	class StoriesModalManager {
-		constructor(modalId, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled) {
+		constructor(
+			modalId,
+			stories,
+			delay,
+			expiryDays,
+			autoAdvance,
+			storyDuration,
+			snoozeDurationMinutes,
+			enabled
+		) {
 			this.modalId = modalId
 			this.allStories = stories
 			this.stories = [] // Will be filtered to unviewed stories
@@ -510,7 +519,7 @@ const {
 
 		saveViewedData(data) {
 			try {
-				// localStorage.setItem(this.storageKey, JSON.stringify(data))
+				localStorage.setItem(this.storageKey, JSON.stringify(data))
 			} catch (e) {
 				console.error("[StoriesModal] Error saving viewed data:", e)
 			}
@@ -882,7 +891,16 @@ const {
 	function initStoriesModal() {
 		if (window.modalManager) {
 			console.log("[StoriesModal] window.modalManager found, creating manager")
-			new StoriesModalManager(id, stories, delay, expiryDays, autoAdvance, storyDuration, snoozeDurationMinutes, enabled)
+			new StoriesModalManager(
+				id,
+				stories,
+				delay,
+				expiryDays,
+				autoAdvance,
+				storyDuration,
+				snoozeDurationMinutes,
+				enabled
+			)
 		} else {
 			console.log("[StoriesModal] Waiting for window.modalManager...")
 			setTimeout(initStoriesModal, 100)
