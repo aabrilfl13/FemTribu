@@ -76,6 +76,28 @@ const seoData = event.seo
 
 <Layout {...seoData} navScrolled={true}>
 	<main class="pt-21">
+		{/* Back to events link */}
+		<div class="container mx-auto px-4 pt-8 lg:px-8">
+			<a
+				href="/eventos"
+				class="text-forest hover:text-terracotta font-body inline-flex items-center gap-2 text-sm transition-colors"
+			>
+				<svg
+					class="h-4 w-4"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<line x1="19" y1="12" x2="5" y2="12"></line>
+					<polyline points="12 19 5 12 12 5"></polyline>
+				</svg>
+				Volver a eventos
+			</a>
+		</div>
+
 		{/* Hero Section */}
 		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
 			<div class="relative z-10 container mx-auto max-w-4xl text-center">
