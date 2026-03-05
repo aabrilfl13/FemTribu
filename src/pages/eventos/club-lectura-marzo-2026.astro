@@ -140,18 +140,20 @@ const bookInfo = {
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mx-auto max-w-5xl">
 					<div
-						class="bg-gradient-to-r from-sage/20 to-sage/5 border-sage/20 rounded-3xl border p-8"
+						class="from-sage/20 to-sage/5 border-sage/20 rounded-3xl border bg-gradient-to-r p-8"
 						data-animate="animate-fade-in"
 						data-animate-duration="1s"
 					>
 						<div class="grid gap-8 md:grid-cols-2">
-							<div>
+							<div class="flex flex-col items-start justify-center gap-8">
 								<h2 class="font-display text-forest mb-4 text-2xl md:text-3xl">
 									Edición de Marzo 2026
 								</h2>
 								<div class="space-y-3">
 									<div class="flex items-center gap-3">
-										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+										<div
+											class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full"
+										>
 											<svg
 												class="text-forest h-5 w-5"
 												viewBox="0 0 24 24"
@@ -173,7 +175,9 @@ const bookInfo = {
 										</div>
 									</div>
 									<div class="flex items-center gap-3">
-										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+										<div
+											class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full"
+										>
 											<svg
 												class="text-forest h-5 w-5"
 												viewBox="0 0 24 24"
@@ -193,7 +197,9 @@ const bookInfo = {
 										</div>
 									</div>
 									<div class="flex items-center gap-3">
-										<div class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full">
+										<div
+											class="bg-forest/10 flex h-10 w-10 items-center justify-center rounded-full"
+										>
 											<svg
 												class="text-forest h-5 w-5"
 												viewBox="0 0 24 24"
@@ -215,12 +221,18 @@ const bookInfo = {
 								</div>
 							</div>
 							<div class="flex items-center justify-center">
-								<div class="bg-cream max-w-sm rounded-2xl p-6 shadow-lg">
-									<div class="text-center">
-										<p class="text-forest/60 font-body mb-2 text-sm">Libro de esta edición</p>
-										<h3 class="font-display text-forest mb-1 text-2xl">{bookInfo.title}</h3>
-										<p class="text-terracotta font-body text-lg">de {bookInfo.author}</p>
+								<div class="text-center">
+									<p class="text-forest/60 font-body mb-4 text-sm">Libro de esta edición</p>
+									<div class="mx-auto w-full max-w-[200px]">
+										<img
+											src="/images/events/el-sexo-de-las-madres-Sonia-Encinas.webp"
+											alt="Portada del libro El sexo de las madres de Sonia Encinas"
+											class="h-auto w-full rounded-lg shadow-xl"
+											loading="lazy"
+										/>
 									</div>
+									<h3 class="font-display text-forest mt-4 text-xl">{bookInfo.title}</h3>
+									<p class="text-terracotta font-body text-base">de {bookInfo.author}</p>
 								</div>
 							</div>
 						</div>
@@ -252,9 +264,7 @@ const bookInfo = {
 								>
 									<CardHeader>
 										<div class="mb-4 text-4xl">{step.icon}</div>
-										<CardTitle class="font-display text-forest text-xl">
-											{step.title}
-										</CardTitle>
+										<CardTitle class="font-display text-forest text-xl">{step.title}</CardTitle>
 									</CardHeader>
 									<CardContent>
 										<CardDescription class="text-forest/70 text-sm leading-relaxed">
@@ -272,27 +282,39 @@ const bookInfo = {
 		{/* Book Info */}
 		<section class="pb-24 lg:pb-32">
 			<div class="container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-5xl">
+				<div class="mx-auto max-w-6xl">
 					<div
-						class="bg-gradient-to-r from-terracotta/20 to-terracotta/5 border-terracotta/20 rounded-3xl border p-8 md:p-12"
+						class="from-terracotta/20 to-terracotta/5 border-terracotta/20 rounded-3xl border bg-gradient-to-r p-8 md:p-12"
 						data-animate="animate-fade-in"
 						data-animate-duration="1s"
 					>
-						<div class="grid gap-8 md:grid-cols-2 md:gap-12">
-							<div>
-								<h2 class="font-display text-forest mb-4 text-3xl md:text-4xl">
-									Sobre el libro
-								</h2>
-								<h3 class="font-display text-terracotta mb-3 text-2xl">
+						<h2 class="font-display text-forest mb-8 text-center text-3xl md:text-4xl">
+							Sobre el libro
+						</h2>
+						<div class="grid gap-8 md:grid-cols-3 md:gap-8 lg:gap-12">
+							{/* Book Cover */}
+							<div class="flex items-start justify-center md:justify-end">
+								<div class="w-full max-w-[280px]">
+									<img
+										src="/images/events/el-sexo-de-las-madres-Sonia-Encinas.webp"
+										alt="Portada del libro El sexo de las madres de Sonia Encinas"
+										class="h-auto w-full rounded-xl shadow-2xl"
+										loading="lazy"
+									/>
+								</div>
+							</div>
+
+							{/* Book Description and Topics */}
+							<div class="md:col-span-2">
+								<h3 class="font-display text-terracotta mb-3 text-2xl md:text-3xl">
 									{bookInfo.title}
 								</h3>
-								<p class="text-forest/60 font-body mb-2 text-lg">de {bookInfo.author}</p>
-								<p class="text-forest/80 font-body mb-6 leading-relaxed">
+								<p class="text-forest/60 font-body mb-4 text-lg">de {bookInfo.author}</p>
+								<p class="text-forest/80 font-body mb-8 leading-relaxed">
 									{bookInfo.description}
 								</p>
-							</div>
-							<div>
-								<h3 class="font-display text-forest mb-4 text-xl">Temas que aborda:</h3>
+
+								<h4 class="font-display text-forest mb-4 text-xl">Temas que aborda:</h4>
 								<ul class="space-y-3">
 									{
 										bookInfo.topics.map((topic) => (
@@ -330,9 +352,7 @@ const bookInfo = {
 					data-animate="animate-fade-in"
 					data-animate-duration="1s"
 				>
-					<h2 class="text-cream font-display mb-4 text-3xl md:text-4xl">
-						¿Te unes a nosotras?
-					</h2>
+					<h2 class="text-cream font-display mb-4 text-3xl md:text-4xl">¿Te unes a nosotras?</h2>
 					<p class="text-cream/80 font-body mx-auto mb-8 max-w-2xl text-lg">
 						Únete al grupo de WhatsApp para recibir toda la información y empezar a compartir con
 						otras mujeres que, como tú, quieren aprender y crecer juntas.
