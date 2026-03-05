@@ -21,7 +21,7 @@ const mockAnnouncementStories: Story[] = [
 		description:
 			"Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros.\n\nEn esta edición: \n\nEl sexo de las madres de Sonia Encinas",
 		ctaText: "¡Quiero apuntarme!",
-		ctaLink: "/eventos/club-lectura-marzo-2026",
+		ctaLink: "/eventos/club-lectura/club-lectura-marzo-2026",
 		imageSrc: "/images/events/club-lectura-marzo-27.webp",
 		backgroundColor: "#37443a",
 	},
