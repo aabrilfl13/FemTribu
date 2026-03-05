@@ -5,13 +5,13 @@ import type { Story } from "@/components/modals/StoriesModal.astro"
  */
 const mockAnnouncementStories: Story[] = [
 	{
-		id: "evento-28-marzo",
-		subtitle: "28 DE MARZO • VALENCIA",
+		id: "evento-27-marzo",
+		subtitle: "27 DE MARZO • VALENCIA",
 		title: "¡Algo especial está por llegar!",
 		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
 		ctaText: "Mantenerme informada",
 		ctaLink: "/#newsletter",
-		imageSrc: "/images/events/maria-exercise.webp",
+		imageSrc: "/images/events/bg-wood.webp",
 		backgroundColor: "#37443a",
 	},
 	{
