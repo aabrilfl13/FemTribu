@@ -22,6 +22,8 @@ const eventDetails = {
 	book: "El sexo de las madres",
 	author: "Sonia Encinas",
 	whatsappLink: "https://chat.whatsapp.com/L7nULEtmL38BfPJDgjKSUh?mode=gi_t",
+	calendarLink:
+		"https://calendar.google.com/calendar/render?action=TEMPLATE&text=Club%20de%20Lectura%20FEMM&dates=20260327T190000/20260327T200000&details=Un%20espacio%20para%20mujeres%20que%20quieren%20profundizar%20en%20su%20salud%2C%20su%20cuerpo%20y%20su%20historia%20a%20trav%C3%A9s%20de%20los%20libros.%20En%20esta%20edici%C3%B3n%20leeremos%20El%20sexo%20de%20las%20madres%20de%20Sonia%20Encinas.%0A%0AM%C3%A1s%20informaci%C3%B3n%3A%20https%3A%2F%2Ffemmtribu.com%2Feventos%2Fclub-lectura-marzo-2026&location=Online",
 }
 
 const howItWorks = [
@@ -130,6 +132,29 @@ const bookInfo = {
 							<line x1="5" y1="12" x2="19" y2="12"></line>
 							<polyline points="12 5 19 12 12 19"></polyline>
 						</svg>
+					</Button>
+					<Button
+						variant="outline"
+						size="lg"
+						href={eventDetails.calendarLink}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<svg
+							class="mr-2 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+							<line x1="16" y1="2" x2="16" y2="6"></line>
+							<line x1="8" y1="2" x2="8" y2="6"></line>
+							<line x1="3" y1="10" x2="21" y2="10"></line>
+						</svg>
+						Añadir a mi calendario
 					</Button>
 				</div>
 			</div>
@@ -357,27 +382,53 @@ const bookInfo = {
 						Únete al grupo de WhatsApp para recibir toda la información y empezar a compartir con
 						otras mujeres que, como tú, quieren aprender y crecer juntas.
 					</p>
-					<Button
-						variant="secondary"
-						size="lg"
-						href={eventDetails.whatsappLink}
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Unirme al grupo de WhatsApp
-						<svg
-							class="ml-2 h-4 w-4"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+					<div class="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+						<Button
+							variant="secondary"
+							size="lg"
+							href={eventDetails.whatsappLink}
+							target="_blank"
+							rel="noopener noreferrer"
 						>
-							<line x1="5" y1="12" x2="19" y2="12"></line>
-							<polyline points="12 5 19 12 12 19"></polyline>
-						</svg>
-					</Button>
+							Unirme al grupo de WhatsApp
+							<svg
+								class="ml-2 h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
+						</Button>
+						<Button
+							variant="outline"
+							size="lg"
+							href={eventDetails.calendarLink}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="border-cream/30 text-cream hover:bg-cream/10"
+						>
+							<svg
+								class="mr-2 h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+								<line x1="16" y1="2" x2="16" y2="6"></line>
+								<line x1="8" y1="2" x2="8" y2="6"></line>
+								<line x1="3" y1="10" x2="21" y2="10"></line>
+							</svg>
+							Añadir a mi calendario
+						</Button>
+					</div>
 					<p class="text-cream/60 font-body mt-6 text-sm">
 						Gratuito • Online • Para todas las mujeres
 					</p>
