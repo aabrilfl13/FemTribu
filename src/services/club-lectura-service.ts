@@ -129,3 +129,23 @@ export function generateCalendarLink(
 
 	return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${startDateTime}/${endDateTime}&details=${eventDescription}&location=${location}`
 }
+
+/**
+ * Generate share links for social media
+ */
+export function generateShareLinks(
+	event: ClubLecturaEvent,
+	websiteUrl: string = "https://femmtribu.es"
+) {
+	const eventUrl = `${websiteUrl}/eventos/club-lectura/${event.slug}`
+	const shareText = `${event.title} - ${event.subtitle}\n${event.date} a las ${event.time}\n\nÚnete a nosotras en este espacio para mujeres 📚`
+
+	return {
+		whatsapp: `https://wa.me/?text=${encodeURIComponent(shareText + "\n\n" + eventUrl)}`,
+		twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(eventUrl)}`,
+		facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(eventUrl)}`,
+		linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl)}`,
+		email: `mailto:?subject=${encodeURIComponent(event.title)}&body=${encodeURIComponent(shareText + "\n\n" + eventUrl)}`,
+		copyLink: eventUrl,
+	}
+}
