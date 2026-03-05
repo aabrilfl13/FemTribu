@@ -17,7 +17,7 @@ export interface StoriesConfig {
 export const storiesConfig: StoriesConfig = {
 	enabled: true,
 	delayMs: 5000,
-	cooldownDays: 7,
+	cooldownDays: 1,
 	autoAdvance: true,
 	storyDuration: 20000,
 	snoozeDurationMinutes: 15,
