@@ -6,6 +6,8 @@ import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
+import FAQ from "@/components/FAQ.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 import {
 	fetchEvents,
@@ -47,6 +49,46 @@ const eventDetails = {
 
 const shareLinks = generateShareLinks(event)
 
+// FAQs dinámicas basadas en el tipo de evento
+const faqs = [
+	{
+		question: "¿Cómo puedo reservar mi plaza?",
+		answer: `Puedes reservar tu plaza escribiéndonos por WhatsApp haciendo clic en el botón "Reservar mi plaza" de esta página. Te responderemos lo antes posible para confirmar tu reserva.`,
+	},
+	{
+		question: event.type.toLowerCase().includes("presencial")
+			? "¿Dónde se realizará el evento?"
+			: "¿Cómo accedo al evento online?",
+		answer: event.type.toLowerCase().includes("presencial")
+			? `El evento se realizará en ${event.location}${event.locationAddress ? ` (${event.locationAddress})` : ""}. Recibirás todos los detalles de ubicación al confirmar tu reserva.`
+			: "Recibirás el enlace de acceso por correo electrónico y WhatsApp un día antes del evento. El evento se realizará a través de una plataforma online de fácil acceso.",
+	},
+	{
+		question: "¿Qué debo llevar o preparar?",
+		answer: event.type.toLowerCase().includes("presencial")
+			? "Solo necesitas venir con ropa cómoda y muchas ganas de aprender y compartir. Nosotras nos encargamos del resto."
+			: "Solo necesitas una conexión a internet estable y un espacio tranquilo donde puedas participar cómodamente.",
+	},
+	{
+		question: "¿Hay plazas limitadas?",
+		answer:
+			typeof event.spots === "number"
+				? `Sí, este evento tiene ${event.spots} plazas disponibles. Te recomendamos reservar cuanto antes para asegurar tu participación.`
+				: "Este evento tiene plazas ilimitadas, pero te recomendamos inscribirte para recibir toda la información necesaria.",
+	},
+	{
+		question: "¿Puedo cancelar mi reserva?",
+		answer:
+			"Si necesitas cancelar, contáctanos lo antes posible. Entendemos que pueden surgir imprevistos y haremos todo lo posible para ayudarte.",
+	},
+	{
+		question: "¿Recibiré algún material o certificado?",
+		answer: event.includes
+			? `Sí, el evento incluye: ${event.includes.join(", ")}. Toda la información y materiales te los proporcionaremos durante el evento.`
+			: "Recibirás material relacionado con el evento que te ayudará a aprovechar al máximo la experiencia.",
+	},
+]
+
 const seoData = event.seo
 ---
 
@@ -68,6 +110,9 @@ const seoData = event.seo
 		image={event.image}
 		facilitators={event.facilitators}
 	/>
+
+	{/* Structured Data for FAQs */}
+	<FAQSchema faqs={faqs} />
 
 	<main class="pt-21">
 		{/* Back to events link */}
@@ -645,6 +690,13 @@ const seoData = event.seo
 				</section>
 			)
 		}
+
+		{/* FAQ Section */}
+		<FAQ
+			faqs={faqs}
+			title="Preguntas frecuentes"
+			subtitle="Resolvemos las dudas más comunes sobre este evento"
+		/>
 
 		{/* CTA Section */}
 		<section class="pb-24 lg:pb-32">

@@ -1,0 +1,114 @@
+---
+/**
+ * FAQ Component - Preguntas frecuentes con diseño de acordeón
+ */
+
+interface FAQ {
+	question: string
+	answer: string
+}
+
+interface Props {
+	faqs: FAQ[]
+	title?: string
+	subtitle?: string
+}
+
+const { faqs, title = "Preguntas frecuentes", subtitle } = Astro.props
+---
+
+<section class="pb-16 lg:pb-24">
+	<div class="container mx-auto px-4 lg:px-8">
+		<div class="mx-auto max-w-5xl">
+			<div class="mb-12 text-center">
+				<h2
+					class="font-display text-forest mb-4 text-3xl md:text-4xl"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+				>
+					{title}
+				</h2>
+				{
+					subtitle && (
+						<p
+							class="text-forest/70 font-body mx-auto max-w-2xl text-lg"
+							data-animate="animate-fade-in"
+							data-animate-duration="1s"
+							data-animate-delay="0.1s"
+						>
+							{subtitle}
+						</p>
+					)
+				}
+			</div>
+
+			<div class="space-y-4">
+				{
+					faqs.map((faq, index) => (
+						<div
+							class="from-sage/10 to-sage/5 border-sage/20 group overflow-hidden rounded-2xl border bg-gradient-to-r transition-all duration-300 hover:shadow-md"
+							data-animate="animate-fade-in"
+							data-animate-duration="1s"
+							data-animate-delay={`${index * 100}ms`}
+						>
+							<button
+								class="faq-button flex w-full items-center justify-between gap-4 p-6 text-left transition-colors"
+								aria-expanded="false"
+							>
+								<h3 class="font-display text-forest pr-4 text-lg md:text-xl">{faq.question}</h3>
+								<svg
+									class="text-terracotta faq-icon h-6 w-6 flex-shrink-0 transition-transform duration-300"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<line x1="12" y1="5" x2="12" y2="19" />
+									<line x1="5" y1="12" x2="19" y2="12" />
+								</svg>
+							</button>
+							<div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
+								<div class="text-forest/80 font-body px-6 pb-6 text-base leading-relaxed">
+									{faq.answer}
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	function initFAQ() {
+		const faqButtons = document.querySelectorAll(".faq-button")
+
+		faqButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const content = button.nextElementSibling as HTMLElement
+				const icon = button.querySelector(".faq-icon") as HTMLElement
+				const isExpanded = button.getAttribute("aria-expanded") === "true"
+
+				// Toggle current FAQ
+				if (isExpanded) {
+					button.setAttribute("aria-expanded", "false")
+					content.style.maxHeight = "0"
+					icon.style.transform = "rotate(0deg)"
+				} else {
+					button.setAttribute("aria-expanded", "true")
+					content.style.maxHeight = content.scrollHeight + "px"
+					icon.style.transform = "rotate(45deg)"
+				}
+			})
+		})
+	}
+
+	// Initialize on page load
+	initFAQ()
+
+	// Reinitialize on Astro navigation
+	document.addEventListener("astro:page-load", initFAQ)
+</script>
