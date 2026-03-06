@@ -32,13 +32,13 @@ export const events: Event[] = [
 					"Paula Tejedo nos guiará en una conversación sobre cómo cuidar nuestra salud pélvica, entender nuestro cuerpo y prevenir disfunciones.",
 			},
 			{
-				time: "19:15h",
+				time: "18:45h",
 				activity: "Merienda Juntas",
 				description:
 					"Un momento para compartir, conocernos y crear comunidad en un ambiente relajado y acogedor.",
 			},
 			{
-				time: "20:00h",
+				time: "19:15h",
 				activity: "Clase de Barre",
 				description:
 					"Una práctica de movimiento suave y consciente que nos ayudará a integrar todo lo aprendido mientras conectamos con nuestro cuerpo.",
