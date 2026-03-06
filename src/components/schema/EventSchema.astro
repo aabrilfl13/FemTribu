@@ -1,0 +1,155 @@
+---
+/**
+ * Event Schema - Structured data para eventos
+ * Ayuda a Google a mostrar información enriquecida sobre los eventos en los resultados de búsqueda
+ */
+
+import { BUSINESS_INFO } from "@/data/business-info"
+
+interface Props {
+	title: string
+	description: string
+	date: string // formato: "27 de Marzo 2026"
+	dateISO?: string // formato: "2026-03-27"
+	time?: string // formato: "18:00"
+	startTime?: string // formato: "18:00:00"
+	endTime?: string // formato: "21:00:00"
+	type: string // "Online" o "Presencial"
+	location?: string
+	locationAddress?: string
+	price: string // "25€" o "Gratuito"
+	spots?: number | string
+	image?: string
+	facilitators?: Array<{ name: string; image?: string }>
+}
+
+const {
+	title,
+	description,
+	dateISO,
+	startTime = "19:00:00",
+	endTime = "21:00:00",
+	type,
+	location,
+	locationAddress,
+	price,
+	spots,
+	image,
+	facilitators,
+} = Astro.props
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const eventUrl = Astro.url.href
+
+// Construir la fecha de inicio completa (ISO 8601)
+const startDate = dateISO ? `${dateISO}T${startTime}+01:00` : undefined
+const endDate = dateISO ? `${dateISO}T${endTime}+01:00` : undefined
+
+// Determinar el tipo de asistencia
+const getEventAttendanceMode = () => {
+	if (type.toLowerCase().includes("online")) {
+		return "https://schema.org/OnlineEventAttendanceMode"
+	}
+	return "https://schema.org/OfflineEventAttendanceMode"
+}
+
+// Determinar disponibilidad
+const getAvailability = () => {
+	if (typeof spots === "number" && spots > 0) {
+		return "https://schema.org/InStock"
+	}
+	if (spots === "Ilimitado") {
+		return "https://schema.org/InStock"
+	}
+	return "https://schema.org/SoldOut"
+}
+
+// Extraer precio numérico
+const getPriceValue = () => {
+	if (price.toLowerCase().includes("gratuito") || price.toLowerCase().includes("gratis")) {
+		return "0"
+	}
+	const match = price.match(/(\d+)/)
+	return match ? match[1] : "0"
+}
+
+const eventSchema = {
+	"@context": "https://schema.org",
+	"@type": "Event",
+	"name": title,
+	"description": description,
+	...(startDate && { startDate }),
+	...(endDate && { endDate }),
+	"eventStatus": "https://schema.org/EventScheduled",
+	"eventAttendanceMode": getEventAttendanceMode(),
+
+	// Ubicación
+	...(type.toLowerCase().includes("presencial") &&
+		location && {
+			location: {
+				"@type": "Place",
+				"name": location,
+				...(locationAddress && {
+					address: {
+						"@type": "PostalAddress",
+						"streetAddress": locationAddress,
+						"addressLocality": "Valencia",
+						"addressCountry": "ES",
+					},
+				}),
+			},
+		}),
+
+	// Para eventos online
+	...(type.toLowerCase().includes("online") && {
+		location: {
+			"@type": "VirtualLocation",
+			"url": eventUrl,
+		},
+	}),
+
+	// Imagen del evento
+	...(image && {
+		image: image.startsWith("http") ? image : `${siteUrl}${image}`,
+	}),
+
+	// Organizador
+	"organizer": {
+		"@type": "Organization",
+		"name": "Femm tribu",
+		"url": siteUrl,
+	},
+
+	// Ponentes/Facilitadores
+	...(facilitators &&
+		facilitators.length > 0 && {
+			performer: facilitators.map((facilitator) => ({
+				"@type": "Person",
+				"name": facilitator.name,
+				...(facilitator.image && {
+					image: facilitator.image.startsWith("http")
+						? facilitator.image
+						: `${siteUrl}${facilitator.image}`,
+				}),
+			})),
+		}),
+
+	// Oferta/Precio
+	"offers": {
+		"@type": "Offer",
+		"url": eventUrl,
+		"price": getPriceValue(),
+		"priceCurrency": "EUR",
+		"availability": getAvailability(),
+		"validFrom": new Date().toISOString(),
+		...(typeof spots === "number" && {
+			inventoryLevel: {
+				"@type": "QuantitativeValue",
+				"value": spots,
+			},
+		}),
+	},
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(eventSchema)} />

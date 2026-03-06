@@ -1,5 +1,6 @@
 ---
 import CalendarIcon from "@/assets/iconos/calendar.svg"
+import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Layout from "@/layouts/Layout.astro"
 
@@ -8,7 +9,10 @@ const upcomingEvents = [
 		id: 1,
 		title: "No soy yo... es la menopausia",
 		date: "14 Enero 2026",
+		dateISO: "2026-01-14",
 		time: "19:00 - 20:00",
+		startTime: "19:00:00",
+		endTime: "20:00:00",
 		type: "Webinar",
 		description:
 			"Un webinar gratuito para mujeres que sienten que su cuerpo ha cambiado y nadie les explicó por qué.",
@@ -23,7 +27,10 @@ const upcomingEvents = [
 		id: 2,
 		title: "Club de Lectura FEMM Online",
 		date: "26 Marzo 2026",
+		dateISO: "2026-03-26",
 		time: "19:00",
+		startTime: "19:00:00",
+		endTime: "21:00:00",
 		type: "Online",
 		description:
 			"Club de Lectura FEMM es un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros. En esta edición leeremos 'El sexo de las madres' de Sonia Encinas.",
@@ -39,7 +46,10 @@ const upcomingEvents = [
 		id: 3,
 		title: "The Pelvic Glow Experience",
 		date: "27 Marzo 2026",
+		dateISO: "2026-03-27",
 		time: "18:00",
+		startTime: "18:00:00",
+		endTime: "21:00:00",
 		type: "Presencial · Valencia",
 		description:
 			"Un encuentro pensado para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica desde una mirada cercana y práctica. Combinaremos una charla de fisiosexología y suelo pélvico con Paula Tejedo, merienda juntas y cerraremos con una clase de barre para integrar todo lo aprendido.",
@@ -50,6 +60,7 @@ const upcomingEvents = [
 		route: "/eventos/pelvic-glow-experience-marzo-2026",
 		image: "/images/events/maria-exercise.webp",
 		location: "Habitat, Valencia",
+		locationAddress: "C/ d'Almassora, 44, Bajo Izquierda, La Zaidía, 46010 València, Valencia",
 		facilitators: [
 			{ name: "Paula Tejedo", image: "/images/about-me/paula-tejedo.webp" },
 			{ name: "María Belenguer", image: "/images/about-me/mery-portait.webp" },
@@ -58,10 +69,9 @@ const upcomingEvents = [
 ]
 
 const seoData = {
-	title: "Talleres y Eventos | Presencial y Online | Femm Tribu",
+	title: "Talleres y Eventos en Valencia y Online 2026 | Femm Tribu",
 	description:
-		"Únete a nuestros encuentros, webinars y talleres diseñados para acompañarte en cada etapa de tu camino hacia el bienestar femenino.",
-	noindex: true,
+		"Descubre nuestros talleres presenciales en Valencia y eventos online sobre salud femenina, menopausia, suelo pélvico y bienestar. Plazas limitadas. ¡Reserva tu plaza!",
 }
 
 // Function to check if event is past
@@ -100,6 +110,28 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	{/* Structured Data for Events */}
+	{
+		activeEvents.map((event) => (
+			<EventSchema
+				title={event.title}
+				description={event.description}
+				date={event.date}
+				dateISO={event.dateISO}
+				time={event.time}
+				startTime={event.startTime}
+				endTime={event.endTime}
+				type={event.type}
+				location={event.location}
+				locationAddress={event.locationAddress}
+				price={event.price}
+				spots={event.spots}
+				image={event.image}
+				facilitators={event.facilitators}
+			/>
+		))
+	}
+
 	{/* Hero Section */}
 	<main class="pt-21">
 		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
