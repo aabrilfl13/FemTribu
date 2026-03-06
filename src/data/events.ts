@@ -78,9 +78,9 @@ export const events: Event[] = [
 		image: "/images/events/maria-exercise.webp",
 		whatsappNumber: "34640912048",
 		seo: {
-			title: "The Pelvic Glow Experience - 27 de Marzo 2026 | Femm Tribu",
+			title: "The Pelvic Glow Experience Valencia - Taller de Suelo Pélvico | 27 Marzo 2026",
 			description:
-				"Un encuentro para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica. Charla de fisiosexología con Paula Tejedo, merienda y clase de barre. Presencial en Valencia.",
+				"Taller presencial de suelo pélvico y fisiosexología en Valencia. Charla con Paula Tejedo, fisioterapeuta especializada, merienda y clase de barre. Solo 15 plazas. ¡Reserva ahora!",
 		},
 	},
 ]
