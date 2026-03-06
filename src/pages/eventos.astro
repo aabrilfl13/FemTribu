@@ -33,6 +33,7 @@ const upcomingEvents = [
 		accent: "sage",
 		route: "/eventos/club-lectura/club-lectura-marzo-2026",
 		image: "/images/decoratives/ilustracion-negro_08.svg",
+		facilitators: [{ name: "María Belenguer", image: "/images/about-me/mery-portait.webp" }],
 	},
 	{
 		id: 3,
@@ -49,6 +50,10 @@ const upcomingEvents = [
 		route: "/eventos/pelvic-glow-experience-marzo-2026",
 		image: "/images/events/maria-exercise.webp",
 		location: "Habitat, Valencia",
+		facilitators: [
+			{ name: "Paula Tejedo", image: "/images/about-me/paula-tejedo.webp" },
+			{ name: "María Belenguer", image: "/images/about-me/mery-portait.webp" },
+		],
 	},
 ]
 
@@ -228,6 +233,30 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 													{typeof event.spots === "number" ? " plazas" : ""}
 												</span>
 											</div>
+
+											{/* Facilitators thumbnails */}
+											{event.facilitators && event.facilitators.length > 0 && (
+												<div class="mt-4 flex items-center gap-2">
+													<div class="flex -space-x-2">
+														{event.facilitators.map((facilitator, idx) => (
+															<div
+																class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-1 border-white"
+																title={facilitator.name}
+															>
+																<img
+																	src={facilitator.image}
+																	alt={facilitator.name}
+																	class="h-full w-full object-cover"
+																	loading="lazy"
+																/>
+															</div>
+														))}
+													</div>
+													<span class="text-forest/60 font-body text-xs">
+														{event.facilitators.map((f) => f.name).join(" y ")}
+													</span>
+												</div>
+											)}
 										</div>
 
 										{/* Price & CTA */}
