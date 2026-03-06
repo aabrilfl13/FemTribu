@@ -75,7 +75,7 @@ export const events: Event[] = [
 			"Material didáctico",
 			"Espacio de comunidad y networking",
 		],
-		image: "/images/events/maria-exercise.webp",
+		image: "/images/events/pelvic-glow.webp",
 		whatsappNumber: "34640912048",
 		seo: {
 			title: "The Pelvic Glow Experience Valencia - Taller de Suelo Pélvico | 27 Marzo 2026",

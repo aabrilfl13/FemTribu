@@ -8,10 +8,11 @@ const mockAnnouncementStories: Story[] = [
 		id: "evento-27-marzo",
 		subtitle: "27 DE MARZO • 18H • VALENCIA",
 		title: "The Pelvic Glow Experience",
-		description: "Un encuentro pensado para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica.\n\nCharla + Merienda + Clase de Barre",
+		description:
+			"Un encuentro pensado para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica.\n\nCharla + Merienda + Clase de Barre",
 		ctaText: "Ver detalles",
 		ctaLink: "/eventos/pelvic-glow-experience-marzo-2026",
-		imageSrc: "/images/events/maria-exercise.webp",
+		imageSrc: "/images/events/pelvic-glow.webp",
 		backgroundColor: "#37443a",
 	},
 	{
