@@ -15,6 +15,7 @@ export interface Event {
 	duration: string
 	type: "Presencial" | "Online" | "Híbrido"
 	location?: string // For in-person events
+	locationAddress?: string // Full address for Google Maps
 	price: string
 	spots: number
 	description: string

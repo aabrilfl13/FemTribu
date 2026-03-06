@@ -13,6 +13,7 @@ export const events: Event[] = [
 		duration: "3 horas aproximadamente",
 		type: "Presencial",
 		location: "Habitat, Valencia",
+		locationAddress: "C/ d'Almassora, 44, Bajo Izquierda, La Zaidía, 46010 València, Valencia",
 		price: "25€",
 		spots: 15,
 		description:
