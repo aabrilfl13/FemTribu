@@ -6,12 +6,12 @@ import type { Story } from "@/components/modals/StoriesModal.astro"
 const mockAnnouncementStories: Story[] = [
 	{
 		id: "evento-27-marzo",
-		subtitle: "27 DE MARZO • VALENCIA",
-		title: "¡Algo especial está por llegar!",
-		description: "No es solo salud, no es solo barre...\n\nES AUTOTOCUIDADO VERSIÓN AVANZADA",
-		ctaText: "Mantenerme informada",
-		ctaLink: "/#newsletter",
-		imageSrc: "/images/events/bg-wood.webp",
+		subtitle: "27 DE MARZO • 18H • VALENCIA",
+		title: "The Pelvic Glow Experience",
+		description: "Un encuentro pensado para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica.\n\nCharla + Merienda + Clase de Barre",
+		ctaText: "Ver detalles",
+		ctaLink: "/eventos/pelvic-glow-experience-marzo-2026",
+		imageSrc: "/images/events/maria-exercise.webp",
 		backgroundColor: "#37443a",
 	},
 	{
