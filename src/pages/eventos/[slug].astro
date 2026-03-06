@@ -5,6 +5,7 @@ import CardContent from "@/components/ui/CardContent.astro"
 import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
+import EventSchema from "@/components/schema/EventSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 import {
 	fetchEvents,
@@ -50,6 +51,24 @@ const seoData = event.seo
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	{/* Structured Data for Event */}
+	<EventSchema
+		title={event.title}
+		description={event.description}
+		date={event.date}
+		dateISO={event.dateISO}
+		time={event.time}
+		startTime={event.startTime}
+		endTime={event.endTime}
+		type={event.type}
+		location={event.location}
+		locationAddress={event.locationAddress}
+		price={event.price}
+		spots={event.spots}
+		image={event.image}
+		facilitators={event.facilitators}
+	/>
+
 	<main class="pt-21">
 		{/* Back to events link */}
 		<div class="container mx-auto px-4 pt-8 lg:px-8">
