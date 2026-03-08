@@ -54,19 +54,19 @@ const shareLinks = generateShareLinks(event)
 
 const howItWorks = [
 	{
-		icon: "📚",
+		icon: "book-open",
 		title: "Lee a tu ritmo",
 		description:
 			"Cada participante realiza la lectura de forma individual durante el mes. No hay presión, cada una avanza según su tiempo.",
 	},
 	{
-		icon: "💬",
+		icon: "message-circle",
 		title: "Compartimos en grupo",
 		description:
 			"Mientras leemos, compartimos reflexiones y aprendizajes en un grupo privado de WhatsApp. Un espacio seguro para expresar lo que sentimos.",
 	},
 	{
-		icon: "🎥",
+		icon: "video",
 		title: "Encuentro virtual",
 		description: `Nos reunimos online el ${event.date} a las ${event.time} para comentar el libro juntas y crear un espacio de conversación, aprendizaje y tribu.`,
 	},
@@ -383,7 +383,17 @@ const seoData = event.seo
 									data-animate-delay={`${index * 200}ms`}
 								>
 									<CardHeader>
-										<div class="mb-4 text-4xl">{step.icon}</div>
+										<div class="text-terracotta mb-4 h-10 w-10">
+											{step.icon === "book-open" && (
+												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+											)}
+											{step.icon === "message-circle" && (
+												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+											)}
+											{step.icon === "video" && (
+												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+											)}
+										</div>
 										<CardTitle class="font-display text-forest text-xl">{step.title}</CardTitle>
 									</CardHeader>
 									<CardContent>
