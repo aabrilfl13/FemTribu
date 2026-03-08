@@ -271,14 +271,14 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="grid gap-8 md:grid-cols-2 lg:gap-6">
 					{
-						preconceptionPacks.map((pack) => (
+						preconceptionPacks.map((pack, index) => (
 							<Card
 								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
 									pack.highlight
 										? "border-accent ring-accent/20 shadow-lg ring-2"
 										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
 								}`}
-                data-animate="animate-fade-up"
+								data-animate="animate-fade-up"
 								data-animate-duration="1s"
 								data-animate-delay={`${index * 300}ms`}
 							>
