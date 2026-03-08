@@ -168,7 +168,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					{
 						packs.map((pack, index) => (
 							<Card
-								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
+								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
 									pack.highlight
 										? "border-accent ring-accent/20 shadow-lg ring-2"
 										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
@@ -273,11 +273,14 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					{
 						preconceptionPacks.map((pack) => (
 							<Card
-								class={`relative overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
+								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
 									pack.highlight
 										? "border-accent ring-accent/20 shadow-lg ring-2"
 										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
 								}`}
+                data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 300}ms`}
 							>
 								{pack.highlight && (
 									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
