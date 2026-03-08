@@ -14,6 +14,8 @@ const mockAnnouncementStories: Story[] = [
 		ctaLink: "/eventos/pelvic-glow-experience-marzo-2026",
 		imageSrc: "/images/events/pelvic-glow.webp",
 		backgroundColor: "#37443a",
+		startTime: "2026-03-01T00:00:00",
+		endTime: "2026-03-27T01:00:00",
 	},
 	{
 		id: "evento-26-marzo-lectura",
@@ -25,6 +27,8 @@ const mockAnnouncementStories: Story[] = [
 		ctaLink: "/eventos/club-lectura/club-lectura-marzo-2026",
 		imageSrc: "/images/events/club-lectura.webp",
 		backgroundColor: "#37443a",
+		startTime: "2026-03-01T00:00:00",
+		endTime: "2026-03-26T06:00:00",
 	},
 ]
 
