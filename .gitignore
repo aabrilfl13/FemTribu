@@ -169,3 +169,6 @@ pnpm-debug.log*
 skills-lock.json
 .claude
 .agents
+
+src/data/estructura_empresa
+.mcp.json
