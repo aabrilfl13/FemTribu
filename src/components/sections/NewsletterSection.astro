@@ -67,7 +67,7 @@ const benefits = [
 				{
 					benefits.map((benefit) => (
 						<div class="text-primary/70 flex items-center gap-2 text-sm">
-							<img src={benefit.icon} alt={benefit.title} class="h-6 w-6" />
+							<img src={benefit.icon} alt={benefit.title} class="h-6 w-6" loading="lazy" />
 							<span>{benefit.text}</span>
 						</div>
 					))

@@ -81,7 +81,7 @@ const stories = allStories.filter((story) => {
 					>
 						{story.imageSrc && (
 							<div class="story-background">
-								<img src={story.imageSrc} alt={story.title} />
+								<img src={story.imageSrc} alt={story.title} loading="lazy" />
 								<div class="story-gradient" />
 							</div>
 						)}
