@@ -1,8 +1,11 @@
 ---
+import FAQ from "@/components/FAQ.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
 import AboutCompany from "@/components/sections/AboutCompany.astro"
 import NewsletterSection from "@/components/sections/NewsletterSection.astro"
 import Servicies from "@/components/sections/Services.astro"
 import Welcome from "@/components/sections/Welcome.astro"
+import { HOME_FAQS } from "@/data/faqs"
 import Layout from "@/layouts/Layout.astro"
 
 const seoData = {
@@ -21,7 +24,12 @@ const seoData = {
 			data-animate="animate-fade-up"
 			data-animate-duration="1s"
 		>
-			<img class="h-10 w-100" src="/images/decoratives/ilustracion-negro_36.svg" alt="" loading="lazy" />
+			<img
+				class="h-10 w-100"
+				src="/images/decoratives/ilustracion-negro_36.svg"
+				alt=""
+				loading="lazy"
+			/>
 		</section>
 		<Servicies />
 		<section
@@ -29,8 +37,21 @@ const seoData = {
 			data-animate="animate-fade-up"
 			data-animate-duration="1s"
 		>
-			<img class="h-10 w-100" src="/images/decoratives/ilustracion-negro_36.svg" alt="" loading="lazy" />
+			<img
+				class="h-10 w-100"
+				src="/images/decoratives/ilustracion-negro_36.svg"
+				alt=""
+				loading="lazy"
+			/>
 		</section>
 		<NewsletterSection />
+		<section id="faq" class="relative overflow-hidden py-10 lg:py-18">
+			<FAQ
+				faqs={HOME_FAQS}
+				title="Preguntas frecuentes"
+				subtitle="Resolvemos tus dudas más habituales sobre nuestros servicios de matrona."
+			/>
+			<FAQSchema faqs={HOME_FAQS} />
+		</section>
 	</main>
 </Layout>
