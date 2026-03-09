@@ -673,6 +673,10 @@ const stories = allStories.filter((story) => {
 		onModalClosed() {
 			this.isModalOpen = false
 			this.stopProgress()
+			if (this._keyHandler) {
+				document.removeEventListener("keydown", this._keyHandler)
+				this._keyHandler = null
+			}
 			console.log("[StoriesModal] Modal closed")
 		}
 
@@ -713,6 +717,19 @@ const stories = allStories.filter((story) => {
 
 			prevBtn?.addEventListener("click", () => this.previousStory())
 			nextBtn?.addEventListener("click", () => this.nextStory())
+
+			// Arrow key navigation
+			this._keyHandler = (e) => {
+				if (!this.isModalOpen) return
+				if (e.key === "ArrowLeft") {
+					e.preventDefault()
+					this.previousStory()
+				} else if (e.key === "ArrowRight") {
+					e.preventDefault()
+					this.nextStory()
+				}
+			}
+			document.addEventListener("keydown", this._keyHandler)
 		}
 
 		setupTouchGestures() {
