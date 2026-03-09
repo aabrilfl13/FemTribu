@@ -1,6 +1,6 @@
 ---
 /**
- * FAQ Component - Preguntas frecuentes con diseño de acordeón
+ * FAQ Component - Preguntas frecuentes con diseño minimalista
  */
 
 interface FAQ {
@@ -19,10 +19,10 @@ const { faqs, title = "Preguntas frecuentes", subtitle } = Astro.props
 
 <section class="pb-16 lg:pb-24">
 	<div class="container mx-auto px-4 lg:px-8">
-		<div class="mx-auto max-w-5xl">
+		<div class="mx-auto max-w-3xl">
 			<div class="mb-12 text-center">
 				<h2
-					class="font-display text-forest mb-4 text-3xl md:text-4xl"
+					class="font-display text-primary mb-4 text-3xl md:text-4xl"
 					data-animate="animate-fade-in"
 					data-animate-duration="1s"
 				>
@@ -31,7 +31,7 @@ const { faqs, title = "Preguntas frecuentes", subtitle } = Astro.props
 				{
 					subtitle && (
 						<p
-							class="text-forest/70 font-body mx-auto max-w-2xl text-lg"
+							class="text-muted-foreground font-body mx-auto max-w-2xl text-lg"
 							data-animate="animate-fade-in"
 							data-animate-duration="1s"
 							data-animate-delay="0.1s"
@@ -42,37 +42,36 @@ const { faqs, title = "Preguntas frecuentes", subtitle } = Astro.props
 				}
 			</div>
 
-			<div class="space-y-4">
+			<div
+				class="border-border/40 divide-border/40 divide-y border-t border-b"
+				data-animate="animate-fade-in"
+				data-animate-duration="1s"
+				data-animate-delay="0.2s"
+			>
 				{
-					faqs.map((faq, index) => (
-						<div
-							class="from-sage/10 to-sage/5 border-sage/20 group overflow-hidden rounded-2xl border bg-gradient-to-r transition-all duration-300 hover:shadow-md"
-							data-animate="animate-fade-in"
-							data-animate-duration="1s"
-							data-animate-delay={`${index * 100}ms`}
-						>
+					faqs.map((faq) => (
+						<div class="group">
 							<button
-								class="faq-button flex w-full cursor-pointer items-center justify-between gap-4 p-6 text-left transition-colors"
+								class="faq-button flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left"
 								aria-expanded="false"
 							>
-								<h3 class="font-display text-forest pr-4 text-lg md:text-xl">{faq.question}</h3>
+								<h3 class="font-display text-primary text-base md:text-lg">{faq.question}</h3>
 								<svg
-									class="text-terracotta faq-icon h-6 w-6 flex-shrink-0 transition-transform duration-300"
+									class="text-muted-foreground faq-icon h-5 w-5 flex-shrink-0 transition-transform duration-200"
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="2"
+									stroke-width="1.5"
 									stroke-linecap="round"
 									stroke-linejoin="round"
 								>
-									<line x1="12" y1="5" x2="12" y2="19" />
-									<line x1="5" y1="12" x2="19" y2="12" />
+									<path d="M6 9l6 6 6-6" />
 								</svg>
 							</button>
 							<div class="faq-content max-h-0 overflow-hidden transition-all duration-300">
-								<div class="text-forest/80 font-body px-6 pb-6 text-base leading-relaxed">
+								<p class="text-muted-foreground font-body pb-5 text-sm leading-relaxed md:text-base">
 									{faq.answer}
-								</div>
+								</p>
 							</div>
 						</div>
 					))
@@ -100,7 +99,7 @@ const { faqs, title = "Preguntas frecuentes", subtitle } = Astro.props
 				} else {
 					button.setAttribute("aria-expanded", "true")
 					content.style.maxHeight = content.scrollHeight + "px"
-					icon.style.transform = "rotate(45deg)"
+					icon.style.transform = "rotate(180deg)"
 				}
 			})
 		})
