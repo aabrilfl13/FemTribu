@@ -71,12 +71,13 @@ const benefits = [
 					placeholder="Tu correo electrónico"
 					required
 					autocomplete="email"
+					aria-label="Tu correo electrónico"
 					pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
 				/>
 				<Button id="newsletter-modal-submit" type="submit" variant="hero" class="w-full">
 					Suscribirme
 				</Button>
-				<div id="newsletter-modal-message" class="hidden rounded-lg px-4 py-2 text-sm"></div>
+				<div id="newsletter-modal-message" class="hidden rounded-lg px-4 py-2 text-sm" aria-live="assertive" aria-atomic="true"></div>
 			</form>
 		</div>
 	</div>
