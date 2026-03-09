@@ -12,13 +12,13 @@ const { serviceName = "nuestros servicios" } = Astro.props
 const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
-<Modal id="service-info-modal" size="md">
+<Modal id="service-info-modal" size="md" ariaLabelledBy="service-info-modal-title">
 	<!-- Header -->
 	<div class="mb-6 text-center">
 		<div class="bg-coral/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
 			<img src="/images/icons/illustrations/ilustracion-negro_24.svg" alt="" class="h-12 w-12" />
 		</div>
-		<h2 class="font-display text-forest mb-3 text-2xl">¡Estamos preparando algo especial!</h2>
+		<h2 id="service-info-modal-title" class="font-display text-forest mb-3 text-2xl">¡Estamos preparando algo especial!</h2>
 		<p class="text-sage">
 			Estamos trabajando en nuestros packs de servicios para ofrecerte la mejor experiencia
 			personalizada.

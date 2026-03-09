@@ -27,7 +27,7 @@ const {
 } = Astro.props
 ---
 
-<Modal id={id} size="lg">
+<Modal id={id} size="lg" ariaLabelledBy={`${id}-title`}>
 	<div class="announcement-content">
 		{
 			imageSrc && (
@@ -38,7 +38,7 @@ const {
 		}
 
 		<div class="announcement-text">
-			<h2 class="font-display text-forest text-3xl leading-tight font-normal md:text-4xl">
+			<h2 id={`${id}-title`} class="font-display text-forest text-3xl leading-tight font-normal md:text-4xl">
 				{title}
 			</h2>
 
