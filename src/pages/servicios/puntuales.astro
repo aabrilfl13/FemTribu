@@ -1,0 +1,236 @@
+---
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import { ADDON_SERVICES, getAllAddonServices } from "@/data/services"
+import Layout from "@/layouts/Layout.astro"
+
+const addonServices = getAllAddonServices()
+
+const seoData = {
+	title: "Servicios Puntuales Valencia | Femm tribu",
+	description:
+		"Servicios puntuales de salud materno-infantil en Valencia. Pendientes para bebés y más. Realizados por profesional sanitario.",
+	type: "website" as const,
+}
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+
+const serviceContent = [
+	{
+		...ADDON_SERVICES.pendientesBebe,
+		question: "¿Buscas un profesional sanitario para los pendientes de tu bebé?",
+		longDescription:
+			"Sabemos lo importante que es para ti que este momento sea seguro y tranquilo. Por eso, nuestro servicio de colocación de pendientes está realizado por una matrona profesional, en un entorno higiénico y con materiales hipoalergénicos certificados. Tu bebé estará en las mejores manos.",
+		indicators: [
+			"Quieres que un profesional sanitario coloque los pendientes a tu bebé",
+			"Buscas materiales hipoalergénicos y seguros",
+			"Prefieres un entorno profesional e higiénico",
+			"Te gustaría recibir instrucciones claras de cuidado posterior",
+		],
+		image: "/images/decoratives/ilustracion-negro_06.svg",
+	},
+]
+---
+
+<Layout navScrolled={true} {...seoData}>
+	{
+		addonServices.map((service) => (
+			<ServiceSchema
+				name={service.name}
+				description={service.description}
+				priceMin={service.priceMin}
+				priceMax={service.priceMax}
+				serviceType={service.serviceType}
+			/>
+		))
+	}
+	<main id="main-content" class="pt-21">
+		{/* Hero Section */}
+		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-16 lg:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<span
+					class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
+					Servicios puntuales
+				</span>
+				<h1
+					class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					¿Necesitas algo <span class="text-accent">puntual</span>?
+				</h1>
+				<p
+					class="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					Servicios individuales que puedes reservar de forma independiente. Realizados
+					por profesional sanitario, con el mismo cariño y profesionalidad de siempre.
+				</p>
+			</div>
+		</section>
+
+		{/* Service Sections */}
+		{
+			serviceContent.map((service, index) => {
+				const isEven = index % 2 === 0
+				return (
+					<section
+						id={service.id}
+						class="scroll-mt-24 py-16 lg:py-24"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay={`${index * 200}ms`}
+					>
+						<div class="container mx-auto px-4 lg:px-8">
+							<div
+								class={`mx-auto flex max-w-6xl flex-col items-center gap-10 lg:gap-16 ${isEven ? "lg:flex-row" : "lg:flex-row-reverse"}`}
+							>
+								{/* Image */}
+								<div class="w-full lg:w-5/12">
+									<div class="bg-muted/40 relative aspect-[4/3] overflow-hidden rounded-3xl">
+										<div class="from-accent/5 to-coral-light/10 absolute inset-0 bg-gradient-to-br" />
+										<img
+											src={service.image}
+											alt={service.name}
+											loading="lazy"
+											class="absolute inset-0 m-auto h-3/5 w-3/5 object-contain opacity-30"
+										/>
+										<div class="absolute inset-0 flex items-center justify-center">
+											<div class="text-center">
+												<div class="bg-accent/10 mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full">
+													<span class="font-display text-accent text-3xl">{service.price}€</span>
+												</div>
+												<span class="text-muted-foreground text-sm font-medium">
+													Servicio puntual
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								{/* Content */}
+								<div class="w-full lg:w-7/12">
+									<p class="text-accent mb-4 text-sm font-medium uppercase tracking-wider">
+										{service.nameShort}
+									</p>
+									<h2 class="font-display text-primary mb-6 text-3xl lg:text-4xl">
+										{service.question}
+									</h2>
+									<p class="text-muted-foreground mb-8 text-base leading-relaxed lg:text-lg">
+										{service.longDescription}
+									</p>
+
+									{/* Indicators */}
+									<div class="mb-8">
+										<p class="text-primary mb-4 text-sm font-semibold uppercase tracking-wider">
+											Es para ti si...
+										</p>
+										<ul class="space-y-3">
+											{service.indicators.map((indicator: string) => (
+												<li class="flex items-start gap-3">
+													<div class="bg-accent/15 mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+														<svg
+															class="text-accent h-3 w-3"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="3"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+														>
+															<polyline points="20 6 9 17 4 12" />
+														</svg>
+													</div>
+													<span class="text-muted-foreground text-sm lg:text-base">
+														{indicator}
+													</span>
+												</li>
+											))}
+										</ul>
+									</div>
+
+									{/* Features */}
+									<div class="border-border/50 mb-8 border-t pt-6">
+										<p class="text-primary mb-3 text-sm font-semibold">
+											Incluye:
+										</p>
+										<ul class="space-y-2">
+											{service.features.map((feature: string) => (
+												<li class="text-muted-foreground flex items-center gap-2 text-sm">
+													<span class="text-accent">—</span>
+													{feature}
+												</li>
+											))}
+										</ul>
+									</div>
+
+									{/* CTA */}
+									<Button
+										variant="hero"
+										size="lg"
+										data-service-name={service.name}
+									>
+										Reservar {service.nameShort}
+										<svg
+											class="ml-1 h-4 w-4"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<line x1="5" y1="12" x2="19" y2="12" />
+											<polyline points="12 5 19 12 12 19" />
+										</svg>
+									</Button>
+								</div>
+							</div>
+						</div>
+					</section>
+				)
+			})
+		}
+
+		{/* Divider */}
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		<AdditionalInfo serviceName="Servicios Puntuales" />
+	</main>
+</Layout>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll("button[data-service-name]")
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const serviceName = button.getAttribute("data-service-name") || "servicio puntual"
+				const message = encodeURIComponent(
+					`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+			})
+		})
+
+		// Handle hash navigation
+		if (window.location.hash) {
+			setTimeout(() => {
+				const element = document.querySelector(window.location.hash)
+				if (element) {
+					element.scrollIntoView({ behavior: "smooth", block: "center" })
+				}
+			}, 100)
+		}
+	})
+</script>
