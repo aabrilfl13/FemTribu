@@ -1,0 +1,620 @@
+---
+import { BUSINESS_INFO } from "@/data/business-info"
+import Layout from "@/layouts/Layout.astro"
+
+const contactMethods = [
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
+		title: "Email",
+		description: "Escríbenos y te responderemos lo antes posible",
+		value: BUSINESS_INFO.email,
+		href: `mailto:${BUSINESS_INFO.email}`,
+		linkText: BUSINESS_INFO.email,
+	},
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
+		title: "WhatsApp",
+		description: "Escríbenos directamente por WhatsApp",
+		value: BUSINESS_INFO.phone,
+		href: `https://wa.me/${BUSINESS_INFO.phone.replace("+", "")}`,
+		linkText: BUSINESS_INFO.phone.replace("+34", "+34 "),
+		external: true,
+	},
+	{
+		icon: "/images/icons/illustrations/ilustracion-negro_24.svg",
+		title: "Reserva tu cita",
+		description: "Elige día y hora directamente en nuestra agenda",
+		value: "Calendly",
+		href: import.meta.env.CALENDLY_URL,
+		linkText: "Ver disponibilidad",
+		external: true,
+	},
+]
+
+const socialLinks = [
+	{ name: "Instagram", handle: "@femm.tribu", href: "https://www.instagram.com/femm.tribu/" },
+	{ name: "TikTok", handle: "@merypebe", href: "https://www.tiktok.com/@merypebe" },
+]
+
+const contactSchema = {
+	"@context": "https://schema.org",
+	"@type": "ContactPage",
+	"@id": `${BUSINESS_INFO.siteUrl}/contacto#contactpage`,
+	"name": "Contacto - Femm Tribu",
+	"description":
+		"Contacta con Femm Tribu. Matrona en Valencia especializada en lactancia, preparación al parto, menopausia y salud hormonal.",
+	"url": `${BUSINESS_INFO.siteUrl}/contacto`,
+	"mainEntity": {
+		"@type": "MedicalBusiness",
+		"name": "Femm Tribu",
+		"telephone": BUSINESS_INFO.phone,
+		"email": BUSINESS_INFO.email,
+		"address": {
+			"@type": "PostalAddress",
+			"addressLocality": BUSINESS_INFO.address.locality,
+			"addressRegion": BUSINESS_INFO.address.region,
+			"addressCountry": BUSINESS_INFO.address.country,
+		},
+		"openingHoursSpecification": BUSINESS_INFO.openingHours.specification.map((spec) => ({
+			"@type": "OpeningHoursSpecification",
+			"dayOfWeek": spec.days,
+			"opens": spec.opens,
+			"closes": spec.closes,
+		})),
+	},
+}
+---
+
+<Layout
+	title="Contacto | Matrona en Valencia y Online - Femm Tribu"
+	description="Contacta con Femm Tribu. Consultas sobre lactancia, preparación al parto, menopausia y salud hormonal. Atención presencial en Valencia y online."
+	navScrolled={true}
+>
+	<script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
+
+	<main id="main-content" class="pt-22">
+		<!-- Hero Section -->
+		<section class="bg-background container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="mx-auto max-w-4xl text-center">
+				<span
+					class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					<img
+						src="/images/icons/illustrations/ilustracion-negro_14.svg"
+						alt=""
+						class="text-accent h-4 w-4"
+					/>
+					Contacto
+				</span>
+				<h1
+					class="font-display text-primary mb-8 text-4xl sm:text-5xl lg:text-6xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					¿Hablamos?
+				</h1>
+				<p
+					class="text-muted-foreground mx-auto mb-12 max-w-2xl text-lg leading-relaxed lg:text-xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					Estamos aquí para acompañarte. Si tienes dudas sobre nuestros servicios o necesitas
+					orientación, no dudes en escribirnos.
+				</p>
+			</div>
+		</section>
+
+		<!-- Contact Methods Cards -->
+		<section class="container mx-auto mb-16 px-4 lg:mb-24 lg:px-8">
+			<div class="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-8">
+				{
+					contactMethods.map((method, index) => (
+						<a
+							href={method.href}
+							target={method.external ? "_blank" : undefined}
+							rel={method.external ? "noopener noreferrer" : undefined}
+							class="group hover:border-accent/30 rounded-2xl border border-gray-100 bg-white p-8 no-underline shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay={`${0.1 * (index + 1)}s`}
+						>
+							<div class="bg-coral-light/20 mb-6 flex h-16 w-16 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110">
+								<img src={method.icon} alt="" class="h-10 w-10" />
+							</div>
+							<h2 class="font-display text-primary mb-2 text-xl">{method.title}</h2>
+							<p class="text-muted-foreground mb-4 text-sm leading-relaxed">{method.description}</p>
+							<span class="text-accent inline-flex items-center gap-1 text-sm font-medium transition-all duration-300 group-hover:gap-2">
+								{method.linkText}
+								<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M17 8l4 4m0 0l-4 4m4-4H3"
+									/>
+								</svg>
+							</span>
+						</a>
+					))
+				}
+				<!-- Social card with both IG and TikTok -->
+				<div
+					class="hover:border-accent/30 rounded-2xl border border-gray-100 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					<div
+						class="bg-coral-light/20 mb-6 flex h-16 w-16 items-center justify-center rounded-full"
+					>
+						<img
+							src="/images/icons/illustrations/ilustracion-negro_04.svg"
+							alt=""
+							class="h-10 w-10"
+						/>
+					</div>
+					<h2 class="font-display text-primary mb-2 text-xl">Redes sociales</h2>
+					<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
+						Síguenos y escríbenos por mensaje directo
+					</p>
+					<div class="flex flex-col gap-3">
+						{
+							socialLinks.map((social) => (
+								<a
+									href={social.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="group/social text-accent inline-flex items-center gap-1 text-sm font-medium no-underline transition-all duration-300 hover:gap-2"
+								>
+									{social.name}: {social.handle}
+									<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M17 8l4 4m0 0l-4 4m4-4H3"
+										/>
+									</svg>
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Contact Form + Info Section -->
+		<section class="bg-primary/5 py-16 lg:py-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto grid max-w-6xl items-start gap-12 lg:grid-cols-2 lg:gap-20">
+					<!-- Contact Form -->
+					<div data-animate="animate-slide-in-left" data-animate-duration="1s">
+						<h2 class="font-display text-primary mb-2 text-2xl lg:text-3xl">Envíanos un mensaje</h2>
+						<p class="text-muted-foreground mb-8 leading-relaxed">
+							Rellena el formulario y te responderemos en un plazo de 24 horas.
+						</p>
+
+						<form id="contact-form" class="space-y-6" novalidate>
+							<div>
+								<label for="contact-name" class="text-primary mb-2 block text-sm font-medium">
+									Nombre *
+								</label>
+								<input
+									type="text"
+									id="contact-name"
+									name="name"
+									required
+									autocomplete="name"
+									class="border-border focus:border-accent focus:ring-accent/20 text-primary bg-background w-full rounded-xl border px-4 py-3 text-base transition-all duration-300 outline-none focus:ring-2"
+									placeholder="Tu nombre"
+								/>
+							</div>
+
+							<div>
+								<label for="contact-email" class="text-primary mb-2 block text-sm font-medium">
+									Email <span id="email-required-mark">*</span>
+								</label>
+								<input
+									type="email"
+									id="contact-email"
+									name="email"
+									autocomplete="email"
+									class="border-border focus:border-accent focus:ring-accent/20 text-primary bg-background w-full rounded-xl border px-4 py-3 text-base transition-all duration-300 outline-none focus:ring-2"
+									placeholder="tu@email.com"
+								/>
+							</div>
+
+							<div>
+								<label for="contact-phone" class="text-primary mb-2 block text-sm font-medium">
+									Teléfono <span id="phone-required-mark">*</span>
+								</label>
+								<input
+									type="tel"
+									id="contact-phone"
+									name="phone"
+									autocomplete="tel"
+									class="border-border focus:border-accent focus:ring-accent/20 text-primary bg-background w-full rounded-xl border px-4 py-3 text-base transition-all duration-300 outline-none focus:ring-2"
+									placeholder="+34 600 000 000"
+								/>
+								<p class="text-muted-foreground mt-1 text-xs">* Email o teléfono es obligatorio</p>
+							</div>
+
+							<!-- Preferred contact method (shown when both email and phone are filled) -->
+							<div id="contact-preference-wrapper" class="hidden">
+								<label class="text-primary mb-2 block text-sm font-medium">
+									¿Cómo prefieres que te contactemos?
+								</label>
+								<div class="flex flex-wrap gap-3">
+									<label
+										class="border-border has-[:checked]:border-accent has-[:checked]:bg-accent/10 flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-3 transition-all duration-300"
+									>
+										<input
+											type="radio"
+											name="contactPreference"
+											value="email"
+											class="accent-accent h-4 w-4"
+											checked
+										/>
+										<span class="text-primary text-sm">Email</span>
+									</label>
+									<label
+										class="border-border has-[:checked]:border-accent has-[:checked]:bg-accent/10 flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-3 transition-all duration-300"
+									>
+										<input
+											type="radio"
+											name="contactPreference"
+											value="whatsapp"
+											class="accent-accent h-4 w-4"
+										/>
+										<span class="text-primary text-sm">WhatsApp</span>
+									</label>
+									<label
+										class="border-border has-[:checked]:border-accent has-[:checked]:bg-accent/10 flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-3 transition-all duration-300"
+									>
+										<input
+											type="radio"
+											name="contactPreference"
+											value="llamada"
+											class="accent-accent h-4 w-4"
+										/>
+										<span class="text-primary text-sm">Llamada</span>
+									</label>
+								</div>
+							</div>
+
+							<div>
+								<label for="contact-subject" class="text-primary mb-2 block text-sm font-medium">
+									Asunto
+								</label>
+								<select
+									id="contact-subject"
+									name="subject"
+									class="border-border focus:border-accent focus:ring-accent/20 text-primary bg-background w-full rounded-xl border px-4 py-3 text-base transition-all duration-300 outline-none focus:ring-2"
+								>
+									<option value="general">Consulta general</option>
+									<option value="lactancia">Lactancia</option>
+									<option value="preparacion-parto">Preparación al Parto</option>
+									<option value="menopausia">Menopausia</option>
+									<option value="salud-hormonal">Salud Hormonal</option>
+									<option value="eventos">Talleres y Eventos</option>
+									<option value="otro">Otro</option>
+								</select>
+							</div>
+
+							<div>
+								<label for="contact-message" class="text-primary mb-2 block text-sm font-medium">
+									Mensaje *
+								</label>
+								<textarea
+									id="contact-message"
+									name="message"
+									required
+									rows="5"
+									class="border-border focus:border-accent focus:ring-accent/20 text-primary bg-background w-full resize-none rounded-xl border px-4 py-3 text-base transition-all duration-300 outline-none focus:ring-2"
+									placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
+							</div>
+
+							<div class="flex items-start gap-3">
+								<input
+									type="checkbox"
+									id="contact-privacy"
+									name="privacy"
+									required
+									class="accent-accent mt-1 h-4 w-4"
+								/>
+								<label for="contact-privacy" class="text-muted-foreground text-sm leading-relaxed">
+									He leído y acepto la <a
+										href="/privacy"
+										class="text-accent underline hover:no-underline">política de privacidad</a
+									>. *
+								</label>
+							</div>
+
+							<div
+								id="contact-message-result"
+								class="hidden rounded-xl px-4 py-3 text-sm"
+								aria-live="assertive"
+								aria-atomic="true"
+							>
+							</div>
+
+							<button
+								type="submit"
+								id="contact-submit"
+								class="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex w-full items-center justify-center rounded-full px-8 py-4 text-base font-medium transition-all duration-300 hover:scale-[1.02] hover:shadow-lg sm:w-auto"
+							>
+								Enviar mensaje
+							</button>
+						</form>
+					</div>
+
+					<!-- Additional Info -->
+					<div class="space-y-8" data-animate="animate-slide-in-right" data-animate-duration="1s">
+						<!-- Schedule -->
+						<div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+							<div
+								class="bg-coral-light/20 mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+							>
+								<img
+									src="/images/icons/illustrations/ilustracion-negro_24.svg"
+									alt=""
+									class="h-8 w-8"
+								/>
+							</div>
+							<h3 class="font-display text-primary mb-3 text-xl">Horario de atención</h3>
+							<div class="text-muted-foreground space-y-2 text-sm">
+								<div class="flex justify-between">
+									<span>Lunes a Viernes</span>
+									<span class="text-primary font-medium">08:30 - 20:00</span>
+								</div>
+								<div class="flex justify-between">
+									<span>Sábado y Domingo</span>
+									<span class="text-muted-foreground/60">Cerrado</span>
+								</div>
+							</div>
+						</div>
+
+						<!-- Location -->
+						<div class="rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">
+							<div
+								class="bg-coral-light/20 mb-4 flex h-12 w-12 items-center justify-center rounded-full"
+							>
+								<img
+									src="/images/icons/illustrations/ilustracion-negro_12.svg"
+									alt=""
+									class="h-8 w-8"
+								/>
+							</div>
+							<h3 class="font-display text-primary mb-3 text-xl">Ubicación</h3>
+							<p class="text-muted-foreground text-sm leading-relaxed">
+								{BUSINESS_INFO.address.locality}, {BUSINESS_INFO.address.region}
+							</p>
+							<p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+								Atención <strong class="text-primary">presencial</strong> en Valencia y <strong
+									class="text-primary">online</strong
+								> para toda España.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	const STORAGE_KEY = "femm-contact-form"
+
+	function initContactForm() {
+		const form = document.getElementById("contact-form") as HTMLFormElement
+		const submitButton = document.getElementById("contact-submit") as HTMLButtonElement
+		const messageDiv = document.getElementById("contact-message-result") as HTMLDivElement
+		const emailInput = document.getElementById("contact-email") as HTMLInputElement
+		const phoneInput = document.getElementById("contact-phone") as HTMLInputElement
+		const preferenceWrapper = document.getElementById(
+			"contact-preference-wrapper"
+		) as HTMLDivElement
+
+		// Fields to persist (not privacy checkbox — user must re-accept)
+		const persistFields = [
+			"contact-name",
+			"contact-email",
+			"contact-phone",
+			"contact-subject",
+			"contact-message",
+		]
+
+		let isSubmitting = false
+
+		// --- Form persistence ---
+		function saveFormData() {
+			const data: Record<string, string> = {}
+			for (const id of persistFields) {
+				const el = document.getElementById(id) as
+					| HTMLInputElement
+					| HTMLTextAreaElement
+					| HTMLSelectElement
+				if (el) data[id] = el.value
+			}
+			// Also save contact preference radio
+			const selectedRadio = form?.querySelector(
+				'input[name="contactPreference"]:checked'
+			) as HTMLInputElement
+			if (selectedRadio) data["contactPreference"] = selectedRadio.value
+
+			sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+		}
+
+		function restoreFormData() {
+			const raw = sessionStorage.getItem(STORAGE_KEY)
+			if (!raw) return
+
+			try {
+				const data = JSON.parse(raw) as Record<string, string>
+				for (const id of persistFields) {
+					const el = document.getElementById(id) as
+						| HTMLInputElement
+						| HTMLTextAreaElement
+						| HTMLSelectElement
+					if (el && data[id]) el.value = data[id]
+				}
+				// Restore radio
+				if (data["contactPreference"]) {
+					const radio = form?.querySelector(
+						`input[name="contactPreference"][value="${data["contactPreference"]}"]`
+					) as HTMLInputElement
+					if (radio) radio.checked = true
+				}
+			} catch {
+				sessionStorage.removeItem(STORAGE_KEY)
+			}
+		}
+
+		function clearFormData() {
+			sessionStorage.removeItem(STORAGE_KEY)
+		}
+
+		// Restore on load
+		restoreFormData()
+
+		// Save on every input change
+		for (const id of persistFields) {
+			document.getElementById(id)?.addEventListener("input", saveFormData)
+		}
+		form?.querySelectorAll('input[name="contactPreference"]').forEach((radio) => {
+			radio.addEventListener("change", saveFormData)
+		})
+
+		// --- Preference visibility ---
+		function updatePreferenceVisibility() {
+			const hasEmail = emailInput.value.trim().length > 0
+			const hasPhone = phoneInput.value.trim().length > 0
+
+			if (hasEmail && hasPhone) {
+				preferenceWrapper.classList.remove("hidden")
+			} else {
+				preferenceWrapper.classList.add("hidden")
+			}
+		}
+
+		emailInput?.addEventListener("input", updatePreferenceVisibility)
+		phoneInput?.addEventListener("input", updatePreferenceVisibility)
+		// Run on load in case restored data fills both fields
+		updatePreferenceVisibility()
+
+		// --- Form submit ---
+		form?.addEventListener("submit", async (e) => {
+			e.preventDefault()
+
+			if (isSubmitting) return
+
+			const name = (document.getElementById("contact-name") as HTMLInputElement).value.trim()
+			const email = emailInput.value.trim()
+			const phone = phoneInput.value.trim()
+			const subject = (document.getElementById("contact-subject") as HTMLSelectElement).value
+			const message = (
+				document.getElementById("contact-message") as HTMLTextAreaElement
+			).value.trim()
+			const privacy = (document.getElementById("contact-privacy") as HTMLInputElement).checked
+
+			// Get preferred contact method if both fields are filled
+			let contactPreference: string | undefined
+			if (email && phone) {
+				const selectedRadio = form.querySelector(
+					'input[name="contactPreference"]:checked'
+				) as HTMLInputElement
+				contactPreference = selectedRadio?.value
+			}
+
+			// Validation
+			if (!name) {
+				showMessage("Por favor, introduce tu nombre.", "error")
+				return
+			}
+
+			if (!email && !phone) {
+				showMessage("Por favor, introduce al menos un email o un teléfono.", "error")
+				return
+			}
+
+			if (email && !email.includes("@")) {
+				showMessage("Por favor, introduce un email válido.", "error")
+				return
+			}
+
+			if (!message) {
+				showMessage("Por favor, escribe tu mensaje.", "error")
+				return
+			}
+
+			if (!privacy) {
+				showMessage("Debes aceptar la política de privacidad.", "error")
+				return
+			}
+
+			isSubmitting = true
+			submitButton.disabled = true
+			submitButton.textContent = "Enviando..."
+
+			try {
+				const response = await fetch("/api/contact", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ name, email, phone, subject, message, contactPreference }),
+				})
+
+				const data = await response.json()
+
+				if (data.success) {
+					showMessage("¡Mensaje enviado correctamente! Te responderemos pronto.", "success")
+					form.reset()
+					clearFormData()
+					preferenceWrapper.classList.add("hidden")
+					submitButton.textContent = "¡Enviado!"
+					setTimeout(() => {
+						submitButton.textContent = "Enviar mensaje"
+						submitButton.disabled = false
+						isSubmitting = false
+						hideMessage()
+					}, 10000)
+				} else {
+					showMessage(data.error || "Error al enviar el mensaje. Inténtalo de nuevo.", "error")
+					resetButton()
+				}
+			} catch {
+				showMessage("Error al enviar el mensaje. Inténtalo de nuevo.", "error")
+				resetButton()
+			}
+		})
+
+		function showMessage(text: string, type: "success" | "error") {
+			messageDiv.textContent = text
+			messageDiv.className = `rounded-xl px-4 py-3 text-sm ${
+				type === "success"
+					? "bg-green-50 text-green-800 border border-green-200"
+					: "bg-red-50 text-red-800 border border-red-200"
+			}`
+			messageDiv.classList.remove("hidden")
+		}
+
+		function hideMessage() {
+			messageDiv.classList.add("hidden")
+		}
+
+		function resetButton() {
+			submitButton.textContent = "Enviar mensaje"
+			submitButton.disabled = false
+			isSubmitting = false
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initContactForm)
+	} else {
+		initContactForm()
+	}
+</script>

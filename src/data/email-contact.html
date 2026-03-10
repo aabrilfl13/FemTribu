@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Nuevo mensaje de contacto - Femm tribu</title>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Playfair+Display:wght@400;700&display=swap");
+
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "Questrial", Arial, sans-serif;
+				background-color: #fff5eb;
+				color: #37443a;
+				line-height: 1.6;
+			}
+
+			.container {
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			.header {
+				background: linear-gradient(135deg, #37443a 0%, #6a8067 100%);
+				padding: 35px 30px;
+				text-align: center;
+			}
+
+			.company-name {
+				color: #fff5eb;
+				font-family: "Playfair Display", serif;
+				font-size: 32px;
+				font-weight: 700;
+				margin: 0;
+				letter-spacing: 1px;
+			}
+
+			.header-subtitle {
+				color: #d5a18e;
+				font-size: 14px;
+				margin-top: 8px;
+				letter-spacing: 0.5px;
+			}
+
+			.content {
+				padding: 35px 30px;
+				background-color: #ffffff;
+			}
+
+			.section-title {
+				color: #37443a;
+				font-family: "Playfair Display", serif;
+				font-size: 22px;
+				margin-bottom: 20px;
+				padding-bottom: 12px;
+				border-bottom: 2px solid #d5a18e;
+			}
+
+			.field-group {
+				margin-bottom: 18px;
+			}
+
+			.field-label {
+				color: #6a8067;
+				font-size: 12px;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+				margin-bottom: 4px;
+				font-weight: bold;
+			}
+
+			.field-value {
+				color: #37443a;
+				font-size: 16px;
+				padding: 10px 14px;
+				background-color: #fff5eb;
+				border-radius: 8px;
+				border-left: 3px solid #cb6e5f;
+			}
+
+			.field-value a {
+				color: #cb6e5f;
+				text-decoration: none;
+			}
+
+			.field-value a:hover {
+				text-decoration: underline;
+			}
+
+			.message-box {
+				color: #37443a;
+				font-size: 15px;
+				padding: 18px;
+				background-color: #fff5eb;
+				border-radius: 10px;
+				border-left: 3px solid #cb6e5f;
+				line-height: 1.7;
+				white-space: pre-wrap;
+			}
+
+			.preference-badge {
+				display: inline-block;
+				background: linear-gradient(135deg, #cb6e5f 0%, #d5a18e 100%);
+				color: #ffffff;
+				padding: 6px 16px;
+				border-radius: 20px;
+				font-size: 13px;
+				font-weight: bold;
+				letter-spacing: 0.5px;
+			}
+
+			.info-row {
+				display: flex;
+				justify-content: space-between;
+				padding: 10px 0;
+				border-bottom: 1px solid rgba(106, 128, 103, 0.15);
+				font-size: 14px;
+			}
+
+			.info-row:last-child {
+				border-bottom: none;
+			}
+
+			.info-label {
+				color: #6a8067;
+			}
+
+			.info-value {
+				color: #37443a;
+				font-weight: bold;
+			}
+
+			.footer {
+				background-color: #37443a;
+				padding: 25px 20px;
+				text-align: center;
+			}
+
+			.footer-text {
+				color: #6a8067;
+				font-size: 12px;
+				margin: 0;
+			}
+
+			.footer-brand {
+				color: #d5a18e;
+				font-family: "Playfair Display", serif;
+				font-size: 16px;
+				margin-bottom: 8px;
+			}
+
+			/* Dark Theme */
+			@media (prefers-color-scheme: dark) {
+				body {
+					background-color: #18201a;
+					color: #d5a18e;
+				}
+
+				.container {
+					background-color: #24322a;
+				}
+
+				.content {
+					background-color: #24322a;
+				}
+
+				.section-title {
+					color: #fff5eb;
+				}
+
+				.field-value {
+					background-color: #37443a;
+					color: #fff5eb;
+				}
+
+				.message-box {
+					background-color: #37443a;
+					color: #fff5eb;
+				}
+
+				.info-label {
+					color: #d5a18e;
+				}
+
+				.info-value {
+					color: #fff5eb;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- Header -->
+			<div class="header">
+				<h1 class="company-name">Femm tribu</h1>
+				<p class="header-subtitle">Nuevo mensaje de contacto</p>
+			</div>
+
+			<!-- Content -->
+			<div class="content">
+				<h2 class="section-title">Datos de contacto</h2>
+
+				<div class="field-group">
+					<div class="field-label">Nombre</div>
+					<div class="field-value">{{ name }}</div>
+				</div>
+
+				<div class="field-group">
+					<div class="field-label">Email</div>
+					<div class="field-value">
+						<a href="mailto:{{ email }}">{{ email }}</a>
+					</div>
+				</div>
+
+				<div class="field-group">
+					<div class="field-label">Telefono</div>
+					<div class="field-value">
+						<a href="tel:{{ phone }}">{{ phone }}</a>
+					</div>
+				</div>
+
+				<div class="field-group">
+					<div class="field-label">Preferencia de contacto</div>
+					<div class="field-value">
+						<span class="preference-badge">{{ contactPreference }}</span>
+					</div>
+				</div>
+
+				<h2 class="section-title" style="margin-top: 30px">Mensaje</h2>
+
+				<div class="field-group">
+					<div class="field-label">Asunto</div>
+					<div class="field-value">{{ subject }}</div>
+				</div>
+
+				<div class="field-group">
+					<div class="field-label">Mensaje</div>
+					<div class="message-box">{{ message }}</div>
+				</div>
+
+				<!-- Metadata -->
+				<div style="margin-top: 30px; padding: 15px; background-color: #f8f8f8; border-radius: 8px">
+					<div class="info-row">
+						<span class="info-label">Fecha</span>
+						<span class="info-value">{{ DateTime.fromISO(date).setLocale('es').toFormat("d 'de' MMMM 'de' yyyy 'a las' HH:mm'h'") }}</span>
+					</div>
+					<div class="info-row">
+						<span class="info-label">Origen</span>
+						<span class="info-value">Formulario web /contacto</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<div class="footer">
+				<div class="footer-brand">Femm tribu</div>
+				<p class="footer-text">
+					Este email ha sido generado automaticamente desde el formulario de contacto de femmtribu.es
+				</p>
+			</div>
+		</div>
+	</body>
+</html>
