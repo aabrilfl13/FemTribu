@@ -133,15 +133,6 @@
 	</div>
 </div>
 
-<!-- Privacy settings button (floating, visible after initial consent) -->
-<button id="preference-settings-btn" class="preference-settings-floating hidden">
-	<svg viewBox="0 0 24 24" fill="currentColor">
-		<path
-			d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.22,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.22,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"
-		></path>
-	</svg>
-	<span>Configurar cookies</span>
-</button>
 
 <style>
 	/* Base overlay styles */
@@ -507,45 +498,6 @@
 		gap: 15px;
 	}
 
-	/* Floating settings button */
-	.preference-settings-floating {
-		position: fixed;
-		bottom: 20px;
-		right: 20px;
-		background: white;
-		border: 2px solid rgba(106, 128, 103, 0.2);
-		border-radius: 50px;
-		padding: 12px 20px;
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		box-shadow: 0 4px 15px rgba(55, 68, 58, 0.2);
-		cursor: pointer;
-		transition: all 0.3s ease;
-		z-index: 999;
-		font-family: "Questrial", sans-serif;
-		font-size: 0.85rem;
-		color: #37443a;
-	}
-
-	.cookie-settings-floating:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(55, 68, 58, 0.3);
-		border-color: rgba(203, 110, 95, 0.3);
-	}
-
-	.preference-settings-floating svg {
-		width: 16px;
-		height: 16px;
-		color: #cb6e5f;
-	}
-
-	.preference-settings-floating.hidden {
-		transform: translateY(100px);
-		opacity: 0;
-		pointer-events: none;
-	}
-
 	/* Responsive design */
 	@media (max-width: 768px) {
 		.privacy-container {
@@ -593,10 +545,6 @@
 			width: 200px;
 		}
 
-		.preference-settings-floating {
-			display: none;
-		}
-
 		/* Mobile-specific adjustments for advanced panel */
 		.privacy-advanced {
 			max-height: 100vh;
@@ -641,8 +589,7 @@
 
 	/* Print styles */
 	@media print {
-		.privacy-overlay,
-		.preference-settings-floating {
+		.privacy-overlay {
 			display: none !important;
 		}
 	}
@@ -697,11 +644,6 @@
 				this.hideAdvancedSettings()
 			})
 
-			// Floating settings button
-			document.getElementById("preference-settings-btn")?.addEventListener("click", () => {
-				this.showPrivacyOverlay()
-			})
-
 			// Custom event to open cookie banner
 			window.addEventListener("open-cookie-banner", () => {
 				this.showPrivacyOverlay()
@@ -716,7 +658,7 @@
 
 			if (consent) {
 				this.hidePrivacyOverlay()
-				this.showFloatingButton()
+	
 				this.applyUserPreferences(consent.preferences)
 			} else {
 				// Add delay before showing privacy overlay (2 seconds)
@@ -739,7 +681,7 @@
 			this.saveUserConsent(preferences)
 			this.applyUserPreferences(preferences)
 			this.hidePrivacyOverlay()
-			this.showFloatingButton()
+
 			this.showNotification("¡Perfecto! Has aceptado todas las cookies.", "success")
 		}
 
@@ -756,7 +698,7 @@
 			this.saveUserConsent(preferences)
 			this.applyUserPreferences(preferences)
 			this.hidePrivacyOverlay()
-			this.showFloatingButton()
+
 			this.showNotification("Solo usaremos cookies esenciales.", "info")
 		}
 
@@ -800,7 +742,7 @@
 			this.saveUserConsent(preferences)
 			this.applyUserPreferences(preferences)
 			this.hidePrivacyOverlay()
-			this.showFloatingButton()
+
 			this.showNotification("Tus preferencias de cookies han sido guardadas.", "success")
 		}
 
@@ -961,7 +903,7 @@
 				// Bloqueamos el scroll del fondo para que el usuario se centre en el banner [cite: 1]
 				document.body.style.overflow = "hidden"
 			}
-			this.hideFloatingButton()
+
 		}
 
 		/**
@@ -977,24 +919,6 @@
 
 			// Restore background scrolling when overlay is hidden
 			document.body.style.overflow = ""
-		}
-
-		/**
-		 * Show floating settings button
-		 */
-		showFloatingButton() {
-			setTimeout(() => {
-				const floatingBtn = document.getElementById("preference-settings-btn")
-				floatingBtn?.classList.remove("hidden")
-			}, 1000) // Delay to avoid immediate appearance
-		}
-
-		/**
-		 * Hide floating settings button
-		 */
-		hideFloatingButton() {
-			const floatingBtn = document.getElementById("preference-settings-btn")
-			floatingBtn?.classList.add("hidden")
 		}
 
 		/**
@@ -1090,7 +1014,7 @@
 				localStorage.removeItem(this.storageKey)
 				localStorage.removeItem(this.settingsKey)
 				this.showPrivacyOverlay()
-				this.hideFloatingButton()
+	
 				this.showNotification("Preferencias de cookies restablecidas.", "info")
 			} catch (error) {
 				console.error("Error resetting user consent:", error)
