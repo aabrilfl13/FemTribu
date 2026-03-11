@@ -38,6 +38,7 @@ export interface Event {
 	}[]
 	includes?: string[]
 	image: string
+	gallery?: { id: string; src: string; alt: string }[]
 	whatsappNumber: string
 	seo: {
 		title: string

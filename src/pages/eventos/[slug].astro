@@ -1,13 +1,14 @@
 ---
+import FAQ from "@/components/FAQ.astro"
+import EventSchema from "@/components/schema/EventSchema.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Card from "@/components/ui/Card.astro"
 import CardContent from "@/components/ui/CardContent.astro"
 import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
-import EventSchema from "@/components/schema/EventSchema.astro"
-import FAQ from "@/components/FAQ.astro"
-import FAQSchema from "@/components/schema/FAQSchema.astro"
+import ImageStack from "@/components/ui/polaroid-flick-through"
 import Layout from "@/layouts/Layout.astro"
 import {
 	fetchEvents,
@@ -359,16 +360,18 @@ const seoData = event.seo
 										<div>
 											<p class="font-body text-forest/70 text-sm">Ubicación</p>
 											<p class="font-body text-forest font-medium">{eventDetails.location}</p>
-											{event.locationAddress && (
-												<a
-													href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.locationAddress)}`}
-													target="_blank"
-													rel="noopener noreferrer"
-													class="font-body text-forest/70 hover:text-terracotta text-xs underline decoration-dotted transition-colors"
-												>
-													{event.locationAddress}
-												</a>
-											)}
+											{
+												event.locationAddress && (
+													<a
+														href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.locationAddress)}`}
+														target="_blank"
+														rel="noopener noreferrer"
+														class="font-body text-forest/70 hover:text-terracotta text-xs underline decoration-dotted transition-colors"
+													>
+														{event.locationAddress}
+													</a>
+												)
+											}
 										</div>
 									</div>
 									<div class="flex items-center gap-3">
@@ -399,17 +402,10 @@ const seoData = event.seo
 									</div>
 								</div>
 							</div>
-							<div class="flex items-center justify-center">
+							<div class="w-full items-center justify-center">
 								<div class="text-center">
-									<div class="mx-auto w-full max-w-[280px]">
-										<img
-											src={event.image}
-											alt={event.title}
-											class="h-auto w-full rounded-lg shadow-xl"
-											loading="lazy"
-										/>
-									</div>
-									<div class="bg-terracotta mt-6 rounded-2xl px-6 py-4 shadow-sm">
+									{event.gallery && <ImageStack images={event.gallery} client:visible />}
+									<div class="bg-terracotta mt-6 w-full rounded-2xl px-6 py-4 shadow-sm">
 										<p class="text-cream font-body mb-1 text-sm">Precio</p>
 										<p class="text-cream font-display text-3xl">{eventDetails.price}</p>
 									</div>

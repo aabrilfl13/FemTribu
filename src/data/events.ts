@@ -76,6 +76,13 @@ export const events: Event[] = [
 			"Espacio de comunidad y networking",
 		],
 		image: "/images/events/pelvic-glow.webp",
+		gallery: [
+			{ id: "pelvic-glow-1", src: "/images/events/pelvic-glow/pelvic-glow-1.jpeg", alt: "Pelvic Glow Experience" },
+			{ id: "pelvic-glow-2", src: "/images/events/pelvic-glow/pelvic-glow-2.jpeg", alt: "Pelvic Glow - Taller" },
+			{ id: "pelvic-glow-3", src: "/images/events/pelvic-glow/pelvic-glow-3.jpeg", alt: "Pelvic Glow - Taller" },
+			{ id: "pelvic-glow-4", src: "/images/events/pelvic-glow/pelvic-glow-4.jpeg", alt: "Pelvic Glow - Taller" },
+			{ id: "pelvic-glow-5", src: "/images/events/pelvic-glow/pelvic-glow-5.jpeg", alt: "Pelvic Glow - Taller" },
+		],
 		whatsappNumber: "34640912048",
 		seo: {
 			title: "The Pelvic Glow Experience Valencia - Taller de Suelo Pélvico | 27 Marzo 2026",
