@@ -6,6 +6,7 @@ import Analytics from "@vercel/analytics/astro"
 import SpeedInsights from "@vercel/speed-insights/astro"
 
 import CookiesOverlay from "@/components/CookiesOverlay.astro"
+import FloatingCTA from "@/components/FloatingCTA.astro"
 import GoogleAnalytics from "@/components/GoogleAnalytics.astro"
 import Footer from "@/components/layout/Footer.astro"
 import Nav from "@/components/layout/Nav.astro"
@@ -164,6 +165,7 @@ const announcementStories = await getAnnouncements()
 			<slot />
 			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />
+			<FloatingCTA />
 			<CookiesOverlay />
 		</div>
 		<SpeedInsights />
