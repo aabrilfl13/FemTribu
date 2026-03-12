@@ -14,7 +14,7 @@ export const events: Event[] = [
 		type: "Presencial",
 		location: "Habitat, Valencia",
 		locationAddress: "C/ d'Almassora, 44, Bajo Izquierda, La Zaidía, 46010 València, Valencia",
-		price: "25€",
+		price: "30.25€ (IVA incluido)",
 		spots: 15,
 		description:
 			"Un encuentro pensado para reconectar con tu cuerpo y aprender a cuidar tu salud pélvica desde una mirada cercana y práctica. El viernes 27 de marzo por la tarde, Paula Tejedo y yo ofreceremos un taller en el que combinaremos una charla de fisiosexología y suelo pélvico, merienda juntas y cerraremos la experiencia con una clase de barre.",
@@ -77,11 +77,31 @@ export const events: Event[] = [
 		],
 		image: "/images/events/pelvic-glow.webp",
 		gallery: [
-			{ id: "pelvic-glow-1", src: "/images/events/pelvic-glow/pelvic-glow-1.jpeg", alt: "Pelvic Glow Experience" },
-			{ id: "pelvic-glow-2", src: "/images/events/pelvic-glow/pelvic-glow-2.jpeg", alt: "Pelvic Glow - Taller" },
-			{ id: "pelvic-glow-3", src: "/images/events/pelvic-glow/pelvic-glow-3.jpeg", alt: "Pelvic Glow - Taller" },
-			{ id: "pelvic-glow-4", src: "/images/events/pelvic-glow/pelvic-glow-4.jpeg", alt: "Pelvic Glow - Taller" },
-			{ id: "pelvic-glow-5", src: "/images/events/pelvic-glow/pelvic-glow-5.jpeg", alt: "Pelvic Glow - Taller" },
+			{
+				id: "pelvic-glow-1",
+				src: "/images/events/pelvic-glow/pelvic-glow-1.jpeg",
+				alt: "Pelvic Glow Experience",
+			},
+			{
+				id: "pelvic-glow-2",
+				src: "/images/events/pelvic-glow/pelvic-glow-2.jpeg",
+				alt: "Pelvic Glow - Taller",
+			},
+			{
+				id: "pelvic-glow-3",
+				src: "/images/events/pelvic-glow/pelvic-glow-3.jpeg",
+				alt: "Pelvic Glow - Taller",
+			},
+			{
+				id: "pelvic-glow-4",
+				src: "/images/events/pelvic-glow/pelvic-glow-4.jpeg",
+				alt: "Pelvic Glow - Taller",
+			},
+			{
+				id: "pelvic-glow-5",
+				src: "/images/events/pelvic-glow/pelvic-glow-5.jpeg",
+				alt: "Pelvic Glow - Taller",
+			},
 		],
 		whatsappNumber: "34640912048",
 		seo: {
