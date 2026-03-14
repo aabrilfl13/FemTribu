@@ -2,6 +2,7 @@
 import FAQ from "@/components/FAQ.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
 import AboutCompany from "@/components/sections/AboutCompany.astro"
+import BrandsSlider from "@/components/sections/BrandsSlider.astro"
 import NewsletterSection from "@/components/sections/NewsletterSection.astro"
 import Servicies from "@/components/sections/Services.astro"
 import Welcome from "@/components/sections/Welcome.astro"
@@ -33,7 +34,14 @@ const seoData = {
 		</section>
 		<Servicies />
 		<section
-			class="to-background from-coral-light/10 flex items-center justify-center bg-gradient-to-b p-0 px-0"
+			class="from-coral-light/10 to-background/10 items-center justify-center bg-gradient-to-b"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+		>
+			<BrandsSlider />
+		</section>
+		<section
+			class="to-background from-to-background/10 flex items-center justify-center bg-gradient-to-b p-0 px-0"
 			data-animate="animate-fade-up"
 			data-animate-duration="1s"
 		>

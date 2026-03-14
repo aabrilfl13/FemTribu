@@ -1,0 +1,76 @@
+---
+import { cn } from "@/utils/cn.ts"
+
+interface Props {
+	direction?: "left" | "right" | "top" | "bottom"
+	time?: number | string
+	gap?: number
+	variant?: "gradient" | "solid"
+	pauseOnHover?: boolean
+	class?: string
+}
+
+const {
+	class: className = "",
+	direction = "left",
+	time = 30,
+	gap = 16,
+	variant = "gradient",
+	pauseOnHover = true,
+	...props
+} = Astro.props as Props
+
+const isVertical = direction === "top" || direction === "bottom"
+const isReverse = direction === "right" || direction === "bottom"
+const animationName = isVertical ? "marquee-y" : "marquee-x"
+
+const gradientDir = isVertical
+	? direction === "top"
+		? "to bottom"
+		: "to top"
+	: "to right"
+
+const maskGradient =
+	variant === "gradient"
+		? `linear-gradient(${gradientDir}, transparent, black 10%, black 90%, transparent)`
+		: undefined
+---
+
+<div
+	data-marquee
+	class={cn(
+		"group relative flex w-full overflow-hidden",
+		isVertical && "flex-col",
+		className
+	)}
+	style={{
+		"--duration": typeof time === "number" ? `${time}s` : time,
+		"--gap": `${gap}px`,
+		...(maskGradient && {
+			"mask-image": maskGradient,
+			"-webkit-mask-image": maskGradient,
+		}),
+	}}
+	{...props}
+>
+	{
+		[false, true].map((isDuplicate) => (
+			<div
+				class={cn(
+					"flex shrink-0 min-w-full justify-around will-change-transform",
+					isVertical && "min-h-full flex-col",
+					pauseOnHover && "group-hover:[animation-play-state:paused]",
+					"motion-reduce:[animation-play-state:paused]"
+				)}
+				style={{
+					animation: `${animationName} var(--duration, 20s) linear infinite`,
+					"animation-direction": isReverse ? "reverse" : "normal",
+					gap: `${gap}px`,
+				}}
+				aria-hidden={isDuplicate ? "true" : undefined}
+			>
+				<slot />
+			</div>
+		))
+	}
+</div>

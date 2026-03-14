@@ -310,6 +310,24 @@ h6 {
 	}
 }
 
+@keyframes marquee-x {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(calc(-100% - var(--gap, 1rem)));
+	}
+}
+
+@keyframes marquee-y {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(calc(-100% - var(--gap, 1rem)));
+	}
+}
+
 @keyframes scale-in {
 	from {
 		opacity: 0;
