@@ -1,5 +1,6 @@
 ---
 import CalendarIcon from "@/assets/iconos/calendar.svg"
+import EventCalendar from "@/components/EventCalendar.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Layout from "@/layouts/Layout.astro"
@@ -163,6 +164,31 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 					Únete a nuestros encuentros, webinars y talleres diseñados para acompañarte en cada etapa
 					de tu camino hacia el bienestar femenino.
 				</p>
+			</div>
+		</section>
+
+		{/* Calendar Section */}
+		<section class="mb-16 lg:mb-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="border-sage/20 bg-cream/50 rounded-3xl border p-4 md:p-6"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+					data-animate-delay="0.4s"
+				>
+					<EventCalendar
+						events={activeEvents.map((e) => ({
+							id: e.id,
+							title: e.title,
+							date: e.date,
+							dateISO: e.dateISO,
+							time: e.time,
+							type: e.type,
+							route: e.route,
+							accent: e.accent,
+						}))}
+					/>
+				</div>
 			</div>
 		</section>
 

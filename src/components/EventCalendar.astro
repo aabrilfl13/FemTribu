@@ -1,0 +1,538 @@
+---
+interface CalendarEvent {
+	id: number
+	title: string
+	date: string
+	dateISO: string
+	time: string
+	type: string
+	route: string
+	accent?: string
+}
+
+interface Props {
+	events: CalendarEvent[]
+}
+
+const { events } = Astro.props
+
+// Build a JSON-safe events map for the client script
+const eventsForClient = events.map((e) => ({
+	id: e.id,
+	title: e.title,
+	date: e.date,
+	dateISO: e.dateISO,
+	time: e.time,
+	type: e.type,
+	route: e.route,
+	accent: e.accent ?? "sage",
+}))
+---
+
+<div class="event-calendar" data-events={JSON.stringify(eventsForClient)}>
+	{/* Calendar Header */}
+	<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+		<div class="flex items-center gap-3">
+			<div
+				class="bg-sage/15 border-sage/30 hidden flex-col items-center rounded-xl border p-1.5 md:flex"
+			>
+				<span class="font-body text-forest/60 px-2 text-xs uppercase" id="cal-today-month"
+				></span>
+				<span
+					class="bg-cream font-display text-forest flex w-full items-center justify-center rounded-lg px-3 py-0.5 text-lg font-bold"
+					id="cal-today-day"></span>
+			</div>
+			<div>
+				<h3 class="font-display text-forest text-xl md:text-2xl" id="cal-month-title"></h3>
+				<p class="font-body text-forest/50 text-sm" id="cal-month-range"></p>
+			</div>
+		</div>
+
+		<div class="flex items-center gap-2">
+			<button
+				type="button"
+				id="cal-prev"
+				class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-l-xl border transition-colors"
+				aria-label="Mes anterior"
+			>
+				<svg
+					class="h-4 w-4"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="15 18 9 12 15 6"></polyline>
+				</svg>
+			</button>
+			<button
+				type="button"
+				id="cal-today-btn"
+				class="border-sage/30 text-forest hover:bg-sage/10 font-body h-9 cursor-pointer border-y px-4 text-sm transition-colors"
+			>
+				Hoy
+			</button>
+			<button
+				type="button"
+				id="cal-next"
+				class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-r-xl border transition-colors"
+				aria-label="Mes siguiente"
+			>
+				<svg
+					class="h-4 w-4"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<polyline points="9 18 15 12 9 6"></polyline>
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	{/* Desktop Calendar Grid */}
+	<div class="hidden md:block">
+		{/* Weekday headers */}
+		<div class="border-sage/20 grid grid-cols-7 border-b">
+			{
+				["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"].map((day) => (
+					<div class="font-body text-forest/60 py-3 text-center text-xs font-semibold uppercase">
+						{day}
+					</div>
+				))
+			}
+		</div>
+		{/* Calendar days grid - filled by JS */}
+		<div id="cal-grid" class="grid grid-cols-7"></div>
+	</div>
+
+	{/* Mobile: Upcoming events list */}
+	<div class="md:hidden">
+		<div id="cal-mobile-grid" class="grid grid-cols-7 gap-0.5 mb-4"></div>
+		<div id="cal-mobile-events" class="space-y-3"></div>
+	</div>
+</div>
+
+<script>
+	function initCalendar() {
+		const container = document.querySelector(".event-calendar") as HTMLElement
+		if (!container) return
+
+		const events: {
+			id: number
+			title: string
+			date: string
+			dateISO: string
+			time: string
+			type: string
+			route: string
+			accent: string
+		}[] = JSON.parse(container.dataset.events || "[]")
+
+		const today = new Date()
+		today.setHours(0, 0, 0, 0)
+		let currentYear = today.getFullYear()
+		let currentMonth = today.getMonth()
+		let selectedDay: number | null = null
+
+		const monthNames = [
+			"Enero",
+			"Febrero",
+			"Marzo",
+			"Abril",
+			"Mayo",
+			"Junio",
+			"Julio",
+			"Agosto",
+			"Septiembre",
+			"Octubre",
+			"Noviembre",
+			"Diciembre",
+		]
+		const monthNamesShort = [
+			"Ene",
+			"Feb",
+			"Mar",
+			"Abr",
+			"May",
+			"Jun",
+			"Jul",
+			"Ago",
+			"Sep",
+			"Oct",
+			"Nov",
+			"Dic",
+		]
+
+		// Elements
+		const todayMonthEl = document.getElementById("cal-today-month")!
+		const todayDayEl = document.getElementById("cal-today-day")!
+		const monthTitleEl = document.getElementById("cal-month-title")!
+		const monthRangeEl = document.getElementById("cal-month-range")!
+		const gridEl = document.getElementById("cal-grid")!
+		const mobileGridEl = document.getElementById("cal-mobile-grid")!
+		const mobileEventsEl = document.getElementById("cal-mobile-events")!
+
+		// Set today badge
+		todayMonthEl.textContent = monthNamesShort[today.getMonth()]
+		todayDayEl.textContent = today.getDate().toString()
+
+		function getEventsForDate(year: number, month: number, day: number) {
+			return events.filter((e) => {
+				const d = new Date(e.dateISO)
+				return d.getFullYear() === year && d.getMonth() === month && d.getDate() === day
+			})
+		}
+
+		function isToday(year: number, month: number, day: number) {
+			return (
+				year === today.getFullYear() &&
+				month === today.getMonth() &&
+				day === today.getDate()
+			)
+		}
+
+		function isPast(dateISO: string) {
+			const d = new Date(dateISO)
+			d.setHours(0, 0, 0, 0)
+			return d < today
+		}
+
+		function getAccentClasses(accent: string) {
+			const map: Record<string, { bg: string; border: string; dot: string }> = {
+				terracotta: {
+					bg: "background-color: color-mix(in srgb, var(--color-terracotta) 15%, white)",
+					border: "border-color: color-mix(in srgb, var(--color-terracotta) 30%, white)",
+					dot: "background-color: var(--color-terracotta)",
+				},
+				sage: {
+					bg: "background-color: color-mix(in srgb, var(--color-sage) 15%, white)",
+					border: "border-color: color-mix(in srgb, var(--color-sage) 30%, white)",
+					dot: "background-color: var(--color-sage)",
+				},
+				"cream-light": {
+					bg: "background-color: color-mix(in srgb, var(--color-coral-light) 15%, white)",
+					border: "border-color: color-mix(in srgb, var(--color-coral-light) 30%, white)",
+					dot: "background-color: var(--color-coral-light)",
+				},
+			}
+			return map[accent] || map["sage"]
+		}
+
+		function render() {
+			// Update header
+			monthTitleEl.textContent = `${monthNames[currentMonth]} ${currentYear}`
+			const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate()
+			monthRangeEl.textContent = `1 ${monthNamesShort[currentMonth]} - ${lastDay} ${monthNamesShort[currentMonth]} ${currentYear}`
+
+			renderDesktop()
+			renderMobile()
+		}
+
+		function renderDesktop() {
+			gridEl.innerHTML = ""
+
+			const firstDay = new Date(currentYear, currentMonth, 1)
+			const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate()
+			// Monday-based: 0=Mon, 6=Sun
+			let startDay = firstDay.getDay() - 1
+			if (startDay < 0) startDay = 6
+
+			// Previous month days
+			const prevMonthLastDate = new Date(currentYear, currentMonth, 0).getDate()
+			for (let i = startDay - 1; i >= 0; i--) {
+				const day = prevMonthLastDate - i
+				const cell = createDesktopCell(day, true, false, [])
+				gridEl.appendChild(cell)
+			}
+
+			// Current month days
+			for (let day = 1; day <= lastDate; day++) {
+				const dayEvents = getEventsForDate(currentYear, currentMonth, day)
+				const todayFlag = isToday(currentYear, currentMonth, day)
+				const cell = createDesktopCell(day, false, todayFlag, dayEvents)
+				gridEl.appendChild(cell)
+			}
+
+			// Next month days to fill remaining cells
+			const totalCells = gridEl.children.length
+			const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7)
+			for (let i = 1; i <= remaining; i++) {
+				const cell = createDesktopCell(i, true, false, [])
+				gridEl.appendChild(cell)
+			}
+		}
+
+		function createDesktopCell(
+			day: number,
+			isOutside: boolean,
+			isTodayFlag: boolean,
+			dayEvents: typeof events,
+		) {
+			const cell = document.createElement("div")
+			cell.className = `border-sage/20 relative min-h-[100px] border-b border-r p-2 transition-colors ${
+				isOutside ? "bg-sage/5" : "hover:bg-sage/5"
+			}`
+
+			const header = document.createElement("div")
+			header.className = "mb-1 flex items-center justify-between"
+
+			const daySpan = document.createElement("span")
+			daySpan.className = `inline-flex h-7 w-7 items-center justify-center rounded-full text-xs font-body ${
+				isTodayFlag
+					? "bg-terracotta text-cream font-semibold"
+					: isOutside
+						? "text-forest/30"
+						: "text-forest/70"
+			}`
+			daySpan.textContent = day.toString()
+			header.appendChild(daySpan)
+			cell.appendChild(header)
+
+			// Events
+			if (dayEvents.length > 0) {
+				const eventsContainer = document.createElement("div")
+				eventsContainer.className = "space-y-1"
+
+				const firstEvent = dayEvents[0]
+				const accent = getAccentClasses(firstEvent.accent)
+				const past = isPast(firstEvent.dateISO)
+
+				const eventEl = document.createElement("a")
+				eventEl.href = firstEvent.route
+				eventEl.className = `block rounded-lg border p-1.5 text-xs leading-tight transition-colors hover:shadow-sm ${past ? "opacity-50" : ""}`
+				eventEl.style.cssText = `${accent.bg}; ${accent.border}`
+
+				const title = document.createElement("p")
+				title.className = "font-body text-forest truncate font-medium"
+				title.textContent = firstEvent.title
+				eventEl.appendChild(title)
+
+				const time = document.createElement("p")
+				time.className = "font-body text-forest/50 mt-0.5"
+				time.textContent = firstEvent.time
+				eventEl.appendChild(time)
+
+				eventsContainer.appendChild(eventEl)
+
+				if (dayEvents.length > 1) {
+					// Hidden extra events container
+					const extraContainer = document.createElement("div")
+					extraContainer.className = "space-y-1 hidden"
+
+					for (let i = 1; i < dayEvents.length; i++) {
+						const ev = dayEvents[i]
+						const evAccent = getAccentClasses(ev.accent)
+						const evPast = isPast(ev.dateISO)
+
+						const extraEl = document.createElement("a")
+						extraEl.href = ev.route
+						extraEl.className = `block rounded-lg border p-1.5 text-xs leading-tight transition-colors hover:shadow-sm ${evPast ? "opacity-50" : ""}`
+						extraEl.style.cssText = `${evAccent.bg}; ${evAccent.border}`
+
+						const extraTitle = document.createElement("p")
+						extraTitle.className = "font-body text-forest truncate font-medium"
+						extraTitle.textContent = ev.title
+						extraEl.appendChild(extraTitle)
+
+						const extraTime = document.createElement("p")
+						extraTime.className = "font-body text-forest/50 mt-0.5"
+						extraTime.textContent = ev.time
+						extraEl.appendChild(extraTime)
+
+						extraContainer.appendChild(extraEl)
+					}
+
+					eventsContainer.appendChild(extraContainer)
+
+					// Toggle button
+					const more = document.createElement("button")
+					more.type = "button"
+					more.className = "font-body text-terracotta hover:text-terracotta-dark text-xs pl-1 cursor-pointer hover:underline"
+					more.textContent = `+ ${dayEvents.length - 1} más`
+					more.addEventListener("click", (e) => {
+						e.stopPropagation()
+						const isHidden = extraContainer.classList.contains("hidden")
+						extraContainer.classList.toggle("hidden")
+						more.textContent = isHidden
+							? "− Ver menos"
+							: `+ ${dayEvents.length - 1} más`
+					})
+					eventsContainer.appendChild(more)
+				}
+
+				cell.appendChild(eventsContainer)
+			}
+
+			return cell
+		}
+
+		function renderMobile() {
+			// Mini calendar grid
+			mobileGridEl.innerHTML = ""
+
+			// Day headers
+			const dayHeaders = ["L", "M", "X", "J", "V", "S", "D"]
+			dayHeaders.forEach((d) => {
+				const el = document.createElement("div")
+				el.className = "font-body text-forest/50 text-center text-[10px] font-semibold py-1"
+				el.textContent = d
+				mobileGridEl.appendChild(el)
+			})
+
+			const firstDay = new Date(currentYear, currentMonth, 1)
+			const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate()
+			let startDay = firstDay.getDay() - 1
+			if (startDay < 0) startDay = 6
+
+			// Empty cells
+			for (let i = 0; i < startDay; i++) {
+				const el = document.createElement("div")
+				mobileGridEl.appendChild(el)
+			}
+
+			// Days
+			for (let day = 1; day <= lastDate; day++) {
+				const dayEvents = getEventsForDate(currentYear, currentMonth, day)
+				const todayFlag = isToday(currentYear, currentMonth, day)
+				const isSelected = selectedDay === day
+
+				const el = document.createElement("button")
+				el.type = "button"
+				el.className = `flex flex-col items-center py-1 rounded-lg transition-colors ${
+					dayEvents.length > 0 ? "cursor-pointer" : ""
+				} ${isSelected ? "bg-sage/15" : ""}`
+
+				const num = document.createElement("span")
+				num.className = `inline-flex h-6 w-6 items-center justify-center rounded-full text-xs ${
+					todayFlag
+						? "bg-terracotta text-cream font-semibold"
+						: isSelected
+							? "bg-forest text-cream font-semibold"
+							: "text-forest/70"
+				}`
+				num.textContent = day.toString()
+				el.appendChild(num)
+
+				if (dayEvents.length > 0) {
+					const dots = document.createElement("div")
+					dots.className = "mt-0.5 flex gap-0.5"
+					dayEvents.forEach((e) => {
+						const dot = document.createElement("span")
+						dot.className = "h-1 w-1 rounded-full"
+						const accent = getAccentClasses(e.accent)
+						dot.style.cssText = accent.dot
+						dots.appendChild(dot)
+					})
+					el.appendChild(dots)
+				}
+
+				// Click handler to select day
+				const currentDay = day
+				el.addEventListener("click", () => {
+					selectedDay = selectedDay === currentDay ? null : currentDay
+					renderMobile()
+				})
+
+				mobileGridEl.appendChild(el)
+			}
+
+			// Events list for selected day
+			mobileEventsEl.innerHTML = ""
+
+			if (selectedDay === null) {
+				const hint = document.createElement("p")
+				hint.className = "font-body text-forest/40 text-center text-sm py-4"
+				hint.textContent = "Toca un día para ver sus eventos"
+				mobileEventsEl.appendChild(hint)
+				return
+			}
+
+			const dayEvents = getEventsForDate(currentYear, currentMonth, selectedDay)
+
+			if (dayEvents.length === 0) {
+				const empty = document.createElement("p")
+				empty.className = "font-body text-forest/40 text-center text-sm py-4"
+				empty.textContent = `No hay eventos el ${selectedDay} de ${monthNames[currentMonth]}`
+				mobileEventsEl.appendChild(empty)
+			} else {
+				dayEvents.forEach((event) => {
+					const accent = getAccentClasses(event.accent)
+					const past = isPast(event.dateISO)
+					const eventDate = new Date(event.dateISO)
+
+					const card = document.createElement("a")
+					card.href = event.route
+					card.className = `flex items-center gap-3 rounded-2xl border p-3 transition-all hover:shadow-sm ${past ? "opacity-50" : ""}`
+					card.style.cssText = `${accent.bg}; ${accent.border}`
+
+					// Date badge
+					const badge = document.createElement("div")
+					badge.className = "bg-cream flex-shrink-0 rounded-xl px-3 py-2 text-center shadow-sm"
+					badge.innerHTML = `
+						<span class="font-display text-forest block text-lg leading-tight">${eventDate.getDate()}</span>
+						<span class="font-body text-forest/60 block text-[10px] uppercase">${monthNamesShort[eventDate.getMonth()]}</span>
+					`
+					card.appendChild(badge)
+
+					// Info
+					const info = document.createElement("div")
+					info.className = "min-w-0 flex-1"
+					info.innerHTML = `
+						<p class="font-body text-forest truncate text-sm font-medium">${event.title}</p>
+						<p class="font-body text-forest/50 text-xs">${event.time} · ${event.type}</p>
+					`
+					card.appendChild(info)
+
+					// Arrow
+					const arrow = document.createElement("div")
+					arrow.className = "text-forest/30 flex-shrink-0"
+					arrow.innerHTML = `<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`
+					card.appendChild(arrow)
+
+					mobileEventsEl.appendChild(card)
+				})
+			}
+		}
+
+		// Navigation
+		document.getElementById("cal-prev")!.addEventListener("click", () => {
+			currentMonth--
+			if (currentMonth < 0) {
+				currentMonth = 11
+				currentYear--
+			}
+			selectedDay = null
+			render()
+		})
+
+		document.getElementById("cal-next")!.addEventListener("click", () => {
+			currentMonth++
+			if (currentMonth > 11) {
+				currentMonth = 0
+				currentYear++
+			}
+			selectedDay = null
+			render()
+		})
+
+		document.getElementById("cal-today-btn")!.addEventListener("click", () => {
+			currentYear = today.getFullYear()
+			currentMonth = today.getMonth()
+			selectedDay = null
+			render()
+		})
+
+		// Initial render
+		render()
+	}
+
+	// Run on page load and on Astro view transitions
+	initCalendar()
+	document.addEventListener("astro:after-swap", initCalendar)
+</script>
