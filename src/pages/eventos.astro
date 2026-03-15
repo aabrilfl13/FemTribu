@@ -236,7 +236,7 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 				{/* Pre-rendered event cards with data attributes */}
 				<div id="events-cards-container" class="space-y-6">
 					{
-						upcomingEvents.map((event) => {
+						upcomingEvents.map((event, index) => {
 							const eventDate = new Date(event.dateISO)
 							const isPast = isEventPast(event.date)
 							return (
@@ -245,6 +245,9 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 									data-event-month={eventDate.getMonth()}
 									data-event-year={eventDate.getFullYear()}
 									data-event-past={isPast ? "true" : "false"}
+									data-animate="animate-slide-in-left"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 100}ms`}
 								>
 									{isPast && (
 										<div
@@ -424,8 +427,18 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 
 <script>
 	const monthNames = [
-		"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-		"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+		"Enero",
+		"Febrero",
+		"Marzo",
+		"Abril",
+		"Mayo",
+		"Junio",
+		"Julio",
+		"Agosto",
+		"Septiembre",
+		"Octubre",
+		"Noviembre",
+		"Diciembre",
 	]
 
 	function initEventsTabs() {
@@ -447,8 +460,10 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 		const emptyUpcomingText = document.getElementById("empty-upcoming-text")!
 		const emptyPastText = document.getElementById("empty-past-text")!
 
-		const TAB_ACTIVE = "font-body bg-cream text-forest flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-all"
-		const TAB_INACTIVE = "font-body text-forest/60 hover:text-forest/80 flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium transition-all"
+		const TAB_ACTIVE =
+			"font-body bg-cream text-forest flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-all"
+		const TAB_INACTIVE =
+			"font-body text-forest/60 hover:text-forest/80 flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium transition-all"
 
 		function setActiveTab(tab: "upcoming" | "past") {
 			activeTab = tab
