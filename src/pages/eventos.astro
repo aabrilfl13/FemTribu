@@ -106,8 +106,6 @@ const isEventPast = (dateStr: string) => {
 
 // Separate active and past events
 const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
-const pastEvents = upcomingEvents.filter((event) => isEventPast(event.date))
-const sortedEvents = [...activeEvents, ...pastEvents]
 ---
 
 <Layout {...seoData} navScrolled={true}>
@@ -177,7 +175,7 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 					data-animate-delay="0.4s"
 				>
 					<EventCalendar
-						events={activeEvents.map((e) => ({
+						events={upcomingEvents.map((e) => ({
 							id: e.id,
 							title: e.title,
 							date: e.date,
@@ -192,21 +190,62 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 			</div>
 		</section>
 
-		{/* Events Grid */}
-		<section class="pb-24 lg:pb-32">
+		{/* Events Grid with Tabs */}
+		<section class="pb-24 lg:pb-32" id="events-grid">
 			<div class="container mx-auto px-4 lg:px-8">
-				<div class="space-y-6">
+				{/* Tab buttons */}
+				<div
+					class="bg-sage/10 mb-8 flex gap-1 rounded-xl p-1"
+					role="tablist"
+					data-animate="animate-fade-in"
+					data-animate-duration="1s"
+				>
+					<button
+						type="button"
+						id="tab-upcoming"
+						role="tab"
+						aria-selected="true"
+						aria-controls="tab-panel-upcoming"
+						class="font-body bg-cream text-forest flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-all"
+					>
+						Próximos
+						<span
+							id="tab-upcoming-count"
+							class="bg-sage/20 text-forest/70 ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-xs"
+						></span>
+					</button>
+					<button
+						type="button"
+						id="tab-past"
+						role="tab"
+						aria-selected="false"
+						aria-controls="tab-panel-past"
+						class="font-body text-forest/60 hover:text-forest/80 flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium transition-all"
+					>
+						Realizados
+						<span
+							id="tab-past-count"
+							class="bg-sage/10 text-forest/50 ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 text-xs"
+						></span>
+					</button>
+				</div>
+
+				{/* Month title indicator */}
+				<h2 id="events-month-title" class="font-display text-forest mb-6 text-xl md:text-2xl"></h2>
+
+				{/* Pre-rendered event cards with data attributes */}
+				<div id="events-cards-container" class="space-y-6">
 					{
-						sortedEvents.map((event, index) => {
+						upcomingEvents.map((event) => {
+							const eventDate = new Date(event.dateISO)
 							const isPast = isEventPast(event.date)
 							return (
 								<div
-									class={`bg-gradient-to-r ${event.color} border-sage/20 relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
-									data-animate="animate-slide-in-left"
-									data-animate-duration="1s"
-									data-animate-delay={`${index * 100}ms`}
+									class={`event-card bg-gradient-to-r ${event.color} border-sage/20 relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
+									data-event-month={eventDate.getMonth()}
+									data-event-year={eventDate.getFullYear()}
+									data-event-past={isPast ? "true" : "false"}
 								>
-									{/* Past Event Overlay */}
 									{isPast && (
 										<div
 											class="absolute inset-0 z-20 flex items-center justify-center rounded-3xl"
@@ -296,7 +335,7 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 											{event.facilitators && event.facilitators.length > 0 && (
 												<div class="mt-4 flex items-center gap-2">
 													<div class="flex -space-x-2">
-														{event.facilitators.map((facilitator, idx) => (
+														{event.facilitators.map((facilitator) => (
 															<div
 																class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-1 border-white"
 																title={facilitator.name}
@@ -349,6 +388,14 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 					}
 				</div>
 
+				{/* Empty states (hidden by default, shown via JS) */}
+				<div id="empty-upcoming" class="hidden py-12 text-center">
+					<p class="font-body text-forest/40 text-lg" id="empty-upcoming-text"></p>
+				</div>
+				<div id="empty-past" class="hidden py-12 text-center">
+					<p class="font-body text-forest/40 text-lg" id="empty-past-text"></p>
+				</div>
+
 				{/* Empty state hint */}
 				<div class="mt-16 text-center">
 					<p
@@ -376,9 +423,86 @@ const sortedEvents = [...activeEvents, ...pastEvents]
 </Layout>
 
 <script>
-	const newsletterModalTrigger = document.getElementById("newsletter-modal-triggerr")
+	const monthNames = [
+		"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+		"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+	]
 
-	newsletterModalTrigger?.addEventListener("click", () => {
-		window.dispatchEvent(new CustomEvent("open-newsletter-modal"))
-	})
+	function initEventsTabs() {
+		const today = new Date()
+		today.setHours(0, 0, 0, 0)
+
+		let activeTab: "upcoming" | "past" = "upcoming"
+		let currentYear = today.getFullYear()
+		let currentMonth = today.getMonth()
+
+		const tabUpcomingBtn = document.getElementById("tab-upcoming")!
+		const tabPastBtn = document.getElementById("tab-past")!
+		const tabUpcomingCount = document.getElementById("tab-upcoming-count")!
+		const tabPastCount = document.getElementById("tab-past-count")!
+		const monthTitle = document.getElementById("events-month-title")!
+		const cards = document.querySelectorAll<HTMLElement>(".event-card")
+		const emptyUpcoming = document.getElementById("empty-upcoming")!
+		const emptyPast = document.getElementById("empty-past")!
+		const emptyUpcomingText = document.getElementById("empty-upcoming-text")!
+		const emptyPastText = document.getElementById("empty-past-text")!
+
+		const TAB_ACTIVE = "font-body bg-cream text-forest flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-all"
+		const TAB_INACTIVE = "font-body text-forest/60 hover:text-forest/80 flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium transition-all"
+
+		function setActiveTab(tab: "upcoming" | "past") {
+			activeTab = tab
+			tabUpcomingBtn.className = tab === "upcoming" ? TAB_ACTIVE : TAB_INACTIVE
+			tabUpcomingBtn.setAttribute("aria-selected", String(tab === "upcoming"))
+			tabPastBtn.className = tab === "past" ? TAB_ACTIVE : TAB_INACTIVE
+			tabPastBtn.setAttribute("aria-selected", String(tab === "past"))
+			renderCards()
+		}
+
+		function renderCards() {
+			let upcomingCount = 0
+			let pastCount = 0
+
+			cards.forEach((card) => {
+				const cardMonth = parseInt(card.dataset.eventMonth!)
+				const cardYear = parseInt(card.dataset.eventYear!)
+				const cardIsPast = card.dataset.eventPast === "true"
+				const inMonth = cardMonth === currentMonth && cardYear === currentYear
+
+				if (inMonth && !cardIsPast) upcomingCount++
+				if (inMonth && cardIsPast) pastCount++
+
+				const showForTab = activeTab === "upcoming" ? !cardIsPast : cardIsPast
+				card.classList.toggle("hidden", !(inMonth && showForTab))
+			})
+
+			tabUpcomingCount.textContent = upcomingCount.toString()
+			tabPastCount.textContent = pastCount.toString()
+			monthTitle.textContent = `Eventos en ${monthNames[currentMonth]} ${currentYear}`
+
+			emptyUpcomingText.textContent = `No hay eventos próximos en ${monthNames[currentMonth]}`
+			emptyPastText.textContent = `No hay eventos realizados en ${monthNames[currentMonth]}`
+			emptyUpcoming.classList.toggle("hidden", !(activeTab === "upcoming" && upcomingCount === 0))
+			emptyPast.classList.toggle("hidden", !(activeTab === "past" && pastCount === 0))
+		}
+
+		tabUpcomingBtn.addEventListener("click", () => setActiveTab("upcoming"))
+		tabPastBtn.addEventListener("click", () => setActiveTab("past"))
+
+		window.addEventListener("calendar-month-change", ((e: CustomEvent) => {
+			currentYear = e.detail.year
+			currentMonth = e.detail.month
+			renderCards()
+		}) as EventListener)
+
+		renderCards()
+
+		// Newsletter modal
+		document.getElementById("newsletter-modal-triggerr")?.addEventListener("click", () => {
+			window.dispatchEvent(new CustomEvent("open-newsletter-modal"))
+		})
+	}
+
+	initEventsTabs()
+	document.addEventListener("astro:after-swap", initEventsTabs)
 </script>

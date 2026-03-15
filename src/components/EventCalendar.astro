@@ -224,6 +224,14 @@ const eventsForClient = events.map((e) => ({
 			return map[accent] || map["sage"]
 		}
 
+		function emitMonthChange() {
+			window.dispatchEvent(
+				new CustomEvent("calendar-month-change", {
+					detail: { year: currentYear, month: currentMonth },
+				}),
+			)
+		}
+
 		function render() {
 			// Update header
 			monthTitleEl.textContent = `${monthNames[currentMonth]} ${currentYear}`
@@ -232,6 +240,7 @@ const eventsForClient = events.map((e) => ({
 
 			renderDesktop()
 			renderMobile()
+			emitMonthChange()
 		}
 
 		function renderDesktop() {
