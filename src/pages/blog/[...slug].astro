@@ -7,7 +7,7 @@ import ArticleSchema from "@/components/schema/ArticleSchema.astro"
 import Badge from "@/components/ui/Badge.astro"
 import Button from "@/components/ui/Button.astro"
 import Layout from "@/layouts/Layout.astro"
-import { getAssetUrl, getPostBySlug, getPostSlugs } from "@/services/directus"
+import { getAssetUrl, getPostBySlug, getPosts, getPostSlugs } from "@/services/directus"
 import { calculateReadTime, formatDate, getRelatedPosts } from "@/utils/blog"
 
 // Get all possible slugs for blog posts to generate static pages
@@ -27,9 +27,9 @@ const { title, description, date_published, date_updated, authors, hero_image } 
 const categories = post.categories?.map((category) => category.category_id) ?? []
 const tags = post.tags?.map((tag) => tag.tag_id) ?? []
 
-// TODO: Get all posts for related posts with Directus
-// const allPosts = await getCollection("blog", ({ data }) => !data.draft)
-// const relatedPosts = getRelatedPosts(post, allPosts, 3)
+// Get related posts based on shared categories or tags
+const allPosts = await getPosts()
+const relatedPosts = getRelatedPosts(post, allPosts, 3)
 
 const readTime = calculateReadTime(post.content)
 const postUrl = new URL(Astro.url.pathname, Astro.site).toString()
@@ -129,7 +129,12 @@ const seoData = {
 		</section>
 
 		{/* Article Content */}
-		<article class="bg-background py-16">
+		<article
+			class="bg-background py-16"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.4s"
+		>
 			<div class="container mx-auto px-4 lg:px-8">
 				<div
 					class="prose prose-lg prose-primary prose-headings:font-display prose-headings:text-primary prose-a:text-accent hover:prose-a:text-accent/80 prose-strong:text-primary prose-img:rounded-2xl mx-auto max-w-4xl"
@@ -140,7 +145,12 @@ const seoData = {
 		</article>
 
 		{/* Call to Action */}
-		<section class="bg-muted/30 py-16">
+		<section
+			class="bg-muted/30 py-16"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.5s"
+		>
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="bg-background mx-auto max-w-4xl rounded-3xl p-8 text-center shadow-sm lg:p-12">
 					<h2 class="font-display text-primary mb-4 text-2xl lg:text-3xl">
@@ -157,7 +167,6 @@ const seoData = {
 			</div>
 		</section>
 
-		<!-- {/* Related Posts */}
 		{
 			relatedPosts.length > 0 && (
 				<section class="bg-background py-16 lg:py-24">
@@ -173,6 +182,6 @@ const seoData = {
 					</div>
 				</section>
 			)
-		} -->
+		}
 	</main>
 </Layout>

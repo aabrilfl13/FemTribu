@@ -1,10 +1,5 @@
-import type { CollectionEntry } from "astro:content"
+import type { Post } from "@/services/directus"
 
-/**
- * Calculate estimated reading time based on word count
- * @param content - Markdown content string
- * @returns Reading time in minutes
- */
 export function calculateReadTime(content: string): number {
 	const wordsPerMinute = 200
 	const words = content.trim().split(/\s+/).length
@@ -67,46 +62,28 @@ export function getCategoryColor(category: string): {
 	)
 }
 
-/**
- * Get related blog posts based on category and tags
- * @param currentPost - Current blog post
- * @param allPosts - Array of all blog posts
- * @param limit - Maximum number of related posts to return
- * @returns Array of related posts
- */
-export function getRelatedPosts(
-	currentPost: CollectionEntry<"blog">,
-	allPosts: CollectionEntry<"blog">[],
-	limit = 3
-): CollectionEntry<"blog">[] {
-	const currentCategories = currentPost.data.categories
-	const currentTags = currentPost.data.tags || []
+export function getRelatedPosts(currentPost: Post, allPosts: Post[], limit = 3): Post[] {
+	const currentCategoryIds = currentPost.categories?.map((c) => c.category_id.id) ?? []
+	const currentTagIds = currentPost.tags?.map((t) => t.tag_id.id) ?? []
 
-	// Filter out the current post and draft posts
-	const otherPosts = allPosts.filter((post) => post.slug !== currentPost.slug && !post.data.draft)
+	const otherPosts = allPosts.filter((post) => post.slug !== currentPost.slug)
 
-	// Score posts based on matching categories and tags
 	const scoredPosts = otherPosts.map((post) => {
 		let score = 0
 
-		// Same category = +2 points
-		const hasMatchingCategory = post.data.categories.some((cat) => currentCategories.includes(cat))
-		if (hasMatchingCategory) score += 2
+		const postCategoryIds = post.categories?.map((c) => c.category_id.id) ?? []
+		if (postCategoryIds.some((id) => currentCategoryIds.includes(id))) score += 2
 
-		// Same tag = +1 point each
-		const postTags = post.data.tags || []
-		const matchingTags = postTags.filter((tag) => currentTags.includes(tag))
-		score += matchingTags.length
+		const postTagIds = post.tags?.map((t) => t.tag_id.id) ?? []
+		score += postTagIds.filter((id) => currentTagIds.includes(id)).length
 
 		return { post, score }
 	})
 
-	// Sort by score (highest first), then by date (newest first)
 	scoredPosts.sort((a, b) => {
 		if (b.score !== a.score) return b.score - a.score
-		return b.post.data.pubDate.getTime() - a.post.data.pubDate.getTime()
+		return b.post.date_published.getTime() - a.post.date_published.getTime()
 	})
 
-	// Return top N posts
 	return scoredPosts.slice(0, limit).map((item) => item.post)
 }
