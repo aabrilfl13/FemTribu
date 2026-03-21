@@ -36,7 +36,7 @@ export function getCategoryColor(category: string): {
 	border: string
 } {
 	const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
-		Lactancia: {
+		"Lactancia": {
 			bg: "bg-coral-light/20",
 			text: "text-coral",
 			border: "border-coral/30",
@@ -46,7 +46,7 @@ export function getCategoryColor(category: string): {
 			text: "text-accent",
 			border: "border-accent/30",
 		},
-		Menopausia: {
+		"Menopausia": {
 			bg: "bg-sage/20",
 			text: "text-sage",
 			border: "border-sage/40",
@@ -77,24 +77,20 @@ export function getCategoryColor(category: string): {
 export function getRelatedPosts(
 	currentPost: CollectionEntry<"blog">,
 	allPosts: CollectionEntry<"blog">[],
-	limit = 3,
+	limit = 3
 ): CollectionEntry<"blog">[] {
 	const currentCategories = currentPost.data.categories
 	const currentTags = currentPost.data.tags || []
 
 	// Filter out the current post and draft posts
-	const otherPosts = allPosts.filter(
-		(post) => post.slug !== currentPost.slug && !post.data.draft,
-	)
+	const otherPosts = allPosts.filter((post) => post.slug !== currentPost.slug && !post.data.draft)
 
 	// Score posts based on matching categories and tags
 	const scoredPosts = otherPosts.map((post) => {
 		let score = 0
 
 		// Same category = +2 points
-		const hasMatchingCategory = post.data.categories.some((cat) =>
-			currentCategories.includes(cat),
-		)
+		const hasMatchingCategory = post.data.categories.some((cat) => currentCategories.includes(cat))
 		if (hasMatchingCategory) score += 2
 
 		// Same tag = +1 point each

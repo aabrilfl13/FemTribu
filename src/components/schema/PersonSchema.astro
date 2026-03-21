@@ -4,7 +4,7 @@
  * Defines María as a healthcare professional (Midwife)
  */
 
-import { BUSINESS_INFO, getSchemaAddress, getImageUrls } from "@/data/business-info"
+import { BUSINESS_INFO, getImageUrls, getSchemaAddress } from "@/data/business-info"
 
 const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
 const images = getImageUrls(siteUrl)
@@ -13,47 +13,47 @@ const personSchema = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	"@id": `${siteUrl}#person`,
-	name: BUSINESS_INFO.founder.name,
-	givenName: BUSINESS_INFO.founder.givenName,
-	familyName: BUSINESS_INFO.founder.familyName,
+	"name": BUSINESS_INFO.founder.name,
+	"givenName": BUSINESS_INFO.founder.givenName,
+	"familyName": BUSINESS_INFO.founder.familyName,
 
 	// Profession
-	jobTitle: BUSINESS_INFO.founder.jobTitle,
-	hasOccupation: {
+	"jobTitle": BUSINESS_INFO.founder.jobTitle,
+	"hasOccupation": {
 		"@type": "Occupation",
-		name: BUSINESS_INFO.founder.jobTitle,
-		occupationLocation: {
+		"name": BUSINESS_INFO.founder.jobTitle,
+		"occupationLocation": {
 			"@type": "Country",
-			name: "España",
+			"name": "España",
 		},
-		occupationalCategory: "CNO-11:2123",
-		description:
+		"occupationalCategory": "CNO-11:2123",
+		"description":
 			"Matrona especializada en salud femenina integral, lactancia, preparación al parto, menopausia y salud hormonal",
 	},
 
 	// Affiliation
-	worksFor: {
+	"worksFor": {
 		"@id": `${siteUrl}#organization`,
 	},
 
 	// Image
-	image: images.founderPortrait,
+	"image": images.founderPortrait,
 
 	// Location
-	address: getSchemaAddress(false),
+	"address": getSchemaAddress(false),
 
 	// Expertise
-	knowsAbout: BUSINESS_INFO.founder.expertise,
+	"knowsAbout": BUSINESS_INFO.founder.expertise,
 
 	// Description
-	description: BUSINESS_INFO.founder.description,
+	"description": BUSINESS_INFO.founder.description,
 
 	// URL
-	url: `${siteUrl}/sobre-mi`,
-	mainEntityOfPage: `${siteUrl}/sobre-mi`,
+	"url": `${siteUrl}/sobre-mi`,
+	"mainEntityOfPage": `${siteUrl}/sobre-mi`,
 
 	// Social Media
-	sameAs: BUSINESS_INFO.socialLinks,
+	"sameAs": BUSINESS_INFO.socialLinks,
 }
 ---
 

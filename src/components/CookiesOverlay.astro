@@ -2,7 +2,12 @@
 
 ---
 
-<div id="privacy-notice" class="privacy-overlay hidden" role="dialog" aria-label="Preferencias de cookies">
+<div
+	id="privacy-notice"
+	class="privacy-overlay hidden"
+	role="dialog"
+	aria-label="Preferencias de cookies"
+>
 	<div class="privacy-content">
 		<div class="privacy-container">
 			<!-- Cookie icon -->
@@ -132,7 +137,6 @@
 		</div>
 	</div>
 </div>
-
 
 <style>
 	/* Base overlay styles */
@@ -658,7 +662,7 @@
 
 			if (consent) {
 				this.hidePrivacyOverlay()
-	
+
 				this.applyUserPreferences(consent.preferences)
 			} else {
 				// Add delay before showing privacy overlay (2 seconds)
@@ -903,7 +907,6 @@
 				// Bloqueamos el scroll del fondo para que el usuario se centre en el banner [cite: 1]
 				document.body.style.overflow = "hidden"
 			}
-
 		}
 
 		/**
@@ -1014,7 +1017,7 @@
 				localStorage.removeItem(this.storageKey)
 				localStorage.removeItem(this.settingsKey)
 				this.showPrivacyOverlay()
-	
+
 				this.showNotification("Preferencias de cookies restablecidas.", "info")
 			} catch (error) {
 				console.error("Error resetting user consent:", error)

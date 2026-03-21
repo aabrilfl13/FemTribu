@@ -1,11 +1,11 @@
 ---
+import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Card from "@/components/ui/Card.astro"
 import CardContent from "@/components/ui/CardContent.astro"
 import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
-import EventSchema from "@/components/schema/EventSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 import {
 	fetchClubLecturaEvents,
@@ -385,13 +385,51 @@ const seoData = event.seo
 									<CardHeader>
 										<div class="text-terracotta mb-4 h-10 w-10">
 											{step.icon === "book-open" && (
-												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="40"
+													height="40"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="M12 7v14" />
+													<path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+												</svg>
 											)}
 											{step.icon === "message-circle" && (
-												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="40"
+													height="40"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+												</svg>
 											)}
 											{step.icon === "video" && (
-												<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="40"
+													height="40"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
+													<rect x="2" y="6" width="14" height="12" rx="2" />
+												</svg>
 											)}
 										</div>
 										<CardTitle class="font-display text-forest text-xl">{step.title}</CardTitle>

@@ -132,7 +132,10 @@ export async function fetchEvent(slug: string): Promise<Event | undefined> {
  * Generate Google Calendar link for an event
  * This is a utility function that works with any event data
  */
-export function generateCalendarLink(event: Event, websiteUrl: string = "https://femmtribu.es"): string {
+export function generateCalendarLink(
+	event: Event,
+	websiteUrl: string = "https://femmtribu.es"
+): string {
 	// Format: YYYYMMDDTHHMMSS
 	const startDateTime = `${event.dateISO.replace(/-/g, "")}T${event.startTime.replace(/:/g, "")}`
 	const endDateTime = `${event.dateISO.replace(/-/g, "")}T${event.endTime.replace(/:/g, "")}`

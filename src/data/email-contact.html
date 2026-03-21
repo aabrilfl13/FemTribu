@@ -245,7 +245,10 @@
 				<div style="margin-top: 30px; padding: 15px; background-color: #f8f8f8; border-radius: 8px">
 					<div class="info-row">
 						<span class="info-label">Fecha</span>
-						<span class="info-value">{{ DateTime.fromISO(date).setLocale('es').toFormat("d 'de' MMMM 'de' yyyy 'a las' HH:mm'h'") }}</span>
+						<span class="info-value"
+							>{{ DateTime.fromISO(date).setLocale('es').toFormat("d 'de' MMMM 'de' yyyy 'a las'
+							HH:mm'h'") }}</span
+						>
 					</div>
 					<div class="info-row">
 						<span class="info-label">Origen</span>
@@ -258,7 +261,8 @@
 			<div class="footer">
 				<div class="footer-brand">Femm tribu</div>
 				<p class="footer-text">
-					Este email ha sido generado automaticamente desde el formulario de contacto de femmtribu.es
+					Este email ha sido generado automaticamente desde el formulario de contacto de
+					femmtribu.es
 				</p>
 			</div>
 		</div>

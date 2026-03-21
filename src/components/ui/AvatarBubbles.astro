@@ -12,22 +12,24 @@ interface Props {
 const { items, class: className = "" } = Astro.props
 ---
 
-{items.length > 0 && (
-	<div class={`flex -space-x-2 ${className}`}>
-		{items.map((item) => (
-			<div
-				class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-2 border-white"
-				title={item.name}
-			>
-				{item.image && (
-					<img
-						src={item.image}
-						alt={item.name}
-						class="h-full w-full object-cover"
-						loading="lazy"
-					/>
-				)}
-			</div>
-		))}
-	</div>
-)}
+{
+	items.length > 0 && (
+		<div class={`flex -space-x-2 ${className}`}>
+			{items.map((item) => (
+				<div
+					class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-2 border-white"
+					title={item.name}
+				>
+					{item.image && (
+						<img
+							src={item.image}
+							alt={item.name}
+							class="h-full w-full object-cover"
+							loading="lazy"
+						/>
+					)}
+				</div>
+			))}
+		</div>
+	)
+}

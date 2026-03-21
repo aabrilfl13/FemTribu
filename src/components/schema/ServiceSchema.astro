@@ -31,91 +31,91 @@ const serviceSchema = {
 	"@context": "https://schema.org",
 	"@type": "Service",
 	"@id": `${pageUrl}#service`,
-	name: name,
-	description: description,
-	serviceType: serviceType,
-	image: serviceImage,
-	url: pageUrl,
+	"name": name,
+	"description": description,
+	"serviceType": serviceType,
+	"image": serviceImage,
+	"url": pageUrl,
 
 	// Proveedor del servicio
-	provider: {
+	"provider": {
 		"@id": `${siteUrl}#person`,
 		"@type": "Person",
-		name: "María Belenguer",
-		jobTitle: "Matrona",
+		"name": "María Belenguer",
+		"jobTitle": "Matrona",
 	},
 
 	// Organización
-	broker: {
+	"broker": {
 		"@id": `${siteUrl}#organization`,
 	},
 
 	// Área de servicio
-	areaServed: [
+	"areaServed": [
 		{
 			"@type": "City",
-			name: "Valencia",
+			"name": "Valencia",
 		},
 		{
 			"@type": "Country",
-			name: "España",
+			"name": "España",
 		},
 	],
 
 	// Disponibilidad
-	availableChannel: [
+	"availableChannel": [
 		{
 			"@type": "ServiceChannel",
-			serviceLocation: {
+			"serviceLocation": {
 				"@type": "Place",
-				address: {
+				"address": {
 					"@type": "PostalAddress",
-					addressLocality: "Valencia",
-					addressRegion: "Comunidad Valenciana",
-					addressCountry: "ES",
+					"addressLocality": "Valencia",
+					"addressRegion": "Comunidad Valenciana",
+					"addressCountry": "ES",
 				},
 			},
 		},
 		{
 			"@type": "ServiceChannel",
-			name: "Online",
+			"name": "Online",
 		},
 	],
 
 	// Oferta con precio
-	offers: {
+	"offers": {
 		"@type": "AggregateOffer",
-		priceCurrency: "EUR",
-		lowPrice: priceMin,
-		highPrice: priceMax || priceMin,
-		price: priceMin,
-		availability: "https://schema.org/InStock",
-		url: pageUrl,
-		priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+		"priceCurrency": "EUR",
+		"lowPrice": priceMin,
+		"highPrice": priceMax || priceMin,
+		"price": priceMin,
+		"availability": "https://schema.org/InStock",
+		"url": pageUrl,
+		"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
 			.toISOString()
 			.split("T")[0],
-		validFrom: new Date().toISOString().split("T")[0],
-		acceptedPaymentMethod: [
+		"validFrom": new Date().toISOString().split("T")[0],
+		"acceptedPaymentMethod": [
 			{
 				"@type": "PaymentMethod",
-				name: "Cash",
+				"name": "Cash",
 			},
 			{
 				"@type": "PaymentMethod",
-				name: "Credit Card",
+				"name": "Credit Card",
 			},
 			{
 				"@type": "PaymentMethod",
-				name: "Bank Transfer",
+				"name": "Bank Transfer",
 			},
 		],
 	},
 
 	// Categoría
-	category: "Healthcare Services",
-	audience: {
+	"category": "Healthcare Services",
+	"audience": {
 		"@type": "PeopleAudience",
-		suggestedGender: "female",
+		"suggestedGender": "female",
 	},
 }
 ---

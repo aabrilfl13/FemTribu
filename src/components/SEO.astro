@@ -27,7 +27,7 @@ const isDevelopment = import.meta.env.ENV === "development"
 
 <!-- Robots Meta Tags -->
 {
-	(noindex || isDevelopment) ? (
+	noindex || isDevelopment ? (
 		<>
 			<meta name="robots" content="noindex, nofollow" />
 			<meta name="googlebot" content="noindex, nofollow" />

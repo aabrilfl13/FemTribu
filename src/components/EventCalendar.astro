@@ -36,8 +36,7 @@ const eventsForClient = events.map((e) => ({
 			<div
 				class="bg-sage/15 border-sage/30 hidden flex-col items-center rounded-xl border p-1.5 md:flex"
 			>
-				<span class="font-body text-forest/60 px-2 text-xs uppercase" id="cal-today-month"
-				></span>
+				<span class="font-body text-forest/60 px-2 text-xs uppercase" id="cal-today-month"></span>
 				<span
 					class="bg-cream font-display text-forest flex w-full items-center justify-center rounded-lg px-3 py-0.5 text-lg font-bold"
 					id="cal-today-day"></span>
@@ -113,7 +112,7 @@ const eventsForClient = events.map((e) => ({
 
 	{/* Mobile: Upcoming events list */}
 	<div class="md:hidden">
-		<div id="cal-mobile-grid" class="grid grid-cols-7 gap-0.5 mb-4"></div>
+		<div id="cal-mobile-grid" class="mb-4 grid grid-cols-7 gap-0.5"></div>
 		<div id="cal-mobile-events" class="space-y-3"></div>
 	</div>
 </div>
@@ -190,11 +189,7 @@ const eventsForClient = events.map((e) => ({
 		}
 
 		function isToday(year: number, month: number, day: number) {
-			return (
-				year === today.getFullYear() &&
-				month === today.getMonth() &&
-				day === today.getDate()
-			)
+			return year === today.getFullYear() && month === today.getMonth() && day === today.getDate()
 		}
 
 		function isPast(dateISO: string) {
@@ -205,12 +200,12 @@ const eventsForClient = events.map((e) => ({
 
 		function getAccentClasses(accent: string) {
 			const map: Record<string, { bg: string; border: string; dot: string }> = {
-				terracotta: {
+				"terracotta": {
 					bg: "background-color: color-mix(in srgb, var(--color-terracotta) 15%, white)",
 					border: "border-color: color-mix(in srgb, var(--color-terracotta) 30%, white)",
 					dot: "background-color: var(--color-terracotta)",
 				},
-				sage: {
+				"sage": {
 					bg: "background-color: color-mix(in srgb, var(--color-sage) 15%, white)",
 					border: "border-color: color-mix(in srgb, var(--color-sage) 30%, white)",
 					dot: "background-color: var(--color-sage)",
@@ -228,7 +223,7 @@ const eventsForClient = events.map((e) => ({
 			window.dispatchEvent(
 				new CustomEvent("calendar-month-change", {
 					detail: { year: currentYear, month: currentMonth },
-				}),
+				})
 			)
 		}
 
@@ -281,7 +276,7 @@ const eventsForClient = events.map((e) => ({
 			day: number,
 			isOutside: boolean,
 			isTodayFlag: boolean,
-			dayEvents: typeof events,
+			dayEvents: typeof events
 		) {
 			const cell = document.createElement("div")
 			cell.className = `border-sage/20 relative min-h-[100px] border-b border-r p-2 transition-colors ${
@@ -362,15 +357,14 @@ const eventsForClient = events.map((e) => ({
 					// Toggle button
 					const more = document.createElement("button")
 					more.type = "button"
-					more.className = "font-body text-terracotta hover:text-terracotta-dark text-xs pl-1 cursor-pointer hover:underline"
+					more.className =
+						"font-body text-terracotta hover:text-terracotta-dark text-xs pl-1 cursor-pointer hover:underline"
 					more.textContent = `+ ${dayEvents.length - 1} más`
 					more.addEventListener("click", (e) => {
 						e.stopPropagation()
 						const isHidden = extraContainer.classList.contains("hidden")
 						extraContainer.classList.toggle("hidden")
-						more.textContent = isHidden
-							? "− Ver menos"
-							: `+ ${dayEvents.length - 1} más`
+						more.textContent = isHidden ? "− Ver menos" : `+ ${dayEvents.length - 1} más`
 					})
 					eventsContainer.appendChild(more)
 				}
