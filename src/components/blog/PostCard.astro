@@ -39,8 +39,17 @@ const readTime = calculateReadTime(post.content)
 	<div class="flex flex-1 flex-col p-6">
 		{/* Category Badge */}
 		<div class="mb-3 flex items-center gap-2">
-			{categories.map((category) => <Badge category={category.name} />)}
-			<span class="text-muted-foreground text-xs">•</span>
+			{
+				categories.length > 0 && (
+					<>
+						{categories.map((category) => (
+							<Badge category={category.name} />
+						))}
+						<span class="text-muted-foreground text-xs">•</span>
+					</>
+				)
+			}
+
 			<span class="text-muted-foreground text-xs">{readTime} min lectura</span>
 		</div>
 
