@@ -1,0 +1,17 @@
+---
+import { getCategoryColor } from "@/utils/blog"
+
+interface Props {
+	category: string
+	class?: string
+}
+
+const { category, class: className = "" } = Astro.props
+const colors = getCategoryColor(category)
+---
+
+<span
+	class={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${colors.bg} ${colors.text} ${colors.border} ${className}`}
+>
+	{category}
+</span>
