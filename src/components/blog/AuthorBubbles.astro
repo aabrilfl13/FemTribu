@@ -1,0 +1,29 @@
+---
+import type { Author } from "@/services/directus"
+import { getAssetUrl } from "@/services/directus"
+
+import AvatarBubbles from "@/components/ui/AvatarBubbles.astro"
+
+interface Props {
+	authors: Author[]
+	showNames?: boolean
+	class?: string
+}
+
+const { authors, showNames = true, class: className = "" } = Astro.props
+const items = authors.map((author) => ({
+	name: author.name,
+	image: author.image ? getAssetUrl(author.image) : undefined,
+}))
+---
+
+{authors.length > 0 && (
+	<div class={`flex items-center gap-2 ${className}`}>
+		<AvatarBubbles items={items} />
+		{showNames && (
+			<span class="text-primary text-xs font-medium">
+				{authors.map((a) => a.name).join(" y ")}
+			</span>
+		)}
+	</div>
+)}

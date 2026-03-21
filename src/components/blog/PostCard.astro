@@ -1,0 +1,67 @@
+---
+import Badge from "@/components/ui/Badge.astro"
+import type { Post } from "@/services/directus"
+import { getAssetUrl } from "@/services/directus"
+import { calculateReadTime, formatDate } from "@/utils/blog"
+
+import AuthorBubbles from "./AuthorBubbles.astro"
+
+interface Props {
+	post: Post
+	index?: number
+}
+
+const { post, index = 0 } = Astro.props
+const { title, description, date_published, hero_image } = post
+const categories = post.categories?.map((c) => c.category_id) ?? []
+const authors = post.authors?.map((a) => a.author_id) ?? []
+const readTime = calculateReadTime(post.content)
+---
+
+<article
+	class="bg-background hover:shadow-warm group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:-translate-y-1"
+	data-animate="animate-fade-up"
+	data-animate-duration="1s"
+	data-animate-delay={`${index * 100}ms`}
+>
+	{
+		hero_image && (
+			<a href={`/blog/${post.slug}`} class="block overflow-hidden">
+				<img
+					src={getAssetUrl(hero_image)}
+					alt={title}
+					class="aspect-[16/9] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+				/>
+			</a>
+		)
+	}
+
+	<div class="flex flex-1 flex-col p-6">
+		{/* Category Badge */}
+		<div class="mb-3 flex items-center gap-2">
+			{categories.map((category) => <Badge category={category.name} />)}
+			<span class="text-muted-foreground text-xs">•</span>
+			<span class="text-muted-foreground text-xs">{readTime} min lectura</span>
+		</div>
+
+		{/* Title */}
+		<h2 class="font-display text-primary group-hover:text-accent mb-3 text-xl transition-colors">
+			<a href={`/blog/${post.slug}`} class="hover:underline">
+				{title}
+			</a>
+		</h2>
+
+		{/* Description/Excerpt */}
+		<p class="text-muted-foreground mb-4 line-clamp-3 flex-1 text-sm leading-relaxed">
+			{description}
+		</p>
+
+		{/* Footer: Author & Date */}
+		<div class="flex items-center justify-between border-t border-gray-100 pt-4">
+			<AuthorBubbles authors={authors} />
+			<time class="text-muted-foreground text-xs" datetime={date_published.toISOString()}>
+				{formatDate(date_published)}
+			</time>
+		</div>
+	</div>
+</article>
