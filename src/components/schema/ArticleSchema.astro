@@ -1,0 +1,47 @@
+---
+import { BUSINESS_INFO } from "@/data/business-info"
+import { getAssetUrl, type Post } from "@/services/directus"
+
+interface Props {
+	post: Post
+	url: string
+}
+
+const { post, url } = Astro.props as Props
+const { title, description, date_published, date_updated, hero_image } = post
+const authors = post.authors?.map((a) => a.author_id) ?? []
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const fullImageUrl = hero_image ? getAssetUrl(hero_image) : undefined
+
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"headline": title,
+	"description": description,
+	"image": fullImageUrl,
+	"datePublished": date_published.toISOString(),
+	"dateModified": (date_updated || date_published).toISOString(),
+	"author": authors.map((author) => ({
+		"@type": "Person",
+		"name": author.name,
+		"jobTitle": author.role,
+		"image": author.image ? getAssetUrl(author.image) : undefined,
+	})),
+	"publisher": {
+		"@type": "Organization",
+		"@id": `${siteUrl}#organization`,
+		"name": "Femm Tribu",
+		"logo": {
+			"@type": "ImageObject",
+			"url": `${siteUrl}/favicon.svg`,
+		},
+	},
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": url,
+	},
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
