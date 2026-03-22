@@ -110,6 +110,70 @@ export const events: Event[] = [
 				"Taller presencial de suelo pélvico y fisiosexología en Valencia. Charla con Paula Tejedo, fisioterapeuta especializada, merienda y clase de barre. Solo 15 plazas. ¡Reserva ahora!",
 		},
 	},
+	{
+		slug: "taller-ciclo-menstrual-entrenamiento-abril-2026",
+		title: "Taller de Ciclo Menstrual y Entrenamiento + Clase de Barre",
+		subtitle: "Taller + Almuerzo + Clase de Barre",
+		date: "18 de Abril 2026",
+		dateISO: "2026-04-18",
+		time: "10:30h",
+		startTime: "10:30:00",
+		endTime: "13:00:00",
+		duration: "2,5 horas aproximadamente",
+		type: "Presencial",
+		location: "The Sanctuary | Holistic Fitness Studio",
+		locationAddress: "Carrer de Martí, 17, L'Eixample, 46005 València, Valencia",
+		price: "45€ (IVA incluido)",
+		spots: 8,
+		description:
+			"Exploraremos cómo funciona el ciclo menstrual, qué ocurre en cada una de sus fases y cómo adaptar el ejercicio a los cambios hormonales para entrenar con más energía, respeto y bienestar. Después del taller disfrutaremos de un almuerzo juntas y cerraremos la mañana con una clase de barre, una práctica de movimiento consciente que nos permitirá integrar lo aprendido.",
+		whatYouWillLearn: [
+			"Cómo funciona el ciclo menstrual y sus fases",
+			"Qué ocurre en cada fase a nivel hormonal",
+			"Cómo adaptar el ejercicio a los cambios hormonales",
+			"Entrenar con más energía, respeto y bienestar",
+		],
+		schedule: [
+			{
+				time: "10:30h",
+				activity: "Taller de Ciclo Menstrual y Entrenamiento",
+				description:
+					"Exploraremos cómo funciona el ciclo menstrual, qué ocurre en cada una de sus fases y cómo adaptar el ejercicio a los cambios hormonales.",
+			},
+			{
+				time: "11:30h",
+				activity: "Almuerzo Juntas",
+				description:
+					"Un momento para compartir, conocernos y crear comunidad en un ambiente relajado y acogedor.",
+			},
+			{
+				time: "12:00h",
+				activity: "Clase de Barre",
+				description:
+					"Una práctica de movimiento consciente que nos permitirá integrar lo aprendido mientras conectamos con nuestro cuerpo.",
+			},
+		],
+		facilitators: [
+			{
+				name: "María Belenguer",
+				role: "Matrona y profesora de Barre",
+				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm Tribu.",
+				image: "/images/about-me/mery-portait.webp",
+				socialMedia: {
+					instagram: "https://www.instagram.com/femm.tribu/",
+					linkedin: "https://www.linkedin.com/in/mar%C3%ADa-belenguer-p%C3%A9rez-b966593a0/",
+				},
+			},
+		],
+		includes: ["Taller de ciclo menstrual y entrenamiento", "Almuerzo", "Clase de barre", "Regalo"],
+		image: "/images/events/maria-exercise.webp",
+		whatsappNumber: "34640912048",
+		seo: {
+			title: "Taller Ciclo Menstrual y Entrenamiento + Barre en Valencia | 18 Abril 2026",
+			description:
+				"Taller presencial en Valencia sobre ciclo menstrual y entrenamiento. Aprende a adaptar el ejercicio a tus fases hormonales, disfruta de un almuerzo y una clase de barre en The Sanctuary. Contacta por WhatsApp.",
+		},
+	},
 ]
 
 /**
