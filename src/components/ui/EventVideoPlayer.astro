@@ -1,0 +1,137 @@
+---
+interface Props {
+	src: string
+	alt?: string
+	class?: string
+}
+
+const { src, alt = "Vídeo del evento", class: className = "" } = Astro.props
+---
+
+<div
+	class:list={[
+		"event-video-player group/video border-sage/20 relative mx-auto w-full max-w-md overflow-hidden rounded-2xl border bg-white p-3 shadow-lg transition-shadow duration-300 hover:shadow-xl",
+		className,
+	]}
+	data-animate="animate-fade-in"
+	data-animate-duration="1s"
+>
+	<div class="relative overflow-hidden rounded-xl">
+		<video
+			class="aspect-[9/16] w-full rounded-xl object-cover"
+			src={src}
+			preload="metadata"
+			playsinline
+			muted
+			loop
+			autoplay
+		>
+			<track kind="descriptions" label={alt} />
+		</video>
+
+		<!-- Play/Pause overlay -->
+		<button
+			class="video-play-btn pointer-events-none absolute inset-0 flex cursor-pointer items-center justify-center opacity-0 transition-all duration-500"
+			aria-label="Pausar vídeo"
+			type="button"
+		>
+			<div
+				class="video-btn-icon flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg backdrop-blur-sm transition-all duration-500"
+			>
+				<svg
+					class="play-icon text-terracotta ml-1 hidden h-7 w-7"
+					viewBox="0 0 24 24"
+					fill="currentColor"
+				>
+					<polygon points="5 3 19 12 5 21 5 3"></polygon>
+				</svg>
+				<svg class="pause-icon text-terracotta h-7 w-7" viewBox="0 0 24 24" fill="currentColor">
+					<rect x="6" y="4" width="4" height="16"></rect>
+					<rect x="14" y="4" width="4" height="16"></rect>
+				</svg>
+			</div>
+		</button>
+	</div>
+
+	<!-- Caption -->
+	{alt && <p class="font-body text-forest/60 mt-2 text-center text-sm font-medium">{alt}</p>}
+</div>
+
+<script>
+	function initVideoPlayers() {
+		document.querySelectorAll<HTMLElement>(".event-video-player").forEach((container) => {
+			const video = container.querySelector("video")
+			const btn = container.querySelector<HTMLButtonElement>(".video-play-btn")
+			const btnIcon = container.querySelector<HTMLElement>(".video-btn-icon")
+			const playIcon = container.querySelector(".play-icon")
+			const pauseIcon = container.querySelector(".pause-icon")
+
+			if (!video || !btn || !btnIcon || !playIcon || !pauseIcon) return
+
+			let hideTimeout: ReturnType<typeof setTimeout>
+			let isHovering = false
+
+			function showControls() {
+				btn!.style.opacity = "1"
+				btn!.style.pointerEvents = "auto"
+			}
+
+			function hideControls() {
+				if (!video!.paused) {
+					btn!.style.opacity = "0"
+					btn!.style.pointerEvents = "none"
+				}
+			}
+
+			function scheduleHide() {
+				clearTimeout(hideTimeout)
+				if (!video!.paused) {
+					hideTimeout = setTimeout(hideControls, 500)
+				}
+			}
+
+			container.addEventListener("mouseenter", () => {
+				isHovering = true
+				showControls()
+				clearTimeout(hideTimeout)
+			})
+
+			container.addEventListener("mouseleave", () => {
+				isHovering = false
+				scheduleHide()
+			})
+
+			// Touch: tap to toggle controls visibility
+			container.addEventListener(
+				"touchstart",
+				() => {
+					if (btn!.style.opacity === "0") {
+						showControls()
+						scheduleHide()
+					}
+				},
+				{ passive: true }
+			)
+
+			btn.addEventListener("click", () => {
+				if (video.paused) {
+					video.play()
+					playIcon.classList.add("hidden")
+					pauseIcon.classList.remove("hidden")
+					btn.setAttribute("aria-label", "Pausar vídeo")
+					scheduleHide()
+				} else {
+					video.pause()
+					playIcon.classList.remove("hidden")
+					pauseIcon.classList.add("hidden")
+					btn.setAttribute("aria-label", "Reproducir vídeo")
+					showControls()
+					clearTimeout(hideTimeout)
+				}
+			})
+		})
+	}
+
+	initVideoPlayers()
+	document.addEventListener("astro:after-swap", initVideoPlayers)
+</script>

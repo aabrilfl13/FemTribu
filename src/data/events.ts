@@ -167,6 +167,10 @@ export const events: Event[] = [
 		],
 		includes: ["Taller de ciclo menstrual y entrenamiento", "Almuerzo", "Clase de barre", "Regalo"],
 		image: "/images/events/maria-exercise.webp",
+		video: {
+			directusId: "5b01dfc2-27bf-48f2-95cf-10b3e12c08ef",
+			alt: "Taller de Ciclo Menstrual y Entrenamiento",
+		},
 		whatsappNumber: "34640912048",
 		seo: {
 			title: "Taller Ciclo Menstrual y Entrenamiento + Barre en Valencia | 18 Abril 2026",
