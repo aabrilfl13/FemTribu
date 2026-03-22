@@ -9,8 +9,10 @@ import CardContent from "@/components/ui/CardContent.astro"
 import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
+import EventVideoPlayer from "@/components/ui/EventVideoPlayer.astro"
 import ImageStack from "@/components/ui/polaroid-flick-through"
 import Layout from "@/layouts/Layout.astro"
+import { getAssetUrl } from "@/services/directus"
 import {
 	fetchEvents,
 	generateCalendarLink,
@@ -403,14 +405,26 @@ const seoData = event.seo
 										</div>
 									</div>
 								</div>
+								<div class="bg-terracotta mt-6 w-full rounded-2xl px-6 py-4 shadow-sm">
+									<p class="text-cream font-body mb-1 text-sm">Precio</p>
+									<p class="text-cream font-display text-3xl">{eventDetails.price}</p>
+								</div>
 							</div>
 							<div class="w-full items-center justify-center">
 								<div class="text-center">
-									{event.gallery && <ImageStack images={event.gallery} client:visible />}
-									<div class="bg-terracotta mt-6 w-full rounded-2xl px-6 py-4 shadow-sm">
-										<p class="text-cream font-body mb-1 text-sm">Precio</p>
-										<p class="text-cream font-display text-3xl">{eventDetails.price}</p>
-									</div>
+									{
+										event.video && (
+											<EventVideoPlayer
+												src={getAssetUrl(event.video.directusId)}
+												alt={event.video.alt}
+											/>
+										)
+									}
+									{
+										!event.video && event.gallery && (
+											<ImageStack images={event.gallery} client:visible />
+										)
+									}
 								</div>
 							</div>
 						</div>
