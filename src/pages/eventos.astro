@@ -131,6 +131,16 @@ const isEventPast = (dateStr: string) => {
 
 // Separate active and past events
 const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
+
+const monthNamesES = [
+	"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+	"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+]
+
+// Sort events by date for proper month grouping
+const sortedEvents = [...upcomingEvents].sort(
+	(a, b) => new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime()
+)
 ---
 
 <Layout {...seoData} navScrolled={true}>
@@ -255,25 +265,53 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 					</button>
 				</div>
 
-				{/* Month title indicator */}
+				{/* Section title - next 3 months */}
 				<h2 id="events-month-title" class="font-display text-forest mb-6 text-xl md:text-2xl"></h2>
 
-				{/* Pre-rendered event cards with data attributes */}
-				<div id="events-cards-container" class="space-y-6">
+				{/* Pre-rendered event cards with data attributes, grouped by month */}
+				<div id="events-cards-container">
 					{
-						upcomingEvents.map((event, index) => {
-							const eventDate = new Date(event.dateISO)
-							const isPast = isEventPast(event.date)
-							return (
-								<div
-									class={`event-card bg-gradient-to-r ${event.color} border-sage/20 relative overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8`}
-									data-event-month={eventDate.getMonth()}
-									data-event-year={eventDate.getFullYear()}
-									data-event-past={isPast ? "true" : "false"}
-									data-animate="animate-slide-in-left"
-									data-animate-duration="1s"
-									data-animate-delay={`${index * 100}ms`}
-								>
+						(() => {
+							let lastMonthKey = ""
+							return sortedEvents.map((event, index) => {
+								const eventDate = new Date(event.dateISO)
+								const isPast = isEventPast(event.date)
+								const monthKey = `${eventDate.getFullYear()}-${eventDate.getMonth()}`
+								const showHeader = monthKey !== lastMonthKey
+								lastMonthKey = monthKey
+								return (
+									<>
+										{showHeader && (
+											<div
+												class={`month-group-header border-sage/20 mt-8 mb-4 flex items-center gap-3 border-b pb-3 first:mt-0${isPast ? " hidden" : ""}`}
+												data-group-month={eventDate.getMonth()}
+												data-group-year={eventDate.getFullYear()}
+												data-group-date-iso={event.dateISO}
+												data-group-past={isPast ? "true" : "false"}
+											>
+												<div class="bg-sage/20 flex h-10 w-10 items-center justify-center rounded-xl">
+													<svg class="text-forest h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+														<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+														<line x1="16" y1="2" x2="16" y2="6" />
+														<line x1="8" y1="2" x2="8" y2="6" />
+														<line x1="3" y1="10" x2="21" y2="10" />
+													</svg>
+												</div>
+												<h3 class="font-display text-forest text-lg md:text-xl">
+													{monthNamesES[eventDate.getMonth()]} {eventDate.getFullYear()}
+												</h3>
+											</div>
+										)}
+										<div
+											class={`event-card bg-gradient-to-r ${event.color} border-sage/20 relative mb-6 overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8${isPast ? " hidden" : ""}`}
+											data-event-month={eventDate.getMonth()}
+											data-event-year={eventDate.getFullYear()}
+											data-event-date-iso={event.dateISO}
+											data-event-past={isPast ? "true" : "false"}
+											data-animate="animate-slide-in-left"
+											data-animate-duration="1s"
+											data-animate-delay={`${index * 100}ms`}
+										>
 									{isPast && (
 										<div
 											class="absolute inset-0 z-20 flex items-center justify-center rounded-3xl"
@@ -411,8 +449,10 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 										</div>
 									</div>
 								</div>
-							)
-						})
+									</>
+								)
+							})
+						})()
 					}
 				</div>
 
@@ -470,9 +510,10 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 		const today = new Date()
 		today.setHours(0, 0, 0, 0)
 
+		// Calculate 3 months from now
+		const threeMonthsLater = new Date(today.getFullYear(), today.getMonth() + 3 + 1, 0)
+
 		let activeTab: "upcoming" | "past" = "upcoming"
-		let currentYear = today.getFullYear()
-		let currentMonth = today.getMonth()
 
 		const tabUpcomingBtn = document.getElementById("tab-upcoming")!
 		const tabPastBtn = document.getElementById("tab-past")!
@@ -480,6 +521,7 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 		const tabPastCount = document.getElementById("tab-past-count")!
 		const monthTitle = document.getElementById("events-month-title")!
 		const cards = document.querySelectorAll<HTMLElement>(".event-card")
+		const monthHeaders = document.querySelectorAll<HTMLElement>(".month-group-header")
 		const emptyUpcoming = document.getElementById("empty-upcoming")!
 		const emptyPast = document.getElementById("empty-past")!
 		const emptyUpcomingText = document.getElementById("empty-upcoming-text")!
@@ -489,6 +531,10 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 			"font-body bg-cream text-forest flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium shadow-sm transition-all"
 		const TAB_INACTIVE =
 			"font-body text-forest/60 hover:text-forest/80 flex-1 cursor-pointer rounded-lg px-4 py-2.5 text-sm font-medium transition-all"
+
+		function getEndMonthName() {
+			return monthNames[threeMonthsLater.getMonth()]
+		}
 
 		function setActiveTab(tab: "upcoming" | "past") {
 			activeTab = tab
@@ -503,37 +549,52 @@ const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 			let upcomingCount = 0
 			let pastCount = 0
 
+			// Track which month groups have visible cards
+			const visibleMonthGroups = new Set<string>()
+
 			cards.forEach((card) => {
-				const cardMonth = parseInt(card.dataset.eventMonth!)
-				const cardYear = parseInt(card.dataset.eventYear!)
-				const cardIsPast = card.dataset.eventPast === "true"
-				const inMonth = cardMonth === currentMonth && cardYear === currentYear
+				const cardDateISO = card.dataset.eventDateIso!
+				const cardDate = new Date(cardDateISO)
+				cardDate.setHours(0, 0, 0, 0)
 
-				if (inMonth && !cardIsPast) upcomingCount++
-				if (inMonth && cardIsPast) pastCount++
+				// Determine past/future at runtime, not build time
+				const cardIsPast = cardDate < today
+				const inRange = cardDate >= today && cardDate <= threeMonthsLater
 
-				const showForTab = activeTab === "upcoming" ? !cardIsPast : cardIsPast
-				card.classList.toggle("hidden", !(inMonth && showForTab))
+				if (!cardIsPast && inRange) upcomingCount++
+				if (cardIsPast) pastCount++
+
+				const showForTab = activeTab === "upcoming" ? inRange : cardIsPast
+				card.classList.toggle("hidden", !showForTab)
+
+				if (showForTab) {
+					visibleMonthGroups.add(`${cardDate.getFullYear()}-${cardDate.getMonth()}`)
+				}
+			})
+
+			// Show/hide month group headers
+			monthHeaders.forEach((header) => {
+				const groupMonth = parseInt(header.dataset.groupMonth!)
+				const groupYear = parseInt(header.dataset.groupYear!)
+				const key = `${groupYear}-${groupMonth}`
+				header.classList.toggle("hidden", !visibleMonthGroups.has(key))
 			})
 
 			tabUpcomingCount.textContent = upcomingCount.toString()
 			tabPastCount.textContent = pastCount.toString()
-			monthTitle.textContent = `Eventos en ${monthNames[currentMonth]} ${currentYear}`
+			monthTitle.textContent =
+				activeTab === "upcoming"
+					? `Eventos hasta ${getEndMonthName()} ${threeMonthsLater.getFullYear()}`
+					: "Eventos realizados"
 
-			emptyUpcomingText.textContent = `No hay eventos próximos en ${monthNames[currentMonth]}`
-			emptyPastText.textContent = `No hay eventos realizados en ${monthNames[currentMonth]}`
+			emptyUpcomingText.textContent = "No hay eventos próximos en los próximos 3 meses"
+			emptyPastText.textContent = "No hay eventos realizados"
 			emptyUpcoming.classList.toggle("hidden", !(activeTab === "upcoming" && upcomingCount === 0))
 			emptyPast.classList.toggle("hidden", !(activeTab === "past" && pastCount === 0))
 		}
 
 		tabUpcomingBtn.addEventListener("click", () => setActiveTab("upcoming"))
 		tabPastBtn.addEventListener("click", () => setActiveTab("past"))
-
-		window.addEventListener("calendar-month-change", ((e: CustomEvent) => {
-			currentYear = e.detail.year
-			currentMonth = e.detail.month
-			renderCards()
-		}) as EventListener)
 
 		renderCards()
 

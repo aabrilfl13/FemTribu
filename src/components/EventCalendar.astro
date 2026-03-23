@@ -31,67 +31,73 @@ const eventsForClient = events.map((e) => ({
 
 <div class="event-calendar" data-events={JSON.stringify(eventsForClient)}>
 	{/* Calendar Header */}
-	<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<div class="flex items-center gap-3">
-			<div
-				class="bg-sage/15 border-sage/30 hidden flex-col items-center rounded-xl border p-1.5 md:flex"
-			>
-				<span class="font-body text-forest/60 px-2 text-xs uppercase" id="cal-today-month"></span>
-				<span
-					class="bg-cream font-display text-forest flex w-full items-center justify-center rounded-lg px-3 py-0.5 text-lg font-bold"
-					id="cal-today-day"></span>
+	<div class="mb-6 space-y-4">
+		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+			<div class="flex items-center gap-3">
+				<div
+					class="bg-sage/15 border-sage/30 hidden flex-col items-center rounded-xl border p-1.5 md:flex"
+				>
+					<span class="font-body text-forest/60 px-2 text-xs uppercase" id="cal-today-month"
+					></span>
+					<span
+						class="bg-cream font-display text-forest flex w-full items-center justify-center rounded-lg px-3 py-0.5 text-lg font-bold"
+						id="cal-today-day"></span>
+				</div>
+				<div>
+					<h3 class="font-display text-forest text-xl md:text-2xl" id="cal-month-title"></h3>
+					<p class="font-body text-forest/50 text-sm" id="cal-month-range"></p>
+				</div>
 			</div>
-			<div>
-				<h3 class="font-display text-forest text-xl md:text-2xl" id="cal-month-title"></h3>
-				<p class="font-body text-forest/50 text-sm" id="cal-month-range"></p>
+
+			<div class="flex items-center gap-2">
+				<button
+					type="button"
+					id="cal-prev"
+					class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-l-xl border transition-colors"
+					aria-label="Mes anterior"
+				>
+					<svg
+						class="h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polyline points="15 18 9 12 15 6"></polyline>
+					</svg>
+				</button>
+				<button
+					type="button"
+					id="cal-today-btn"
+					class="border-sage/30 text-forest hover:bg-sage/10 font-body h-9 cursor-pointer border-y px-4 text-sm transition-colors"
+				>
+					Hoy
+				</button>
+				<button
+					type="button"
+					id="cal-next"
+					class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-r-xl border transition-colors"
+					aria-label="Mes siguiente"
+				>
+					<svg
+						class="h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</button>
 			</div>
 		</div>
 
-		<div class="flex items-center gap-2">
-			<button
-				type="button"
-				id="cal-prev"
-				class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-l-xl border transition-colors"
-				aria-label="Mes anterior"
-			>
-				<svg
-					class="h-4 w-4"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<polyline points="15 18 9 12 15 6"></polyline>
-				</svg>
-			</button>
-			<button
-				type="button"
-				id="cal-today-btn"
-				class="border-sage/30 text-forest hover:bg-sage/10 font-body h-9 cursor-pointer border-y px-4 text-sm transition-colors"
-			>
-				Hoy
-			</button>
-			<button
-				type="button"
-				id="cal-next"
-				class="border-sage/30 text-forest hover:bg-sage/10 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-r-xl border transition-colors"
-				aria-label="Mes siguiente"
-			>
-				<svg
-					class="h-4 w-4"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<polyline points="9 18 15 12 9 6"></polyline>
-				</svg>
-			</button>
-		</div>
+		{/* Month pills - quick navigation to months with events */}
+		<div id="cal-month-pills" class="flex flex-wrap gap-2"></div>
 	</div>
 
 	{/* Desktop Calendar Grid */}
@@ -115,6 +121,7 @@ const eventsForClient = events.map((e) => ({
 		<div id="cal-mobile-grid" class="mb-4 grid grid-cols-7 gap-0.5"></div>
 		<div id="cal-mobile-events" class="space-y-3"></div>
 	</div>
+
 </div>
 
 <script>
@@ -227,6 +234,61 @@ const eventsForClient = events.map((e) => ({
 			)
 		}
 
+		function renderMonthPills() {
+			const pillsContainer = document.getElementById("cal-month-pills")!
+			pillsContainer.innerHTML = ""
+
+			// Collect unique months that have future events
+			const monthsWithEvents = new Map<string, { year: number; month: number; count: number }>()
+			events.forEach((e) => {
+				const d = new Date(e.dateISO)
+				d.setHours(0, 0, 0, 0)
+				if (d >= today) {
+					const key = `${d.getFullYear()}-${d.getMonth()}`
+					const existing = monthsWithEvents.get(key)
+					if (existing) {
+						existing.count++
+					} else {
+						monthsWithEvents.set(key, { year: d.getFullYear(), month: d.getMonth(), count: 1 })
+					}
+				}
+			})
+
+			if (monthsWithEvents.size === 0) {
+				const noEvents = document.createElement("p")
+				noEvents.className = "font-body text-forest/40 text-sm"
+				noEvents.textContent = "No hay eventos próximos programados"
+				pillsContainer.appendChild(noEvents)
+				return
+			}
+
+			// Sort by date
+			const sorted = Array.from(monthsWithEvents.values()).sort(
+				(a, b) => a.year - b.year || a.month - b.month
+			)
+
+			sorted.forEach(({ year, month, count }) => {
+				const isActive = year === currentYear && month === currentMonth
+				const pill = document.createElement("button")
+				pill.type = "button"
+				pill.className = `font-body inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm cursor-pointer transition-all ${
+					isActive
+						? "bg-forest text-cream shadow-sm"
+						: "bg-sage/15 text-forest hover:bg-sage/25 border border-sage/30"
+				}`
+				pill.innerHTML = `<span>${monthNames[month]}${year !== today.getFullYear() ? " " + year : ""}</span><span class="inline-flex h-5 min-w-5 items-center justify-center rounded-full text-xs font-semibold ${isActive ? "bg-cream/20 text-cream" : "bg-sage/25 text-forest/70"}">${count}</span>`
+
+				pill.addEventListener("click", () => {
+					currentYear = year
+					currentMonth = month
+					selectedDay = null
+					render()
+				})
+
+				pillsContainer.appendChild(pill)
+			})
+		}
+
 		function render() {
 			// Update header
 			monthTitleEl.textContent = `${monthNames[currentMonth]} ${currentYear}`
@@ -235,6 +297,7 @@ const eventsForClient = events.map((e) => ({
 
 			renderDesktop()
 			renderMobile()
+			renderMonthPills()
 			emitMonthChange()
 		}
 
