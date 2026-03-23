@@ -1,0 +1,26 @@
+{
+	"headers": [
+		{
+			"source": "/(admin|newsletter|cookies|privacy)(.*)",
+			"headers": [
+				{
+					"key": "X-Robots-Tag",
+					"value": "noindex, nofollow"
+				}
+			]
+		},
+		{
+			"source": "/((?!admin|newsletter|cookies|privacy).*)",
+			"headers": [
+				{
+					"key": "X-Robots-Tag",
+					"value": "index, follow"
+				},
+				{
+					"key": "Permissions-Policy",
+					"value": "browsing-topics=(), interest-cohort=()"
+				}
+			]
+		}
+	]
+}
