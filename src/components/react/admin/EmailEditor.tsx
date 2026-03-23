@@ -1,5 +1,20 @@
 import { AnimatePresence, motion } from "framer-motion"
-import * as Lucide from "lucide-react"
+import {
+	Columns2,
+	Eye,
+	EyeOff,
+	Globe,
+	Key,
+	Monitor,
+	Moon,
+	Send,
+	Settings,
+	Smartphone,
+	Square,
+	Sun,
+	Users,
+	X,
+} from "lucide-react"
 import { useEffect, useState } from "react"
 
 // Estilos del editor de código
@@ -13,23 +28,6 @@ import "prismjs/components/prism-markup"
 import "prismjs/themes/prism-tomorrow.css"
 
 const CodeEditor = (RawEditor as any).default || RawEditor
-
-const {
-	Eye,
-	EyeOff,
-	Send,
-	Smartphone,
-	Users,
-	Monitor,
-	Columns2,
-	Square,
-	Settings,
-	Moon,
-	Sun,
-	X,
-	Globe,
-	Key,
-} = Lucide
 
 export default function EmailEditor() {
 	const [html, setHtml] = useState(() => {
