@@ -84,10 +84,12 @@ export async function getPosts(): Promise<Post[]> {
 	return posts.map(transformPost)
 }
 
-export async function getPostBySlug(slug: string) {
+export async function getPostBySlug(slug: string, preview = false) {
 	const posts = await directus.request(
 		readItems("post", {
-			filter: { slug: { _eq: slug }, status: { _eq: "published" } },
+			filter: preview
+				? { slug: { _eq: slug } }
+				: { slug: { _eq: slug }, status: { _eq: "published" } },
 			fields: postFields,
 			limit: 1,
 		})

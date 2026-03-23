@@ -1,0 +1,175 @@
+---
+import AuthorBubbles from "@/components/blog/AuthorBubbles.astro"
+import PostCard from "@/components/blog/PostCard.astro"
+import ArticleSchema from "@/components/schema/ArticleSchema.astro"
+import Badge from "@/components/ui/Badge.astro"
+import Button from "@/components/ui/Button.astro"
+import Layout from "@/layouts/Layout.astro"
+import { getAssetUrl } from "@/services/directus"
+import type { Post } from "@/services/directus"
+import { calculateReadTime, formatDate } from "@/utils/blog"
+
+interface Props {
+	post: Post
+	postUrl: string
+	relatedPosts?: Post[]
+	isPreview?: boolean
+}
+
+const { post, postUrl, relatedPosts = [], isPreview = false } = Astro.props
+const { title, description, date_published, date_updated, authors, hero_image } = post
+const categories = post.categories?.map((category) => category.category_id) ?? []
+const tags = post.tags?.map((tag) => tag.tag_id) ?? []
+const readTime = calculateReadTime(post.content)
+
+const seoData = {
+	title: isPreview ? `${title} | Preview` : `${title} | Blog Femm Tribu`,
+	description,
+	image: hero_image ? getAssetUrl(hero_image) : undefined,
+	type: "article" as const,
+}
+---
+
+<Layout {...seoData} navScrolled={true} noindex={isPreview}>
+	{!isPreview && <ArticleSchema post={post} url={postUrl} />}
+
+	<main class="pt-21">
+		{/* Hero Section */}
+		<section class="relative overflow-hidden">
+			{
+				hero_image && (
+					<div class="absolute inset-0 -z-10">
+						<img
+							src={getAssetUrl(hero_image)}
+							alt={title}
+							class="h-full w-full object-cover opacity-20 blur-sm"
+						/>
+						<div class="bg-background/90 absolute inset-0" />
+					</div>
+				)
+			}
+
+			<div class="container mx-auto px-4 py-16 lg:px-8 lg:py-24">
+				<div class="mx-auto max-w-4xl">
+					{/* Category & Read Time */}
+					<div
+						class="mb-6 flex flex-wrap items-center gap-3"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						{categories.map((category) => <Badge category={category.name} />)}
+						<span class="text-muted-foreground text-sm">{readTime} min lectura</span>
+						<span class="text-muted-foreground text-sm">•</span>
+						<time class="text-muted-foreground text-sm" datetime={date_published.toISOString()}>
+							{formatDate(date_published)}
+						</time>
+						{
+							date_updated && (
+								<>
+									<span class="text-muted-foreground text-sm">•</span>
+									<span class="text-muted-foreground text-sm">
+										Actualizado: {formatDate(date_updated)}
+									</span>
+								</>
+							)
+						}
+					</div>
+
+					{/* Title */}
+					<h1
+						class="font-display text-primary mb-8 text-4xl sm:text-5xl lg:text-6xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
+						{title}
+					</h1>
+
+					{/* Author Info */}
+					<div
+						class="mb-8 flex items-center justify-between"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.2s"
+					>
+						<AuthorBubbles authors={authors.map((a) => a.author_id)} />
+					</div>
+
+					{/* Tags */}
+					{
+						tags && tags.length > 0 && (
+							<div
+								class="flex flex-wrap gap-2"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay="0.3s"
+							>
+								{tags.map((tag) => (
+									<span class="bg-muted text-muted-foreground rounded-full px-3 py-1 text-xs">
+										#{tag.name}
+									</span>
+								))}
+							</div>
+						)
+					}
+				</div>
+			</div>
+		</section>
+
+		{/* Article Content */}
+		<article
+			class="bg-background py-16"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.4s"
+		>
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="prose prose-lg prose-primary prose-headings:font-display prose-headings:text-primary prose-a:text-accent hover:prose-a:text-accent/80 prose-strong:text-primary prose-img:rounded-2xl mx-auto max-w-4xl"
+				>
+					<div set:html={post.content} />
+				</div>
+			</div>
+		</article>
+
+		{/* Call to Action */}
+		<section
+			class="bg-muted/30 py-16"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.5s"
+		>
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="bg-background mx-auto max-w-4xl rounded-3xl p-8 text-center shadow-sm lg:p-12">
+					<h2 class="font-display text-primary mb-4 text-2xl lg:text-3xl">
+						¿Necesitas acompañamiento personalizado?
+					</h2>
+					<p class="text-muted-foreground mx-auto mb-8 max-w-2xl">
+						Si te ha resultado útil este artículo y necesitas ayuda profesional, estoy aquí para
+						acompañarte.
+					</p>
+					<Button href={import.meta.env.CALENDLY_URL} variant="hero" size="lg">
+						Reserva tu cita
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		{
+			relatedPosts.length > 0 && (
+				<section class="bg-background py-16 lg:py-24">
+					<div class="container mx-auto px-4 lg:px-8">
+						<h2 class="font-display text-primary mb-8 text-center text-2xl lg:text-3xl">
+							Artículos relacionados
+						</h2>
+						<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+							{relatedPosts.map((post, index) => (
+								<PostCard post={post} index={index} />
+							))}
+						</div>
+					</div>
+				</section>
+			)
+		}
+	</main>
+</Layout>

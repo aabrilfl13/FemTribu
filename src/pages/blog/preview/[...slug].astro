@@ -1,0 +1,20 @@
+---
+import PostContent from "@/components/blog/PostContent.astro"
+import { getPostBySlug } from "@/services/directus"
+
+const token = Astro.url.searchParams.get("token")
+if (token !== import.meta.env.DIRECTUS_TOKEN) {
+	return Astro.redirect("/blog")
+}
+
+const { slug } = Astro.params
+const post = await getPostBySlug(slug!, true)
+
+if (!post) {
+	return Astro.redirect("/blog")
+}
+
+const postUrl = new URL(Astro.url.pathname, Astro.site).toString()
+---
+
+<PostContent post={post} postUrl={postUrl} isPreview={true} />
