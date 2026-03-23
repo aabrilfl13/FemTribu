@@ -561,7 +561,9 @@ const seoData = event.seo
 								Facilitadoras
 							</h2>
 
-							<div class={`grid gap-8 ${event.facilitators.length === 1 ? "justify-center" : "md:grid-cols-2"}`}>
+							<div
+								class={`grid gap-8 ${event.facilitators.length === 1 ? "justify-center" : "md:grid-cols-2"}`}
+							>
 								{event.facilitators.map((facilitator, index) => (
 									<div
 										class="from-sage/20 to-sage/5 border-sage/20 group flex flex-col items-center gap-6 rounded-3xl border bg-gradient-to-br p-6 transition-all duration-300 hover:shadow-lg md:p-8"
