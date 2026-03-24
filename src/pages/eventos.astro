@@ -133,8 +133,18 @@ const isEventPast = (dateStr: string) => {
 const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
 
 const monthNamesES = [
-	"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-	"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+	"Enero",
+	"Febrero",
+	"Marzo",
+	"Abril",
+	"Mayo",
+	"Junio",
+	"Julio",
+	"Agosto",
+	"Septiembre",
+	"Octubre",
+	"Noviembre",
+	"Diciembre",
 ]
 
 // Sort events by date for proper month grouping
@@ -283,14 +293,22 @@ const sortedEvents = [...upcomingEvents].sort(
 									<>
 										{showHeader && (
 											<div
-												class={`month-group-header border-sage/20 mt-8 mb-4 flex items-center gap-3 border-b pb-3 first:mt-0${isPast ? " hidden" : ""}`}
+												class={`month-group-header border-sage/20 mt-8 mb-4 flex items-center gap-3 border-b pb-3 first:mt-0${isPast ? "hidden" : ""}`}
 												data-group-month={eventDate.getMonth()}
 												data-group-year={eventDate.getFullYear()}
 												data-group-date-iso={event.dateISO}
 												data-group-past={isPast ? "true" : "false"}
 											>
 												<div class="bg-sage/20 flex h-10 w-10 items-center justify-center rounded-xl">
-													<svg class="text-forest h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+													<svg
+														class="text-forest h-5 w-5"
+														viewBox="0 0 24 24"
+														fill="none"
+														stroke="currentColor"
+														stroke-width="2"
+														stroke-linecap="round"
+														stroke-linejoin="round"
+													>
 														<rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
 														<line x1="16" y1="2" x2="16" y2="6" />
 														<line x1="8" y1="2" x2="8" y2="6" />
@@ -303,11 +321,12 @@ const sortedEvents = [...upcomingEvents].sort(
 											</div>
 										)}
 										<div
-											class={`event-card bg-gradient-to-r ${event.color} border-sage/20 relative mb-6 overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8${isPast ? " hidden" : ""}`}
+											class={`event-card bg-gradient-to-r ${event.color} border-sage/20 relative mb-6 overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:shadow-lg md:p-8${isPast ? "hidden" : ""}`}
 											data-event-month={eventDate.getMonth()}
 											data-event-year={eventDate.getFullYear()}
 											data-event-date-iso={event.dateISO}
 											data-event-past={isPast ? "true" : "false"}
+											data-event-title={event.title}
 											data-animate="animate-slide-in-left"
 											data-animate-duration="1s"
 											data-animate-delay={`${index * 100}ms`}
@@ -370,7 +389,9 @@ const sortedEvents = [...upcomingEvents].sort(
 												</span>
 											</div>
 
-											<h2 class="font-display text-forest text-2xl md:text-3xl">{event.title}</h2>
+													<h2 class="font-display text-forest text-2xl md:text-3xl">
+														{event.title}
+													</h2>
 
 											<p class="font-body text-forest/70 text-sm md:text-base">
 												{event.description}
