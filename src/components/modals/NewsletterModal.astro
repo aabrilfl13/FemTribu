@@ -144,6 +144,9 @@ const benefits = [
 			const data = await response.json()
 
 			if (data.success) {
+				import("@/utils/analytics").then(({ trackEvent }) => {
+					trackEvent("newsletter_signup", { method: "modal" })
+				})
 				showMessage(data.message, "success")
 				submitButton.textContent = "¡Suscrita!"
 

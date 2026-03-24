@@ -232,6 +232,8 @@ const calendlyUrl = import.meta.env.CALENDLY_URL
 </style>
 
 <script>
+	import { trackEvent } from "@/utils/analytics"
+
 	function initFloatingCTA() {
 		const cta = document.getElementById("floating-cta")
 		const toggle = document.getElementById("floating-cta-toggle")
@@ -241,6 +243,17 @@ const calendlyUrl = import.meta.env.CALENDLY_URL
 		toggle.addEventListener("click", () => {
 			const isOpen = cta.classList.toggle("open")
 			toggle.setAttribute("aria-expanded", String(isOpen))
+		})
+
+		cta.querySelectorAll(".floating-cta-action").forEach((action) => {
+			action.addEventListener("click", () => {
+				const label = action.getAttribute("aria-label") || "unknown"
+				trackEvent("cta_click", {
+					cta_type: "floating",
+					cta_label: label,
+					page: window.location.pathname,
+				})
+			})
 		})
 
 		// Close when clicking outside

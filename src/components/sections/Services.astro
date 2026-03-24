@@ -239,6 +239,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				target="_blank"
 				rel="noopener noreferrer"
 				class="bg-accent text-cream font-body hover:bg-accent/90 hover:shadow-elegant rounded-full px-8 py-4 text-lg transition-all duration-300 hover:scale-105"
+				onclick="window.gtag && window.gtag('event', 'cta_click', { cta_type: 'calendly', cta_label: 'agenda_llamada_gratuita', page: window.location.pathname })"
 			>
 				Agenda una llamada gratuita
 			</a>
@@ -297,6 +298,13 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			button.addEventListener("click", () => {
 				const serviceName = button.getAttribute("data-service-name") || "nuestros servicios"
 				const href = button.getAttribute("data-service-href")
+
+				if (window.gtag) {
+					window.gtag("event", "service_inquiry", {
+						service_name: serviceName,
+						page: window.location.pathname,
+					})
+				}
 				const whatsappBtn = document.getElementById("whatsapp-service-btn")
 
 				if (href != "#" && href != null && whatsappBtn) {

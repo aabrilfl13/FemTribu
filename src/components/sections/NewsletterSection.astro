@@ -166,7 +166,9 @@ const benefits = [
 			const data = await response.json()
 
 			if (data.success) {
-				console.log("Newsletter subscription successful:", data)
+				import("@/utils/analytics").then(({ trackEvent }) => {
+					trackEvent("newsletter_signup", { method: "section" })
+				})
 				showMessage(data.message, "success")
 				submitButton.textContent = "¡Suscrita!"
 				emailInput.value = ""

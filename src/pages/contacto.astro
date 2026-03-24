@@ -572,6 +572,12 @@ const contactSchema = {
 				const data = await response.json()
 
 				if (data.success) {
+					import("@/utils/analytics").then(({ trackEvent }) => {
+						trackEvent("generate_lead", {
+							event_category: "contact",
+							contact_subject: subject,
+						})
+					})
 					showMessage("¡Mensaje enviado correctamente! Te responderemos pronto.", "success")
 					form.reset()
 					clearFormData()

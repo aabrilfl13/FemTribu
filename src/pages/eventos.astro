@@ -331,145 +331,145 @@ const sortedEvents = [...upcomingEvents].sort(
 											data-animate-duration="1s"
 											data-animate-delay={`${index * 100}ms`}
 										>
-									{isPast && (
-										<div
-											class="absolute inset-0 z-20 flex items-center justify-center rounded-3xl"
-											style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); isolation: isolate;"
-										>
-											<div class="bg-forest text-cream rotate-[-5deg] transform rounded-2xl px-8 py-4 shadow-lg">
-												<span class="font-display text-3xl md:text-4xl">Realizado</span>
-											</div>
-										</div>
-									)}
-
-									{event.image && (
-										<div class="absolute inset-0 -z-10">
-											<div
-												class={`bg-${event.accent} h-full w-full opacity-20`}
-												style={`-webkit-mask: url(${event.image}) center/cover; mask: url(${event.image}) center/cover;`}
-											/>
-										</div>
-									)}
-									<div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center">
-										{/* Date Badge */}
-										<div class="flex-shrink-0">
-											<div class="bg-cream w-24 rounded-2xl p-4 text-center shadow-sm">
-												<span class="font-display text-forest block text-2xl">
-													{event.date.split(" ")[0]}
-												</span>
-												<span class="font-body text-forest/70 block text-sm">
-													{event.date.split(" ")[1]}
-												</span>
-											</div>
-										</div>
-
-										{/* Event Info */}
-										<div class="flex-grow space-y-3">
-											<div class="flex flex-wrap items-center gap-3">
-												<span
-													class="font-body text-forest rounded-full px-3 py-1 text-xs"
-													style={`background-color: color-mix(in srgb, ${event.type.includes("Online") ? "var(--color-sage)" : "var(--color-terracotta)"} 30%, white);`}
+											{isPast && (
+												<div
+													class="absolute inset-0 z-20 flex items-center justify-center rounded-3xl"
+													style="background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); isolation: isolate;"
 												>
-													{event.type}
-												</span>
-												<span class="font-body text-forest/70 flex items-center gap-1 text-sm">
-													<svg
-														class="h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="2"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<circle cx="12" cy="12" r="10" />
-														<polyline points="12 6 12 12 16 14" />
-													</svg>
-													{event.time}
-												</span>
-											</div>
+													<div class="bg-forest text-cream rotate-[-5deg] transform rounded-2xl px-8 py-4 shadow-lg">
+														<span class="font-display text-3xl md:text-4xl">Realizado</span>
+													</div>
+												</div>
+											)}
+
+											{event.image && (
+												<div class="absolute inset-0 -z-10">
+													<div
+														class={`bg-${event.accent} h-full w-full opacity-20`}
+														style={`-webkit-mask: url(${event.image}) center/cover; mask: url(${event.image}) center/cover;`}
+													/>
+												</div>
+											)}
+											<div class="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center">
+												{/* Date Badge */}
+												<div class="flex-shrink-0">
+													<div class="bg-cream w-24 rounded-2xl p-4 text-center shadow-sm">
+														<span class="font-display text-forest block text-2xl">
+															{event.date.split(" ")[0]}
+														</span>
+														<span class="font-body text-forest/70 block text-sm">
+															{event.date.split(" ")[1]}
+														</span>
+													</div>
+												</div>
+
+												{/* Event Info */}
+												<div class="flex-grow space-y-3">
+													<div class="flex flex-wrap items-center gap-3">
+														<span
+															class="font-body text-forest rounded-full px-3 py-1 text-xs"
+															style={`background-color: color-mix(in srgb, ${event.type.includes("Online") ? "var(--color-sage)" : "var(--color-terracotta)"} 30%, white);`}
+														>
+															{event.type}
+														</span>
+														<span class="font-body text-forest/70 flex items-center gap-1 text-sm">
+															<svg
+																class="h-3 w-3"
+																viewBox="0 0 24 24"
+																fill="none"
+																stroke="currentColor"
+																stroke-width="2"
+																stroke-linecap="round"
+																stroke-linejoin="round"
+															>
+																<circle cx="12" cy="12" r="10" />
+																<polyline points="12 6 12 12 16 14" />
+															</svg>
+															{event.time}
+														</span>
+													</div>
 
 													<h2 class="font-display text-forest text-2xl md:text-3xl">
 														{event.title}
 													</h2>
 
-											<p class="font-body text-forest/70 text-sm md:text-base">
-												{event.description}
-											</p>
+													<p class="font-body text-forest/70 text-sm md:text-base">
+														{event.description}
+													</p>
 
-											<div class="text-forest/70 flex items-center gap-4 text-sm">
-												<span class="flex items-center gap-1">
-													<svg
-														class="h-4 w-4"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="2"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<circle cx="9" cy="7" r="4" />
-														<path d="M3 21v-2c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4v2" />
-														<circle cx="16" cy="7" r="3" />
-														<path d="M22 21v-2c0-1.7-1.1-3.1-2.6-3.7" />
-													</svg>
-													{event.spots}
-													{typeof event.spots === "number" ? " plazas" : ""}
-												</span>
-											</div>
-
-											{/* Facilitators thumbnails */}
-											{event.facilitators && event.facilitators.length > 0 && (
-												<div class="mt-4 flex items-center gap-2">
-													<div class="flex -space-x-2">
-														{event.facilitators.map((facilitator) => (
-															<div
-																class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-1 border-white"
-																title={facilitator.name}
+													<div class="text-forest/70 flex items-center gap-4 text-sm">
+														<span class="flex items-center gap-1">
+															<svg
+																class="h-4 w-4"
+																viewBox="0 0 24 24"
+																fill="none"
+																stroke="currentColor"
+																stroke-width="2"
+																stroke-linecap="round"
+																stroke-linejoin="round"
 															>
-																<img
-																	src={facilitator.image}
-																	alt={facilitator.name}
-																	class="h-full w-full object-cover"
-																	loading="lazy"
-																/>
-															</div>
-														))}
+																<circle cx="9" cy="7" r="4" />
+																<path d="M3 21v-2c0-2.2 1.8-4 4-4h4c2.2 0 4 1.8 4 4v2" />
+																<circle cx="16" cy="7" r="3" />
+																<path d="M22 21v-2c0-1.7-1.1-3.1-2.6-3.7" />
+															</svg>
+															{event.spots}
+															{typeof event.spots === "number" ? " plazas" : ""}
+														</span>
 													</div>
-													<span class="text-forest/70 font-body text-xs">
-														{event.facilitators.map((f) => f.name).join(" y ")}
-													</span>
-												</div>
-											)}
-										</div>
 
-										{/* Price & CTA */}
-										<div class="flex flex-shrink-0 flex-col items-center gap-3">
-											<span class="font-display text-forest text-2xl">{event.price}</span>
-											<Button
-												variant="hero"
-												size="lg"
-												class="w-full lg:w-auto"
-												href={event.route}
-												rel="noopener noreferrer"
-											>
-												Reservar plaza
-												<svg
-													class="ml-2 h-4 w-4"
-													viewBox="0 0 24 24"
-													fill="none"
-													stroke="currentColor"
-													stroke-width="2"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-												>
-													<line x1="5" y1="12" x2="19" y2="12" />
-													<polyline points="12 5 19 12 12 19" />
-												</svg>
-											</Button>
+													{/* Facilitators thumbnails */}
+													{event.facilitators && event.facilitators.length > 0 && (
+														<div class="mt-4 flex items-center gap-2">
+															<div class="flex -space-x-2">
+																{event.facilitators.map((facilitator) => (
+																	<div
+																		class="bg-cream relative h-8 w-8 overflow-hidden rounded-full border-1 border-white"
+																		title={facilitator.name}
+																	>
+																		<img
+																			src={facilitator.image}
+																			alt={facilitator.name}
+																			class="h-full w-full object-cover"
+																			loading="lazy"
+																		/>
+																	</div>
+																))}
+															</div>
+															<span class="text-forest/70 font-body text-xs">
+																{event.facilitators.map((f) => f.name).join(" y ")}
+															</span>
+														</div>
+													)}
+												</div>
+
+												{/* Price & CTA */}
+												<div class="flex flex-shrink-0 flex-col items-center gap-3">
+													<span class="font-display text-forest text-2xl">{event.price}</span>
+													<Button
+														variant="hero"
+														size="lg"
+														class="w-full lg:w-auto"
+														href={event.route}
+														rel="noopener noreferrer"
+													>
+														Reservar plaza
+														<svg
+															class="ml-2 h-4 w-4"
+															viewBox="0 0 24 24"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="2"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+														>
+															<line x1="5" y1="12" x2="19" y2="12" />
+															<polyline points="12 5 19 12 12 19" />
+														</svg>
+													</Button>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
 									</>
 								)
 							})
@@ -627,4 +627,19 @@ const sortedEvents = [...upcomingEvents].sort(
 
 	initEventsTabs()
 	document.addEventListener("astro:after-swap", initEventsTabs)
+
+	// GA4 event tracking for "Reservar plaza" clicks
+	document.querySelectorAll<HTMLElement>(".event-card").forEach((card) => {
+		const link = card.querySelector("a[href]")
+		if (!link) return
+		link.addEventListener("click", () => {
+			const title = card.dataset.eventTitle
+			if (window.gtag) {
+				window.gtag("event", "event_signup_click", {
+					event_name: title,
+					page: window.location.pathname,
+				})
+			}
+		})
+	})
 </script>
