@@ -15,6 +15,7 @@ import StoriesModal from "@/components/modals/StoriesModal.astro"
 import LocalBusinessSchema from "@/components/schema/LocalBusinessSchema.astro"
 import OrganizationSchema from "@/components/schema/OrganizationSchema.astro"
 import PersonSchema from "@/components/schema/PersonSchema.astro"
+import WebPageSchema from "@/components/schema/WebPageSchema.astro"
 import SEO from "@/components/SEO.astro"
 import { getAnnouncements } from "@/data/announcements"
 
@@ -96,6 +97,7 @@ const announcementStories = await getAnnouncements()
 		<OrganizationSchema />
 		<PersonSchema />
 		<LocalBusinessSchema />
+		<WebPageSchema />
 
 		<!-- Fonts preload -->
 		<link

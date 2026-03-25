@@ -1,0 +1,24 @@
+---
+/**
+ * WebSite Schema - Tells Google the site name is "Femm tribu"
+ * so it displays that instead of "femmtribu.es" in search results
+ */
+
+import { BUSINESS_INFO } from "@/data/business-info"
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+
+const webSiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": `${siteUrl}#website`,
+	"url": siteUrl,
+	"name": "Femm tribu",
+	"publisher": {
+		"@id": `${siteUrl}#organization`,
+	},
+	"inLanguage": "es",
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
