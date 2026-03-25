@@ -1,0 +1,36 @@
+---
+/**
+ * BreadcrumbList Schema - Helps Google show breadcrumb trails in search results
+ * Usage: <BreadcrumbSchema items={[{ name: "Blog", href: "/blog/" }]} />
+ * "Inicio" is always prepended automatically.
+ */
+
+import { BUSINESS_INFO } from "@/data/business-info"
+
+interface BreadcrumbItem {
+	name: string
+	href?: string
+}
+
+interface Props {
+	items: BreadcrumbItem[]
+}
+
+const { items } = Astro.props
+const siteUrl = (Astro.site?.toString() || BUSINESS_INFO.siteUrl).replace(/\/$/, "")
+
+const allItems = [{ name: "Inicio", href: "/" }, ...items]
+
+const breadcrumbSchema = {
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": allItems.map((item, index) => ({
+		"@type": "ListItem",
+		"position": index + 1,
+		"name": item.name,
+		...(item.href && { item: `${siteUrl}${item.href}` }),
+	})),
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />

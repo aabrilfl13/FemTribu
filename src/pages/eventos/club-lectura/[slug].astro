@@ -1,4 +1,5 @@
 ---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Card from "@/components/ui/Card.astro"
@@ -76,6 +77,13 @@ const seoData = event.seo
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	<BreadcrumbSchema
+		items={[
+			{ name: "Eventos", href: "/eventos/" },
+			{ name: "Club Lectura" },
+			{ name: event.title },
+		]}
+	/>
 	{/* Structured Data for Event */}
 	<EventSchema
 		title={event.title}

@@ -1,5 +1,6 @@
 ---
 import FAQ from "@/components/FAQ.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
 import Button from "@/components/ui/Button.astro"
@@ -94,6 +95,7 @@ const seoData = event.seo
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	<BreadcrumbSchema items={[{ name: "Eventos", href: "/eventos/" }, { name: event.title }]} />
 	{/* Structured Data for Event */}
 	<EventSchema
 		title={event.title}

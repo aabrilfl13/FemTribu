@@ -2,6 +2,7 @@
 import AuthorBubbles from "@/components/blog/AuthorBubbles.astro"
 import PostCard from "@/components/blog/PostCard.astro"
 import ArticleSchema from "@/components/schema/ArticleSchema.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import Badge from "@/components/ui/Badge.astro"
 import Button from "@/components/ui/Button.astro"
 import Layout from "@/layouts/Layout.astro"
@@ -32,6 +33,7 @@ const seoData = {
 
 <Layout {...seoData} navScrolled={true} noindex={isPreview}>
 	{!isPreview && <ArticleSchema post={post} url={postUrl} />}
+	{!isPreview && <BreadcrumbSchema items={[{ name: "Blog", href: "/blog/" }, { name: title }]} />}
 
 	<main class="pt-21">
 		{/* Hero Section */}

@@ -1,4 +1,5 @@
 ---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 
 export const prerender = true
@@ -62,6 +63,7 @@ const credentials = [
 	description="Femm tribu es un proyecto de acompañamiento integral a mujeres en cada etapa de su vida. Ciencia, autocuidado y comunidad de la mano de la matrona María Belenguer."
 	navScrolled={true}
 >
+	<BreadcrumbSchema items={[{ name: "Sobre nosotras" }]} />
 	<main id="main-content" class="pt-22">
 		<section
 			id="femm-tribu"

@@ -1,4 +1,5 @@
 ---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import { BUSINESS_INFO } from "@/data/business-info"
 import Layout from "@/layouts/Layout.astro"
 
@@ -72,6 +73,7 @@ const contactSchema = {
 	description="Contacta con Femm tribu. Consultas sobre lactancia, preparación al parto, menopausia y salud hormonal. Atención presencial en Valencia y online."
 	navScrolled={true}
 >
+	<BreadcrumbSchema items={[{ name: "Contacto" }]} />
 	<script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
 
 	<main id="main-content" class="pt-22">

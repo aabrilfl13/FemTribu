@@ -1,5 +1,6 @@
 ---
 import PostCard from "@/components/blog/PostCard.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 import { getPosts } from "@/services/directus"
 
@@ -15,6 +16,7 @@ const seoData = {
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	<BreadcrumbSchema items={[{ name: "Blog" }]} />
 	<main class="pt-21">
 		{/* Hero Section */}
 		<section class="bg-background container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">

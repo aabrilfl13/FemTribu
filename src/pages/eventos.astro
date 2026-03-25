@@ -1,6 +1,7 @@
 ---
 import CalendarIcon from "@/assets/iconos/calendar.svg"
 import EventCalendar from "@/components/EventCalendar.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Layout from "@/layouts/Layout.astro"
@@ -154,6 +155,7 @@ const sortedEvents = [...upcomingEvents].sort(
 ---
 
 <Layout {...seoData} navScrolled={true}>
+	<BreadcrumbSchema items={[{ name: "Eventos" }]} />
 	{/* Structured Data for Events */}
 	{
 		activeEvents.map((event) => (
