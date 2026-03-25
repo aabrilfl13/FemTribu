@@ -23,7 +23,7 @@ const tags = post.tags?.map((tag) => tag.tag_id) ?? []
 const readTime = calculateReadTime(post.content)
 
 const seoData = {
-	title: isPreview ? `${title} | Preview` : `${title} | Blog Femm Tribu`,
+	title: isPreview ? `${title} | Preview` : `${title} | Blog Femm tribu`,
 	description,
 	image: hero_image ? getAssetUrl(hero_image) : undefined,
 	type: "article" as const,

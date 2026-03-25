@@ -1,5 +1,5 @@
 /**
- * Información de negocio centralizada para Femm Tribu
+ * Información de negocio centralizada para Femm tribu
  * Fuente única de verdad para datos de empresa, contacto, ubicación y redes sociales
  * Usado en todos los schemas (Organization, Person, LocalBusiness)
  */

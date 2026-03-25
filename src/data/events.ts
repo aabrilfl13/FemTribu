@@ -59,7 +59,7 @@ export const events: Event[] = [
 			{
 				name: "María Belenguer",
 				role: "Matrona y profesora de Barre",
-				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm Tribu.",
+				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm tribu.",
 				image: "/images/about-me/mery-portait.webp",
 				socialMedia: {
 					instagram: "https://www.instagram.com/femm.tribu/",
@@ -157,7 +157,7 @@ export const events: Event[] = [
 			{
 				name: "María Belenguer",
 				role: "Matrona y profesora de Barre",
-				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm Tribu.",
+				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm tribu.",
 				image: "/images/about-me/mery-portait.webp",
 				socialMedia: {
 					instagram: "https://www.instagram.com/femm.tribu/",
