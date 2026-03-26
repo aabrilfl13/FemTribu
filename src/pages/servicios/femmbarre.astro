@@ -414,7 +414,15 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		const subscribeCta = document.getElementById("subscribe-cta-btn")
 		const trialBtn = document.getElementById("trial-btn")
 
-		const handleSubscribe = () => {
+		const handleSubscribe = (ctaPosition) => {
+			if (typeof window.gtag === "function") {
+				window.gtag("event", "cta_click", {
+					cta_type: "subscribe",
+					cta_label: serviceName,
+					cta_position: ctaPosition,
+					page: window.location.pathname,
+				})
+			}
 			const message = encodeURIComponent(
 				`Hola! Me interesa suscribirme a *${serviceName}* de *Femm tribu*.`
 			)
@@ -422,14 +430,21 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		}
 
 		const handleTrial = () => {
+			if (typeof window.gtag === "function") {
+				window.gtag("event", "cta_click", {
+					cta_type: "free_trial",
+					cta_label: serviceName,
+					page: window.location.pathname,
+				})
+			}
 			const message = encodeURIComponent(
 				`Hola! Me gustaría probar una clase gratuita de *${serviceName}* de *Femm tribu*.`
 			)
 			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
 		}
 
-		subscribeBtn?.addEventListener("click", handleSubscribe)
-		subscribeCta?.addEventListener("click", handleSubscribe)
+		subscribeBtn?.addEventListener("click", () => handleSubscribe("hero"))
+		subscribeCta?.addEventListener("click", () => handleSubscribe("pricing"))
 		trialBtn?.addEventListener("click", handleTrial)
 	})
 </script>
