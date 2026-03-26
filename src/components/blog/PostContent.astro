@@ -40,18 +40,18 @@ const seoData = {
 		<section class="relative overflow-hidden">
 			{
 				hero_image && (
-					<div class="absolute inset-0 -z-10">
+					<div class="absolute inset-0 z-0">
 						<img
 							src={getAssetUrl(hero_image)}
 							alt={title}
-							class="h-full w-full object-cover opacity-20 blur-sm"
+							class="h-full w-full object-cover opacity-35 blur-sm"
 						/>
-						<div class="bg-background/90 absolute inset-0" />
+						<div class="bg-background/10 absolute inset-0" />
 					</div>
 				)
 			}
 
-			<div class="container mx-auto px-4 py-16 lg:px-8 lg:py-24">
+			<div class="relative z-10 container mx-auto px-4 py-16 lg:px-8 lg:py-24">
 				<div class="mx-auto max-w-4xl">
 					{/* Category & Read Time */}
 					<div
