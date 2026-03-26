@@ -1,5 +1,7 @@
 ---
+import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import { SERVICES } from "@/data/services"
@@ -75,6 +77,39 @@ const includedFeatures = [
 	"Sin permanencia — cancela cuando quieras",
 ]
 
+const faqs = [
+	{
+		question: "¿En qué trimestre puedo empezar?",
+		answer:
+			"Puedes unirte en cualquier momento del embarazo. María adapta cada ejercicio a tu trimestre y nivel, para que siempre sea seguro y efectivo.",
+	},
+	{
+		question: "¿Necesito experiencia previa en barre o fitness?",
+		answer:
+			"No, no hace falta. Las clases están diseñadas para todos los niveles. María guía cada movimiento y ofrece variantes para que vayas a tu ritmo.",
+	},
+	{
+		question: "¿Qué pasa si no puedo asistir a la clase en directo?",
+		answer:
+			"Todas las sesiones quedan grabadas y disponibles en la biblioteca de clases. Puedes verlas tantas veces como quieras, cuando te venga mejor.",
+	},
+	{
+		question: "¿Qué material necesito?",
+		answer:
+			"Una esterilla, mancuernas de 1-2 kg (o botellas de agua), una pelota pequeña tipo pilates y una goma cerrada para piernas. Si no tienes algo, María ofrece alternativas.",
+	},
+	{
+		question: "¿Hay permanencia o compromiso mínimo?",
+		answer:
+			"No, la suscripción es mensual y puedes cancelar cuando quieras. Sin permanencia ni penalizaciones.",
+	},
+	{
+		question: "¿Quién imparte las clases?",
+		answer:
+			"María Belenguer, matrona e instructora certificada de Barre. Combina su formación sanitaria con el método barre para ofrecer un enfoque seguro y adaptado al embarazo.",
+	},
+]
+
 const seoData = {
 	...serviceData.seo,
 	type: "website" as const,
@@ -94,6 +129,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		billingPeriod="month"
 		onlineOnly={true}
 	/>
+	<FAQSchema faqs={faqs} />
 	<main id="main-content" class="pt-21">
 		<div
 			class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
@@ -330,6 +366,11 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					</div>
 				</div>
 			</div>
+		</section>
+
+		<!-- FAQs -->
+		<section class="pt-20">
+			<FAQ faqs={faqs} />
 		</section>
 
 		<!-- TODO: Testimonials — descomentar cuando haya alumnas reales
