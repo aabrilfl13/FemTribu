@@ -226,6 +226,85 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			}
 		</div>
 
+		{/* Sesiones sueltas info */}
+		<div class="mx-auto mt-12 max-w-2xl">
+			<div
+				class="from-secondary/10 via-background to-accent/10 border-secondary/30 relative rounded-2xl border bg-gradient-to-r p-6"
+			>
+				<div class="absolute -top-3 left-1/2 -translate-x-1/2">
+					<span
+						class="bg-background font-body text-primary/70 border-secondary/30 rounded-full border px-4 py-1 text-sm"
+					>
+						También disponible
+					</span>
+				</div>
+				<div class="pt-2 text-center">
+					<h3 class="font-display text-primary mb-2 text-xl">Sesiones sueltas</h3>
+					<p class="text-primary/80 font-body mb-3">
+						Si necesitas una consulta puntual sobre lactancia, salud hormonal, preparación al parto
+						o menopausia, reserva una sesión individual online o presencial en Valencia por
+						<data value="50" class="font-display text-primary text-xl font-semibold">50€</data>.
+					</p>
+					<a
+						href={`https://wa.me/34${phoneNumber}?text=${encodeURIComponent("¡Hola! Me gustaría reservar una sesión suelta en Femm tribu.")}`}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent font-body hover:text-accent/80 inline-flex items-center gap-1 text-sm font-semibold transition-colors"
+						onclick="window.gtag && window.gtag('event', 'cta_click', { cta_type: 'whatsapp', cta_label: 'sesion_suelta', page: window.location.pathname })"
+					>
+						Reservar sesión suelta
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+						>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		{/* Schema: Sesión suelta */}
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Service",
+				"name": "Sesión suelta de matrona",
+				"description":
+					"Consulta individual con matrona sobre lactancia, salud hormonal, preparación al parto o menopausia. Disponible online y presencial en Valencia.",
+				"provider": {
+					"@type": "Person",
+					"name": "María Belenguer",
+					"jobTitle": "Matrona",
+				},
+				"areaServed": [
+					{ "@type": "City", "name": "Valencia" },
+					{ "@type": "Country", "name": "España" },
+				],
+				"offers": {
+					"@type": "Offer",
+					"price": 50,
+					"priceCurrency": "EUR",
+					"availability": "https://schema.org/InStock",
+					"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+						.toISOString()
+						.split("T")[0],
+				},
+				"category": "Healthcare Services",
+				"audience": {
+					"@type": "PeopleAudience",
+					"suggestedGender": "female",
+				},
+			})}
+		/>
+
 		{/* CTA */}
 		<div
 			class="mt-16 text-center"
