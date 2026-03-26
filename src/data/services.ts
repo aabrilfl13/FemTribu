@@ -84,6 +84,22 @@ export const SERVICES: Record<string, ServiceData> = {
 				"Aprende a escuchar tu cuerpo con María Belenguer. Asesoría en salud hormonal, nutrición y ciclo menstrual en Valencia y online. ¡Vive en sintonía contigo!",
 		},
 	},
+	femmbarre: {
+		id: "femmbarre",
+		name: "FemmBarre Maternity",
+		nameShort: "FemmBarre",
+		description:
+			"Programa de barre prenatal online para acompañarte durante el embarazo a través del movimiento consciente y el fortalecimiento corporal. Guiado por María, matrona e instructora de Barre.",
+		url: "/servicios/femmbarre",
+		priceMin: 35,
+		priceMax: 35,
+		serviceType: "FemmBarre Maternity",
+		seo: {
+			title: "FemmBarre Maternity — Barre Prenatal Online | Femm tribu",
+			description:
+				"Barre prenatal online para embarazadas. Clase semanal en directo guiada por María, matrona e instructora de Barre. Movimiento consciente adaptado al embarazo. 35€/mes sin permanencia.",
+		},
+	},
 } as const
 
 /**

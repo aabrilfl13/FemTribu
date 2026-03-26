@@ -1,0 +1,428 @@
+---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import { SERVICES } from "@/data/services"
+import Layout from "@/layouts/Layout.astro"
+import { getAssetUrl } from "@/services/directus"
+
+export const prerender = true
+
+const serviceName = "FemmBarre Maternity"
+const serviceData = SERVICES.femmbarre
+
+const benefits = [
+	{
+		icon: "💪",
+		title: "Fuerza total body",
+		description:
+			"Trabajo de fuerza de todo el cuerpo con especial atención en espalda, abdomen, piernas y suelo pélvico.",
+	},
+	{
+		icon: "🧘",
+		title: "Movilidad y preparación al parto",
+		description:
+			"Ejercicios de movilidad pélvica y movimientos funcionales que mejoran tu bienestar y te preparan de cara al parto.",
+	},
+	{
+		icon: "👩‍⚕️",
+		title: "Guiado por María, matrona",
+		description:
+			"Las sesiones están guiadas por María, matrona e instructora de Barre, con un enfoque respetuoso, seguro y adaptado a cada etapa.",
+	},
+	{
+		icon: "💻",
+		title: "Online desde cualquier sitio",
+		description:
+			"Clase semanal en directo y acceso a todas las grabaciones para que entrenes a tu ritmo, cuando quieras.",
+	},
+]
+
+const scheduleItems = [{ day: "Martes", time: "19:15h", type: "Barre Maternity" }]
+
+// TODO: Descomentar cuando haya alumnas reales
+// const testimonials = [
+// 	{
+// 		name: "Laura M.",
+// 		text: "Me ha ayudado muchísimo con el dolor de espalda. Las clases son muy amenas y María adapta todo al momento del embarazo en el que estás.",
+// 		trimester: "3er trimestre",
+// 	},
+// 	{
+// 		name: "Ana G.",
+// 		text: "Nunca había hecho barre y me encanta. Me siento más fuerte y flexible. Además, tener a una matrona guiándote da mucha tranquilidad.",
+// 		trimester: "2do trimestre",
+// 	},
+// 	{
+// 		name: "Claudia R.",
+// 		text: "Lo mejor es poder hacerlo desde casa. Con el embarazo me costaba desplazarme y así no me pierdo ninguna clase. Las grabaciones son un plus.",
+// 		trimester: "3er trimestre",
+// 	},
+// ]
+
+const materials = [
+	{ name: "Esterilla o mat", required: true },
+	{ name: "Mancuernas 1-2 kg (o botellas de agua)", required: true },
+	{ name: "Pelota pequeña tipo pilates", required: true },
+	{ name: "Goma cerrada para piernas", required: true },
+	{ name: "Pelota grande de pilates", required: false },
+]
+
+const includedFeatures = [
+	"1 clase semanal en directo (martes 19:15h)",
+	"Acceso a la biblioteca de sesiones grabadas",
+	"Guiada por María, matrona e instructora de Barre",
+	"Adaptado a cada trimestre del embarazo",
+	"Sin permanencia — cancela cuando quieras",
+]
+
+const seoData = {
+	...serviceData.seo,
+	type: "website" as const,
+}
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+---
+
+<Layout navScrolled={true} {...seoData}>
+	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
+	<ServiceSchema
+		name={serviceData.name}
+		description={serviceData.description}
+		priceMin={serviceData.priceMin}
+		priceMax={serviceData.priceMax}
+		serviceType={serviceData.serviceType}
+	/>
+	<main id="main-content" class="pt-21">
+		<!-- Hero -->
+		<section class="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24">
+			<div
+				class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
+			>
+			</div>
+			<div
+				class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+			>
+			</div>
+
+			<div class="relative z-10 container mx-auto px-4 lg:px-8">
+				<div class="grid items-center gap-12 lg:grid-cols-2">
+					<!-- Text -->
+					<div class="text-center lg:text-left">
+						<span
+							class="bg-accent/10 text-accent border-accent/20 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							Suscripción mensual
+						</span>
+						<h1
+							class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.1s"
+						>
+							FemmBarre <span class="text-accent">Maternity</span>
+						</h1>
+						<p
+							class="text-muted-foreground mx-auto mb-8 max-w-lg text-lg leading-relaxed lg:mx-0"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.2s"
+						>
+							Un programa diseñado para acompañarte durante el embarazo a través del movimiento
+							consciente, el fortalecimiento corporal y la conexión con tu bebé. Guiado por María,
+							matrona e instructora de Barre.
+							<span class="text-accent">Online, desde donde estés.</span>
+						</p>
+
+						<div
+							class="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
+						>
+							<Button id="subscribe-btn" variant="hero" size="lg"> Suscribirse — 35€/mes </Button>
+							<Button id="trial-btn" variant="outline" size="lg"> Probar clase gratuita </Button>
+						</div>
+					</div>
+
+					<!-- Image -->
+					<div class="relative mx-auto w-full max-w-md lg:max-w-none">
+						<div
+							class="shadow-warm border-accent/20 rotate-2 overflow-hidden rounded-3xl border-2 transition-transform duration-500 hover:rotate-0"
+						>
+							<img
+								src={getAssetUrl("1bf490e2-19e6-479c-bfd7-27a04bd0e92f")}
+								alt="FemmBarre Maternity - Barre prenatal para embarazadas"
+								class="h-[400px] w-full object-cover object-top sm:h-[480px]"
+							/>
+						</div>
+						<div
+							class="bg-card shadow-warm border-border/50 absolute -bottom-4 -left-4 rounded-2xl border p-4"
+						>
+							<div class="flex items-center gap-2">
+								<div class="bg-accent/10 flex h-10 w-10 items-center justify-center rounded-full">
+									<img
+										src={getAssetUrl("79004c60-acc3-48b9-b2ec-d76a393cae7a")}
+										alt=""
+										class="h-7 w-7 object-contain"
+									/>
+								</div>
+								<div>
+									<p class="font-display text-primary text-sm">Online y en directo</p>
+									<p class="text-muted-foreground font-body text-xs">Martes 19:15h</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Benefits -->
+		<section class="bg-muted/30 py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-16 text-center">
+					<h2
+						class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						¿Por qué FemmBarre?
+					</h2>
+					<p class="text-muted-foreground mx-auto max-w-2xl">
+						Una práctica pensada para ti y tu bebé, con todos los beneficios del barre adaptados al
+						embarazo.
+					</p>
+				</div>
+
+				<div class="mx-auto grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+					{
+						benefits.map((benefit, index) => (
+							<div
+								class="bg-card border-border/50 hover:border-accent/30 hover:shadow-warm rounded-2xl border p-6 text-center transition-all duration-300"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 150}ms`}
+							>
+								<div class="bg-accent/10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl">
+									{benefit.icon}
+								</div>
+								<h3 class="font-display text-primary mb-2 text-lg">{benefit.title}</h3>
+								<p class="text-muted-foreground text-sm">{benefit.description}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Schedule -->
+		<section class="py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-3xl">
+					<div class="mb-12 text-center">
+						<h2
+							class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							Horario semanal
+						</h2>
+						<p class="text-muted-foreground">
+							Una sesión semanal en directo. Si no puedes asistir, todas las clases quedan grabadas
+							para que accedas cuando quieras.
+						</p>
+					</div>
+
+					<div class="space-y-4">
+						{
+							scheduleItems.map((item, index) => (
+								<div
+									class="bg-card border-border/50 hover:border-accent/30 flex items-center justify-between rounded-2xl border p-6 transition-colors"
+									data-animate="animate-fade-up"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 150}ms`}
+								>
+									<div class="flex items-center gap-4">
+										<div class="bg-accent/10 flex h-12 w-12 items-center justify-center rounded-xl text-xl">
+											📅
+										</div>
+										<div>
+											<p class="font-display text-primary text-lg">{item.day}</p>
+											<p class="text-muted-foreground text-sm">{item.time}</p>
+										</div>
+									</div>
+									<span class="bg-secondary/10 text-secondary border-secondary/20 rounded-full border px-3 py-1 text-sm">
+										{item.type}
+									</span>
+								</div>
+							))
+						}
+					</div>
+
+					<p class="text-muted-foreground mt-6 text-center text-sm">
+						* Los horarios pueden variar. Se avisará con antelación de cualquier cambio.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Material necesario -->
+		<section class="bg-muted/30 py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-3xl">
+					<div class="mb-12 text-center">
+						<h2
+							class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							¿Qué necesitas?
+						</h2>
+						<p class="text-muted-foreground">
+							Material sencillo y accesible. Si no dispones de algo, siempre se ofrecen
+							alternativas.
+						</p>
+					</div>
+
+					<div class="grid gap-4 sm:grid-cols-2">
+						{
+							materials.map((item, index) => (
+								<div
+									class="bg-card border-border/50 flex items-center gap-4 rounded-2xl border p-5"
+									data-animate="animate-fade-up"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 100}ms`}
+								>
+									<div
+										class={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl text-lg ${item.required ? "bg-accent/10" : "bg-muted"}`}
+									>
+										{item.required ? "✓" : "~"}
+									</div>
+									<div>
+										<p class="font-display text-primary text-sm">{item.name}</p>
+										{!item.required && <p class="text-muted-foreground text-xs">Opcional</p>}
+									</div>
+								</div>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- TODO: Testimonials — descomentar cuando haya alumnas reales
+		<section class="bg-accent/5 py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<h2
+					class="font-display text-primary mb-12 text-center text-3xl lg:text-4xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					Lo que dicen nuestras alumnas
+				</h2>
+
+				<div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+					{
+						testimonials.map((t, index) => (
+							<div
+								class="bg-card border-border/50 rounded-2xl border p-6"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 150}ms`}
+							>
+								<div class="mb-4 flex gap-1">
+									{[...Array(5)].map(() => (
+										<span class="text-accent text-sm">★</span>
+									))}
+								</div>
+								<p class="text-muted-foreground mb-4 leading-relaxed italic">"{t.text}"</p>
+								<div class="flex items-center justify-between">
+									<p class="font-display text-primary">{t.name}</p>
+									<span class="border-border/50 rounded-full border px-3 py-1 text-xs">
+										{t.trimester}
+									</span>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	-->
+
+		<!-- CTA / Pricing -->
+		<section class="py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="from-accent/10 via-background to-coral/10 border-accent/20 mx-auto max-w-3xl rounded-3xl border bg-gradient-to-br p-12 text-center"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					<h2 class="font-display text-primary mb-4 text-3xl lg:text-4xl">
+						Empieza hoy tus clases de FemmBarre
+					</h2>
+					<p class="text-muted-foreground mx-auto mb-8 max-w-lg">
+						Únete a la comunidad de mamás que cuidan su cuerpo y su mente durante el embarazo.
+						Cancela cuando quieras.
+					</p>
+					<div class="mb-6 flex items-center justify-center gap-4">
+						<span class="font-display text-primary text-5xl">35€</span>
+						<span class="text-muted-foreground">/mes</span>
+					</div>
+					<ul
+						class="text-muted-foreground mb-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm"
+					>
+						{
+							includedFeatures.map((feature) => (
+								<li class="flex items-center gap-2">
+									<svg
+										class="text-accent h-4 w-4 flex-shrink-0"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="3"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polyline points="20 6 9 17 4 12" />
+									</svg>
+									{feature}
+								</li>
+							))
+						}
+					</ul>
+					<Button id="subscribe-cta-btn" variant="hero" size="lg"> Suscribirse ahora </Button>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script define:vars={{ phoneNumber, serviceName }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const subscribeBtn = document.getElementById("subscribe-btn")
+		const subscribeCta = document.getElementById("subscribe-cta-btn")
+		const trialBtn = document.getElementById("trial-btn")
+
+		const handleSubscribe = () => {
+			const message = encodeURIComponent(
+				`Hola! Me interesa suscribirme a *${serviceName}* de *Femm tribu*.`
+			)
+			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+		}
+
+		const handleTrial = () => {
+			const message = encodeURIComponent(
+				`Hola! Me gustaría probar una clase gratuita de *${serviceName}* de *Femm tribu*.`
+			)
+			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+		}
+
+		subscribeBtn?.addEventListener("click", handleSubscribe)
+		subscribeCta?.addEventListener("click", handleSubscribe)
+		trialBtn?.addEventListener("click", handleTrial)
+	})
+</script>
