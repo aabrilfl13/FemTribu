@@ -2,6 +2,8 @@
 import ServiceInfoModal from "@/components/modals/ServiceInfoModal.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import Button from "@/components/ui/Button.astro"
+import { SERVICES } from "@/data/services"
+import { getAssetUrl } from "@/services/directus"
 
 const services = [
 	{
@@ -82,6 +84,14 @@ const colorClasses = {
 }
 
 const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+const femmbarre = SERVICES.femmbarre
+
+const femmbarreFeatures = [
+	"1 clase semanal en directo",
+	"Acceso a grabaciones",
+	"Guiado por matrona profesional",
+	"Adaptado a cada trimestre",
+]
 ---
 
 <section id="servicios" class="bg-coral-light/10 relative overflow-hidden py-20 lg:py-28">
@@ -277,6 +287,137 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			serviceType="Consulta de matrona"
 			priceMin={50}
 		/>
+
+		{/* Más de FemmTribu — FemmBarre */}
+		<div class="mt-20">
+			<div class="mx-auto mb-12 text-center">
+				<span
+					class="bg-accent/10 text-accent font-body mb-4 inline-block rounded-full px-4 py-2 text-sm"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					Más de FemmTribu
+				</span>
+				<h3
+					class="font-display text-forest mb-4 text-3xl md:text-4xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					Bienestar y movimiento
+				</h3>
+				<p
+					class="text-forest/70 font-body mx-auto max-w-2xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					Además de nuestros servicios de acompañamiento, ofrecemos actividades de bienestar
+					diseñadas para cada etapa.
+				</p>
+			</div>
+
+			<div class="mx-auto max-w-3xl">
+				<div
+					class="group bg-background border-accent/20 hover:border-accent/40 hover:shadow-warm relative grid overflow-hidden rounded-3xl border-2 transition-all duration-300 md:grid-cols-5"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					{/* Image — left column */}
+					<div class="relative h-48 overflow-hidden md:col-span-2 md:h-full">
+						<img
+							src={getAssetUrl("1bf490e2-19e6-479c-bfd7-27a04bd0e92f")}
+							alt="FemmBarre Maternity — Barre prenatal para embarazadas"
+							class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+							loading="lazy"
+						/>
+						<div
+							class="from-background/60 md:from-background/30 absolute inset-0 bg-gradient-to-t to-transparent md:bg-gradient-to-r"
+						>
+						</div>
+						<span
+							class="bg-accent text-accent-foreground font-body absolute top-4 left-4 inline-flex items-center gap-1 rounded-full border-0 px-3 py-1 text-xs font-medium"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="12"
+								height="12"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line
+									x1="16"
+									y1="2"
+									x2="16"
+									y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line
+									x1="3"
+									y1="10"
+									x2="21"
+									y2="10"></line></svg
+							>
+							Suscripción mensual
+						</span>
+					</div>
+
+					{/* Content — right column */}
+					<div class="p-6 md:col-span-3">
+						<h4 class="font-display text-forest mb-1 text-xl">
+							<a href={femmbarre.url} class="hover:text-accent transition-colors">
+								{femmbarre.name}
+							</a>
+						</h4>
+						<p class="text-forest/60 font-body mb-3 text-sm">Barre prenatal para embarazadas</p>
+
+						<p class="text-forest/70 font-body mb-4 text-sm leading-relaxed">
+							Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier
+							sitio, a tu ritmo y con total seguridad.
+						</p>
+
+						<ul class="mb-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
+							{
+								femmbarreFeatures.map((feature) => (
+									<li class="text-forest/70 font-body flex items-center gap-2 text-xs">
+										<span class="bg-accent h-1.5 w-1.5 flex-shrink-0 rounded-full" />
+										{feature}
+									</li>
+								))
+							}
+						</ul>
+
+						<div class="border-forest/10 flex items-center justify-between border-t pt-4">
+							<div>
+								<span class="font-display text-forest text-xl">{femmbarre.priceMin}€</span>
+								<span class="text-forest/60 font-body text-xs">/mes</span>
+							</div>
+							<Button
+								href={femmbarre.url}
+								variant="primary"
+								size="sm"
+								class="bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic rounded-full text-sm transition-all duration-300 hover:scale-105"
+							>
+								Descubre FemmBarre
+							</Button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Schema: FemmBarre */}
+			<ServiceSchema
+				name={femmbarre.name}
+				description={femmbarre.description}
+				serviceType={femmbarre.serviceType}
+				priceMin={femmbarre.priceMin}
+				isSubscription={true}
+				billingPeriod="month"
+				onlineOnly={true}
+				url={femmbarre.url}
+			/>
+		</div>
 
 		{/* CTA */}
 		<div
