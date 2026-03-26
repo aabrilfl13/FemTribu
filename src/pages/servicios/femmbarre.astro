@@ -1,7 +1,6 @@
 ---
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
-import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
 import Button from "@/components/ui/Button.astro"
 import { SERVICES } from "@/data/services"
 import Layout from "@/layouts/Layout.astro"
@@ -14,25 +13,25 @@ const serviceData = SERVICES.femmbarre
 
 const benefits = [
 	{
-		icon: "💪",
+		icon: "b6de0f5d-eebd-4a32-996c-8baaf980378f",
 		title: "Fuerza total body",
 		description:
 			"Trabajo de fuerza de todo el cuerpo con especial atención en espalda, abdomen, piernas y suelo pélvico.",
 	},
 	{
-		icon: "🧘",
+		icon: "6ee80f09-cb27-4bcc-bc5c-cdd6b15ac547",
 		title: "Movilidad y preparación al parto",
 		description:
 			"Ejercicios de movilidad pélvica y movimientos funcionales que mejoran tu bienestar y te preparan de cara al parto.",
 	},
 	{
-		icon: "👩‍⚕️",
+		icon: "072ed3fb-40ab-45e7-ba35-c79f349bb176",
 		title: "Guiado por María, matrona",
 		description:
 			"Las sesiones están guiadas por María, matrona e instructora de Barre, con un enfoque respetuoso, seguro y adaptado a cada etapa.",
 	},
 	{
-		icon: "💻",
+		icon: "13bac3ec-332d-497e-88c1-142652fdfb67",
 		title: "Online desde cualquier sitio",
 		description:
 			"Clase semanal en directo y acceso a todas las grabaciones para que entrenes a tu ritmo, cuando quieras.",
@@ -164,9 +163,9 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 							<div class="flex items-center gap-2">
 								<div class="bg-accent/10 flex h-10 w-10 items-center justify-center rounded-full">
 									<img
-										src={getAssetUrl("79004c60-acc3-48b9-b2ec-d76a393cae7a")}
+										src={getAssetUrl("7e0777a9-a0b5-44c4-a67f-14ec78c9f9fa")}
 										alt=""
-										class="h-7 w-7 object-contain"
+										class="h-6 w-6 object-contain"
 									/>
 								</div>
 								<div>
@@ -207,7 +206,11 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 								data-animate-delay={`${index * 150}ms`}
 							>
 								<div class="bg-accent/10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-2xl">
-									{benefit.icon}
+									<img
+										src={getAssetUrl(benefit.icon)}
+										alt={benefit.title}
+										class="h-8 w-8 object-contain"
+									/>
 								</div>
 								<h3 class="font-display text-primary mb-2 text-lg">{benefit.title}</h3>
 								<p class="text-muted-foreground text-sm">{benefit.description}</p>
@@ -247,7 +250,11 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 								>
 									<div class="flex items-center gap-4">
 										<div class="bg-accent/10 flex h-12 w-12 items-center justify-center rounded-xl text-xl">
-											📅
+											<img
+												src={getAssetUrl("ca8e9ea4-0520-42e3-a1cc-da142f8a674f")}
+												alt=""
+												class="h-6 w-6 object-contain"
+											/>
 										</div>
 										<div>
 											<p class="font-display text-primary text-lg">{item.day}</p>
