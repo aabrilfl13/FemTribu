@@ -4,11 +4,16 @@ import TikTokIcon from "@/assets/iconos/tiktok.svg"
 import Button from "@/components/ui/Button.astro"
 
 // Define the interface for navigation items
+interface NavSubGroup {
+	label: string
+	items: { label: string; href: string }[]
+}
+
 interface NavItem {
 	href: string
 	label: string
 	disabled?: boolean
-	subItems?: { label: string; href: string }[]
+	subGroups?: NavSubGroup[]
 }
 
 // Accept navItems as a prop
@@ -34,7 +39,7 @@ const { navItems } = Astro.props
 				{
 					navItems.map((item, index) => (
 						<div class="mobile-nav-item">
-							{item.subItems ? (
+							{item.subGroups ? (
 								<>
 									<button
 										class:list={[
@@ -63,11 +68,20 @@ const { navItems } = Astro.props
 										</svg>
 									</button>
 									<div class="mobile-submenu max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-										<div class="flex flex-col gap-2 pt-2 pl-4">
-											{item.subItems.map((subItem) => (
-												<a href={subItem.href} class="mobile-link mobile-sublink text-sm">
-													{subItem.label}
-												</a>
+										<div class="flex flex-col gap-3 pt-2 pl-4">
+											{item.subGroups.map((group) => (
+												<div>
+													<p class="mb-1 text-[11px] font-semibold tracking-wider opacity-60 uppercase">
+														{group.label}
+													</p>
+													<div class="flex flex-col gap-1">
+														{group.items.map((subItem) => (
+															<a href={subItem.href} class="mobile-link mobile-sublink text-sm">
+																{subItem.label}
+															</a>
+														))}
+													</div>
+												</div>
 											))}
 										</div>
 									</div>
