@@ -89,8 +89,10 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		name={serviceData.name}
 		description={serviceData.description}
 		priceMin={serviceData.priceMin}
-		priceMax={serviceData.priceMax}
 		serviceType={serviceData.serviceType}
+		isSubscription={true}
+		billingPeriod="month"
+		onlineOnly={true}
 	/>
 	<main id="main-content" class="pt-21">
 		<!-- Hero -->

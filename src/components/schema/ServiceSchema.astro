@@ -9,6 +9,17 @@
  *   priceMax={220}
  *   serviceType="Lactancia"
  * />
+ *
+ * Para suscripciones:
+ * <ServiceSchema
+ *   name="FemmBarre Maternity"
+ *   description="..."
+ *   priceMin={35}
+ *   serviceType="FemmBarre Maternity"
+ *   isSubscription={true}
+ *   billingPeriod="month"
+ *   onlineOnly={true}
+ * />
  */
 
 export interface Props {
@@ -19,9 +30,23 @@ export interface Props {
 	serviceType: string
 	image?: string
 	url?: string
+	isSubscription?: boolean
+	billingPeriod?: "month" | "year" | "week"
+	onlineOnly?: boolean
 }
 
-const { name, description, priceMin, priceMax, serviceType, image, url } = Astro.props
+const {
+	name,
+	description,
+	priceMin,
+	priceMax,
+	serviceType,
+	image,
+	url,
+	isSubscription = false,
+	billingPeriod = "month",
+	onlineOnly = false,
+} = Astro.props
 
 const siteUrl = Astro.site?.toString() || "https://femmtribu.es"
 const pageUrl = url || new URL(Astro.url.pathname, siteUrl).toString()
@@ -63,53 +88,68 @@ const serviceSchema = {
 	],
 
 	// Disponibilidad
-	"availableChannel": [
-		{
-			"@type": "ServiceChannel",
-			"serviceLocation": {
-				"@type": "Place",
-				"address": {
-					"@type": "PostalAddress",
-					"addressLocality": "Valencia",
-					"addressRegion": "Comunidad Valenciana",
-					"addressCountry": "ES",
+	"availableChannel": onlineOnly
+		? [{ "@type": "ServiceChannel", "name": "Online" }]
+		: [
+				{
+					"@type": "ServiceChannel",
+					"serviceLocation": {
+						"@type": "Place",
+						"address": {
+							"@type": "PostalAddress",
+							"addressLocality": "Valencia",
+							"addressRegion": "Comunidad Valenciana",
+							"addressCountry": "ES",
+						},
+					},
 				},
-			},
-		},
-		{
-			"@type": "ServiceChannel",
-			"name": "Online",
-		},
-	],
+				{
+					"@type": "ServiceChannel",
+					"name": "Online",
+				},
+			],
 
 	// Oferta con precio
-	"offers": {
-		"@type": "AggregateOffer",
-		"priceCurrency": "EUR",
-		"lowPrice": priceMin,
-		"highPrice": priceMax || priceMin,
-		"price": priceMin,
-		"availability": "https://schema.org/InStock",
-		"url": pageUrl,
-		"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-			.toISOString()
-			.split("T")[0],
-		"validFrom": new Date().toISOString().split("T")[0],
-		"acceptedPaymentMethod": [
-			{
-				"@type": "PaymentMethod",
-				"name": "Cash",
+	"offers": isSubscription
+		? {
+				"@type": "Offer",
+				"priceCurrency": "EUR",
+				"price": priceMin,
+				"availability": "https://schema.org/InStock",
+				"url": pageUrl,
+				"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+					.toISOString()
+					.split("T")[0],
+				"priceSpecification": {
+					"@type": "UnitPriceSpecification",
+					"price": priceMin,
+					"priceCurrency": "EUR",
+					"billingDuration": 1,
+					"unitCode": billingPeriod === "month" ? "MON" : billingPeriod === "year" ? "ANN" : "WEE",
+				},
+				"acceptedPaymentMethod": [
+					{ "@type": "PaymentMethod", "name": "Credit Card" },
+					{ "@type": "PaymentMethod", "name": "Bank Transfer" },
+				],
+			}
+		: {
+				"@type": "AggregateOffer",
+				"priceCurrency": "EUR",
+				"lowPrice": priceMin,
+				"highPrice": priceMax || priceMin,
+				"price": priceMin,
+				"availability": "https://schema.org/InStock",
+				"url": pageUrl,
+				"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+					.toISOString()
+					.split("T")[0],
+				"validFrom": new Date().toISOString().split("T")[0],
+				"acceptedPaymentMethod": [
+					{ "@type": "PaymentMethod", "name": "Cash" },
+					{ "@type": "PaymentMethod", "name": "Credit Card" },
+					{ "@type": "PaymentMethod", "name": "Bank Transfer" },
+				],
 			},
-			{
-				"@type": "PaymentMethod",
-				"name": "Credit Card",
-			},
-			{
-				"@type": "PaymentMethod",
-				"name": "Bank Transfer",
-			},
-		],
-	},
 
 	// Categoría
 	"category": "Healthcare Services",
