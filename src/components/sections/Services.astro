@@ -1,5 +1,6 @@
 ---
 import ServiceInfoModal from "@/components/modals/ServiceInfoModal.astro"
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import Button from "@/components/ui/Button.astro"
 
 const services = [
@@ -270,39 +271,11 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</div>
 
 		{/* Schema: Sesión suelta */}
-		<script
-			is:inline
-			type="application/ld+json"
-			set:html={JSON.stringify({
-				"@context": "https://schema.org",
-				"@type": "Service",
-				"name": "Sesión suelta de matrona",
-				"description":
-					"Consulta individual con matrona sobre lactancia, salud hormonal, preparación al parto o menopausia. Disponible online y presencial en Valencia.",
-				"provider": {
-					"@type": "Person",
-					"name": "María Belenguer",
-					"jobTitle": "Matrona",
-				},
-				"areaServed": [
-					{ "@type": "City", "name": "Valencia" },
-					{ "@type": "Country", "name": "España" },
-				],
-				"offers": {
-					"@type": "Offer",
-					"price": 50,
-					"priceCurrency": "EUR",
-					"availability": "https://schema.org/InStock",
-					"priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-						.toISOString()
-						.split("T")[0],
-				},
-				"category": "Healthcare Services",
-				"audience": {
-					"@type": "PeopleAudience",
-					"suggestedGender": "female",
-				},
-			})}
+		<ServiceSchema
+			name="Sesión suelta de matrona"
+			description="Consulta individual con matrona sobre lactancia, salud hormonal, preparación al parto o menopausia. Disponible online y presencial en Valencia."
+			serviceType="Consulta de matrona"
+			priceMin={50}
 		/>
 
 		{/* CTA */}
