@@ -95,17 +95,16 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		onlineOnly={true}
 	/>
 	<main id="main-content" class="pt-21">
+		<div
+			class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
+		>
+		</div>
+		<div
+			class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+		>
+		</div>
 		<!-- Hero -->
-		<section class="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24">
-			<div
-				class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
-			>
-			</div>
-			<div
-				class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-			>
-			</div>
-
+		<section class="relative mt-16 overflow-hidden pb-16 lg:pb-24">
 			<div class="relative z-10 container mx-auto px-4 lg:px-8">
 				<div class="grid items-center gap-12 lg:grid-cols-2">
 					<!-- Text -->
@@ -152,6 +151,9 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					<div class="relative mx-auto w-full max-w-md lg:max-w-none">
 						<div
 							class="shadow-warm border-accent/20 rotate-2 overflow-hidden rounded-3xl border-2 transition-transform duration-500 hover:rotate-0"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
 						>
 							<img
 								src={getAssetUrl("1bf490e2-19e6-479c-bfd7-27a04bd0e92f")}
@@ -163,6 +165,9 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 						</div>
 						<div
 							class="bg-card shadow-warm border-border/50 absolute -bottom-4 -left-4 rounded-2xl border p-4"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.6s"
 						>
 							<div class="flex items-center gap-2">
 								<div class="bg-accent/10 flex h-10 w-10 items-center justify-center rounded-full">
