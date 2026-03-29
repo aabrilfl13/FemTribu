@@ -61,4 +61,13 @@ export const env = {
 	get isProd() {
 		return import.meta.env.DEBUG == false && import.meta.env.ENV === "production"
 	},
+	get supabaseUrl() {
+		return import.meta.env.STORAGE_SUPABASE_URL
+	},
+	get supabaseAnonKey() {
+		return import.meta.env.STORAGE_SUPABASE_ANON_KEY
+	},
+	get supabaseServiceRoleKey() {
+		return import.meta.env.STORAGE_SUPABASE_SERVICE_ROLE_KEY
+	},
 } as const
