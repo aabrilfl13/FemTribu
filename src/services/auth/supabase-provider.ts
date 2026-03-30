@@ -5,11 +5,20 @@ import type { AuthResult, AuthSession, SignUpCredentials } from "./types"
 export class SupabaseAuthProvider implements AuthProvider {
 	private supabase = createSupabaseBrowserClient()
 
-	async signUp(credentials: SignUpCredentials): Promise<AuthResult<AuthSession>> {
-		const { data, error } = await this.supabase.auth.signUp({
+	async signUp(
+		credentials: SignUpCredentials,
+		options?: { cookies?: unknown; emailRedirectTo?: string }
+	): Promise<AuthResult<AuthSession>> {
+		// Use server client if cookies provided, otherwise browser client
+		const supabase = options?.cookies
+			? createSupabaseServerClient(options.cookies as AstroCookies)
+			: this.supabase
+
+		const { data, error } = await supabase.auth.signUp({
 			email: credentials.email,
 			password: credentials.password,
 			options: {
+				emailRedirectTo: options?.emailRedirectTo,
 				data: {
 					display_name: credentials.displayName || null,
 				},

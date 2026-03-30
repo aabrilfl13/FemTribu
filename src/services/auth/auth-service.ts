@@ -21,6 +21,10 @@ export function setAuthProvider(newProvider: AuthProvider): void {
 
 // Convenience exports - delegate to the active provider
 
-export function signUp(credentials: SignUpCredentials): Promise<AuthResult<AuthSession>> {
-	return provider.signUp(credentials)
+export function signUp(
+	credentials: SignUpCredentials,
+	options?: { cookies?: unknown; emailRedirectTo?: string }
+): Promise<AuthResult<AuthSession>> {
+	return provider.signUp(credentials, options)
 }
+
