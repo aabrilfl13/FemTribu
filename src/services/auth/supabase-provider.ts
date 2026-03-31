@@ -84,6 +84,27 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 	}
 
+	async signOut(options?: { cookies?: unknown }): Promise<AuthResult> {
+		// Use server client if cookies provided, otherwise browser client
+		const supabase = options?.cookies
+			? createSupabaseServerClient(options.cookies as AstroCookies)
+			: this.supabase
+
+		const { error } = await supabase.auth.signOut()
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		return {
+			data: null,
+			error: null,
+		}
+	}
+
 	async exchangeCodeForSession(code: string, cookies?: unknown): Promise<AuthResult<AuthSession>> {
 		// Use server client if cookies provided, otherwise browser client
 		const supabase = cookies ? createSupabaseServerClient(cookies as AstroCookies) : this.supabase

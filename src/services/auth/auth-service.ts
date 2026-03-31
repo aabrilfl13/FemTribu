@@ -35,6 +35,10 @@ export function signIn(
 	return provider.signIn(credentials, options)
 }
 
+export function signOut(options?: { cookies?: unknown }): Promise<AuthResult> {
+	return provider.signOut(options)
+}
+
 export function exchangeCodeForSession(
 	code: string,
 	cookies?: unknown

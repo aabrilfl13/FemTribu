@@ -17,6 +17,7 @@ export {
 	setAuthProvider,
 	signUp,
 	signIn,
+	signOut,
 	exchangeCodeForSession,
 } from "./auth-service"
 

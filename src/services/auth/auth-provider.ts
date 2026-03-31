@@ -10,6 +10,7 @@ export interface AuthProvider {
 		credentials: SignInCredentials,
 		options?: { cookies?: unknown }
 	): Promise<AuthResult<AuthSession>>
+	signOut(options?: { cookies?: unknown }): Promise<AuthResult>
 
 	// OAuth/Email callback handling
 	exchangeCodeForSession(code: string, cookies?: unknown): Promise<AuthResult<AuthSession>>
