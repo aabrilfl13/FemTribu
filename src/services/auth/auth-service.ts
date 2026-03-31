@@ -28,3 +28,9 @@ export function signUp(
 	return provider.signUp(credentials, options)
 }
 
+export function exchangeCodeForSession(
+	code: string,
+	cookies?: unknown
+): Promise<AuthResult<AuthSession>> {
+	return provider.exchangeCodeForSession(code, cookies)
+}
