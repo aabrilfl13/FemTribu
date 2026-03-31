@@ -2,7 +2,14 @@ import type { AstroCookies } from "astro"
 
 import type { AuthProvider } from "./auth-provider"
 import { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"
-import type { AuthError, AuthResult, AuthSession, AuthUser, SignUpCredentials } from "./types"
+import type {
+	AuthError,
+	AuthResult,
+	AuthSession,
+	AuthUser,
+	SignInCredentials,
+	SignUpCredentials,
+} from "./types"
 
 export class SupabaseAuthProvider implements AuthProvider {
 	private supabase = createSupabaseBrowserClient()
@@ -41,6 +48,33 @@ export class SupabaseAuthProvider implements AuthProvider {
 					message: "Por favor verifica tu correo electrónico para completar el registro",
 					code: "email_verification_required",
 				},
+			}
+		}
+
+		return {
+			data: this.mapSession(data.session),
+			error: null,
+		}
+	}
+
+	async signIn(
+		credentials: SignInCredentials,
+		options?: { cookies?: unknown }
+	): Promise<AuthResult<AuthSession>> {
+		// Use server client if cookies provided, otherwise browser client
+		const supabase = options?.cookies
+			? createSupabaseServerClient(options.cookies as AstroCookies)
+			: this.supabase
+
+		const { data, error } = await supabase.auth.signInWithPassword({
+			email: credentials.email,
+			password: credentials.password,
+		})
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
 			}
 		}
 
