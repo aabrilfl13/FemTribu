@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="supported-color-schemes" content="light dark" />
+		<title>Recupera tu contraseña - Femm tribu</title>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Questrial&family=Playfair+Display:wght@400;700&display=swap");
+
+			:root {
+				color-scheme: light dark;
+				supported-color-schemes: light dark;
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "Questrial", Arial, sans-serif;
+				background-color: #fff5eb;
+				color: #37443a;
+				line-height: 1.6;
+			}
+
+			/* Dark Theme */
+			@media (prefers-color-scheme: dark) {
+				body {
+					background-color: #18201a;
+					color: #d5a18e;
+				}
+
+				.container {
+					background-color: #24322a;
+				}
+
+				.content {
+					background-color: #24322a;
+				}
+
+				.company-name {
+					color: #fff5eb;
+				}
+
+				.title {
+					color: #fff5eb;
+				}
+
+				.text {
+					color: #d5a18e;
+				}
+
+				.info-box {
+					background-color: #37443a;
+					border-left-color: #cb6e5f;
+				}
+
+				.info-text {
+					color: #d5a18e;
+				}
+
+				.security-box {
+					background-color: #37443a;
+				}
+
+				.security-text {
+					color: #d5a18e;
+				}
+			}
+
+			.container {
+				max-width: 600px;
+				margin: 0 auto;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			.header {
+				background: linear-gradient(135deg, #6a8067 0%, #37443a 100%);
+				padding: 40px 30px;
+				text-align: center;
+				position: relative;
+			}
+
+			.company-name {
+				color: #fff5eb;
+				font-family: "Playfair Display", serif;
+				font-size: 42px;
+				font-weight: 700;
+				margin: 0;
+				letter-spacing: 1px;
+			}
+
+			.company-tagline {
+				color: #d5a18e;
+				font-size: 14px;
+				margin-top: 10px;
+				font-style: italic;
+			}
+
+			.content {
+				padding: 40px 30px;
+				background-color: #ffffff;
+			}
+
+			.title {
+				color: #37443a;
+				font-family: "Playfair Display", serif;
+				font-size: 28px;
+				margin-bottom: 20px;
+				text-align: center;
+				font-weight: bold;
+			}
+
+			.text {
+				color: #6a8067;
+				font-size: 16px;
+				margin-bottom: 25px;
+				text-align: center;
+				line-height: 1.7;
+			}
+
+			.info-box {
+				background-color: #fff5eb;
+				padding: 20px;
+				border-radius: 10px;
+				border-left: 4px solid #cb6e5f;
+				margin: 30px 0;
+			}
+
+			.info-text {
+				color: #37443a;
+				font-size: 15px;
+				margin: 0;
+				line-height: 1.6;
+			}
+
+			.button-container {
+				text-align: center;
+				margin: 35px 0;
+			}
+
+			.cta-button {
+				display: inline-block;
+				background: linear-gradient(135deg, #cb6e5f 0%, #a22f11 100%);
+				color: #fff5eb;
+				padding: 16px 40px;
+				text-decoration: none;
+				border-radius: 30px;
+				font-size: 16px;
+				font-weight: bold;
+				transition:
+					transform 0.3s ease,
+					box-shadow 0.3s ease;
+				box-shadow: 0 4px 15px rgba(203, 110, 95, 0.3);
+			}
+
+			.cta-button:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 6px 20px rgba(203, 110, 95, 0.4);
+			}
+
+			.security-box {
+				background-color: #fff5eb;
+				padding: 20px;
+				border-radius: 10px;
+				margin: 30px 0;
+				border: 2px solid #cb6e5f;
+			}
+
+			.security-title {
+				color: #cb6e5f;
+				font-size: 16px;
+				font-weight: bold;
+				margin: 0 0 10px 0;
+				text-align: center;
+			}
+
+			.security-text {
+				color: #6a8067;
+				font-size: 13px;
+				margin: 0;
+				line-height: 1.6;
+				text-align: center;
+			}
+
+			.security-list {
+				color: #6a8067;
+				font-size: 13px;
+				margin: 15px 0 0 0;
+				padding-left: 20px;
+				text-align: left;
+			}
+
+			.security-list li {
+				margin-bottom: 8px;
+			}
+
+			.footer {
+				background-color: #37443a;
+				padding: 30px 20px;
+				text-align: center;
+			}
+
+			.footer-content {
+				color: #d5a18e;
+				font-size: 14px;
+				margin-bottom: 20px;
+			}
+
+			.footer-contact {
+				color: #6a8067;
+				font-size: 13px;
+				margin-bottom: 15px;
+			}
+
+			.social-links {
+				margin-top: 20px;
+			}
+
+			.social-link {
+				color: #cb6e5f;
+				text-decoration: none;
+				margin: 0 15px;
+				font-size: 14px;
+				display: inline-flex;
+				align-items: center;
+				transition:
+					color 0.3s ease,
+					transform 0.3s ease;
+			}
+
+			.social-link:hover {
+				color: #d5a18e;
+				transform: translateY(-2px);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<!-- Header -->
+			<div class="header">
+				<h1 class="company-name">Femm tribu</h1>
+				<p class="company-tagline">Tu comunidad de salud integral femenina</p>
+			</div>
+
+			<!-- Content -->
+			<div class="content">
+				<h2 class="title">Recupera tu contraseña</h2>
+
+				<p class="text">
+					Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en Femm tribu. No
+					te preocupes, ¡estamos aquí para ayudarte!
+				</p>
+
+				<div class="info-box">
+					<p class="info-text">
+						Para crear una nueva contraseña y recuperar el acceso a tu cuenta, simplemente haz clic
+						en el botón de abajo. Este enlace es seguro y solo tú puedes usarlo.
+					</p>
+				</div>
+
+				<!-- CTA Button -->
+				<div class="button-container">
+					<a href="{{ .ConfirmationURL }}" class="cta-button">Restablecer mi contraseña</a>
+				</div>
+
+				<p class="text">
+					Una vez que hagas clic, podrás elegir una nueva contraseña y volver a acceder a toda la
+					comunidad, contenido exclusivo y recursos de Femm tribu.
+				</p>
+
+				<!-- Security Note -->
+				<div class="security-box">
+					<p class="security-title">🔒 Información importante de seguridad</p>
+					<p class="security-text">
+						<strong>Si NO has solicitado restablecer tu contraseña:</strong>
+					</p>
+					<ul class="security-list">
+						<li>Ignora este correo y no hagas clic en el enlace</li>
+						<li>Tu cuenta está segura y no se realizará ningún cambio</li>
+						<li>
+							Si recibes estos correos con frecuencia, contáctanos en
+							<strong>hola@femmtribu.com</strong>
+						</li>
+					</ul>
+					<p class="security-text" style="margin-top: 15px">
+						<strong>Por tu seguridad:</strong> Este enlace expirará en 60 minutos y solo puede
+						usarse una vez.
+					</p>
+				</div>
+
+				<p class="text" style="font-size: 14px; color: #6a8067; margin-top: 30px">
+					Si tienes problemas con el botón, copia y pega este enlace en tu navegador:<br />
+					<span style="word-break: break-all; font-size: 12px">{{ .ConfirmationURL }}</span>
+				</p>
+			</div>
+
+			<!-- Footer -->
+			<div class="footer">
+				<div class="footer-content">
+					<p>¿Necesitas ayuda? Estoy aquí para acompañarte.</p>
+				</div>
+				<div class="footer-contact">
+					<p>✉️ info@femmtribu.com</p>
+					<p style="margin-top: 10px">📍 Valencia, España</p>
+				</div>
+				<div class="social-links">
+					<a
+						href="https://www.instagram.com/femm.tribu/"
+						class="social-link"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							style="vertical-align: middle; margin-right: 8px"
+						>
+							<path
+								d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+							/>
+						</svg>
+						Instagram
+					</a>
+					<a
+						href="https://www.tiktok.com/@merypebe"
+						class="social-link"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<svg
+							width="20"
+							height="20"
+							viewBox="0 0 24 24"
+							fill="currentColor"
+							style="vertical-align: middle; margin-right: 8px"
+						>
+							<path
+								d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-.88-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"
+							/>
+						</svg>
+						TikTok
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
