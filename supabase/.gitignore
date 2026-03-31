@@ -7,4 +7,3 @@
 
 # Docker volumes (stored in parent .supabase/ directory)
 volumes/
-migrations/
