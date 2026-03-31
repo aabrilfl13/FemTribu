@@ -19,6 +19,12 @@ export interface SignUpCredentials {
 	password: string
 	displayName?: string
 }
+
+export interface SignInCredentials {
+	email: string
+	password: string
+}
+
 export interface AuthError {
 	message: string
 	code: string

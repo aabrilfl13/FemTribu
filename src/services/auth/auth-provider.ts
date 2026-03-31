@@ -1,4 +1,4 @@
-import type { AuthResult, AuthSession, SignUpCredentials } from "./types"
+import type { AuthResult, AuthSession, SignInCredentials, SignUpCredentials } from "./types"
 
 export interface AuthProvider {
 	// Authentication
@@ -6,7 +6,11 @@ export interface AuthProvider {
 		credentials: SignUpCredentials,
 		options?: { cookies?: unknown; emailRedirectTo?: string }
 	): Promise<AuthResult<AuthSession>>
+	signIn(
+		credentials: SignInCredentials,
+		options?: { cookies?: unknown }
+	): Promise<AuthResult<AuthSession>>
+
 	// OAuth/Email callback handling
 	exchangeCodeForSession(code: string, cookies?: unknown): Promise<AuthResult<AuthSession>>
-
 }
