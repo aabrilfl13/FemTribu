@@ -1,3 +1,5 @@
+import type { APIContext } from "astro"
+
 import type { AuthProvider } from "./auth-provider"
 import { SupabaseAuthProvider } from "./supabase-provider"
 import type { AuthResult, AuthSession, SignInCredentials, SignUpCredentials } from "./types"
@@ -12,36 +14,27 @@ export function getAuthProvider(): AuthProvider {
 	return provider
 }
 
-/**
- * Set a custom auth provider (useful for testing or switching backends)
- */
-export function setAuthProvider(newProvider: AuthProvider): void {
-	provider = newProvider
-}
-
-// Convenience exports - delegate to the active provider
-
 export function signUp(
 	credentials: SignUpCredentials,
-	options?: { cookies?: unknown; emailRedirectTo?: string }
+	options?: { context?: APIContext; emailRedirectTo?: string }
 ): Promise<AuthResult<AuthSession>> {
 	return provider.signUp(credentials, options)
 }
 
 export function signIn(
 	credentials: SignInCredentials,
-	options?: { cookies?: unknown }
+	options?: { context?: APIContext }
 ): Promise<AuthResult<AuthSession>> {
-	return provider.signIn(credentials, options)
+	return provider.signIn(credentials, options?.context!)
 }
 
-export function signOut(options?: { cookies?: unknown }): Promise<AuthResult> {
-	return provider.signOut(options)
+export function signOut(options?: { context?: APIContext }): Promise<AuthResult> {
+	return provider.signOut(options?.context!)
 }
 
 export function exchangeCodeForSession(
 	code: string,
-	cookies?: unknown
+	options?: { context?: APIContext }
 ): Promise<AuthResult<AuthSession>> {
-	return provider.exchangeCodeForSession(code, cookies)
+	return provider.exchangeCodeForSession(code, options)
 }

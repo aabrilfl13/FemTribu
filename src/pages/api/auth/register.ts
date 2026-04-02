@@ -1,13 +1,13 @@
-import type { APIRoute } from "astro"
+import type { APIContext, APIRoute } from "astro"
 
 import { getAuthCallbackUrl } from "@/config/auth"
 import { signUp } from "@/services/auth"
 
 export const prerender = false
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async (context: APIContext) => {
 	try {
-		const body = await request.json()
+		const body = await context.request.json()
 		const { email, password, displayName } = body
 
 		// Validation
@@ -42,8 +42,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 		}
 
 		// Get the site URL from request headers
-		const protocol = request.headers.get("x-forwarded-proto") || "http"
-		const host = request.headers.get("host") || "localhost:4321"
+		const protocol = context.request.headers.get("x-forwarded-proto") || "http"
+		const host = context.request.headers.get("host") || "localhost:4321"
 		const siteUrl = `${protocol}://${host}`
 
 		// Call auth service signUp
@@ -54,7 +54,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 				displayName,
 			},
 			{
-				cookies,
+				context,
 				emailRedirectTo: getAuthCallbackUrl(siteUrl, "emailVerification"),
 			}
 		)

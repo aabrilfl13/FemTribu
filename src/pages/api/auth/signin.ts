@@ -1,12 +1,12 @@
-import type { APIRoute } from "astro"
+import type { APIContext, APIRoute } from "astro"
 
 import { signIn } from "@/services/auth"
 
 export const prerender = false
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export const POST: APIRoute = async (context: APIContext) => {
 	try {
-		const body = await request.json()
+		const body = await context.request.json()
 		const { email, password } = body
 
 		// Validation
@@ -36,9 +36,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 				email,
 				password,
 			},
-			{
-				cookies, // Pass the AstroCookies object (not the header string)
-			}
+			context
 		)
 
 		if (result.error) {

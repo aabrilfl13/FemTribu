@@ -6,20 +6,15 @@ export type {
 	AuthResult,
 	SignUpCredentials,
 	SignInCredentials,
+	PasswordResetRequest,
+	PasswordUpdateRequest,
 } from "./types"
 
 // Provider interface
 export type { AuthProvider } from "./auth-provider"
 
 // Public API
-export {
-	getAuthProvider,
-	setAuthProvider,
-	signUp,
-	signIn,
-	signOut,
-	exchangeCodeForSession,
-} from "./auth-service"
+export { getAuthProvider, signUp, signIn, signOut, exchangeCodeForSession } from "./auth-service"
 
 // Client factories (for advanced use cases)
 export { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"

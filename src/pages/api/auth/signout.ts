@@ -1,13 +1,13 @@
-import type { APIRoute } from "astro"
+import type { APIContext, APIRoute } from "astro"
 
 import { signOut } from "@/services/auth"
 
 export const prerender = false
 
-export const POST: APIRoute = async ({ cookies }) => {
+export const POST: APIRoute = async (context: APIContext) => {
 	try {
 		// Call auth service signOut
-		const result = await signOut({ cookies })
+		const result = await signOut(context)
 
 		if (result.error) {
 			return new Response(

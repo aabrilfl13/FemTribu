@@ -1,4 +1,4 @@
-import type { AstroCookies } from "astro"
+import type { APIContext, AstroCookies } from "astro"
 
 import type { AuthProvider } from "./auth-provider"
 import { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"
@@ -16,11 +16,14 @@ export class SupabaseAuthProvider implements AuthProvider {
 
 	async signUp(
 		credentials: SignUpCredentials,
-		options?: { cookies?: unknown; emailRedirectTo?: string }
+		options?: { context?: APIContext; emailRedirectTo?: string }
 	): Promise<AuthResult<AuthSession>> {
-		// Use server client if cookies provided, otherwise browser client
-		const supabase = options?.cookies
-			? createSupabaseServerClient(options.cookies as AstroCookies)
+		// Use server client if request and cookies provided, otherwise browser client
+		const supabase = options?.context
+			? createSupabaseServerClient({
+					request: options.context.request,
+					cookies: options.context.cookies,
+				})
 			: this.supabase
 
 		const { data, error } = await supabase.auth.signUp({
@@ -59,11 +62,14 @@ export class SupabaseAuthProvider implements AuthProvider {
 
 	async signIn(
 		credentials: SignInCredentials,
-		options?: { cookies?: unknown }
+		context: APIContext
 	): Promise<AuthResult<AuthSession>> {
-		// Use server client if cookies provided, otherwise browser client
-		const supabase = options?.cookies
-			? createSupabaseServerClient(options.cookies as AstroCookies)
+		// Use server client if context provided, otherwise browser client
+		const supabase = context
+			? createSupabaseServerClient({
+					request: context.request,
+					cookies: context.cookies,
+				})
 			: this.supabase
 
 		const { data, error } = await supabase.auth.signInWithPassword({
@@ -84,15 +90,20 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 	}
 
-	async signOut(options?: { cookies?: unknown }): Promise<AuthResult> {
-		// Use server client if cookies provided, otherwise browser client
-		const supabase = options?.cookies
-			? createSupabaseServerClient(options.cookies as AstroCookies)
+	async signOut(context: APIContext): Promise<AuthResult> {
+		// Use server client if context provided, otherwise browser client
+		const supabase = context
+			? createSupabaseServerClient({
+					request: context.request,
+					cookies: context.cookies,
+				})
 			: this.supabase
 
 		const { error } = await supabase.auth.signOut()
 
-		if (error) {
+		// If the refresh token is not found, it means the session was already cleared
+		// (likely by the server client's automatic session validation), so treat as success
+		if (error && error.code !== "refresh_token_not_found") {
 			return {
 				data: null,
 				error: this.mapError(error),
@@ -105,9 +116,16 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 	}
 
-	async exchangeCodeForSession(code: string, cookies?: unknown): Promise<AuthResult<AuthSession>> {
-		// Use server client if cookies provided, otherwise browser client
-		const supabase = cookies ? createSupabaseServerClient(cookies as AstroCookies) : this.supabase
+	async exchangeCodeForSession(
+		code: string,
+		options?: { context?: APIContext }
+	): Promise<AuthResult<AuthSession>> {
+		const supabase = options?.context
+			? createSupabaseServerClient({
+					request: options.context.request,
+					cookies: options.context.cookies as AstroCookies,
+				})
+			: this.supabase
 
 		const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
