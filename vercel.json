@@ -24,10 +24,6 @@
         {
           "key": "X-Robots-Tag",
           "value": "index, follow"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "browsing-topics=(), interest-cohort=()"
         }
       ]
     }
