@@ -1,4 +1,9 @@
-import { defineMiddleware } from "astro:middleware"
+import type { APIContext } from "astro"
+import { defineMiddleware, sequence } from "astro:middleware"
+
+import { AUTH_CONFIG } from "@/config/auth"
+
+import { getSession, getUser } from "./services/auth/auth-service"
 
 // Admin credentials - Move these to environment variables in production
 const SECRET_KEY = import.meta.env.SECRET_KEY
@@ -23,7 +28,8 @@ function isValidToken(token: string): boolean {
 	}
 }
 
-export const onRequest = defineMiddleware(async (context, next) => {
+// Admin authentication middleware - unchanged
+const adminAuth = defineMiddleware(async (context: APIContext, next) => {
 	const path = context.url.pathname
 
 	// Check if accessing admin pages (but not login)
@@ -42,3 +48,48 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
 	return next()
 })
+
+// User authentication middleware
+const userAuth = defineMiddleware(async (context: APIContext, next) => {
+	// Define protected and auth-related paths
+	const protectedPaths = ["/perfil"]
+	const authPaths = ["/login", "/register", "/auth"]
+	const path = context.url.pathname
+
+	// Check if this is a protected or auth-related path
+	const isProtected = protectedPaths.some((p) => path.startsWith(p))
+	const isAuthRelated = authPaths.some((p) => path.startsWith(p))
+
+	// Skip auth checks entirely for public pages (prerendered pages)
+	// Only run auth for protected pages or auth-related pages
+	if (!isProtected && !isAuthRelated) {
+		return next()
+	}
+
+	// Get session (no user fetch yet - optimization)
+	const { data: session } = await getSession(context)
+
+	// For auth pages: redirect if already logged in (no need to fetch user)
+	if (isAuthRelated && session) {
+		return context.redirect("/perfil")
+	}
+
+	// For protected pages: fetch user data only when needed
+	if (isProtected) {
+		if (session) {
+			const { data: user } = await getUser(context)
+			context.locals.user = user!
+		}
+
+		// Redirect to login if not authenticated
+		if (!context.locals.user) {
+			const nextUrl = encodeURIComponent(context.url.pathname + context.url.search)
+			return context.redirect(`${AUTH_CONFIG.errorRedirect}?next=${nextUrl}`)
+		}
+	}
+
+	return next()
+})
+
+// Chain middlewares: admin auth runs first, then user auth
+export const onRequest = sequence(adminAuth, userAuth)
