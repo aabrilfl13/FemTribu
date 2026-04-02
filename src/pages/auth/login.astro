@@ -1,0 +1,312 @@
+---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import Layout from "@/layouts/Layout.astro"
+
+export const prerender = false
+---
+
+<Layout
+	title="Iniciar sesión | Femm tribu"
+	description="Accede a tu cuenta en Femm tribu para gestionar tus eventos, talleres y contenido exclusivo."
+	navScrolled={true}
+	noindex={true}
+>
+	<BreadcrumbSchema items={[{ name: "Iniciar sesión" }]} />
+
+	<main id="main-content" class="min-h-screen pt-22">
+		<div class="grid min-h-[calc(100vh-5.5rem)] lg:grid-cols-2">
+			<!-- Left Side - Brand Experience -->
+			<div
+				class="relative hidden overflow-hidden bg-gradient-to-br from-[#2D3E2F] via-[#7A9582] to-[#B85440] lg:flex"
+			>
+				<!-- Decorative spiral pattern -->
+				<div class="absolute inset-0 opacity-10">
+					<div class="absolute top-1/4 left-1/4 h-64 w-64 -translate-x-1/2 -translate-y-1/2">
+						<img
+							src="/images/logos/logo_icono.svg"
+							alt=""
+							class="animate-spin-slow h-full w-full"
+						/>
+					</div>
+					<div class="absolute right-1/4 bottom-1/4 h-96 w-96 translate-x-1/2 translate-y-1/2">
+						<img
+							src="/images/logos/logo_icono.svg"
+							alt=""
+							class="animate-spin-slow h-full w-full"
+							style="animation-direction: reverse; animation-duration: 40s;"
+						/>
+					</div>
+				</div>
+
+				<!-- Content -->
+				<div
+					class="relative z-10 flex flex-col justify-center px-12 py-16 text-white lg:px-16 xl:px-20"
+				>
+					<div class="mb-12">
+						<img
+							src="/images/logos/logo_principal_fullcolor.svg"
+							alt="Femm tribu"
+							class="mb-6 h-16"
+							style="filter: brightness(0) invert(1);"
+						/>
+					</div>
+
+					<h1 class="font-display mb-6 text-4xl leading-tight xl:text-5xl">
+						Bienvenida<br />de nuevo a<br />tu tribu
+					</h1>
+
+					<p class="mb-8 max-w-md text-lg leading-relaxed text-white/90">
+						Un espacio donde crecer, conectar y florecer junto a mujeres que, como tú, buscan su
+						mejor versión.
+					</p>
+
+					<div class="space-y-4 text-white/80">
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Acceso a eventos y talleres exclusivos</span>
+						</div>
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Comunidad de apoyo y crecimiento</span>
+						</div>
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Contenido personalizado para ti</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right Side - Login Form -->
+			<div class="flex items-center justify-center bg-[#FAF7F5] px-6 py-12 sm:px-8 lg:px-12">
+				<div class="w-full max-w-md">
+					<!-- Mobile Logo -->
+					<div class="mb-8 lg:hidden">
+						<img
+							src="/images/logos/logo_principal_fullcolor.svg"
+							alt="Femm tribu"
+							class="mx-auto h-12"
+						/>
+					</div>
+
+					<div class="mb-8">
+						<h2 class="font-display text-primary mb-2 text-3xl">Iniciar sesión</h2>
+						<p class="text-muted-foreground text-sm">
+							Introduce tus datos para acceder a tu cuenta
+						</p>
+					</div>
+
+					<form id="login-form" class="space-y-5" novalidate>
+						<div>
+							<label for="login-email" class="text-primary mb-2 block text-sm font-semibold">
+								Email
+							</label>
+							<input
+								type="email"
+								id="login-email"
+								name="email"
+								required
+								autocomplete="email"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="tu@email.com"
+							/>
+						</div>
+
+						<div>
+							<label for="login-password" class="text-primary mb-2 block text-sm font-semibold">
+								Contraseña
+							</label>
+							<input
+								type="password"
+								id="login-password"
+								name="password"
+								required
+								autocomplete="current-password"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="••••••••"
+							/>
+						</div>
+
+						<div class="flex items-center justify-between">
+							<label class="flex items-center gap-2">
+								<input
+									type="checkbox"
+									id="login-remember"
+									class="h-4 w-4 rounded border-gray-300 text-[#B85440] focus:ring-[#B85440]"
+								/>
+								<span class="text-muted-foreground text-sm">Recuérdame</span>
+							</label>
+							<a
+								href="/recuperar-contrasena"
+								class="text-sm font-medium text-[#B85440] hover:underline"
+							>
+								¿Olvidaste tu contraseña?
+							</a>
+						</div>
+
+						<div
+							id="login-message-result"
+							class="hidden rounded-xl px-4 py-3 text-sm"
+							aria-live="assertive"
+							aria-atomic="true"
+						>
+						</div>
+
+						<button
+							type="submit"
+							id="login-submit"
+							class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#B85440] to-[#D88B7D] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+						>
+							Iniciar sesión
+						</button>
+
+						<div class="relative my-6">
+							<div class="absolute inset-0 flex items-center">
+								<div class="w-full border-t border-gray-200"></div>
+							</div>
+							<div class="relative flex justify-center text-sm">
+								<span class="text-muted-foreground bg-[#FAF7F5] px-4">¿Primera vez aquí?</span>
+							</div>
+						</div>
+
+						<a
+							href="/auth/register"
+							class="inline-flex w-full items-center justify-center rounded-full border-2 border-[#7A9582] px-8 py-3.5 text-base font-semibold text-[#2D3E2F] transition-all duration-300 hover:bg-[#7A9582] hover:text-white"
+						>
+							Crear cuenta
+						</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	@keyframes spin-slow {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.animate-spin-slow {
+		animation: spin-slow 30s linear infinite;
+	}
+</style>
+
+<script>
+	function initLoginForm() {
+		const form = document.getElementById("login-form") as HTMLFormElement
+		const submitButton = document.getElementById("login-submit") as HTMLButtonElement
+		const messageDiv = document.getElementById("login-message-result") as HTMLDivElement
+		const emailInput = document.getElementById("login-email") as HTMLInputElement
+		const passwordInput = document.getElementById("login-password") as HTMLInputElement
+
+		let isSubmitting = false
+
+		// Check for redirect parameter
+		const urlParams = new URLSearchParams(window.location.search)
+		const nextUrl = urlParams.get("next")
+
+		form?.addEventListener("submit", async (e) => {
+			e.preventDefault()
+
+			if (isSubmitting) return
+
+			const email = emailInput.value.trim()
+			const password = passwordInput.value
+
+			// Validation
+			if (!email) {
+				showMessage("Por favor, introduce tu email.", "error")
+				return
+			}
+
+			if (!email.includes("@")) {
+				showMessage("Por favor, introduce un email válido.", "error")
+				return
+			}
+
+			if (!password) {
+				showMessage("Por favor, introduce tu contraseña.", "error")
+				return
+			}
+
+			isSubmitting = true
+			submitButton.disabled = true
+			submitButton.textContent = "Iniciando sesión..."
+
+			try {
+				const response = await fetch("/api/auth/signin", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password }),
+				})
+
+				const data = await response.json()
+
+				if (data.success) {
+					// Track signin event
+					import("@/utils/analytics").then(({ trackEvent }) => {
+						trackEvent("login", {
+							method: "email",
+						})
+					})
+
+					showMessage("¡Bienvenida! Redirigiendo...", "success")
+
+					// Redirect to next URL or account page
+					setTimeout(() => {
+						window.location.href = nextUrl || "/perfil"
+					}, 1000)
+				} else {
+					showMessage(data.error || "Error al iniciar sesión. Inténtalo de nuevo.", "error")
+					resetButton()
+				}
+			} catch (error) {
+				showMessage("Error al iniciar sesión. Inténtalo de nuevo.", "error")
+				resetButton()
+			}
+		})
+
+		function showMessage(text: string, type: "success" | "error") {
+			messageDiv.textContent = text
+			messageDiv.className = `rounded-xl px-4 py-3 text-sm ${
+				type === "success"
+					? "bg-[#7A9582]/10 text-[#2D3E2F] border border-[#7A9582]/30"
+					: "bg-[#B85440]/10 text-[#B85440] border border-[#B85440]/30"
+			}`
+			messageDiv.classList.remove("hidden")
+		}
+
+		function resetButton() {
+			submitButton.textContent = "Iniciar sesión"
+			submitButton.disabled = false
+			isSubmitting = false
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initLoginForm)
+	} else {
+		initLoginForm()
+	}
+</script>
