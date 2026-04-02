@@ -36,7 +36,7 @@ export const POST: APIRoute = async (context: APIContext) => {
 				email,
 				password,
 			},
-			context
+			{ context }
 		)
 
 		if (result.error) {

@@ -53,7 +53,7 @@ const adminAuth = defineMiddleware(async (context: APIContext, next) => {
 const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	// Define protected and auth-related paths
 	const protectedPaths = ["/perfil"]
-	const authPaths = ["/login", "/register", "/auth"]
+	const authPaths = ["/auth/login", "/auth/register"]
 	const path = context.url.pathname
 
 	// Check if this is a protected or auth-related path

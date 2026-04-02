@@ -33,7 +33,7 @@ export const AUTH_CONFIG = {
 	/**
 	 * Error redirect
 	 */
-	errorRedirect: "/login",
+	errorRedirect: "/auth/login",
 } as const
 
 /**

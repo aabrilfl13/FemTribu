@@ -201,25 +201,12 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 
 		return {
-			data: this.mapSession(data.session),
-			error: null,
-		}
-	}
-
-		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
-		}
-
-		return {
 			data: {
-				accessToken: "",
-				refreshToken: "",
-				expiresAt: 1000 * 1000, // Convert to milliseconds
-				user: this.mapUser(data.user),
-			},
+				accessToken: data.session.access_token,
+				refreshToken: data.session.refresh_token,
+				expiresAt: data.session.expires_at! * 1000, // Convert to milliseconds
+				user: undefined, // Not render due is a security issue, we will fetch user data separately when needed
+			} as AuthSession,
 			error: null,
 		}
 	}
@@ -241,7 +228,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 			accessToken: session.access_token,
 			refreshToken: session.refresh_token,
 			expiresAt: session.expires_at! * 1000, // Convert to milliseconds
-			user: this.mapUser(session.user),
+			user: session.user ? this.mapUser(session.user) : undefined,
 		}
 	}
 

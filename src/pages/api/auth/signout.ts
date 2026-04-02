@@ -7,7 +7,7 @@ export const prerender = false
 export const POST: APIRoute = async (context: APIContext) => {
 	try {
 		// Call auth service signOut
-		const result = await signOut(context)
+		const result = await signOut({ context })
 
 		if (result.error) {
 			return new Response(
