@@ -48,3 +48,7 @@ export function exchangeCodeForSession(
 export function getUser(context: APIContext): Promise<AuthResult<AuthUser>> {
 	return provider.getUser(context)
 }
+
+export function getSession(context: APIContext): Promise<AuthResult<AuthSession>> {
+	return provider.getSession(context)
+}

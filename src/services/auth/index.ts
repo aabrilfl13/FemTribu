@@ -21,6 +21,7 @@ export {
 	signOut,
 	exchangeCodeForSession,
 	getUser,
+	getSession,
 } from "./auth-service"
 
 // Client factories (for advanced use cases)

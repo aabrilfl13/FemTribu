@@ -22,6 +22,8 @@ export interface AuthProvider {
 		code: string,
 		options?: { context?: APIContext }
 	): Promise<AuthResult<AuthSession>>
-  
+
 	getUser(context: APIContext): Promise<AuthResult<AuthUser>>
+
+	getSession(context: APIContext): Promise<AuthResult<AuthSession>>
 }

@@ -179,6 +179,51 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 	}
 
+	async getSession(context: APIContext): Promise<AuthResult<AuthSession>> {
+		const supabase = createSupabaseServerClient({
+			request: context.request,
+			cookies: context.cookies,
+		})
+		const { data, error } = await supabase.auth.getSession()
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.session) {
+			return {
+				data: null,
+				error: null,
+			}
+		}
+
+		return {
+			data: this.mapSession(data.session),
+			error: null,
+		}
+	}
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		return {
+			data: {
+				accessToken: "",
+				refreshToken: "",
+				expiresAt: 1000 * 1000, // Convert to milliseconds
+				user: this.mapUser(data.user),
+			},
+			error: null,
+		}
+	}
+
 	// Type mapping helpers
 	private mapUser(user: any): AuthUser {
 		return {
