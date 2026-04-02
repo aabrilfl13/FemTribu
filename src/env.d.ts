@@ -1,0 +1,14 @@
+/// <reference types="astro/client" />
+
+declare namespace App {
+	interface Locals {
+		user?: {
+			id: string
+			email: string
+			displayName: string | null
+			avatarUrl: string | null
+			createdAt: Date
+			emailVerified: boolean
+		}
+	}
+}

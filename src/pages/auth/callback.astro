@@ -1,0 +1,36 @@
+---
+import { AUTH_CONFIG } from "@/config/auth"
+import { exchangeCodeForSession } from "@/services/auth"
+
+export const prerender = false
+
+// Get the code from the URL query parameters
+const code = Astro.url.searchParams.get("code")
+const error = Astro.url.searchParams.get("error")
+
+if (error) {
+	return Astro.redirect(
+		`${AUTH_CONFIG.errorRedirect}?error=${encodeURIComponent(errorDescription || "Error de autenticación")}`
+	)
+}
+
+// If there's a code, exchange it for a session
+if (code) {
+	const { error: exchangeError } = await exchangeCodeForSession(code, {
+		request: Astro.request,
+		cookies: Astro.cookies,
+	})
+
+	if (exchangeError) {
+		console.error("Error exchanging code for session:", exchangeError)
+		return Astro.redirect(
+			`${AUTH_CONFIG.errorRedirect}?error=${encodeURIComponent("Error al verificar la autenticación")}`
+		)
+	}
+	// Email verification - redirect to account with success message
+	return Astro.redirect(AUTH_CONFIG.redirects.afterSignup)
+}
+
+// If no code, redirect to login
+return Astro.redirect(AUTH_CONFIG.errorRedirect)
+---

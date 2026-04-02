@@ -1,0 +1,241 @@
+import type { APIContext, AstroCookies } from "astro"
+
+import type { AuthProvider } from "./auth-provider"
+import { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"
+import type {
+	AuthError,
+	AuthResult,
+	AuthSession,
+	AuthUser,
+	SignInCredentials,
+	SignUpCredentials,
+} from "./types"
+
+export class SupabaseAuthProvider implements AuthProvider {
+	private supabase = createSupabaseBrowserClient()
+
+	async signUp(
+		credentials: SignUpCredentials,
+		options?: { context?: APIContext; emailRedirectTo?: string }
+	): Promise<AuthResult<AuthSession>> {
+		// Use server client if request and cookies provided, otherwise browser client
+		const supabase = options?.context
+			? createSupabaseServerClient({
+					request: options.context.request,
+					cookies: options.context.cookies,
+				})
+			: this.supabase
+
+		const { data, error } = await supabase.auth.signUp({
+			email: credentials.email,
+			password: credentials.password,
+			options: {
+				emailRedirectTo: options?.emailRedirectTo,
+				data: {
+					display_name: credentials.displayName || null,
+				},
+			},
+		})
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.session) {
+			return {
+				data: null,
+				error: {
+					message: "Por favor verifica tu correo electrónico para completar el registro",
+					code: "email_verification_required",
+				},
+			}
+		}
+
+		return {
+			data: this.mapSession(data.session),
+			error: null,
+		}
+	}
+
+	async signIn(
+		credentials: SignInCredentials,
+		context: APIContext
+	): Promise<AuthResult<AuthSession>> {
+		// Use server client if context provided, otherwise browser client
+		const supabase = context
+			? createSupabaseServerClient({
+					request: context.request,
+					cookies: context.cookies,
+				})
+			: this.supabase
+
+		const { data, error } = await supabase.auth.signInWithPassword({
+			email: credentials.email,
+			password: credentials.password,
+		})
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		return {
+			data: this.mapSession(data.session),
+			error: null,
+		}
+	}
+
+	async signOut(context: APIContext): Promise<AuthResult> {
+		// Use server client if context provided, otherwise browser client
+		const supabase = context
+			? createSupabaseServerClient({
+					request: context.request,
+					cookies: context.cookies,
+				})
+			: this.supabase
+
+		const { error } = await supabase.auth.signOut()
+
+		// If the refresh token is not found, it means the session was already cleared
+		// (likely by the server client's automatic session validation), so treat as success
+		if (error && error.code !== "refresh_token_not_found") {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		return {
+			data: null,
+			error: null,
+		}
+	}
+
+	async exchangeCodeForSession(
+		code: string,
+		options?: { context?: APIContext }
+	): Promise<AuthResult<AuthSession>> {
+		const supabase = options?.context
+			? createSupabaseServerClient({
+					request: options.context.request,
+					cookies: options.context.cookies as AstroCookies,
+				})
+			: this.supabase
+
+		const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.session) {
+			return {
+				data: null,
+				error: {
+					message: "No se pudo crear la sesión",
+					code: "session_creation_failed",
+				},
+			}
+		}
+
+		return {
+			data: this.mapSession(data.session),
+			error: null,
+		}
+	}
+
+	async getUser(context: APIContext): Promise<AuthResult<AuthUser>> {
+		const supabase = createSupabaseServerClient({
+			request: context.request,
+			cookies: context.cookies,
+		})
+		const { data, error } = await supabase.auth.getUser()
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.user) {
+			return {
+				data: null,
+				error: null,
+			}
+		}
+
+		return {
+			data: this.mapUser(data.user),
+			error: null,
+		}
+	}
+
+	async getSession(context: APIContext): Promise<AuthResult<AuthSession>> {
+		const supabase = createSupabaseServerClient({
+			request: context.request,
+			cookies: context.cookies,
+		})
+		const { data, error } = await supabase.auth.getSession()
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.session) {
+			return {
+				data: null,
+				error: null,
+			}
+		}
+
+		return {
+			data: {
+				accessToken: data.session.access_token,
+				refreshToken: data.session.refresh_token,
+				expiresAt: data.session.expires_at! * 1000, // Convert to milliseconds
+				user: undefined, // Not render due is a security issue, we will fetch user data separately when needed
+			} as AuthSession,
+			error: null,
+		}
+	}
+
+	// Type mapping helpers
+	private mapUser(user: any): AuthUser {
+		return {
+			id: user.id,
+			email: user.email!,
+			displayName: user.user_metadata?.display_name || null,
+			avatarUrl: user.user_metadata?.avatar_url || null,
+			createdAt: new Date(user.created_at),
+			emailVerified: !!user.email_confirmed_at,
+		}
+	}
+
+	private mapSession(session: any): AuthSession {
+		return {
+			accessToken: session.access_token,
+			refreshToken: session.refresh_token,
+			expiresAt: session.expires_at! * 1000, // Convert to milliseconds
+			user: session.user ? this.mapUser(session.user) : undefined,
+		}
+	}
+
+	private mapError(error: any): AuthError {
+		return {
+			message: error.message || "Ha ocurrido un error",
+			code: error.code || "unknown_error",
+		}
+	}
+}

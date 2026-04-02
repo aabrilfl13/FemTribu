@@ -66,8 +66,10 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variable files
-.env
-.env.*
+# Only ignore files with secrets (.local variants)
+# .env and .env.production are committed (only non-sensitive values)
+.env.local
+.env.*.local
 !.env.example
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -154,9 +156,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
-.env
-.env.production
+# environment variables (see line 68-72 for .env rules)
 
 # macOS-specific files
 .DS_Store
@@ -172,3 +172,6 @@ skills-lock.json
 
 src/data/estructura_empresa
 .mcp.json
+
+# Supabase
+.supabase/

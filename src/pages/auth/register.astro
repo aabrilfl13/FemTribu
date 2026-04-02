@@ -1,0 +1,376 @@
+---
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import Layout from "@/layouts/Layout.astro"
+
+export const prerender = false
+---
+
+<Layout
+	title="Crear cuenta | Femm tribu"
+	description="Crea tu cuenta en Femm tribu para acceder a eventos, talleres y contenido exclusivo."
+	navScrolled={true}
+	noindex={true}
+>
+	<BreadcrumbSchema items={[{ name: "Registro" }]} />
+
+	<main id="main-content" class="min-h-screen pt-22">
+		<div class="grid min-h-[calc(100vh-5.5rem)] lg:grid-cols-2">
+			<!-- Left Side - Brand Experience -->
+			<div
+				class="relative hidden overflow-hidden bg-gradient-to-br from-[#7A9582] via-[#B85440] to-[#D88B7D] lg:flex"
+			>
+				<!-- Decorative spiral pattern -->
+				<div class="absolute inset-0 opacity-10">
+					<div class="absolute bottom-1/4 left-1/4 h-96 w-96 -translate-x-1/2 translate-y-1/2">
+						<img
+							src="/images/logos/logo_icono.svg"
+							alt=""
+							class="animate-spin-slow h-full w-full"
+							style="animation-direction: reverse; animation-duration: 35s;"
+						/>
+					</div>
+					<div class="absolute top-1/3 right-1/3 h-64 w-64 translate-x-1/2 -translate-y-1/2">
+						<img
+							src="/images/logos/logo_icono.svg"
+							alt=""
+							class="animate-spin-slow h-full w-full"
+						/>
+					</div>
+				</div>
+
+				<!-- Content -->
+				<div
+					class="relative z-10 flex flex-col justify-center px-12 py-16 text-white lg:px-16 xl:px-20"
+				>
+					<div class="mb-12">
+						<img
+							src="/images/logos/logo_principal_fullcolor.svg"
+							alt="Femm tribu"
+							class="mb-6 h-16"
+							style="filter: brightness(0) invert(1);"
+						/>
+					</div>
+
+					<h1 class="font-display mb-6 text-4xl leading-tight xl:text-5xl">
+						Únete a nuestra<br />comunidad
+					</h1>
+
+					<p class="mb-8 max-w-md text-lg leading-relaxed text-white/90">
+						Forma parte de una tribu de mujeres que se apoyan, crecen y transforman juntas.
+					</p>
+
+					<div class="space-y-4 text-white/80">
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Acceso prioritario a eventos y talleres</span>
+						</div>
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Contenido exclusivo y recursos gratuitos</span>
+						</div>
+						<div class="flex items-start gap-3">
+							<svg class="mt-1 h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+								<path
+									fill-rule="evenodd"
+									d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+									clip-rule="evenodd"></path>
+							</svg>
+							<span>Notificaciones de nuevas publicaciones</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Right Side - Register Form -->
+			<div class="flex items-center justify-center bg-[#FAF7F5] px-6 py-12 sm:px-8 lg:px-12">
+				<div class="w-full max-w-md">
+					<!-- Mobile Logo -->
+					<div class="mb-8 lg:hidden">
+						<img
+							src="/images/logos/logo_principal_fullcolor.svg"
+							alt="Femm tribu"
+							class="mx-auto h-12"
+						/>
+					</div>
+
+					<div class="mb-8">
+						<h2 class="font-display text-primary mb-2 text-3xl">Crear cuenta</h2>
+						<p class="text-muted-foreground text-sm">Completa tus datos para empezar</p>
+					</div>
+
+					<form id="register-form" class="space-y-5" novalidate>
+						<div>
+							<label for="register-name" class="text-primary mb-2 block text-sm font-semibold">
+								Nombre
+							</label>
+							<input
+								type="text"
+								id="register-name"
+								name="displayName"
+								required
+								autocomplete="name"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="Tu nombre"
+							/>
+						</div>
+
+						<div>
+							<label for="register-email" class="text-primary mb-2 block text-sm font-semibold">
+								Email
+							</label>
+							<input
+								type="email"
+								id="register-email"
+								name="email"
+								required
+								autocomplete="email"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="tu@email.com"
+							/>
+						</div>
+
+						<div>
+							<label for="register-password" class="text-primary mb-2 block text-sm font-semibold">
+								Contraseña
+							</label>
+							<input
+								type="password"
+								id="register-password"
+								name="password"
+								required
+								autocomplete="new-password"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="Mínimo 6 caracteres"
+							/>
+							<p class="text-muted-foreground mt-1.5 text-xs">Mínimo 6 caracteres</p>
+						</div>
+
+						<div>
+							<label
+								for="register-password-confirm"
+								class="text-primary mb-2 block text-sm font-semibold"
+							>
+								Confirmar contraseña
+							</label>
+							<input
+								type="password"
+								id="register-password-confirm"
+								name="passwordConfirm"
+								required
+								autocomplete="new-password"
+								class="text-primary w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base shadow-sm transition-all duration-300 outline-none focus:border-[#B85440] focus:ring-4 focus:ring-[#B85440]/20"
+								placeholder="Repite tu contraseña"
+							/>
+						</div>
+
+						<div class="flex items-start gap-3">
+							<input
+								type="checkbox"
+								id="register-privacy"
+								name="privacy"
+								required
+								class="mt-1 h-4 w-4 rounded border-gray-300 text-[#B85440] focus:ring-[#B85440]"
+							/>
+							<label for="register-privacy" class="text-muted-foreground text-sm leading-relaxed">
+								He leído y acepto la <a
+									href="/privacy"
+									class="font-medium text-[#B85440] hover:underline">política de privacidad</a
+								> *
+							</label>
+						</div>
+
+						<div
+							id="register-message-result"
+							class="hidden rounded-xl px-4 py-3 text-sm"
+							aria-live="assertive"
+							aria-atomic="true"
+						>
+						</div>
+
+						<button
+							type="submit"
+							id="register-submit"
+							class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-[#B85440] to-[#D88B7D] px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+						>
+							Crear cuenta
+						</button>
+
+						<div class="relative my-6">
+							<div class="absolute inset-0 flex items-center">
+								<div class="w-full border-t border-gray-200"></div>
+							</div>
+							<div class="relative flex justify-center text-sm">
+								<span class="text-muted-foreground bg-[#FAF7F5] px-4">¿Ya tienes cuenta?</span>
+							</div>
+						</div>
+
+						<a
+							href="/auth/login"
+							class="inline-flex w-full items-center justify-center rounded-full border-2 border-[#7A9582] px-8 py-3.5 text-base font-semibold text-[#2D3E2F] transition-all duration-300 hover:bg-[#7A9582] hover:text-white"
+						>
+							Iniciar sesión
+						</a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	@keyframes spin-slow {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
+	}
+
+	.animate-spin-slow {
+		animation: spin-slow 30s linear infinite;
+	}
+</style>
+
+<script>
+	function initRegisterForm() {
+		const form = document.getElementById("register-form") as HTMLFormElement
+		const submitButton = document.getElementById("register-submit") as HTMLButtonElement
+		const messageDiv = document.getElementById("register-message-result") as HTMLDivElement
+		const nameInput = document.getElementById("register-name") as HTMLInputElement
+		const emailInput = document.getElementById("register-email") as HTMLInputElement
+		const passwordInput = document.getElementById("register-password") as HTMLInputElement
+		const passwordConfirmInput = document.getElementById(
+			"register-password-confirm"
+		) as HTMLInputElement
+		const privacyCheckbox = document.getElementById("register-privacy") as HTMLInputElement
+
+		let isSubmitting = false
+
+		form?.addEventListener("submit", async (e) => {
+			e.preventDefault()
+
+			if (isSubmitting) return
+
+			const displayName = nameInput.value.trim()
+			const email = emailInput.value.trim()
+			const password = passwordInput.value
+			const passwordConfirm = passwordConfirmInput.value
+			const privacy = privacyCheckbox.checked
+
+			// Validation
+			if (!displayName) {
+				showMessage("Por favor, introduce tu nombre.", "error")
+				return
+			}
+
+			if (!email) {
+				showMessage("Por favor, introduce tu email.", "error")
+				return
+			}
+
+			if (!email.includes("@")) {
+				showMessage("Por favor, introduce un email válido.", "error")
+				return
+			}
+
+			if (!password) {
+				showMessage("Por favor, introduce una contraseña.", "error")
+				return
+			}
+
+			if (password.length < 6) {
+				showMessage("La contraseña debe tener al menos 6 caracteres.", "error")
+				return
+			}
+
+			if (password !== passwordConfirm) {
+				showMessage("Las contraseñas no coinciden.", "error")
+				return
+			}
+
+			if (!privacy) {
+				showMessage("Debes aceptar la política de privacidad.", "error")
+				return
+			}
+
+			isSubmitting = true
+			submitButton.disabled = true
+			submitButton.textContent = "Creando cuenta..."
+
+			try {
+				const response = await fetch("/api/auth/register", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ email, password, displayName }),
+				})
+
+				const data = await response.json()
+
+				if (data.success) {
+					// Track signup event
+					import("@/utils/analytics").then(({ trackEvent }) => {
+						trackEvent("sign_up", {
+							method: "email",
+						})
+					})
+
+					showMessage(
+						data.message ||
+							"¡Cuenta creada! Por favor, verifica tu correo electrónico para continuar.",
+						"success"
+					)
+
+					// If session is active (email verification not required), redirect to account page
+					if (data.session) {
+						setTimeout(() => {
+							window.location.href = "/perfil"
+						}, 2000)
+					} else {
+						// Show message to check email
+						form.reset()
+						submitButton.textContent = "Cuenta creada"
+					}
+				} else {
+					showMessage(data.error || "Error al crear la cuenta. Inténtalo de nuevo.", "error")
+					resetButton()
+				}
+			} catch (error) {
+				showMessage("Error al crear la cuenta. Inténtalo de nuevo.", "error")
+				resetButton()
+			}
+		})
+
+		function showMessage(text: string, type: "success" | "error") {
+			messageDiv.textContent = text
+			messageDiv.className = `rounded-xl px-4 py-3 text-sm ${
+				type === "success"
+					? "bg-[#7A9582]/10 text-[#2D3E2F] border border-[#7A9582]/30"
+					: "bg-[#B85440]/10 text-[#B85440] border border-[#B85440]/30"
+			}`
+			messageDiv.classList.remove("hidden")
+		}
+
+		function resetButton() {
+			submitButton.textContent = "Crear cuenta"
+			submitButton.disabled = false
+			isSubmitting = false
+		}
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initRegisterForm)
+	} else {
+		initRegisterForm()
+	}
+</script>

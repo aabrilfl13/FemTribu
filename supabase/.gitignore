@@ -1,0 +1,9 @@
+# Local environment variables
+.env
+
+# Supabase local development files
+.branches/
+.temp/
+
+# Docker volumes (stored in parent .supabase/ directory)
+volumes/
