@@ -14,7 +14,14 @@ export type {
 export type { AuthProvider } from "./auth-provider"
 
 // Public API
-export { getAuthProvider, signUp, signIn, signOut, exchangeCodeForSession } from "./auth-service"
+export {
+	getAuthProvider,
+	signUp,
+	signIn,
+	signOut,
+	exchangeCodeForSession,
+	getUser,
+} from "./auth-service"
 
 // Client factories (for advanced use cases)
 export { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"

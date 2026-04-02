@@ -152,6 +152,33 @@ export class SupabaseAuthProvider implements AuthProvider {
 		}
 	}
 
+	async getUser(context: APIContext): Promise<AuthResult<AuthUser>> {
+		const supabase = createSupabaseServerClient({
+			request: context.request,
+			cookies: context.cookies,
+		})
+		const { data, error } = await supabase.auth.getUser()
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		if (!data.user) {
+			return {
+				data: null,
+				error: null,
+			}
+		}
+
+		return {
+			data: this.mapUser(data.user),
+			error: null,
+		}
+	}
+
 	// Type mapping helpers
 	private mapUser(user: any): AuthUser {
 		return {

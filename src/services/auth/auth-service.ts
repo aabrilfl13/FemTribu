@@ -2,7 +2,13 @@ import type { APIContext } from "astro"
 
 import type { AuthProvider } from "./auth-provider"
 import { SupabaseAuthProvider } from "./supabase-provider"
-import type { AuthResult, AuthSession, SignInCredentials, SignUpCredentials } from "./types"
+import type {
+	AuthResult,
+	AuthSession,
+	AuthUser,
+	SignInCredentials,
+	SignUpCredentials,
+} from "./types"
 
 // Single provider instance - change this line to switch auth backends
 let provider: AuthProvider = new SupabaseAuthProvider()
@@ -37,4 +43,8 @@ export function exchangeCodeForSession(
 	options?: { context?: APIContext }
 ): Promise<AuthResult<AuthSession>> {
 	return provider.exchangeCodeForSession(code, options)
+}
+
+export function getUser(context: APIContext): Promise<AuthResult<AuthUser>> {
+	return provider.getUser(context)
 }
