@@ -11,3 +11,5 @@ export {
 	resetVideoProvider,
 	getVideo,
 } from "./infrastructure/container"
+
+export { MockVideoProvider } from "./providers/mock/mock.provider"
