@@ -1,8 +1,8 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { Pause, Play, Volume1, Volume2, VolumeX } from "lucide-react"
-import { useRef, useState } from "react"
+import { Maximize, Minimize, Pause, Play, Volume1, Volume2, VolumeX } from "lucide-react"
+import React, { useRef, useState } from "react"
 
 import { cn } from "@/utils/cn"
 
@@ -45,6 +45,7 @@ const CustomSlider = ({
 }
 
 const VideoPlayer = ({ src }: { src: string }) => {
+	const containerRef = useRef<HTMLDivElement>(null)
 	const videoRef = useRef<HTMLVideoElement>(null)
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [volume, setVolume] = useState(1)
@@ -54,6 +55,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
 	const [showControls, setShowControls] = useState(false)
 	const [currentTime, setCurrentTime] = useState(0)
 	const [duration, setDuration] = useState(0)
+	const [isFullscreen, setIsFullscreen] = useState(false)
 
 	const togglePlay = () => {
 		if (videoRef.current) {
@@ -114,9 +116,41 @@ const VideoPlayer = ({ src }: { src: string }) => {
 		}
 	}
 
+	const toggleFullscreen = async () => {
+		if (!containerRef.current) return
+
+		try {
+			if (!document.fullscreenElement) {
+				await containerRef.current.requestFullscreen()
+				setIsFullscreen(true)
+			} else {
+				await document.exitFullscreen()
+				setIsFullscreen(false)
+			}
+		} catch (error) {
+			console.error("Fullscreen error:", error)
+		}
+	}
+
+	// Listen for fullscreen changes (e.g., when user presses ESC)
+	React.useEffect(() => {
+		const handleFullscreenChange = () => {
+			setIsFullscreen(!!document.fullscreenElement)
+		}
+
+		document.addEventListener("fullscreenchange", handleFullscreenChange)
+		return () => {
+			document.removeEventListener("fullscreenchange", handleFullscreenChange)
+		}
+	}, [])
+
 	return (
 		<motion.div
-			className="relative mx-auto w-full max-w-4xl overflow-hidden rounded-xl bg-[#11111198] shadow-[0_0_20px_rgba(0,0,0,0.2)] backdrop-blur-sm"
+			ref={containerRef}
+			className={cn(
+				"relative mx-auto w-full overflow-hidden rounded-xl bg-[#11111198] shadow-[0_0_20px_rgba(0,0,0,0.2)] backdrop-blur-sm",
+				isFullscreen ? "h-screen max-w-full rounded-none" : "max-w-4xl"
+			)}
 			initial={{ opacity: 0, y: 20 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5 }}
@@ -125,7 +159,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
 		>
 			<video
 				ref={videoRef}
-				className="w-full"
+				className={cn("w-full", isFullscreen ? "h-screen object-contain" : "")}
 				onTimeUpdate={handleTimeUpdate}
 				src={src}
 				onClick={togglePlay}
@@ -134,7 +168,10 @@ const VideoPlayer = ({ src }: { src: string }) => {
 			<AnimatePresence>
 				{showControls && (
 					<motion.div
-						className="absolute right-0 bottom-0 left-0 m-2 mx-auto max-w-xl rounded-2xl bg-[#11111198] p-4 backdrop-blur-md"
+						className={cn(
+							"absolute right-0 bottom-0 left-0 m-2 mx-auto rounded-2xl bg-[#11111198] p-4 backdrop-blur-md",
+							isFullscreen ? "max-w-3xl" : "max-w-xl"
+						)}
 						initial={{ y: 20, opacity: 0, filter: "blur(10px)" }}
 						animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
 						exit={{ y: 20, opacity: 0, filter: "blur(10px)" }}
@@ -198,6 +235,21 @@ const VideoPlayer = ({ src }: { src: string }) => {
 										</Button>
 									</motion.div>
 								))}
+
+								<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+									<Button
+										onClick={toggleFullscreen}
+										variant="ghost"
+										size="icon"
+										className="text-white hover:bg-[#111111d1] hover:text-white"
+									>
+										{isFullscreen ? (
+											<Minimize className="h-5 w-5" />
+										) : (
+											<Maximize className="h-5 w-5" />
+										)}
+									</Button>
+								</motion.div>
 							</div>
 						</div>
 					</motion.div>
