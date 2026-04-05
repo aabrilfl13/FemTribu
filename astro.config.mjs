@@ -16,6 +16,7 @@ export default defineConfig({
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "./src"),
+				"@videos": path.resolve(__dirname, "./src/videos"),
 				"@styles": path.resolve(__dirname, "./src/styles"),
 			},
 		},
