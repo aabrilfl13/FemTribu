@@ -14,3 +14,6 @@ export {
 } from "./infrastructure/container"
 
 export { MockVideoProvider } from "./providers/mock/mock.provider"
+// Mock Data (for testing and development)
+export { mockVideos, SAMPLE_VIDEO_URLS } from "./providers/mock/mock-videos.data"
+
