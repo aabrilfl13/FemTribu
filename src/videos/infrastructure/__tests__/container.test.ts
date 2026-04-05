@@ -24,6 +24,7 @@ class TestVideoProvider implements VideoProvider {
 				description: "This is a test",
 				duration: 100,
 				thumbnailUrl: "https://example.com/thumb.jpg",
+				url: "https://example.com/video.mp4",
 				courseId: "test-course",
 				chapterIndex: 1,
 				metadata: {},

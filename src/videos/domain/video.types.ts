@@ -4,6 +4,7 @@ export interface Video {
 	description: string | null
 	duration: number // seconds
 	thumbnailUrl: string
+	url: string
 	courseId: string | null
 	chapterIndex: number | null
 	metadata: Record<string, any>
