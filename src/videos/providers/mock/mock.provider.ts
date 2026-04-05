@@ -1,5 +1,5 @@
 import type { VideoProvider } from "../../domain/ports/video-provider.port"
-import type { Video, VideoResult } from "../../domain/video.types"
+import type { Video, VideoListOptions, VideoResult } from "../../domain/video.types"
 import { mockVideos } from "./mock-videos.data"
 
 /**
@@ -32,6 +32,47 @@ export class MockVideoProvider implements VideoProvider {
 
 		return {
 			data: video,
+			error: null,
+		}
+	}
+
+	async listVideos(options?: VideoListOptions): Promise<VideoResult<Video[]>> {
+		let filteredVideos = [...this.videos]
+
+		// Filter by courseId
+		if (options?.courseId) {
+			filteredVideos = filteredVideos.filter((v) => v.courseId === options.courseId)
+		}
+
+		// Filter by status
+		if (options?.status) {
+			filteredVideos = filteredVideos.filter((v) => v.status === options.status)
+		}
+
+		// Filter by date range
+		if (options?.from_date) {
+			filteredVideos = filteredVideos.filter((v) => v.createdAt >= options.from_date!)
+		}
+
+		if (options?.to_date) {
+			filteredVideos = filteredVideos.filter((v) => v.createdAt <= options.to_date!)
+		}
+
+		// Sort by chapter index (then by creation date)
+		filteredVideos.sort((a, b) => {
+			if (a.chapterIndex !== null && b.chapterIndex !== null) {
+				return a.chapterIndex - b.chapterIndex
+			}
+			return a.createdAt.getTime() - b.createdAt.getTime()
+		})
+
+		// Apply pagination
+		const offset = options?.offset || 0
+		const limit = options?.limit !== undefined ? options.limit : filteredVideos.length
+		const paginatedVideos = filteredVideos.slice(offset, offset + limit)
+
+		return {
+			data: paginatedVideos,
 			error: null,
 		}
 	}
