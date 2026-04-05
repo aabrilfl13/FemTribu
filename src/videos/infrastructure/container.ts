@@ -1,6 +1,6 @@
 import type { VideoProvider } from "../domain/ports/video-provider.port"
 import type { Video, VideoListOptions, VideoResult } from "../domain/video.types"
-import { CloudflareStreamProvider } from "../providers/cloudflare/cloudflare-stream.provider"
+// import { CloudflareStreamProvider } from "../providers/cloudflare/cloudflare-stream.provider"
 import { MockVideoProvider } from "../providers/mock/mock.provider"
 
 /**
@@ -21,7 +21,10 @@ export function getVideoProvider(): VideoProvider {
 		const providerType = import.meta.env.VIDEOS_PROVIDER?.toLowerCase()
 
 		if (providerType === "cloudflare") {
-			_provider = new CloudflareStreamProvider()
+			// _provider = new CloudflareStreamProvider()
+			throw new Error(
+				"CloudflareStreamProvider is not implemented yet. Please use MockVideoProvider for development."
+			)
 		} else {
 			// Default to mock
 			_provider = new MockVideoProvider()
