@@ -175,3 +175,6 @@ src/data/estructura_empresa
 
 # Supabase
 .supabase/
+
+# Public data for assets
+public/data/
