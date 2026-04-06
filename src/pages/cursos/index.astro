@@ -33,7 +33,7 @@ const user = Astro.locals.user
 <Layout navScrolled={true} {...seoData}>
 	<main id="main-content" class="pt-22">
 		<!-- Hero Section -->
-		<section class="bg-background relative py-16 lg:py-24">
+		<section class="bg-background relative overflow-hidden py-16 lg:py-24">
 			<div class="relative z-10 container mx-auto px-4 lg:px-8">
 				<div class="mx-auto max-w-3xl text-center">
 					<h1
@@ -58,10 +58,6 @@ const user = Astro.locals.user
 			<!-- Decorative elements -->
 			<div
 				class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
-			>
-			</div>
-			<div
-				class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
 			>
 			</div>
 		</section>
@@ -216,6 +212,10 @@ const user = Astro.locals.user
 
 		<!-- Courses Grid -->
 		<section class="py-12 lg:py-16">
+			<div
+				class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+			>
+			</div>
 			<div class="container mx-auto px-4 lg:px-8">
 				{
 					availableCourses.length > 0 ? (
