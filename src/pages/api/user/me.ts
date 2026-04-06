@@ -25,10 +25,22 @@ export const GET: APIRoute = async ({ locals }) => {
 		},
 	]
 
-	return new Response(JSON.stringify({ courses }), {
-		status: 200,
-		headers: {
-			"Content-Type": "application/json",
-		},
-	})
+	return new Response(
+		JSON.stringify({
+			user: {
+				id: user.id,
+				email: user.email,
+				displayName: user.displayName,
+				avatarUrl: user.avatarUrl,
+				emailVerified: user.emailVerified,
+			},
+			courses,
+		}),
+		{
+			status: 200,
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}
+	)
 }

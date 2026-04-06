@@ -21,7 +21,7 @@ export default function UserCourses() {
 	useEffect(() => {
 		async function loadCourses() {
 			try {
-				const response = await fetch("/api/user/courses")
+				const response = await fetch("/api/user/me")
 				const data: UserCoursesResponse = await response.json()
 
 				if (!response.ok) {
