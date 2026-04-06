@@ -5,7 +5,7 @@ import { getAssetUrl } from "@/services/directus"
 import { listVideos, type Video } from "@/videos"
 
 // Fetch videos for this course
-const videosResult = await listVideos({ courseId: "femmbarre-maternity" })
+const videosResult = await listVideos()
 const videos: Video[] = videosResult.data ?? []
 
 // Sort videos by creation date (most recent first)
