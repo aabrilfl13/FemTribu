@@ -60,32 +60,24 @@ const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	const isProtected = protectedPaths.some((p) => path.startsWith(p))
 	const isAuthRelated = authPaths.some((p) => path.startsWith(p))
 
-	// Skip auth checks entirely for public pages (prerendered pages)
-	// Only run auth for protected pages or auth-related pages
-	if (!isProtected && !isAuthRelated) {
-		return next()
-	}
-
-	// Get session (no user fetch yet - optimization)
+	// Get session on all requests (lightweight check)
 	const { data: session } = await getSession(context)
 
-	// For auth pages: redirect if already logged in (no need to fetch user)
+	// For auth pages: redirect if already logged in
 	if (isAuthRelated && session) {
 		return context.redirect("/perfil")
 	}
 
-	// For protected pages: fetch user data only when needed
-	if (isProtected) {
-		if (session) {
-			const { data: user } = await getUser(context)
-			context.locals.user = user!
-		}
+	// Populate user in locals if session exists (for nav rendering, API routes, etc.)
+	if (session) {
+		const { data: user } = await getUser(context)
+		context.locals.user = user!
+	}
 
-		// Redirect to login if not authenticated
-		if (!context.locals.user) {
-			const nextUrl = encodeURIComponent(context.url.pathname + context.url.search)
-			return context.redirect(`${AUTH_CONFIG.errorRedirect}?next=${nextUrl}`)
-		}
+	// For protected pages: redirect to login if not authenticated
+	if (isProtected && !context.locals.user) {
+		const nextUrl = encodeURIComponent(context.url.pathname + context.url.search)
+		return context.redirect(`${AUTH_CONFIG.errorRedirect}?next=${nextUrl}`)
 	}
 
 	return next()
