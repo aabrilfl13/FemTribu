@@ -54,11 +54,28 @@ const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	// Define protected and auth-related paths
 	const protectedPaths = ["/perfil"]
 	const authPaths = ["/auth/login", "/auth/register"]
+
+	// Public API routes that don't require authentication
+	const publicApiRoutes = [
+		"/api/contact",
+		"/api/newsletter",
+		"/api/newsletter/unsubscribe",
+		"/api/send-email",
+	]
+
 	const path = context.url.pathname
 
 	// Check if this is a protected or auth-related path
 	const isProtected = protectedPaths.some((p) => path.startsWith(p))
 	const isAuthRelated = authPaths.some((p) => path.startsWith(p))
+	const isPublicApi = publicApiRoutes.some((p) => path.startsWith(p))
+	const isPrivateApiRoute = path.startsWith("/api/") && !isPublicApi
+
+	// Only run session check for routes that need it (protected, auth pages, or private API routes)
+	// This prevents warnings on prerendered static pages and allows public APIs
+	if (!isProtected && !isAuthRelated && !isPrivateApiRoute) {
+		return next()
+	}
 
 	// Get session on all requests (lightweight check)
 	const { data: session } = await getSession(context)
