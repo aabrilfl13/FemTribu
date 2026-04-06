@@ -1,3 +1,5 @@
+export type VideoProviderType = "bunny" | "cloudflare" | "mock"
+
 export interface Video {
 	id: string
 	title: string
@@ -5,6 +7,7 @@ export interface Video {
 	duration: number // seconds
 	thumbnailUrl: string
 	url: string
+	provider: VideoProviderType // Which provider this video comes from
 	courseId: string | null
 	chapterIndex: number | null
 	metadata: Record<string, any>

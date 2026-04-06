@@ -13,7 +13,8 @@ export const mockVideos: Video[] = [
 			"Introducción al programa FemmBarre Maternity. Conoce los beneficios, adaptaciones y qué esperar de cada clase.",
 		duration: 900, // 15 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/B85440/ffffff?text=Bienvenida",
-		url: "/FEMM-BARRE-MATERNITY-01.mp4",
+		url: "/data/FEMM-BARRE-MATERNITY-01.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 1,
 		metadata: {
@@ -30,6 +31,7 @@ export const mockVideos: Video[] = [
 		duration: 2700, // 45 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/B85440/ffffff?text=1er+Trimestre",
 		url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 2,
 		metadata: {
@@ -46,6 +48,7 @@ export const mockVideos: Video[] = [
 		duration: 3000, // 50 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/B85440/ffffff?text=2do+Trimestre",
 		url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 3,
 		metadata: {
@@ -62,6 +65,7 @@ export const mockVideos: Video[] = [
 		duration: 2700, // 45 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/B85440/ffffff?text=3er+Trimestre",
 		url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 4,
 		metadata: {
@@ -78,6 +82,7 @@ export const mockVideos: Video[] = [
 		duration: 1200, // 20 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/7A9582/ffffff?text=Suelo+Pelvico",
 		url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 5,
 		metadata: {
@@ -94,6 +99,7 @@ export const mockVideos: Video[] = [
 		duration: 1800, // 30 minutes
 		thumbnailUrl: "https://placehold.co/1280x720/7A9582/ffffff?text=Movilidad",
 		url: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/1080/Big_Buck_Bunny_1080_10s_1MB.mp4",
+		provider: "mock",
 		courseId: "femmbarre-maternity",
 		chapterIndex: 6,
 		metadata: {

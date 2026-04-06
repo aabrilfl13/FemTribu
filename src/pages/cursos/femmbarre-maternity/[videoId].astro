@@ -1,5 +1,5 @@
 ---
-import { VideoPlayer } from "@videos/components/VideoPlayer"
+import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
 import Layout from "@/layouts/Layout.astro"
 import { getVideo, listVideos, type Video } from "@/videos"
@@ -69,7 +69,12 @@ const seoData = {
 						<div
 							class="shadow-warm mb-6 overflow-hidden rounded-2xl border border-gray-100 bg-black"
 						>
-							<VideoPlayer src={video.url} client:load />
+							<VideoPlayerFactory
+								provider={video.provider}
+								url={video.url}
+								title={video.title}
+								client:load
+							/>
 						</div>
 
 						<!-- Video Info -->

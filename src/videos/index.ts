@@ -1,5 +1,11 @@
 // Domain Types
-export type { Video, VideoError, VideoResult, VideoListOptions } from "./domain/video.types"
+export type {
+	Video,
+	VideoError,
+	VideoResult,
+	VideoListOptions,
+	VideoProviderType,
+} from "./domain/video.types"
 
 // Provider Interface (Port)
 export type { VideoProvider } from "./domain/ports/video-provider.port"
@@ -20,3 +26,7 @@ export { BunnyStreamProvider } from "./providers/bunny/bunny-stream.provider"
 // Mock Data (for testing and development)
 export { mockVideos, SAMPLE_VIDEO_URLS } from "./providers/mock/mock-videos.data"
 
+// Components
+export { VideoPlayerFactory } from "./components/VideoPlayerFactory"
+export { VideoPlayer } from "./components/VideoPlayer"
+export { BunnyPlayer } from "./components/BunnyPlayer"
