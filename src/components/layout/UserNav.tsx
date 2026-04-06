@@ -104,6 +104,9 @@ export default function UserNav({ initialUser }: UserNavProps = {}) {
 				<div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#B85440] to-[#D88B7D] text-sm font-bold text-white shadow-sm">
 					{initials}
 				</div>
+				<span className="max-w-[150px] truncate">
+					{user.displayName || user.email || "Usuario"}
+				</span>
 				<svg
 					className={`h-4 w-4 text-[#fff5eb] transition-transform duration-300 [.scrolled_&]:text-[#37443a] ${dropdownOpen ? "rotate-180" : ""}`}
 					fill="none"
@@ -118,10 +121,10 @@ export default function UserNav({ initialUser }: UserNavProps = {}) {
 				<div className="absolute top-full right-0 mt-2 w-64 rounded-xl border border-gray-100 bg-white py-2 shadow-xl">
 					{/* User info header */}
 					<div className="border-b border-gray-100 px-4 py-3">
-						<p className="text-sm font-semibold text-[#37443a]">
+						<p className="truncate text-sm font-semibold text-[#37443a]">
 							{user.displayName || user.email || "Usuario"}
 						</p>
-						{user.email && <p className="text-xs text-gray-500">{user.email}</p>}
+						{user.email && <p className="truncate text-xs text-gray-500">{user.email}</p>}
 					</div>
 
 					{/* Menu items */}
