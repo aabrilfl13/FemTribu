@@ -52,7 +52,7 @@ const adminAuth = defineMiddleware(async (context: APIContext, next) => {
 // User authentication middleware
 const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	// Define protected and auth-related paths
-	const protectedPaths = ["/perfil"]
+	const protectedPaths = ["/perfil", "/cursos"] // Add more protected paths as needed
 	const authPaths = ["/auth/login", "/auth/register"]
 
 	// Public API routes that don't require authentication

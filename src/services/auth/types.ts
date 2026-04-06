@@ -5,6 +5,7 @@ export interface AuthUser {
 	avatarUrl: string | null
 	createdAt: Date
 	emailVerified: boolean
+	hasActiveFemmBarre?: boolean
 }
 
 export interface AuthSession {

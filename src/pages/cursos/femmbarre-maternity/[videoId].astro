@@ -11,6 +11,20 @@ if (!videoId) {
 	return Astro.redirect("/cursos/femmbarre-maternity")
 }
 
+// Check if user has access to FemM Barre
+const user = Astro.locals.user
+
+if (!user) {
+	// Not logged in - redirect to login with next parameter
+	const nextUrl = encodeURIComponent(Astro.url.pathname + Astro.url.search)
+	return Astro.redirect(`/auth/login?next=${nextUrl}`)
+}
+
+if (!user.hasActiveFemmBarre) {
+	// Logged in but no access - redirect to access page
+	return Astro.redirect("/cursos")
+}
+
 // Fetch the specific video
 const videoResult = await getVideo(videoId)
 if (!videoResult.data) {

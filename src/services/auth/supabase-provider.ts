@@ -173,8 +173,15 @@ export class SupabaseAuthProvider implements AuthProvider {
 			}
 		}
 
+		// Fetch profile data
+		const { data: profile } = await supabase
+			.from("profiles")
+			.select("has_active_femm_barre")
+			.eq("id", data.user.id)
+			.single()
+
 		return {
-			data: this.mapUser(data.user),
+			data: this.mapUser(data.user, profile),
 			error: null,
 		}
 	}
@@ -212,7 +219,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 	}
 
 	// Type mapping helpers
-	private mapUser(user: any): AuthUser {
+	private mapUser(user: any, profile?: any): AuthUser {
 		return {
 			id: user.id,
 			email: user.email!,
@@ -220,6 +227,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 			avatarUrl: user.user_metadata?.avatar_url || null,
 			createdAt: new Date(user.created_at),
 			emailVerified: !!user.email_confirmed_at,
+			hasActiveFemmBarre: profile?.has_active_femm_barre || false,
 		}
 	}
 
@@ -228,7 +236,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 			accessToken: session.access_token,
 			refreshToken: session.refresh_token,
 			expiresAt: session.expires_at! * 1000, // Convert to milliseconds
-			user: session.user ? this.mapUser(session.user) : undefined,
+			user: session.user ? this.mapUser(session.user, undefined) : undefined,
 		}
 	}
 

@@ -9,6 +9,7 @@ declare namespace App {
 			avatarUrl: string | null
 			createdAt: Date
 			emailVerified: boolean
+			hasActiveFemmBarre?: boolean
 		}
 	}
 }
