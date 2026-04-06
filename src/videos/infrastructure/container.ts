@@ -1,6 +1,7 @@
 import type { VideoProvider } from "../domain/ports/video-provider.port"
 import type { Video, VideoListOptions, VideoResult } from "../domain/video.types"
 // import { CloudflareStreamProvider } from "../providers/cloudflare/cloudflare-stream.provider"
+import { BunnyStreamProvider } from "../providers/bunny/bunny-stream.provider"
 import { MockVideoProvider } from "../providers/mock/mock.provider"
 
 /**
@@ -25,6 +26,8 @@ export function getVideoProvider(): VideoProvider {
 			throw new Error(
 				"CloudflareStreamProvider is not implemented yet. Please use MockVideoProvider for development."
 			)
+		} else if (providerType === "bunny") {
+			_provider = new BunnyStreamProvider()
 		} else {
 			// Default to mock
 			_provider = new MockVideoProvider()

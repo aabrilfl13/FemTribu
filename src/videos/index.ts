@@ -13,7 +13,10 @@ export {
 	listVideos,
 } from "./infrastructure/container"
 
+// Providers
 export { MockVideoProvider } from "./providers/mock/mock.provider"
+export { BunnyStreamProvider } from "./providers/bunny/bunny-stream.provider"
+
 // Mock Data (for testing and development)
 export { mockVideos, SAMPLE_VIDEO_URLS } from "./providers/mock/mock-videos.data"
 
