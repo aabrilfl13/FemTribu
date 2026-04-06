@@ -1,5 +1,6 @@
 ---
 import MobileMenu from "@/components/layout/MobileMenu.astro"
+import UserNav from "@/components/layout/UserNav"
 import NewsletterModal from "@/components/modals/NewsletterModal.astro"
 import Button from "@/components/ui/Button.astro"
 
@@ -8,6 +9,10 @@ interface Props {
 }
 
 const { scrolled = false } = Astro.props
+
+// Get user from locals if available (server-rendered pages like /perfil)
+// On prerendered pages, this will be undefined and components will fetch client-side
+const user = Astro.locals.user
 
 const navItems = [
 	{ label: "Inicio", href: "/#" },
@@ -27,9 +32,7 @@ const navItems = [
 			},
 			{
 				label: "Clases",
-				items: [
-					{ label: "FemmBarre Maternity", href: "/servicios/femmbarre" },
-				],
+				items: [{ label: "FemmBarre Maternity", href: "/servicios/femmbarre" }],
 			},
 		],
 	},
@@ -104,7 +107,7 @@ const navItems = [
 												{group.items.map((subItem) => (
 													<a
 														href={subItem.href}
-														class="dropdown-item block whitespace-nowrap rounded-md px-2 py-1.5 text-sm text-[#37443a] transition-colors duration-200 hover:bg-[#f5f5f5] hover:text-[#cb6e5f]"
+														class="dropdown-item block rounded-md px-2 py-1.5 text-sm whitespace-nowrap text-[#37443a] transition-colors duration-200 hover:bg-[#f5f5f5] hover:text-[#cb6e5f]"
 													>
 														{subItem.label}
 													</a>
@@ -126,9 +129,9 @@ const navItems = [
 				}
 			</nav>
 
-			{/* CTA Buttons */}
+			{/* CTA Buttons & User Nav */}
 			<div class="hidden items-center gap-3 md:hidden md:[.scrolled_&]:flex">
-				<Button
+				<!-- <Button
 					id="newsletter-modal-trigger"
 					class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
 				>
@@ -143,10 +146,11 @@ const navItems = [
 					class="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex items-center justify-center rounded-full px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
 				>
 					Reserva tu cita
-				</a>
+				</a> -->
+				<UserNav client:load initialUser={user} />
 			</div>
 
-			<MobileMenu navItems={navItems} />
+			<MobileMenu navItems={navItems} user={user} />
 		</div>
 	</div>
 </header>

@@ -1,6 +1,7 @@
 ---
 import InstagramIcon from "@/assets/iconos/instagram.svg"
 import TikTokIcon from "@/assets/iconos/tiktok.svg"
+import MobileMenuAuth from "@/components/layout/MobileMenuAuth"
 import Button from "@/components/ui/Button.astro"
 
 // Define the interface for navigation items
@@ -19,9 +20,10 @@ interface NavItem {
 // Accept navItems as a prop
 interface Props {
 	navItems: NavItem[]
+	user?: any
 }
 
-const { navItems } = Astro.props
+const { navItems, user } = Astro.props
 ---
 
 <!-- Mobile Menu Button -->
@@ -34,7 +36,11 @@ const { navItems } = Astro.props
 <!-- Mobile Menu -->
 <div class="mobile-menu">
 	<div class="mobile-menu-content">
-		<nav aria-label="Menu movil" class="mt-20 flex flex-1 flex-col gap-2">
+		<nav aria-label="Menu movil" class="mt-5 flex flex-1 flex-col gap-2">
+			{/* User Authentication Section - Client-side */}
+			<MobileMenuAuth client:load initialUser={user} />
+
+			{/* Main Navigation */}
 			<div class="flex flex-col gap-4">
 				{
 					navItems.map((item, index) => (
@@ -71,7 +77,7 @@ const { navItems } = Astro.props
 										<div class="flex flex-col gap-3 pt-2 pl-4">
 											{item.subGroups.map((group) => (
 												<div>
-													<p class="mb-1 text-[11px] font-semibold tracking-wider opacity-60 uppercase">
+													<p class="mb-1 text-[11px] font-semibold tracking-wider uppercase opacity-60">
 														{group.label}
 													</p>
 													<div class="flex flex-col gap-1">
@@ -279,6 +285,47 @@ const { navItems } = Astro.props
 		opacity: 1;
 	}
 
+	/* Mobile Auth Section */
+	.mobile-auth-section {
+		padding-bottom: 32px;
+		margin-bottom: 24px;
+	}
+
+	.mobile-auth-link {
+		text-decoration: none;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		border: none;
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	.mobile-auth-link::before {
+		display: none !important;
+	}
+
+	/* Logged-in user links */
+	.mobile-auth-link:not([href*="login"]):not([href*="register"]):hover {
+		color: #cb6e5f;
+		transform: translateX(8px);
+	}
+
+	.mobile-auth-link:not([href*="login"]):not([href*="register"]):hover svg {
+		color: #cb6e5f;
+	}
+
+	/* Login/Register button links - keep existing hover behavior */
+	.mobile-auth-link[href*="login"]:hover,
+	.mobile-auth-link[href*="register"]:hover {
+		transform: none;
+	}
+
+	/* Add subtle separator between links */
+	.mobile-auth-section a[href="/perfil"],
+	.mobile-auth-section a[href="/perfil#courses"] {
+		border-bottom: 1px solid rgba(55, 68, 58, 0.08);
+	}
+
 	/* Mobile Social Links */
 	.mobile-social {
 		display: flex;
@@ -350,6 +397,11 @@ const { navItems } = Astro.props
 		.mobile-link {
 			font-size: 1.5rem;
 		}
+
+		.mobile-auth-section {
+			padding-bottom: 28px;
+			margin-bottom: 20px;
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -360,6 +412,15 @@ const { navItems } = Astro.props
 		.mobile-link {
 			font-size: 1.3rem;
 			padding: 12px 0;
+		}
+
+		.mobile-auth-section {
+			padding-bottom: 24px;
+			margin-bottom: 16px;
+		}
+
+		.mobile-auth-section .font-display {
+			font-size: 1rem;
 		}
 
 		.mobile-social-link {
