@@ -207,34 +207,10 @@ const seoData = {
 		}
 
 		<!-- Info Section -->
-		<section class="bg-muted/30 py-16">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div
-					class="mx-auto max-w-3xl rounded-3xl border border-gray-100 bg-white p-8 text-center lg:p-12"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-				>
-					<div
-						class="bg-accent/10 mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full"
-					>
-						<img
-							src={getAssetUrl("6ee80f09-cb27-4bcc-bc5c-cdd6b15ac547")}
-							alt=""
-							class="h-8 w-8 object-contain"
-						/>
-					</div>
-					<h3 class="font-display text-primary mb-4 text-2xl">¿Tienes dudas?</h3>
-					<p class="text-muted-foreground mb-6">
-						Si necesitas ayuda o quieres saber más sobre las clases, estamos aquí para ti.
-					</p>
-					<a
-						href="/contacto"
-						class="inline-flex items-center gap-2 rounded-xl border-2 border-[#7A9582] px-6 py-3 font-semibold text-[#2D3E2F] transition-all hover:bg-[#7A9582] hover:text-white"
-					>
-						Contáctanos
-					</a>
-				</div>
-			</div>
-		</section>
+		<CTA
+			title="¿Tienes dudas?"
+			description="Si necesitas ayuda o quieres saber más sobre las clases, estamos aquí para ti."
+			serviceName="FemmBarre Maternity"
+		/>
 	</main>
 </Layout>

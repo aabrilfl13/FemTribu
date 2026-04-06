@@ -1,0 +1,76 @@
+---
+import CalendarIcon from "@/assets/iconos/calendar.svg"
+import WhatsAppIcon from "@/assets/iconos/whatsapp.svg"
+import Button from "@/components/ui/Button.astro"
+
+interface Props {
+	title: string
+	description: string
+	serviceName?: string
+}
+
+const { title, description, serviceName = "los servicios" } = Astro.props
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+---
+
+<section class="bg-muted/30 py-16 lg:py-24">
+	<div class="container mx-auto px-4 lg:px-8">
+		<div class="mx-auto max-w-4xl text-center">
+			<h2
+				class="font-display text-primary mb-6 text-3xl lg:text-4xl"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+			>
+				{title}
+			</h2>
+			<p
+				class="text-muted-foreground mb-8 text-lg"
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+				data-animate-delay="0.1s"
+			>
+				{description}
+			</p>
+			<div class="flex flex-col justify-center gap-4 sm:flex-row">
+				<Button
+					href={import.meta.env.CALENDLY_URL}
+					target="_blank"
+					rel="noopener noreferrer"
+					variant="organic"
+					data-modal-action="close"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					<CalendarIcon class="h-5 w-5" />
+					Concertar una cita gratuita
+				</Button>
+				<Button
+					id="whatsapp-service-btn"
+					variant="secondary"
+					data-service-name={serviceName}
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					<WhatsAppIcon class="h-5 w-5" />
+					Contactar por WhatsApp
+				</Button>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const whatsappBtn = document.getElementById("whatsapp-service-btn")
+
+		whatsappBtn?.addEventListener("click", () => {
+			const serviceName = whatsappBtn.dataset.serviceName || "los servicios"
+			const message = encodeURIComponent(
+				`Hola! Me interesa saber más sobre *${serviceName}* de *Femm tribu*.`
+			)
+			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+		})
+	})
+</script>
