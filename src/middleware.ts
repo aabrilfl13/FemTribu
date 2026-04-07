@@ -77,6 +77,13 @@ const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	// 	return next()
 	// }
 
+	// TODO: Make this more efficient and redo NAV to be static for static content and dynamic only for auth-related parts (like showing login vs user info) to avoid this check on every page. For now, we need to check session on every request to handle protected pages and auth redirects properly.
+
+	// Check if this is a prerendered page and skip auth if so (since we can't check session at build time)
+	if (context.isPrerendered) {
+		return next()
+	}
+
 	// Get session on all requests (lightweight check)
 	const { data: session } = await getSession(context)
 
