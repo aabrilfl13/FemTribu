@@ -163,7 +163,9 @@ const announcementStories = await getAnnouncements()
 				<div class="snow"></div>
 				<div class="snow"></div>
 			</div> -->
-			<Nav scrolled={navScrolled} />
+			<Nav server:defer scrolled={navScrolled}>
+				<span slot="fallback" class="fixed top-0 right-0 left-0 h-20 bg-transparent"></span>
+			</Nav>
 			<slot />
 			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />

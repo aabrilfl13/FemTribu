@@ -73,9 +73,9 @@ const userAuth = defineMiddleware(async (context: APIContext, next) => {
 
 	// Only run session check for routes that need it (protected, auth pages, or private API routes)
 	// This prevents warnings on prerendered static pages and allows public APIs
-	if (!isProtected && !isAuthRelated && !isPrivateApiRoute) {
-		return next()
-	}
+	// if (!isProtected && !isAuthRelated && !isPrivateApiRoute) {
+	// 	return next()
+	// }
 
 	// Get session on all requests (lightweight check)
 	const { data: session } = await getSession(context)

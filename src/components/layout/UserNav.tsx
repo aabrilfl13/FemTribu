@@ -12,33 +12,10 @@ interface UserNavProps {
 	initialUser?: User | null
 }
 
-export default function UserNav({ initialUser }: UserNavProps = {}) {
-	const [user, setUser] = useState<User | null>(initialUser || null)
-	const [loading, setLoading] = useState(!initialUser)
+export default function UserNav({ initialUser }: UserNavProps) {
+	// Since Nav is a Server Island, initialUser is always provided from Astro.locals
+	const user = initialUser ?? null
 	const [dropdownOpen, setDropdownOpen] = useState(false)
-
-	// Check authentication - only if no initial user provided
-	useEffect(() => {
-		if (initialUser) {
-			return
-		}
-
-		async function checkAuth() {
-			try {
-				const response = await fetch("/api/user/me")
-				if (response.ok) {
-					const data = await response.json()
-					setUser(data.user)
-				}
-			} catch (err) {
-				console.error("Auth check failed:", err)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		checkAuth()
-	}, [initialUser])
 
 	// Setup click-outside handler for dropdown
 	useEffect(() => {
@@ -52,14 +29,6 @@ export default function UserNav({ initialUser }: UserNavProps = {}) {
 		document.addEventListener("click", handleClickOutside)
 		return () => document.removeEventListener("click", handleClickOutside)
 	}, [])
-
-	if (loading) {
-		return (
-			<div className="flex items-center gap-3">
-				<div className="h-10 w-24 animate-pulse rounded-full bg-white/10 [.scrolled_&]:bg-[#7A9582]/10"></div>
-			</div>
-		)
-	}
 
 	if (!user) {
 		// Show Login/Register buttons

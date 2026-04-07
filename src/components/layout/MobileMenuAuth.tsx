@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react"
-
 interface User {
 	id: string
 	email: string
@@ -12,31 +10,9 @@ interface MobileMenuAuthProps {
 	initialUser?: User | null
 }
 
-export default function MobileMenuAuth({ initialUser }: MobileMenuAuthProps = {}) {
-	const [user, setUser] = useState<User | null>(initialUser || null)
-	const [loading, setLoading] = useState(!initialUser)
-
-	useEffect(() => {
-		if (initialUser) {
-			return
-		}
-
-		async function checkAuth() {
-			try {
-				const response = await fetch("/api/user/me")
-				if (response.ok) {
-					const data = await response.json()
-					setUser(data.user)
-				}
-			} catch (err) {
-				console.error("Auth check failed:", err)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		checkAuth()
-	}, [initialUser])
+export default function MobileMenuAuth({ initialUser }: MobileMenuAuthProps) {
+	// Since Nav is a Server Island, initialUser is always provided from Astro.locals
+	const user = initialUser ?? null
 
 	const displayName = user?.displayName || user?.email?.split("@")[0] || "Usuario"
 	const initials = user
@@ -47,14 +23,6 @@ export default function MobileMenuAuth({ initialUser }: MobileMenuAuthProps = {}
 				.toUpperCase()
 				.slice(0, 2)
 		: ""
-
-	if (loading) {
-		return (
-			<div className="mobile-auth-section mb-6 flex w-full flex-col gap-2 pb-8">
-				<div className="h-20 w-full animate-pulse rounded-lg bg-white/20"></div>
-			</div>
-		)
-	}
 
 	return (
 		<div className="mobile-auth-section mb-6 flex w-full flex-col gap-2 pb-8">
