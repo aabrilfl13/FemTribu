@@ -7,6 +7,8 @@ import type {
 	AuthResult,
 	AuthSession,
 	AuthUser,
+	OAuthProvider,
+	OAuthResponse,
 	SignInCredentials,
 	SignUpCredentials,
 } from "./types"
@@ -112,6 +114,45 @@ export class SupabaseAuthProvider implements AuthProvider {
 
 		return {
 			data: null,
+			error: null,
+		}
+	}
+
+	async signInWithOAuth(
+		provider: OAuthProvider,
+		options?: {
+			context?: APIContext
+			redirectTo?: string
+			scopes?: string
+		}
+	): Promise<AuthResult<OAuthResponse>> {
+		const supabase = options?.context
+			? createSupabaseServerClient({
+					request: options.context.request,
+					cookies: options.context.cookies,
+				})
+			: this.supabase
+
+		const { data, error } = await supabase.auth.signInWithOAuth({
+			provider,
+			options: {
+				redirectTo: options?.redirectTo,
+				scopes: options?.scopes,
+			},
+		})
+
+		if (error) {
+			return {
+				data: null,
+				error: this.mapError(error),
+			}
+		}
+
+		return {
+			data: {
+				url: data.url,
+				provider,
+			},
 			error: null,
 		}
 	}
