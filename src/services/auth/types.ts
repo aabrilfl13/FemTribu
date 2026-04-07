@@ -35,3 +35,20 @@ export interface AuthResult<T = void> {
 	data: T | null
 	error: AuthError | null
 }
+
+export type OAuthProvider =
+	| "google"
+	| "github"
+	| "gitlab"
+	| "facebook"
+	| "icloud"
+	| "azure"
+	| "linkedin"
+	| "twitter"
+	| "spotify"
+	| "discord"
+
+export interface OAuthResponse {
+	url: string
+	provider: OAuthProvider
+}
