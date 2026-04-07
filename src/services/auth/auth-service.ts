@@ -6,6 +6,8 @@ import type {
 	AuthResult,
 	AuthSession,
 	AuthUser,
+	OAuthProvider,
+	OAuthResponse,
 	SignInCredentials,
 	SignUpCredentials,
 } from "./types"
@@ -36,6 +38,17 @@ export function signIn(
 
 export function signOut(options?: { context?: APIContext }): Promise<AuthResult> {
 	return provider.signOut(options?.context!)
+}
+
+export function signInWithOAuth(
+	oauthProvider: OAuthProvider,
+	options?: {
+		context?: APIContext
+		redirectTo?: string
+		scopes?: string
+	}
+): Promise<AuthResult<OAuthResponse>> {
+	return provider.signInWithOAuth(oauthProvider, options)
 }
 
 export function exchangeCodeForSession(

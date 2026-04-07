@@ -35,3 +35,10 @@ export interface AuthResult<T = void> {
 	data: T | null
 	error: AuthError | null
 }
+
+export type OAuthProvider = "google"
+
+export interface OAuthResponse {
+	url: string
+	provider: OAuthProvider
+}

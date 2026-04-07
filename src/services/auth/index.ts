@@ -6,8 +6,8 @@ export type {
 	AuthResult,
 	SignUpCredentials,
 	SignInCredentials,
-	PasswordResetRequest,
-	PasswordUpdateRequest,
+	OAuthProvider,
+	OAuthResponse,
 } from "./types"
 
 // Provider interface
@@ -19,6 +19,7 @@ export {
 	signUp,
 	signIn,
 	signOut,
+	signInWithOAuth,
 	exchangeCodeForSession,
 	getUser,
 	getSession,

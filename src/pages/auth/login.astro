@@ -1,4 +1,5 @@
 ---
+import GoogleButton from "@/components/auth/GoogleButton"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import Layout from "@/layouts/Layout.astro"
 
@@ -111,6 +112,20 @@ export const prerender = false
 						</p>
 					</div>
 
+					<!-- Google OAuth Button -->
+					<div id="google-oauth-container">
+						<GoogleButton client:load mode="signin" />
+					</div>
+
+					<div class="relative my-6">
+						<div class="absolute inset-0 flex items-center">
+							<div class="w-full border-t border-gray-200"></div>
+						</div>
+						<div class="relative flex justify-center text-sm">
+							<span class="text-muted-foreground bg-[#FAF7F5] px-4">O continúa con email</span>
+						</div>
+					</div>
+
 					<form id="login-form" class="space-y-5" novalidate>
 						<div>
 							<label for="login-email" class="text-primary mb-2 block text-sm font-semibold">
@@ -221,6 +236,11 @@ export const prerender = false
 		const passwordInput = document.getElementById("login-password") as HTMLInputElement
 
 		let isSubmitting = false
+
+		// Make showMessage available globally for GoogleButton
+		;(window as any).showLoginMessage = (text: string, type: "success" | "error") => {
+			showMessage(text, type)
+		}
 
 		// Check for redirect parameter
 		const urlParams = new URLSearchParams(window.location.search)
