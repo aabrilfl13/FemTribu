@@ -38,6 +38,7 @@ export interface Event {
 	}[]
 	includes?: string[]
 	image: string
+	sessions?: { date: string; dateISO: string }[]
 	gallery?: { id: string; src: string; alt: string }[]
 	video?: {
 		directusId: string
