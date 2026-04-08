@@ -8,18 +8,18 @@ import type {
 	OAuthResponse,
 	SignInCredentials,
 	SignUpCredentials,
-} from "./types"
+} from "../auth.types"
 
 export interface AuthProvider {
-	// Authentication
 	signUp(
 		credentials: SignUpCredentials,
 		options?: { context?: APIContext; emailRedirectTo?: string }
 	): Promise<AuthResult<AuthSession>>
+
 	signIn(credentials: SignInCredentials, context: APIContext): Promise<AuthResult<AuthSession>>
+
 	signOut(context: APIContext): Promise<AuthResult>
 
-	// OAuth authentication
 	signInWithOAuth(
 		provider: OAuthProvider,
 		options?: {
@@ -29,7 +29,6 @@ export interface AuthProvider {
 		}
 	): Promise<AuthResult<OAuthResponse>>
 
-	// OAuth/Email callback handling
 	exchangeCodeForSession(
 		code: string,
 		options?: { context?: APIContext }
