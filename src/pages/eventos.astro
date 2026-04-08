@@ -91,6 +91,33 @@ const upcomingEvents = [
 		locationAddress: "Carrer de Martí, 17, L'Eixample, 46005 València, Valencia",
 		facilitators: [{ name: "María Belenguer", image: "/images/about-me/mery-portait.webp" }],
 	},
+	{
+		id: 5,
+		title: "Curso de Preparación al Parto",
+		date: "17 Abril 2026",
+		dateISO: "2026-04-17",
+		lastDateISO: "2026-05-15",
+		sessions: [
+			{ date: "17 Abril 2026", dateISO: "2026-04-17" },
+			{ date: "24 Abril 2026", dateISO: "2026-04-24" },
+			{ date: "8 Mayo 2026", dateISO: "2026-05-08" },
+			{ date: "15 Mayo 2026", dateISO: "2026-05-15" },
+		],
+		time: "A confirmar",
+		startTime: "10:00:00",
+		endTime: "12:30:00",
+		type: "Presencial · Valencia",
+		description:
+			"Un espacio para acompañarte con calma, información y confianza en el camino hacia el nacimiento de tu bebé. Cuatro sesiones semanales de 2–3 horas para comprender el parto, el postparto y el inicio de la lactancia, con dinámicas en pareja, meditaciones y espacio de comunidad.",
+		spots: 8,
+		price: "A consultar",
+		color: "from-sage/20 to-cream/30",
+		accent: "sage",
+		route: "/eventos/curso-preparacion-parto-abril-mayo-2026",
+		image: "/images/about-me/mery-portait.webp",
+		location: "Valencia",
+		facilitators: [{ name: "María Belenguer", image: "/images/about-me/mery-portait.webp" }],
+	},
 ]
 
 const seoData = {
@@ -100,36 +127,18 @@ const seoData = {
 }
 
 // Function to check if event is past
-const isEventPast = (dateStr: string) => {
-	const months: Record<string, number> = {
-		Enero: 0,
-		Febrero: 1,
-		Marzo: 2,
-		Abril: 3,
-		Mayo: 4,
-		Junio: 5,
-		Julio: 6,
-		Agosto: 7,
-		Septiembre: 8,
-		Octubre: 9,
-		Noviembre: 10,
-		Diciembre: 11,
-	}
-
-	const parts = dateStr.split(" ")
-	const day = parseInt(parts[0])
-	const month = months[parts[1]]
-	const year = parseInt(parts[2])
-
-	const eventDate = new Date(year, month, day)
+// For multi-day events, uses lastDateISO so the event stays visible until the final session
+const isEventPast = (event: { dateISO: string; lastDateISO?: string }) => {
+	const isoToCheck = event.lastDateISO ?? event.dateISO
+	const d = new Date(isoToCheck)
+	d.setHours(0, 0, 0, 0)
 	const today = new Date()
 	today.setHours(0, 0, 0, 0)
-
-	return eventDate < today
+	return d < today
 }
 
 // Separate active and past events
-const activeEvents = upcomingEvents.filter((event) => !isEventPast(event.date))
+const activeEvents = upcomingEvents.filter((event) => !isEventPast(event))
 
 const monthNamesES = [
 	"Enero",
@@ -220,16 +229,31 @@ const sortedEvents = [...upcomingEvents].sort(
 					data-animate-delay="0.4s"
 				>
 					<EventCalendar
-						events={upcomingEvents.map((e) => ({
-							id: e.id,
-							title: e.title,
-							date: e.date,
-							dateISO: e.dateISO,
-							time: e.time,
-							type: e.type,
-							route: e.route,
-							accent: e.accent,
-						}))}
+						events={upcomingEvents.flatMap((e) =>
+							e.sessions && e.sessions.length > 0
+								? e.sessions.map((s, i) => ({
+										id: e.id * 100 + i,
+										title: e.title,
+										date: s.date,
+										dateISO: s.dateISO,
+										time: e.time,
+										type: e.type,
+										route: e.route,
+										accent: e.accent,
+									}))
+								: [
+										{
+											id: e.id,
+											title: e.title,
+											date: e.date,
+											dateISO: e.dateISO,
+											time: e.time,
+											type: e.type,
+											route: e.route,
+											accent: e.accent,
+										},
+									]
+						)}
 					/>
 				</div>
 			</div>
@@ -285,7 +309,7 @@ const sortedEvents = [...upcomingEvents].sort(
 							let lastMonthKey = ""
 							return sortedEvents.map((event, index) => {
 								const eventDate = new Date(event.dateISO)
-								const isPast = isEventPast(event.date)
+								const isPast = isEventPast(event)
 								const monthKey = `${eventDate.getFullYear()}-${eventDate.getMonth()}`
 								const showHeader = monthKey !== lastMonthKey
 								lastMonthKey = monthKey
@@ -360,6 +384,11 @@ const sortedEvents = [...upcomingEvents].sort(
 														<span class="font-body text-forest/70 block text-sm">
 															{event.date.split(" ")[1]}
 														</span>
+														{event.sessions && event.sessions.length > 1 && (
+															<span class="font-body text-terracotta mt-1 block text-xs">
+																{event.sessions.length} sesiones
+															</span>
+														)}
 													</div>
 												</div>
 

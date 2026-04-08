@@ -178,6 +178,86 @@ export const events: Event[] = [
 				"Taller presencial en Valencia sobre ciclo menstrual y entrenamiento. Aprende a adaptar el ejercicio a tus fases hormonales, disfruta de un almuerzo y una clase de barre en The Sanctuary. Contacta por WhatsApp.",
 		},
 	},
+	{
+		slug: "curso-preparacion-parto-abril-mayo-2026",
+		title: "Curso de Preparación al Parto",
+		subtitle: "Abril en Pausa · Salud Presencial en Valencia",
+		date: "17 Abr - 15 May 2026",
+		dateISO: "2026-04-17",
+		sessions: [
+			{ date: "17 de Abril 2026", dateISO: "2026-04-17" },
+			{ date: "24 de Abril 2026", dateISO: "2026-04-24" },
+			{ date: "8 de Mayo 2026", dateISO: "2026-05-08" },
+			{ date: "15 de Mayo 2026", dateISO: "2026-05-15" },
+		],
+		time: "A confirmar",
+		startTime: "10:00:00",
+		endTime: "12:30:00",
+		duration: "2–3 horas por sesión (4 sesiones)",
+		type: "Presencial",
+		location: "Valencia",
+		price: "A consultar",
+		spots: 8,
+		description:
+			"Un espacio para acompañarte con calma, información y confianza en el camino hacia el nacimiento de tu bebé. Durante cuatro sesiones semanales de 2–3 horas, trabajaremos junto a las mujeres y sus parejas para comprender la fisiología del parto, qué ocurrirá en el cuerpo durante ese día y cómo transitar también las semanas previas, el postparto y el inicio de la lactancia. Además de la parte teórica, realizaremos dinámicas en pareja para aprender a acompañar el parto desde el rol del acompañante, meditaciones y visualizaciones que ayuden a conectar con el proceso. Será también un espacio para compartir, crear grupo y llegar al parto con más seguridad, herramientas y confianza.",
+		whatYouWillLearn: [
+			"Fisiología del parto y qué ocurre en el cuerpo",
+			"Cómo transitar las semanas previas al parto",
+			"Postparto e inicio de la lactancia",
+			"Dinámicas para acompañantes: cómo apoyar desde el rol de pareja",
+			"Meditaciones y visualizaciones para conectar con el proceso",
+			"Crear comunidad y llegar al parto con más seguridad y confianza",
+		],
+		schedule: [
+			{
+				time: "Sesión 1 · 17 Abr",
+				activity: "Fisiología del parto y las semanas previas",
+				description: "Comprenderemos qué ocurre en el cuerpo durante el parto y cómo prepararse para las semanas previas.",
+			},
+			{
+				time: "Sesión 2 · 24 Abr",
+				activity: "El parto: etapas y acompañamiento",
+				description: "Dinámicas en pareja para aprender a acompañar el parto desde el rol del acompañante.",
+			},
+			{
+				time: "Sesión 3 · 8 May",
+				activity: "Postparto e inicio de la lactancia",
+				description: "Todo lo que ocurre después del nacimiento: recuperación, vínculo y primeros días de lactancia.",
+			},
+			{
+				time: "Sesión 4 · 15 May",
+				activity: "Meditaciones, visualizaciones y cierre",
+				description: "Integración de todo lo aprendido a través de meditaciones y visualizaciones. Espacio de compartir y cierre grupal.",
+			},
+		],
+		facilitators: [
+			{
+				name: "María Belenguer",
+				role: "Matrona",
+				bio: "Matrona especializada en salud femenina y en el acompañamiento del embarazo, parto y postparto. Creadora de Femm tribu.",
+				image: "/images/about-me/mery-portait.webp",
+				socialMedia: {
+					instagram: "https://www.instagram.com/femm.tribu/",
+					linkedin: "https://www.linkedin.com/in/mar%C3%ADa-belenguer-p%C3%A9rez-b966593a0/",
+				},
+			},
+		],
+		includes: [
+			"4 sesiones presenciales de 2–3 horas",
+			"Parte teórica sobre fisiología del parto",
+			"Dinámicas en pareja para el acompañamiento",
+			"Meditaciones y visualizaciones",
+			"Material didáctico",
+			"Espacio de comunidad y acompañamiento grupal",
+		],
+		image: "/images/about-me/mery-portait.webp",
+		whatsappNumber: "34640912048",
+		seo: {
+			title: "Curso Preparación al Parto en Valencia · Abril en Pausa | Femm tribu",
+			description:
+				"Curso presencial de preparación al parto en Valencia. 4 sesiones semanales (17 y 24 Abr, 8 y 15 May 2026) con María Belenguer, matrona. Aprende sobre fisiología del parto, postparto y lactancia. Plazas limitadas.",
+		},
+	},
 ]
 
 /**
