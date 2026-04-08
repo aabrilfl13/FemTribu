@@ -1,9 +1,8 @@
 import type { APIContext } from "astro"
 import { defineMiddleware, sequence } from "astro:middleware"
 
+import { getSession, getUser } from "@/auth"
 import { AUTH_CONFIG } from "@/config/auth"
-
-import { getSession, getUser } from "./services/auth/auth-service"
 
 // Admin credentials - Move these to environment variables in production
 const SECRET_KEY = import.meta.env.SECRET_KEY

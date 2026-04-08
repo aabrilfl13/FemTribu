@@ -1,5 +1,5 @@
 import { createBrowserClient, createServerClient, parseCookieHeader } from "@supabase/ssr"
-import type { APIContext, AstroCookies } from "astro"
+import type { AstroCookies } from "astro"
 
 const SUPABASE_URL = import.meta.env.STORAGE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.STORAGE_SUPABASE_ANON_KEY

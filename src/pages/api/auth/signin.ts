@@ -1,6 +1,6 @@
 import type { APIContext, APIRoute } from "astro"
 
-import { signIn } from "@/services/auth"
+import { signIn } from "@/auth"
 
 export const prerender = false
 
@@ -36,7 +36,7 @@ export const POST: APIRoute = async (context: APIContext) => {
 				email,
 				password,
 			},
-			{ context }
+			context
 		)
 
 		if (result.error) {

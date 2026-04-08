@@ -1,7 +1,5 @@
 import type { APIContext, AstroCookies } from "astro"
 
-import type { AuthProvider } from "./auth-provider"
-import { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"
 import type {
 	AuthError,
 	AuthResult,
@@ -11,7 +9,9 @@ import type {
 	OAuthResponse,
 	SignInCredentials,
 	SignUpCredentials,
-} from "./types"
+} from "../../domain/auth.types"
+import type { AuthProvider } from "../../domain/ports/auth-provider.port"
+import { createSupabaseBrowserClient, createSupabaseServerClient } from "./supabase-client"
 
 export class SupabaseAuthProvider implements AuthProvider {
 	private supabase = createSupabaseBrowserClient()
@@ -20,7 +20,6 @@ export class SupabaseAuthProvider implements AuthProvider {
 		credentials: SignUpCredentials,
 		options?: { context?: APIContext; emailRedirectTo?: string }
 	): Promise<AuthResult<AuthSession>> {
-		// Use server client if request and cookies provided, otherwise browser client
 		const supabase = options?.context
 			? createSupabaseServerClient({
 					request: options.context.request,
@@ -40,10 +39,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 		})
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
 		if (!data.session) {
@@ -56,22 +52,15 @@ export class SupabaseAuthProvider implements AuthProvider {
 			}
 		}
 
-		return {
-			data: this.mapSession(data.session),
-			error: null,
-		}
+		return { data: this.mapSession(data.session), error: null }
 	}
 
 	async signIn(
 		credentials: SignInCredentials,
 		context: APIContext
 	): Promise<AuthResult<AuthSession>> {
-		// Use server client if context provided, otherwise browser client
 		const supabase = context
-			? createSupabaseServerClient({
-					request: context.request,
-					cookies: context.cookies,
-				})
+			? createSupabaseServerClient({ request: context.request, cookies: context.cookies })
 			: this.supabase
 
 		const { data, error } = await supabase.auth.signInWithPassword({
@@ -80,42 +69,25 @@ export class SupabaseAuthProvider implements AuthProvider {
 		})
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
-		return {
-			data: this.mapSession(data.session),
-			error: null,
-		}
+		return { data: this.mapSession(data.session), error: null }
 	}
 
 	async signOut(context: APIContext): Promise<AuthResult> {
-		// Use server client if context provided, otherwise browser client
 		const supabase = context
-			? createSupabaseServerClient({
-					request: context.request,
-					cookies: context.cookies,
-				})
+			? createSupabaseServerClient({ request: context.request, cookies: context.cookies })
 			: this.supabase
 
 		const { error } = await supabase.auth.signOut()
 
-		// If the refresh token is not found, it means the session was already cleared
-		// (likely by the server client's automatic session validation), so treat as success
+		// refresh_token_not_found means the session was already cleared — treat as success
 		if (error && error.code !== "refresh_token_not_found") {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
-		return {
-			data: null,
-			error: null,
-		}
+		return { data: null, error: null }
 	}
 
 	async signInWithOAuth(
@@ -142,19 +114,10 @@ export class SupabaseAuthProvider implements AuthProvider {
 		})
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
-		return {
-			data: {
-				url: data.url,
-				provider,
-			},
-			error: null,
-		}
+		return { data: { url: data.url, provider }, error: null }
 	}
 
 	async exchangeCodeForSession(
@@ -171,26 +134,17 @@ export class SupabaseAuthProvider implements AuthProvider {
 		const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
 		if (!data.session) {
 			return {
 				data: null,
-				error: {
-					message: "No se pudo crear la sesión",
-					code: "session_creation_failed",
-				},
+				error: { message: "No se pudo crear la sesión", code: "session_creation_failed" },
 			}
 		}
 
-		return {
-			data: this.mapSession(data.session),
-			error: null,
-		}
+		return { data: this.mapSession(data.session), error: null }
 	}
 
 	async getUser(context: APIContext): Promise<AuthResult<AuthUser>> {
@@ -198,33 +152,24 @@ export class SupabaseAuthProvider implements AuthProvider {
 			request: context.request,
 			cookies: context.cookies,
 		})
+
 		const { data, error } = await supabase.auth.getUser()
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
 		if (!data.user) {
-			return {
-				data: null,
-				error: null,
-			}
+			return { data: null, error: null }
 		}
 
-		// Fetch profile data
 		const { data: profile } = await supabase
 			.from("profiles")
 			.select("has_active_femm_barre")
 			.eq("id", data.user.id)
 			.single()
 
-		return {
-			data: this.mapUser(data.user, profile),
-			error: null,
-		}
+		return { data: this.mapUser(data.user, profile), error: null }
 	}
 
 	async getSession(context: APIContext): Promise<AuthResult<AuthSession>> {
@@ -232,34 +177,28 @@ export class SupabaseAuthProvider implements AuthProvider {
 			request: context.request,
 			cookies: context.cookies,
 		})
+
 		const { data, error } = await supabase.auth.getSession()
 
 		if (error) {
-			return {
-				data: null,
-				error: this.mapError(error),
-			}
+			return { data: null, error: this.mapError(error) }
 		}
 
 		if (!data.session) {
-			return {
-				data: null,
-				error: null,
-			}
+			return { data: null, error: null }
 		}
 
 		return {
 			data: {
 				accessToken: data.session.access_token,
 				refreshToken: data.session.refresh_token,
-				expiresAt: data.session.expires_at! * 1000, // Convert to milliseconds
-				user: undefined, // Not render due is a security issue, we will fetch user data separately when needed
+				expiresAt: data.session.expires_at! * 1000,
+				user: undefined, // fetch user separately when needed
 			} as AuthSession,
 			error: null,
 		}
 	}
 
-	// Type mapping helpers
 	private mapUser(user: any, profile?: any): AuthUser {
 		return {
 			id: user.id,
@@ -276,7 +215,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 		return {
 			accessToken: session.access_token,
 			refreshToken: session.refresh_token,
-			expiresAt: session.expires_at! * 1000, // Convert to milliseconds
+			expiresAt: session.expires_at! * 1000,
 			user: session.user ? this.mapUser(session.user, undefined) : undefined,
 		}
 	}
