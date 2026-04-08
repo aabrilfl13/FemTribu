@@ -33,6 +33,7 @@ export const GET: APIRoute = async ({ locals }) => {
 				displayName: user.displayName,
 				avatarUrl: user.avatarUrl,
 				emailVerified: user.emailVerified,
+				hasActiveFemmBarre: user.hasActiveFemmBarre ?? false,
 			},
 			courses,
 		}),

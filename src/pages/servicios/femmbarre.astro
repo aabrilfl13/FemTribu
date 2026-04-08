@@ -462,7 +462,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 </Layout>
 
 <script define:vars={{ phoneNumber, serviceName }}>
-	document.addEventListener("DOMContentLoaded", () => {
+	document.addEventListener("DOMContentLoaded", async () => {
 		const subscribeBtn = document.getElementById("subscribe-btn")
 		const subscribeCta = document.getElementById("subscribe-cta-btn")
 		const trialBtn = document.getElementById("trial-btn")
@@ -496,8 +496,30 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
 		}
 
-		subscribeBtn?.addEventListener("click", () => handleSubscribe("hero"))
-		subscribeCta?.addEventListener("click", () => handleSubscribe("pricing"))
+		// Check if logged-in user has active FemmBarre subscription
+		let hasActiveFemmBarre = false
+		try {
+			const res = await fetch("/api/user/me")
+			if (res.ok) {
+				const { user } = await res.json()
+				hasActiveFemmBarre = user?.hasActiveFemmBarre === true
+			}
+		} catch (_) {
+			// Not logged in or request failed — show default subscribe buttons
+		}
+
+		if (hasActiveFemmBarre) {
+			const courseUrl = "/cursos/femmbarre-maternity/"
+			for (const btn of [subscribeBtn, subscribeCta]) {
+				if (!btn) continue
+				btn.textContent = "Ir al curso"
+				btn.addEventListener("click", () => (window.location.href = courseUrl))
+			}
+		} else {
+			subscribeBtn?.addEventListener("click", () => handleSubscribe("hero"))
+			subscribeCta?.addEventListener("click", () => handleSubscribe("pricing"))
+		}
+
 		trialBtn?.addEventListener("click", handleTrial)
 	})
 </script>
