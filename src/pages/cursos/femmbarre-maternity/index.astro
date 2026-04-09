@@ -219,3 +219,20 @@ const seoData = {
 		/>
 	</main>
 </Layout>
+
+<script is:inline define:vars={{ latestVideoId: latestVideo?.id ?? null }}>
+	document.addEventListener("click", (e) => {
+		const link = e.target.closest('a[href^="/cursos/femmbarre-maternity/"]')
+		if (!link) return
+		const href = link.getAttribute("href") ?? ""
+		const videoId = href.split("/").pop() ?? ""
+		if (!videoId) return
+		if (typeof window.gtag !== "function") return
+		window.gtag("event", "video_card_click", {
+			video_id: videoId,
+			video_position: videoId === latestVideoId ? "hero" : "grid",
+			course_slug: "femmbarre-maternity",
+			page: window.location.pathname,
+		})
+	})
+</script>

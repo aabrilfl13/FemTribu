@@ -513,7 +513,16 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			for (const btn of [subscribeBtn, subscribeCta]) {
 				if (!btn) continue
 				btn.textContent = "Ir al curso"
-				btn.addEventListener("click", () => (window.location.href = courseUrl))
+				btn.addEventListener("click", () => {
+					if (typeof window.gtag === "function") {
+						window.gtag("event", "cta_click", {
+							cta_type: "go_to_course",
+							cta_label: serviceName,
+							page: window.location.pathname,
+						})
+					}
+					window.location.href = courseUrl
+				})
 			}
 		} else {
 			subscribeBtn?.addEventListener("click", () => handleSubscribe("hero"))

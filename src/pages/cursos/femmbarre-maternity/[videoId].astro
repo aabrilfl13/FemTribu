@@ -195,3 +195,30 @@ const seoData = {
 		</section>
 	</main>
 </Layout>
+
+<script is:inline define:vars={{ videoId, videoTitle: video.title }}>
+	window.addEventListener("load", () => {
+		if (typeof window.gtag !== "function") return
+		window.gtag("event", "video_view", {
+			video_id: videoId,
+			video_title: videoTitle,
+			course_slug: "femmbarre-maternity",
+			page: window.location.pathname,
+		})
+	})
+
+	document.addEventListener("click", (e) => {
+		const link = e.target.closest('a[href^="/cursos/femmbarre-maternity/"]')
+		if (!link) return
+		const href = link.getAttribute("href") ?? ""
+		const clickedVideoId = href.split("/").pop() ?? ""
+		if (!clickedVideoId || clickedVideoId === videoId) return
+		if (typeof window.gtag !== "function") return
+		window.gtag("event", "playlist_video_click", {
+			from_video_id: videoId,
+			to_video_id: clickedVideoId,
+			course_slug: "femmbarre-maternity",
+			page: window.location.pathname,
+		})
+	})
+</script>

@@ -343,3 +343,19 @@ const user = Astro.locals.user
 		/>
 	</main>
 </Layout>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		document.querySelectorAll('article a[href^="/cursos/"]').forEach((link) => {
+			link.addEventListener("click", () => {
+				if (typeof window.gtag !== "function") return
+				const href = link.getAttribute("href") ?? ""
+				const courseSlug = href.split("/").filter(Boolean)[1] ?? ""
+				window.gtag("event", "course_card_click", {
+					course_slug: courseSlug,
+					page: window.location.pathname,
+				})
+			})
+		})
+	})
+</script>
