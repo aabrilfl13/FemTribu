@@ -203,7 +203,7 @@ export class SupabaseAuthProvider implements AuthProvider {
 		return {
 			id: user.id,
 			email: user.email!,
-			displayName: user.user_metadata?.display_name || null,
+			displayName: user.user_metadata?.display_name || user.user_metadata?.full_name || null,
 			avatarUrl: user.user_metadata?.avatar_url || null,
 			createdAt: new Date(user.created_at),
 			emailVerified: !!user.email_confirmed_at,
