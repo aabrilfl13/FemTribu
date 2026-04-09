@@ -18,23 +18,23 @@ import {
 	generateCalendarLink,
 	generateShareLinks,
 	generateWhatsAppReservationLink,
-	type Event,
-} from "@/services/events-service"
+	isGeneralEvent,
+	type GeneralEvent,
+} from "@/events"
 
 export const prerender = true
 
 export async function getStaticPaths() {
-	// Fetch events from service (mock data or API)
 	const events = await fetchEvents()
 
-	return events.map((event) => ({
+	return events.filter(isGeneralEvent).map((event) => ({
 		params: { slug: event.slug },
 		props: { event },
 	}))
 }
 
 interface Props {
-	event: Event
+	event: GeneralEvent
 }
 
 const { event } = Astro.props

@@ -1,7 +1,9 @@
-import type { Event } from "@/services/events-service"
+import type { Event } from "../../domain/event.types"
 
-export const events: Event[] = [
+export const mockEvents: Event[] = [
+	// ── General events ──────────────────────────────────────────────────────────
 	{
+		kind: "general",
 		slug: "pelvic-glow-experience-marzo-2026",
 		title: "The Pelvic Glow Experience",
 		subtitle: "Charla + Merienda + Clase de Barre",
@@ -52,8 +54,6 @@ export const events: Event[] = [
 				image: "/images/about-me/paula-tejedo.webp",
 				socialMedia: {
 					instagram: "https://www.instagram.com/paula.fisiosuelopelvico/",
-					// linkedin: "",
-					// website: "",
 				},
 			},
 			{
@@ -64,7 +64,6 @@ export const events: Event[] = [
 				socialMedia: {
 					instagram: "https://www.instagram.com/femm.tribu/",
 					linkedin: "https://www.linkedin.com/in/mar%C3%ADa-belenguer-p%C3%A9rez-b966593a0/",
-					// website: "",
 				},
 			},
 		],
@@ -111,6 +110,7 @@ export const events: Event[] = [
 		},
 	},
 	{
+		kind: "general",
 		slug: "taller-ciclo-menstrual-entrenamiento-abril-2026",
 		title: "Taller de Ciclo Menstrual y Entrenamiento + Clase de Barre",
 		subtitle: "Taller + Almuerzo + Clase de Barre",
@@ -179,6 +179,7 @@ export const events: Event[] = [
 		},
 	},
 	{
+		kind: "general",
 		slug: "curso-preparacion-parto-abril-mayo-2026",
 		title: "Curso de Preparación al Parto",
 		subtitle: "Abril en Pausa · Salud Presencial en Valencia",
@@ -212,22 +213,26 @@ export const events: Event[] = [
 			{
 				time: "Sesión 1 · 17 Abr",
 				activity: "Fisiología del parto y las semanas previas",
-				description: "Comprenderemos qué ocurre en el cuerpo durante el parto y cómo prepararse para las semanas previas.",
+				description:
+					"Comprenderemos qué ocurre en el cuerpo durante el parto y cómo prepararse para las semanas previas.",
 			},
 			{
 				time: "Sesión 2 · 24 Abr",
 				activity: "El parto: etapas y acompañamiento",
-				description: "Dinámicas en pareja para aprender a acompañar el parto desde el rol del acompañante.",
+				description:
+					"Dinámicas en pareja para aprender a acompañar el parto desde el rol del acompañante.",
 			},
 			{
 				time: "Sesión 3 · 8 May",
 				activity: "Postparto e inicio de la lactancia",
-				description: "Todo lo que ocurre después del nacimiento: recuperación, vínculo y primeros días de lactancia.",
+				description:
+					"Todo lo que ocurre después del nacimiento: recuperación, vínculo y primeros días de lactancia.",
 			},
 			{
 				time: "Sesión 4 · 15 May",
 				activity: "Meditaciones, visualizaciones y cierre",
-				description: "Integración de todo lo aprendido a través de meditaciones y visualizaciones. Espacio de compartir y cierre grupal.",
+				description:
+					"Integración de todo lo aprendido a través de meditaciones y visualizaciones. Espacio de compartir y cierre grupal.",
 			},
 		],
 		facilitators: [
@@ -258,18 +263,38 @@ export const events: Event[] = [
 				"Curso presencial de preparación al parto en Valencia. 4 sesiones semanales (17 y 24 Abr, 8 y 15 May 2026) con María Belenguer, matrona. Aprende sobre fisiología del parto, postparto y lactancia. Plazas limitadas.",
 		},
 	},
+
+	// ── Club de Lectura events ───────────────────────────────────────────────────
+	{
+		kind: "club-lectura",
+		slug: "club-lectura-marzo-2026",
+		title: "Club de Lectura FEMM",
+		subtitle: "Edición de Marzo 2026",
+		date: "26 de Marzo 2026",
+		dateISO: "2026-03-26",
+		time: "19:00h",
+		startTime: "19:00:00",
+		endTime: "20:00:00",
+		duration: "Encuentro virtual de 1h aprox.",
+		book: {
+			title: "El sexo de las madres",
+			author: "Sonia Encinas",
+			coverImage: "/images/events/el-sexo-de-las-madres-Sonia-Encinas.webp",
+			description:
+				"Un libro imprescindible que habla sobre la sexualidad durante la maternidad, un tema del que poco se habla pero que muchas vivimos. Sonia Encinas nos invita a reconectar con nuestro cuerpo y nuestra sexualidad desde una perspectiva honesta, cercana y libre de juicios.",
+			topics: [
+				"La sexualidad durante el embarazo",
+				"El posparto y los cambios en el deseo",
+				"La reconexión con el placer",
+				"Maternidad y pareja",
+				"El cuerpo que cambia y se transforma",
+			],
+		},
+		whatsappLink: "https://chat.whatsapp.com/L7nULEtmL38BfPJDgjKSUh?mode=gi_t",
+		seo: {
+			title: "Club de Lectura FEMM - 26 de Marzo 2026 | Femm tribu",
+			description:
+				"Únete al Club de Lectura FEMM. Un espacio para mujeres que quieren profundizar en su salud, su cuerpo y su historia a través de los libros. En esta edición leeremos 'El sexo de las madres' de Sonia Encinas.",
+		},
+	},
 ]
-
-/**
- * Get a specific event by slug
- */
-export function getEvent(slug: string): Event | undefined {
-	return events.find((event) => event.slug === slug)
-}
-
-/**
- * Get all events
- */
-export function getAllEvents(): Event[] {
-	return events
-}

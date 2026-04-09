@@ -9,19 +9,19 @@ import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
 import Layout from "@/layouts/Layout.astro"
 import {
-	fetchClubLecturaEvents,
+	fetchEvents,
 	generateCalendarLink,
 	generateShareLinks,
+	isClubLecturaEvent,
 	type ClubLecturaEvent,
-} from "@/services/club-lectura-service"
+} from "@/events"
 
 export const prerender = true
 
 export async function getStaticPaths() {
-	// Fetch events from service (mock data or API)
-	const events = await fetchClubLecturaEvents()
+	const events = await fetchEvents()
 
-	return events.map((event) => ({
+	return events.filter(isClubLecturaEvent).map((event) => ({
 		params: { slug: event.slug },
 		props: { event },
 	}))
