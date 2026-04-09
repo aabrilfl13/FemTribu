@@ -102,10 +102,8 @@ const calendlyUrl = import.meta.env.CALENDLY_URL
 		bottom: 20px;
 		right: 20px;
 		z-index: 998;
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-		gap: 12px;
+		width: 56px;
+		height: 56px;
 	}
 
 	/* Actions container */
@@ -114,6 +112,9 @@ const calendlyUrl = import.meta.env.CALENDLY_URL
 		flex-direction: column;
 		align-items: flex-end;
 		gap: 10px;
+		position: absolute;
+		bottom: calc(100% + 12px);
+		right: 0;
 		opacity: 0;
 		visibility: hidden;
 		transform: translateY(10px);
