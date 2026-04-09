@@ -153,23 +153,34 @@ export class SupabaseAuthProvider implements AuthProvider {
 			cookies: context.cookies,
 		})
 
-		const { data, error } = await supabase.auth.getUser()
+		try {
+			const { data, error } = await supabase.auth.getUser()
 
-		if (error) {
-			return { data: null, error: this.mapError(error) }
+			if (error) {
+				return { data: null, error: this.mapError(error) }
+			}
+
+			if (!data.user) {
+				return { data: null, error: null }
+			}
+
+			const { data: profile } = await supabase
+				.from("profiles")
+				.select("has_active_femm_barre")
+				.eq("id", data.user.id)
+				.single()
+
+			return { data: this.mapUser(data.user, profile), error: null }
+		} catch (e) {
+			if (e instanceof DOMException && e.name === "OperationError") {
+				console.warn(
+					"[auth] getUser: AES decryption failed — session cookie is corrupted or was encrypted with a different key. Treating as no session.",
+					e.message
+				)
+				return { data: null, error: null }
+			}
+			throw e
 		}
-
-		if (!data.user) {
-			return { data: null, error: null }
-		}
-
-		const { data: profile } = await supabase
-			.from("profiles")
-			.select("has_active_femm_barre")
-			.eq("id", data.user.id)
-			.single()
-
-		return { data: this.mapUser(data.user, profile), error: null }
 	}
 
 	async getSession(context: APIContext): Promise<AuthResult<AuthSession>> {
@@ -178,24 +189,35 @@ export class SupabaseAuthProvider implements AuthProvider {
 			cookies: context.cookies,
 		})
 
-		const { data, error } = await supabase.auth.getSession()
+		try {
+			const { data, error } = await supabase.auth.getSession()
 
-		if (error) {
-			return { data: null, error: this.mapError(error) }
-		}
+			if (error) {
+				return { data: null, error: this.mapError(error) }
+			}
 
-		if (!data.session) {
-			return { data: null, error: null }
-		}
+			if (!data.session) {
+				return { data: null, error: null }
+			}
 
-		return {
-			data: {
-				accessToken: data.session.access_token,
-				refreshToken: data.session.refresh_token,
-				expiresAt: data.session.expires_at! * 1000,
-				user: undefined, // fetch user separately when needed
-			} as AuthSession,
-			error: null,
+			return {
+				data: {
+					accessToken: data.session.access_token,
+					refreshToken: data.session.refresh_token,
+					expiresAt: data.session.expires_at! * 1000,
+					user: undefined, // fetch user separately when needed
+				} as AuthSession,
+				error: null,
+			}
+		} catch (e) {
+			if (e instanceof DOMException && e.name === "OperationError") {
+				console.warn(
+					"[auth] getSession: AES decryption failed — session cookie is corrupted or was encrypted with a different key. Treating as no session.",
+					e.message
+				)
+				return { data: null, error: null }
+			}
+			throw e
 		}
 	}
 
