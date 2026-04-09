@@ -6,13 +6,14 @@ import Button from "@/components/ui/Button.astro"
 
 interface Props {
 	scrolled?: boolean
+	initialUser?: App.Locals["user"] | null
 }
 
-const { scrolled = false } = Astro.props
+const { scrolled = false, initialUser: userProp } = Astro.props
 
-// Get user from locals if available (server-rendered pages like /perfil)
-// On prerendered pages, this will be undefined and components will fetch client-side
-const user = Astro.locals.user
+// If initialUser is explicitly passed (e.g. as fallback slot), use it.
+// Otherwise read from locals (server-rendered pages like /perfil).
+const user = userProp !== undefined ? userProp : Astro.locals.user
 
 const navItems = [
 	{ label: "Inicio", href: "/#" },
@@ -130,7 +131,7 @@ const navItems = [
 			</nav>
 
 			{/* CTA Buttons & User Nav */}
-			<div class="hidden items-center gap-3 md:hidden md:[.scrolled_&]:flex">
+			<div class="items-center gap-3 md:hidden md:[.scrolled_&]:flex">
 				<!-- <Button
 					id="newsletter-modal-trigger"
 					class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
