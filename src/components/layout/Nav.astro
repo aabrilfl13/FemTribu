@@ -52,14 +52,9 @@ const navItems = [
 	]}
 >
 	<div class="container mx-auto px-4 lg:px-8">
-		<div
-			class="flex h-15 items-center justify-between lg:justify-center lg:[.scrolled_&]:justify-between"
-		>
+		<div class="flex h-15 items-center justify-between">
 			{/* Logo */}
-			<a
-				href="/"
-				class="group relative z-[1001] flex items-center transition-all duration-300 lg:absolute lg:left-8 lg:[.scrolled_&]:relative"
-			>
+			<a href="/" class="group relative z-[1001] flex items-center transition-all duration-300">
 				<img
 					src="/images/logos/logo_icono.svg"
 					alt="Femm tribu"
@@ -72,7 +67,10 @@ const navItems = [
 			</a>
 
 			{/* Desktop Navigation */}
-			<nav aria-label="Navegacion principal" class="hidden items-center gap-10 lg:flex">
+			<nav
+				aria-label="Navegacion principal"
+				class="hidden flex-1 items-center justify-center gap-10 lg:flex"
+			>
 				{
 					navItems.map((item) => (
 						<div class="nav-item-wrapper relative">
@@ -131,7 +129,7 @@ const navItems = [
 			</nav>
 
 			{/* CTA Buttons & User Nav */}
-			<div class="items-center gap-3 md:hidden md:[.scrolled_&]:flex">
+			<div class="hidden items-center gap-3 lg:flex">
 				<!-- <Button
 					id="newsletter-modal-trigger"
 					class="border-terracotta text-terracotta hover:bg-terracotta/10 inline-flex items-center justify-center rounded-full border-1 bg-transparent px-6 py-3 font-medium transition-all duration-300 hover:scale-105"
