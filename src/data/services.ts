@@ -12,11 +12,19 @@ export interface ServiceData {
 	priceMin: number
 	priceMax: number
 	serviceType: string
+	type: "pack" | "addon" | "subscription"
 	// SEO específico
 	seo: {
 		title: string
 		description: string
 	}
+}
+
+export interface AddonServiceData extends ServiceData {
+	type: "addon"
+	price: number
+	features: string[]
+	icon?: string
 }
 
 export const SERVICES: Record<string, ServiceData> = {
@@ -30,6 +38,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMin: 70,
 		priceMax: 220,
 		serviceType: "Lactancia",
+		type: "pack",
 		seo: {
 			title: "Asesoría Lactancia Valencia y Online | Femm tribu",
 			description:
@@ -46,6 +55,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMin: 90,
 		priceMax: 250,
 		serviceType: "Preparación al Parto",
+		type: "pack",
 		seo: {
 			title: "Preparación al Parto Valencia y Online | Femm tribu",
 			description:
@@ -62,6 +72,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMin: 80,
 		priceMax: 250,
 		serviceType: "Menopausia",
+		type: "pack",
 		seo: {
 			title: "Menopausia Valencia y Online | Femm tribu",
 			description:
@@ -78,6 +89,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMin: 50,
 		priceMax: 160,
 		serviceType: "Salud Hormonal",
+		type: "pack",
 		seo: {
 			title: "Salud Hormonal Valencia y Online | Femm tribu",
 			description:
@@ -94,6 +106,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		priceMin: 35,
 		priceMax: 35,
 		serviceType: "FemmBarre Maternity",
+		type: "subscription",
 		seo: {
 			title: "FemmBarre Maternity — Barre Prenatal Online | Femm tribu",
 			description:
@@ -101,6 +114,32 @@ export const SERVICES: Record<string, ServiceData> = {
 		},
 	},
 } as const
+
+export const ADDON_SERVICES: Record<string, AddonServiceData> = {
+	pendientesBebe: {
+		id: "pendientes-bebe",
+		name: "Pendientes para Bebés",
+		nameShort: "Pendientes Bebé",
+		description:
+			"Servicio de colocación de pendientes para bebés realizado por profesional sanitario. Seguro, higiénico y con materiales hipoalergénicos.",
+		url: "/servicios/pendientes-bebe",
+		price: 50,
+		priceMin: 50,
+		priceMax: 50,
+		serviceType: "Pendientes Bebé",
+		type: "addon",
+		features: [
+			"Realizado por matrona profesional",
+			"Material hipoalergénico",
+			"Instrucciones de cuidado posteriores",
+		],
+		seo: {
+			title: "Pendientes para Bebés en Valencia | Matrona Profesional | Femm tribu",
+			description:
+				"Colocación de pendientes para bebés en Valencia por matrona profesional. Materiales hipoalergénicos certificados, entorno seguro e instrucciones de cuidado incluidas. 50€.",
+		},
+	},
+}
 
 /**
  * Helper para obtener todos los servicios como array
@@ -110,10 +149,19 @@ export function getAllServices(): ServiceData[] {
 }
 
 /**
- * Helper para obtener un servicio por ID
+ * Helper para obtener todos los servicios puntuales como array
+ */
+export function getAllAddonServices(): AddonServiceData[] {
+	return Object.values(ADDON_SERVICES)
+}
+
+/**
+ * Helper para obtener un servicio por ID (busca en ambos)
  */
 export function getServiceById(id: string): ServiceData | undefined {
-	return Object.values(SERVICES).find((service) => service.id === id)
+	return [...Object.values(SERVICES), ...Object.values(ADDON_SERVICES)].find(
+		(service) => service.id === id
+	)
 }
 
 /**

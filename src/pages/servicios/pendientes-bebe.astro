@@ -1,0 +1,388 @@
+---
+import FAQ from "@/components/FAQ.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import { ADDON_SERVICES } from "@/data/services"
+import Layout from "@/layouts/Layout.astro"
+import { getAssetUrl } from "@/services/directus"
+
+export const prerender = true
+
+const service = ADDON_SERVICES.pendientesBebe
+
+const seoData = {
+	title: "Pendientes para Bebés en Valencia | Matrona Profesional | Femm tribu",
+	description:
+		"Colocación de pendientes para bebés en Valencia por matrona profesional. Materiales hipoalergénicos certificados, entorno seguro e higiene garantizada. 50€ · Sin cita de espera.",
+	type: "website" as const,
+}
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+
+const whyReasons = [
+	{
+		icon: "🛡️",
+		title: "Máxima seguridad",
+		description:
+			"Una matrona es un profesional sanitario titulado. Conoce los tejidos, las técnicas de asepsia y cómo actuar ante cualquier reacción. No es comparable a una joyería o una perfumería.",
+	},
+	{
+		icon: "✨",
+		title: "Higiene certificada",
+		description:
+			"Trabajamos con material estéril de un solo uso. El entorno cumple los estándares sanitarios exigidos a una consulta médica, lo que minimiza el riesgo de infección.",
+	},
+	{
+		icon: "🤍",
+		title: "Tranquilidad para ti",
+		description:
+			"Recibirás instrucciones claras y detalladas de cuidado posterior. Y si tienes cualquier duda en los días siguientes, puedes consultarnos sin problema.",
+	},
+]
+
+const indicators = [
+	"Quieres que un profesional sanitario coloque los pendientes a tu bebé",
+	"Buscas materiales hipoalergénicos y seguros, sin níquel",
+	"Prefieres un entorno profesional e higiénico, no una tienda",
+	"Te gustaría recibir instrucciones claras de cuidado posterior",
+	"Valoras la tranquilidad de tener a una matrona disponible si surge alguna duda",
+]
+
+const faqs = [
+	{
+		question: "¿A qué edad se pueden poner los pendientes a un bebé?",
+		answer:
+			"No hay una edad mínima establecida médicamente. Muchas familias eligen ponerlos durante los primeros meses, cuando el bebé no tiene conciencia del proceso. Lo importante es que el bebé esté sano y sin ninguna afección en la piel de las orejas. En nuestra consulta valoramos cada caso de forma individual antes de proceder.",
+	},
+	{
+		question: "¿Por qué es más seguro poner los pendientes con una matrona?",
+		answer:
+			"Una matrona es un profesional sanitario con formación específica en cuidados y técnicas de asepsia. A diferencia de una joyería o perfumería, trabajamos con material estéril de un solo uso, en un entorno con estándares sanitarios, y sabemos cómo actuar ante cualquier reacción inesperada. Además, tenemos formación para manejar situaciones de estrés en bebés y recién nacidos.",
+	},
+	{
+		question: "¿Qué tipo de pendientes utilizáis?",
+		answer:
+			"Utilizamos pendientes hipoalergénicos certificados, libres de níquel, fabricados en titanio o acero quirúrgico de grado médico. Son los más seguros para pieles sensibles y reducen al mínimo el riesgo de reacciones alérgicas. Te informaremos de los modelos disponibles antes de la cita.",
+	},
+	{
+		question: "¿Cuánto dura el servicio?",
+		answer:
+			"Reservamos una franja de tiempo suficiente para que puedas llegar con calma, preparar al bebé y resolver cualquier pregunta antes y después del procedimiento.",
+	},
+	{
+		question: "¿Dónde se realiza el servicio?",
+		answer:
+			"El servicio se realiza de forma presencial en Valencia. Escríbenos por WhatsApp o contáctanos para confirmar disponibilidad y la dirección exacta de la consulta.",
+	},
+	{
+		question: "¿Qué cuidados son necesarios después de poner los pendientes?",
+		answer:
+			"Te entregaremos unas instrucciones detalladas por escrito. En general: limpiar la zona dos veces al día con suero fisiológico o agua oxigenada, girar el pendiente suavemente durante las primeras semanas, evitar el contacto con productos como colonias o cremas en la zona, y no retirar el pendiente hasta que el piercing esté completamente cicatrizado (normalmente 6-8 semanas). Estaremos disponibles si tienes cualquier duda durante el proceso.",
+	},
+]
+---
+
+<Layout navScrolled={true} {...seoData}>
+	<BreadcrumbSchema
+		items={[{ name: "Servicios", href: "/servicios" }, { name: "Pendientes para Bebés" }]}
+	/>
+	<ServiceSchema
+		name={service.name}
+		description={service.description}
+		priceMin={service.priceMin}
+		priceMax={service.priceMax}
+		serviceType={service.serviceType}
+		url="/servicios/pendientes-bebe"
+	/>
+	<FAQSchema faqs={faqs} />
+
+	<main id="main-content" class="pt-21">
+		{/* ── Hero ── */}
+		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-12 lg:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<div class="mb-4 flex flex-wrap items-center justify-center gap-2">
+					<a
+						href="/servicios"
+						class="text-muted-foreground hover:text-accent flex items-center gap-1 text-sm transition-colors"
+					>
+						Servicios
+						<svg
+							class="h-3 w-3"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<polyline points="9 18 15 12 9 6"></polyline>
+						</svg>
+					</a>
+					<span
+						class="bg-coral-light/30 text-primary inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm"
+					>
+						Servicio puntual
+					</span>
+				</div>
+				<h1
+					class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					Pendientes para bebés
+					<span class="text-accent block lg:inline"> en Valencia</span>
+				</h1>
+				<p
+					class="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					Colocación de pendientes para bebés realizada por <strong
+						class="text-primary font-semibold">matrona profesional</strong
+					>. Materiales hipoalergénicos, entorno sanitario e instrucciones de cuidado incluidas.
+				</p>
+
+				{/* Key stats */}
+				<div
+					class="mt-10 flex flex-wrap justify-center gap-6"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					<div class="text-center">
+						<p class="font-display text-accent text-3xl">50€</p>
+						<p class="text-muted-foreground mt-1 text-xs">precio fijo</p>
+					</div>
+					<div class="border-border/40 border-l"></div>
+					<div class="text-center">
+						<p class="font-display text-primary text-3xl">Valencia</p>
+						<p class="text-muted-foreground mt-1 text-xs">presencial</p>
+					</div>
+				</div>
+
+				<div
+					class="mt-8 flex flex-wrap justify-center gap-3"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					<Button variant="hero" size="lg" data-service-name={service.name}>
+						Reservar cita
+						<svg
+							class="ml-1 h-4 w-4"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
+							></polyline></svg
+						>
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		{/* ── Por qué con una matrona ── */}
+		<section class="bg-coral-light/10 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
+					<h2 class="font-display text-primary mb-3 text-3xl lg:text-4xl">
+						¿Por qué elegir una matrona?
+					</h2>
+					<p class="text-muted-foreground mx-auto max-w-xl text-base lg:text-lg">
+						No es lo mismo que en una joyería. Una matrona aporta formación sanitaria, higiene
+						certificada y acompañamiento antes y después.
+					</p>
+				</div>
+
+				<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-3">
+					{
+						whyReasons.map((reason, index) => (
+							<div
+								class="bg-background border-border/50 hover:border-accent/30 hover:shadow-elegant rounded-2xl border p-6 transition-all duration-300"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 80}ms`}
+							>
+								<div class="bg-accent/10 mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-2xl">
+									{reason.icon}
+								</div>
+								<h3 class="font-display text-primary mb-2 text-lg">{reason.title}</h3>
+								<p class="text-muted-foreground text-sm leading-relaxed">{reason.description}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		{/* ── Service detail ── */}
+		<section class="py-16 lg:py-24">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto flex max-w-5xl flex-col items-center gap-10 lg:flex-row lg:gap-16">
+					{/* Price card */}
+					<div class="w-full lg:w-5/12">
+						<div class="relative overflow-hidden rounded-3xl">
+							<img
+								src={getAssetUrl("63bc064b-c69f-47a3-aaac-fff5d110ce3f")}
+								alt="Pendientes para bebés"
+								loading="lazy"
+								class="h-72 w-full object-cover object-[center_90%] lg:h-full lg:min-h-[480px] lg:object-center"
+							/>
+							<div
+								class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"
+							>
+							</div>
+							<div class="absolute right-0 bottom-0 left-0 p-6 text-center">
+								<p class="mb-1 text-sm text-white/70">Precio del servicio</p>
+								<p class="font-display mb-1 text-5xl text-white">{service.price}€</p>
+								<p class="text-sm text-white/70">precio único, todo incluido</p>
+							</div>
+						</div>
+						<div class="border-border/30 mt-4 border-t pt-4">
+							<ul class="space-y-2">
+								{
+									service.features.map((feature: string) => (
+										<li class="flex items-start gap-3">
+											<div class="bg-accent/15 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+												<svg
+													class="text-accent h-3 w-3"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="3"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<polyline points="20 6 9 17 4 12" />
+												</svg>
+											</div>
+											<span class="text-muted-foreground text-sm">{feature}</span>
+										</li>
+									))
+								}
+								<li class="flex items-start gap-3">
+									<div
+										class="bg-accent/15 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full"
+									>
+										<svg
+											class="text-accent h-3 w-3"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="3"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										>
+											<polyline points="20 6 9 17 4 12"></polyline>
+										</svg>
+									</div>
+									<span class="text-muted-foreground text-sm"
+										>PDF con instrucciones de cuidado posterior</span
+									>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					{/* Content */}
+					<div class="w-full lg:w-7/12">
+						<p class="text-accent mb-4 text-sm font-medium tracking-wider uppercase">
+							Colocación de pendientes · Valencia
+						</p>
+						<h2 class="font-display text-primary mb-6 text-3xl lg:text-4xl">
+							¿Buscas un profesional sanitario para los pendientes de tu bebé?
+						</h2>
+						<div class="text-muted-foreground mb-8 space-y-4 text-base leading-relaxed lg:text-lg">
+							<p>
+								Sabemos lo importante que es para ti que este momento sea seguro y tranquilo. Por
+								eso, nuestro servicio de colocación de pendientes está realizado por una
+								<strong class="text-primary font-medium">matrona profesional</strong>, en un entorno
+								higiénico y con materiales hipoalergénicos certificados.
+							</p>
+							<p>
+								A diferencia de una joyería o una perfumería, trabajamos con <strong
+									class="text-primary font-medium">material estéril de un solo uso</strong
+								> y seguimos los protocolos de asepsia propios de una consulta sanitaria. Tu bebé estará
+								en las mejores manos.
+							</p>
+						</div>
+
+						{/* Es para ti si... */}
+						<div class="mb-8">
+							<p class="text-primary mb-4 text-sm font-semibold tracking-wider uppercase">
+								Es para ti si...
+							</p>
+							<ul class="space-y-3">
+								{
+									indicators.map((indicator) => (
+										<li class="flex items-start gap-3">
+											<div class="bg-accent/15 mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
+												<svg
+													class="text-accent h-3 w-3"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="3"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												>
+													<polyline points="20 6 9 17 4 12" />
+												</svg>
+											</div>
+											<span class="text-muted-foreground text-sm lg:text-base">{indicator}</span>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+
+						<Button variant="hero" size="lg" data-service-name={service.name}>
+							Reservar cita por WhatsApp
+							<svg
+								class="ml-1 h-4 w-4"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
+								></polyline></svg
+							>
+						</Button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<FAQ
+			faqs={faqs}
+			title="Preguntas frecuentes"
+			subtitle="Resolvemos las dudas más comunes sobre este evento"
+		/>
+
+		{/* ── Divider ── */}
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		<AdditionalInfo serviceName="Pendientes para Bebés" />
+	</main>
+</Layout>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll("button[data-service-name]")
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const serviceName = button.getAttribute("data-service-name") || "Pendientes para Bebés"
+				const message = encodeURIComponent(
+					`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+			})
+		})
+	})
+</script>
