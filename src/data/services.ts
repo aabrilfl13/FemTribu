@@ -122,7 +122,7 @@ export const ADDON_SERVICES: Record<string, AddonServiceData> = {
 		nameShort: "Pendientes Bebé",
 		description:
 			"Servicio de colocación de pendientes para bebés realizado por profesional sanitario. Seguro, higiénico y con materiales hipoalergénicos.",
-		url: "/servicios/puntuales#pendientes-bebe",
+		url: "/servicios/pendientes-bebe",
 		price: 50,
 		priceMin: 50,
 		priceMax: 50,
@@ -134,9 +134,9 @@ export const ADDON_SERVICES: Record<string, AddonServiceData> = {
 			"Instrucciones de cuidado posteriores",
 		],
 		seo: {
-			title: "Pendientes para Bebés Valencia | Femm tribu",
+			title: "Pendientes para Bebés en Valencia | Matrona Profesional | Femm tribu",
 			description:
-				"Colocación de pendientes para bebés por profesional sanitario en Valencia. Seguro, higiénico y con materiales hipoalergénicos.",
+				"Colocación de pendientes para bebés en Valencia por matrona profesional. Materiales hipoalergénicos certificados, entorno seguro e instrucciones de cuidado incluidas. 50€.",
 		},
 	},
 }

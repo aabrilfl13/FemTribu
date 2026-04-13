@@ -1,0 +1,529 @@
+---
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import { ADDON_SERVICES, SERVICES } from "@/data/services"
+import Layout from "@/layouts/Layout.astro"
+import { getAssetUrl } from "@/services/directus"
+
+export const prerender = true
+
+const seoData = {
+	title: "Servicios de Matrona en Valencia y Online | Femm tribu",
+	description:
+		"Packs de acompañamiento en lactancia, preparación al parto, menopausia y salud hormonal. FemmBarre prenatal y servicios puntuales. Matrona en Valencia y online.",
+	type: "website" as const,
+}
+
+const packs = [
+	{
+		id: SERVICES.saludHormonal.id,
+		name: SERVICES.saludHormonal.name,
+		nameShort: SERVICES.saludHormonal.nameShort,
+		description: SERVICES.saludHormonal.description,
+		url: SERVICES.saludHormonal.url,
+		priceMin: SERVICES.saludHormonal.priceMin,
+		priceMax: SERVICES.saludHormonal.priceMax,
+		icon: "/images/icons/illustrations/ilustracion-negro_01.svg",
+		color: "terracotta",
+		features: [
+			"Sesiones online personalizadas",
+			"Guías prácticas de nutrición",
+			"Acompañamiento continuo",
+		],
+	},
+	{
+		id: SERVICES.preparacionParto.id,
+		name: SERVICES.preparacionParto.name,
+		nameShort: SERVICES.preparacionParto.nameShort,
+		description: SERVICES.preparacionParto.description,
+		url: SERVICES.preparacionParto.url,
+		priceMin: SERVICES.preparacionParto.priceMin,
+		priceMax: SERVICES.preparacionParto.priceMax,
+		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
+		color: "coral",
+		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
+	},
+	{
+		id: SERVICES.lactancia.id,
+		name: SERVICES.lactancia.name,
+		nameShort: SERVICES.lactancia.nameShort,
+		description: SERVICES.lactancia.description,
+		url: SERVICES.lactancia.url,
+		priceMin: SERVICES.lactancia.priceMin,
+		priceMax: SERVICES.lactancia.priceMax,
+		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
+		color: "sage",
+		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
+		badge: { label: "Laura Jorge", image: "/images/logos/laura-jorge/laura-jorge-icon.png" },
+	},
+	{
+		id: SERVICES.menopausia.id,
+		name: SERVICES.menopausia.name,
+		nameShort: SERVICES.menopausia.nameShort,
+		description: SERVICES.menopausia.description,
+		url: SERVICES.menopausia.url,
+		priceMin: SERVICES.menopausia.priceMin,
+		priceMax: SERVICES.menopausia.priceMax,
+		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
+		color: "forest",
+		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
+	},
+]
+
+const colorClasses: Record<string, { bg: string; border: string; hover: string; dot: string }> = {
+	terracotta: {
+		bg: "bg-terracotta/10",
+		border: "border-terracotta/20",
+		hover: "hover:border-terracotta/40",
+		dot: "bg-terracotta",
+	},
+	coral: {
+		bg: "bg-coral/10",
+		border: "border-coral/20",
+		hover: "hover:border-coral/40",
+		dot: "bg-coral",
+	},
+	sage: {
+		bg: "bg-sage/10",
+		border: "border-sage/20",
+		hover: "hover:border-sage/40",
+		dot: "bg-sage",
+	},
+	forest: {
+		bg: "bg-forest/10",
+		border: "border-forest/20",
+		hover: "hover:border-forest/40",
+		dot: "bg-forest",
+	},
+}
+
+const femmbarreFeatures = [
+	"1 clase semanal en directo",
+	"Acceso a grabaciones",
+	"Guiado por matrona profesional",
+	"Adaptado a cada trimestre",
+]
+
+const puntuales = [
+	{
+		...ADDON_SERVICES.pendientesBebe,
+		question: "Colocación de pendientes para tu bebé por profesional sanitario",
+		longDescription:
+			"Servicio realizado por una matrona profesional, en un entorno higiénico y con materiales hipoalergénicos certificados.",
+		src: "63bc064b-c69f-47a3-aaac-fff5d110ce3f",
+	},
+]
+
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+---
+
+<Layout navScrolled={true} {...seoData}>
+	{/* SEO Schemas */}
+	{
+		packs.map((s) => (
+			<ServiceSchema
+				name={s.name}
+				description={s.description}
+				priceMin={s.priceMin}
+				priceMax={s.priceMax}
+				serviceType={s.nameShort}
+			/>
+		))
+	}
+	<ServiceSchema
+		name={SERVICES.femmbarre.name}
+		description={SERVICES.femmbarre.description}
+		serviceType={SERVICES.femmbarre.serviceType}
+		priceMin={SERVICES.femmbarre.priceMin}
+		isSubscription={true}
+		billingPeriod="month"
+		onlineOnly={true}
+		url={SERVICES.femmbarre.url}
+	/>
+	{
+		puntuales.map((s) => (
+			<ServiceSchema
+				name={s.name}
+				description={s.description}
+				priceMin={s.priceMin}
+				priceMax={s.priceMax}
+				serviceType={s.serviceType}
+			/>
+		))
+	}
+
+	<main id="main-content" class="pt-21">
+		{/* ── Hero ── */}
+		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-16 lg:px-8">
+			<div class="mx-auto max-w-3xl text-center">
+				<span
+					class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					<img src="/images/icons/cookie.svg" alt="" class="h-4 w-4" aria-hidden="true" />
+					Servicios
+				</span>
+				<h1
+					class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					Te acompañamos en <span class="text-accent">cada etapa</span>
+				</h1>
+				<p
+					class="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.2s"
+				>
+					Desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto y la
+					lactancia. Packs personalizados, suscripción mensual y servicios puntuales.
+				</p>
+
+				{/* Quick-jump anchors */}
+				<div
+					class="mt-8 flex flex-wrap justify-center gap-3"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.3s"
+				>
+					<a
+						href="#packs"
+						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
+					>
+						Packs
+					</a>
+					<a
+						href="#suscripcion"
+						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
+					>
+						Suscripción
+					</a>
+					<a
+						href="#puntuales"
+						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
+					>
+						Servicios puntuales
+					</a>
+				</div>
+			</div>
+		</section>
+
+		{/* ── Packs ── */}
+		<section id="packs" class="scroll-mt-24 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
+					<span
+						class="bg-sage/20 text-forest mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
+					>
+						Packs de acompañamiento
+					</span>
+					<h2 class="font-display text-primary text-3xl lg:text-4xl">Asesoría personalizada</h2>
+					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
+						Sesiones individuales con seguimiento adaptado a tu momento.
+					</p>
+				</div>
+
+				<div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:gap-8">
+					{
+						packs.map((service, index) => {
+							const colors = colorClasses[service.color]
+							return (
+								<div
+									id={service.id}
+									class={`group bg-background relative scroll-mt-24 rounded-3xl border-2 p-8 transition-all duration-300 ${colors.border} ${colors.hover} hover:shadow-elegant`}
+									data-animate="animate-fade-up"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 80}ms`}
+								>
+									{/* Header */}
+									<div class="mb-6 flex items-start justify-between">
+										<div
+											class={`flex h-16 w-16 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 ${colors.bg}`}
+										>
+											<img src={service.icon} alt={service.name} class="h-10 w-10" loading="lazy" />
+										</div>
+										{"badge" in service && service.badge && (
+											<img
+												src={(service.badge as { label: string; image: string }).image}
+												alt={(service.badge as { label: string; image: string }).label}
+												loading="lazy"
+												class="ml-auto h-8 w-auto flex-shrink-0 object-contain"
+											/>
+										)}
+									</div>
+
+									{/* Content */}
+									<a href={service.url} class="group/link block">
+										<h3 class="font-display text-forest group-hover/link:text-accent mb-3 text-2xl transition-colors lg:text-3xl">
+											{service.name}
+										</h3>
+									</a>
+									<p class="text-muted-foreground mb-6 text-sm leading-relaxed">
+										{service.description}
+									</p>
+
+									{/* Features */}
+									<ul class="mb-6 space-y-2">
+										{service.features.map((feature) => (
+											<li class="text-muted-foreground flex items-center gap-2 text-sm">
+												<span class={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${colors.dot}`} />
+												{feature}
+											</li>
+										))}
+									</ul>
+
+									{/* Footer */}
+									<div class="border-border/30 flex items-center justify-between border-t pt-4">
+										<div>
+											<span class="font-display text-primary text-xl">
+												{service.priceMin === service.priceMax
+													? `${service.priceMin}€`
+													: `Desde ${service.priceMin}€`}
+											</span>
+										</div>
+										<Button
+											href={service.url}
+											variant="hero"
+											size="sm"
+											class="rounded-full px-4 py-2 text-sm transition-all duration-300 hover:scale-105"
+										>
+											Ver pack
+										</Button>
+									</div>
+								</div>
+							)
+						})
+					}
+				</div>
+			</div>
+		</section>
+
+		{/* ── Divider ── */}
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		{/* ── Suscripción — FemmBarre ── */}
+		<section id="suscripcion" class="scroll-mt-24 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
+					<span
+						class="bg-accent/10 text-accent mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
+					>
+						Suscripción mensual
+					</span>
+					<h2 class="font-display text-primary text-3xl lg:text-4xl">Bienestar y movimiento</h2>
+					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
+						Clases online diseñadas para cada etapa del embarazo.
+					</p>
+				</div>
+
+				<div
+					class="mx-auto max-w-3xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.1s"
+				>
+					<div
+						class="group bg-background border-accent/20 hover:border-accent/40 hover:shadow-warm relative grid overflow-hidden rounded-3xl border-2 transition-all duration-300 md:grid-cols-5"
+					>
+						{/* Image */}
+						<div class="relative h-48 overflow-hidden md:col-span-2 md:h-full">
+							<img
+								src={getAssetUrl("434e8c6a-e85f-4c33-a049-298dd53bedcd")}
+								alt="FemmBarre Maternity — Barre prenatal para embarazadas"
+								class="h-full w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+							<div
+								class="from-background/60 md:from-background/30 absolute inset-0 bg-gradient-to-t to-transparent md:bg-gradient-to-r"
+							>
+							</div>
+							<span
+								class="bg-accent text-accent-foreground font-body absolute top-4 left-4 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="12"
+									height="12"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line
+										x1="16"
+										y1="2"
+										x2="16"
+										y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line
+										x1="3"
+										y1="10"
+										x2="21"
+										y2="10"></line></svg
+								>
+								Suscripción mensual
+							</span>
+						</div>
+
+						{/* Content */}
+						<div class="p-6 md:col-span-3">
+							<h3 class="font-display text-forest mb-1 text-xl">
+								<a href={SERVICES.femmbarre.url} class="hover:text-accent transition-colors">
+									{SERVICES.femmbarre.name}
+								</a>
+							</h3>
+							<p class="text-muted-foreground mb-3 text-sm">Barre prenatal para embarazadas</p>
+							<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
+								Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier
+								sitio, a tu ritmo y con total seguridad.
+							</p>
+							<ul class="mb-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
+								{
+									femmbarreFeatures.map((feature) => (
+										<li class="text-muted-foreground flex items-center gap-2 text-xs">
+											<span class="bg-accent h-1.5 w-1.5 flex-shrink-0 rounded-full" />
+											{feature}
+										</li>
+									))
+								}
+							</ul>
+							<div class="border-border/30 flex items-center justify-between border-t pt-4">
+								<div>
+									<span class="font-display text-forest text-xl"
+										>{SERVICES.femmbarre.priceMin}€</span
+									>
+									<span class="text-muted-foreground text-xs">/mes</span>
+								</div>
+								<Button
+									href={SERVICES.femmbarre.url}
+									variant="hero"
+									size="sm"
+									class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+								>
+									Descubre FemmBarre
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{/* ── Divider ── */}
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		{/* ── Servicios Puntuales ── */}
+		<section id="puntuales" class="scroll-mt-24 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
+					<span
+						class="bg-coral-light/30 text-primary mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
+					>
+						Servicios puntuales
+					</span>
+					<h2 class="font-display text-primary text-3xl lg:text-4xl">¿Necesitas algo puntual?</h2>
+					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
+						Servicios individuales que puedes reservar de forma independiente.
+					</p>
+				</div>
+
+				<div class="mx-auto max-w-3xl space-y-8">
+					{
+						puntuales.map((service, index) => (
+							<div
+								class="bg-background border-border/50 hover:border-accent/30 hover:shadow-elegant group flex flex-col items-center gap-8 rounded-3xl border-2 p-8 transition-all duration-300 lg:flex-row"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 100}ms`}
+							>
+								{/* Price badge */}
+								<div class="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-2xl">
+									<img
+										src={getAssetUrl(service.src)}
+										alt={service.name}
+										loading="lazy"
+										class="h-full w-full object-cover object-[center_90%]"
+									/>
+									<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+									<div class="absolute right-0 bottom-0 left-0 p-2 text-center">
+										<span class="font-display block text-2xl text-white">{service.price}€</span>
+										<span class="text-xs text-white/70">por sesión</span>
+									</div>
+								</div>
+
+								{/* Content */}
+								<div class="flex-1 text-center lg:text-left">
+									<p class="text-accent mb-1 text-xs font-medium tracking-wider uppercase">
+										{service.nameShort}
+									</p>
+									<h3 class="font-display text-primary mb-3 text-xl lg:text-2xl">
+										{service.question}
+									</h3>
+									<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
+										{service.longDescription}
+									</p>
+									<ul class="mb-5 space-y-1.5">
+										{service.features.map((feature: string) => (
+											<li class="text-muted-foreground flex items-center justify-center gap-2 text-sm lg:justify-start">
+												<span class="text-accent">—</span>
+												{feature}
+											</li>
+										))}
+									</ul>
+									<Button
+										variant="hero"
+										size="sm"
+										class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+										data-service-name={service.name}
+									>
+										Reservar {service.nameShort}
+									</Button>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		{/* ── Divider ── */}
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		<AdditionalInfo serviceName="Servicios" />
+	</main>
+</Layout>
+
+<script define:vars={{ phoneNumber }}>
+	document.addEventListener("DOMContentLoaded", () => {
+		const buttons = document.querySelectorAll("button[data-service-name]")
+
+		buttons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const serviceName = button.getAttribute("data-service-name") || "servicio"
+				const message = encodeURIComponent(
+					`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
+				)
+				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+			})
+		})
+
+		// Smooth scroll for quick-jump anchors
+		if (window.location.hash) {
+			setTimeout(() => {
+				const element = document.querySelector(window.location.hash)
+				if (element) {
+					element.scrollIntoView({ behavior: "smooth", block: "start" })
+				}
+			}, 100)
+		}
+	})
+</script>
