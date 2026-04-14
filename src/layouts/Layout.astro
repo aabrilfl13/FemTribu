@@ -28,7 +28,7 @@ export interface Props {
 	navScrolled?: boolean
 }
 const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
-const isDevelopment = import.meta.env.ENV === "development"
+const isDevelopment = import.meta.env.DEV
 
 // Fetch announcements (simulates API call, runs at build time or request time depending on SSR/SSG)
 const announcementStories = await getAnnouncements()

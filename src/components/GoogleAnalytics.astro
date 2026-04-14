@@ -1,7 +1,6 @@
 ---
 const GA_ID = import.meta.env.PUBLIC_GA_ID || "G-XXXXXXXXXX"
-const ENV = import.meta.env.ENV || "production"
-const isDevelopment = ENV === "development"
+const isDevelopment = import.meta.env.DEV
 ---
 
 <script is:inline define:vars={{ GA_ID, isDevelopment }}>
