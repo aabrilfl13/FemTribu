@@ -24,7 +24,7 @@ const seoData = {
 						</a>
 						<h1>Política de Privacidad</h1>
 						<p class="last-updated">
-							Última actualización: <time datetime="2026-03-12">12 de marzo de 2026</time>
+							Última actualización: <time datetime="2026-04-14">14 de abril de 2026</time>
 						</p>
 					</div>
 				</header>
@@ -42,6 +42,8 @@ const seoData = {
 									<li><a href="#destinatarios">5. Destinatarios y Herramientas</a></li>
 									<li><a href="#cookies">6. Cookies y Tecnologías</a></li>
 									<li><a href="#derechos">7. Tus Derechos</a></li>
+									<li><a href="#cuentas">8. Cuentas de Usuario</a></li>
+									<li><a href="#conservacion">9. Conservación de Datos</a></li>
 								</ul>
 							</nav>
 						</aside>
@@ -58,16 +60,25 @@ const seoData = {
 							<section id="datos-recopilamos">
 								<h2>2. Datos que Recopilamos</h2>
 								<div class="info-box">
-									<p>Recogemos información a través de tres vías principales:</p>
+									<p>Recogemos información a través de las siguientes vías:</p>
 									<ul>
 										<li>
-											<strong>Formularios de Talleres/Webinars:</strong> Nombre, apellidos, email y perfil
-											de red social.
+											<strong>Cuenta de usuario:</strong> Dirección de email y contraseña (cifrada) al
+											registrarte. Si accedes con Google, recibimos tu nombre y email de Google.
+										</li>
+										<li>
+											<strong>Formularios de eventos y talleres:</strong> Nombre, apellidos, email y,
+											opcionalmente, perfil de red social.
+										</li>
+										<li>
+											<strong>Suscripción a cursos:</strong> Datos de la compra y acceso al contenido
+											adquirido, gestionados a través de nuestra plataforma.
 										</li>
 										<li><strong>Newsletter:</strong> Dirección de correo electrónico.</li>
 										<li>
-											<strong>Navegación Técnica:</strong> Datos analíticos (IP anonimizada, comportamiento
-											en web) a través de Google Analytics, Microsoft Clarity y Vercel Analytics.
+											<strong>Navegación técnica:</strong> Datos analíticos (IP anonimizada, comportamiento
+											en web) a través de Google Analytics y Microsoft Clarity, únicamente si aceptas las
+											cookies analíticas.
 										</li>
 									</ul>
 								</div>
@@ -77,29 +88,49 @@ const seoData = {
 								<h2>3. Finalidad del Tratamiento</h2>
 								<p>Tratamos tus datos para:</p>
 								<ul>
-									<li>Gestionar tu inscripción y participación en nuestros talleres y webinars.</li>
 									<li>
-										Enviar nuestra newsletter semanal con contenido sobre maternidad y salud
+										<strong>Gestión de cuenta:</strong> Crear y mantener tu perfil de usuario,
+										autenticar tu identidad y permitirte acceder a los servicios contratados.
+									</li>
+									<li>
+										<strong>Acceso a cursos y suscripciones:</strong> Verificar tus compras y
+										darte acceso al contenido adquirido (vídeos, materiales, etc.).
+									</li>
+									<li>
+										<strong>Eventos y talleres:</strong> Gestionar tu inscripción, enviarte
+										confirmaciones, recordatorios y material de los eventos a los que te apuntas.
+									</li>
+									<li>
+										<strong>Newsletter:</strong> Enviar contenido semanal sobre maternidad y salud
 										femenina.
 									</li>
 									<li>
-										Crear perfiles de "leads" en nuestro CRM para ofrecerte información relevante
-										según tus intereses.
-									</li>
-									<li>
-										Optimizar la web mediante el análisis de mapas de calor y métricas de
-										rendimiento.
+										<strong>Optimización:</strong> Analizar el comportamiento en la web para
+										mejorar la experiencia, únicamente con tu consentimiento previo.
 									</li>
 								</ul>
 							</section>
 
 							<section id="base-legal">
 								<h2>4. Base Jurídica</h2>
-								<p>
-									La base legal para tratar tus datos es el <strong>consentimiento explícito</strong
-									> que nos otorgas al marcar la casilla de aceptación en nuestros formularios y en el
-									banner de cookies. Puedes retirar este consentimiento en cualquier momento.
-								</p>
+								<p>Tratamos tus datos bajo las siguientes bases legales (Art. 6 RGPD):</p>
+								<ul>
+									<li>
+										<strong>Ejecución de un contrato (Art. 6.1.b):</strong> Para gestionar tu
+										cuenta de usuario, el acceso a cursos adquiridos y la participación en eventos
+										de pago. Sin estos datos no podríamos prestarte el servicio contratado.
+									</li>
+									<li>
+										<strong>Consentimiento explícito (Art. 6.1.a):</strong> Para el envío de
+										newsletter, cookies analíticas y cualquier comunicación comercial. Puedes
+										retirar este consentimiento en cualquier momento sin que ello afecte a los
+										servicios contratados.
+									</li>
+									<li>
+										<strong>Interés legítimo (Art. 6.1.f):</strong> Para la seguridad de la
+										plataforma y la prevención de fraudes.
+									</li>
+								</ul>
 							</section>
 
 							<section id="destinatarios">
@@ -110,25 +141,30 @@ const seoData = {
 								</p>
 								<ul>
 									<li>
-										<strong>Vercel:</strong> Alojamiento de la web, analíticas de rendimiento (Vercel
-										Analytics) y métricas de velocidad (Vercel Speed Insights).
+										<strong>Supabase:</strong> Autenticación y gestión de cuentas de usuario.
+										Almacena credenciales cifradas y gestiona las sesiones. Proveedor de nube (AWS
+										eu-west-1). <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Política de privacidad de Supabase</a>.
 									</li>
 									<li>
-										<strong>Google Analytics:</strong> Análisis de audiencia (requiere consentimiento).
+										<strong>Directus (CMS):</strong> Gestión de contenido del blog y eventos.
+										Alojado en nuestra propia infraestructura.
 									</li>
 									<li>
-										<strong>Microsoft Clarity:</strong> Análisis de experiencia de usuario y mapas de
-										calor (requiere consentimiento).
+										<strong>n8n (webhooks):</strong> Automatización de formularios de contacto,
+										inscripciones y envío de emails de confirmación.
 									</li>
 									<li>
-										<strong>YouTube:</strong> Reproducción de videos educativos embebidos. Se utiliza
-										el modo de privacidad mejorada (youtube-nocookie.com) salvo que aceptes cookies de
-										terceros.
+										<strong>Google Analytics:</strong> Análisis de audiencia. Solo se activa con tu
+										consentimiento explícito (Consent Mode v2 básico).
 									</li>
 									<li>
-										<strong>Twenty CRM:</strong> Para la administración de inscripciones y envíos de
-										emails. Este proveedor puede cambiar en el futuro, en cuyo caso actualizaremos esta
-										política.
+										<strong>Microsoft Clarity:</strong> Análisis de experiencia de usuario y mapas
+										de calor. Requiere consentimiento.
+									</li>
+									<li>
+										<strong>YouTube:</strong> Reproducción de vídeos educativos embebidos. Usamos
+										el modo de privacidad mejorada (<code>youtube-nocookie.com</code>) salvo que
+										aceptes cookies de terceros.
 									</li>
 								</ul>
 							</section>
@@ -148,10 +184,61 @@ const seoData = {
 								<h2>7. Tus Derechos</h2>
 								<p>
 									Tienes derecho a acceder, rectificar, suprimir tus datos y otros derechos
-									detallados en el RGPD. Para ejercerlos, envía un email a <a
+									detallados en el RGPD (acceso, rectificación, supresión, portabilidad,
+									limitación y oposición). Para ejercerlos, envía un email a <a
 										href="mailto:info@femmtribu.com">info@femmtribu.com</a
-									> acompañando copia de tu DNI o documento identificativo.
+									> acompañando copia de tu DNI o documento identificativo. Si tienes cuenta,
+									también puedes gestionar tus datos directamente desde tu perfil.
+									Tienes derecho a reclamar ante la <a
+										href="https://www.aepd.es"
+										target="_blank"
+										rel="noopener">AEPD</a
+									> si consideras que el tratamiento no es conforme al RGPD.
 								</p>
+							</section>
+
+							<section id="cuentas">
+								<h2>8. Cuentas de Usuario</h2>
+								<p>
+									Al crear una cuenta en Femm tribu aceptas que tratemos tu email y contraseña
+									(cifrada) para gestionar tu acceso. Puedes solicitar la eliminación de tu cuenta
+									en cualquier momento enviando un email a <a href="mailto:info@femmtribu.com"
+										>info@femmtribu.com</a
+									>. La eliminación de la cuenta conlleva la pérdida de acceso a los cursos
+									adquiridos; el historial de compras se conserva durante el plazo legal de 5 años
+									por obligaciones fiscales.
+								</p>
+								<p>
+									Si accedes con Google (OAuth), no almacenamos tu contraseña; únicamente
+									conservamos el identificador de sesión proporcionado por Google. Puedes revocar
+									este acceso desde tu cuenta de Google en cualquier momento.
+								</p>
+							</section>
+
+							<section id="conservacion">
+								<h2>9. Conservación de Datos</h2>
+								<ul>
+									<li>
+										<strong>Datos de cuenta:</strong> Mientras la cuenta esté activa. Tras
+										eliminarla, se suprimen en 30 días salvo obligación legal.
+									</li>
+									<li>
+										<strong>Historial de compras y cursos:</strong> 5 años por obligaciones
+										fiscales (Art. 30 Código de Comercio).
+									</li>
+									<li>
+										<strong>Inscripciones a eventos:</strong> Hasta 1 año tras la celebración del
+										evento.
+									</li>
+									<li>
+										<strong>Newsletter:</strong> Hasta que te des de baja. Puedes hacerlo en
+										cualquier momento desde el enlace de cada email.
+									</li>
+									<li>
+										<strong>Datos analíticos:</strong> Según la configuración de Google Analytics
+										(máximo 14 meses) y Microsoft Clarity (máximo 13 meses).
+									</li>
+								</ul>
 							</section>
 						</article>
 					</div>
@@ -802,7 +889,7 @@ const seoData = {
 			link.addEventListener("click", (e) => {
 				e.preventDefault()
 				const targetId = link.getAttribute("href")
-				const targetElement = document.querySelector(targetId)
+				const targetElement = targetId ? document.querySelector(targetId) : null
 
 				if (targetElement) {
 					targetElement.scrollIntoView({

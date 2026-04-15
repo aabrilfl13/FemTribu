@@ -15,7 +15,7 @@ const seoData = {
 <Layout {...seoData} navScrolled={true} noindex={true}>
 	<main id="main-content" class="animate-fade-up mx-auto mt-21 max-w-4xl py-20 font-['Questrial']">
 		<h1 class="mb-8 font-serif text-4xl text-[#37443a]">Política de Cookies</h1>
-		<p class="mb-2 text-sm text-[#6a8067] italic">Última actualización: 12 de marzo de 2026</p>
+		<p class="mb-2 text-sm text-[#6a8067] italic">Última actualización: 14 de abril de 2026</p>
 
 		<section class="prose prose-green max-w-none text-[#4a5a4d]">
 			<p class="mb-4">
@@ -59,8 +59,28 @@ const seoData = {
 								></td
 							>
 							<td class="px-4 py-3">Femm tribu</td>
-							<td class="px-4 py-3">Control de acceso temporal a videos</td>
+							<td class="px-4 py-3">Control de acceso temporal a videos del curso</td>
 							<td class="px-4 py-3">30 minutos</td>
+						</tr>
+						<tr>
+							<td class="px-4 py-3"
+								><code class="rounded bg-[#cb6e5f]/10 px-1.5 py-0.5 text-xs text-[#a22f11]"
+									>sb-*-auth-token</code
+								></td
+							>
+							<td class="px-4 py-3">Supabase</td>
+							<td class="px-4 py-3">Sesión de usuario autenticado (login / cuenta)</td>
+							<td class="px-4 py-3">Sesión / 1 semana</td>
+						</tr>
+						<tr class="bg-[#6a8067]/[0.02]">
+							<td class="px-4 py-3"
+								><code class="rounded bg-[#cb6e5f]/10 px-1.5 py-0.5 text-xs text-[#a22f11]"
+									>femm-tribu-user-settings</code
+								></td
+							>
+							<td class="px-4 py-3">Femm tribu</td>
+							<td class="px-4 py-3">Preferencias de la cuenta de usuario</td>
+							<td class="px-4 py-3">Persistente</td>
 						</tr>
 					</tbody>
 				</table>
@@ -126,12 +146,12 @@ const seoData = {
 			</div>
 
 			<h3 class="mt-6 mb-3 font-serif text-xl text-[#37443a]">
-				Analíticas sin cookies (siempre activas)
+				Google Analytics — Modo de Consentimiento v2
 			</h3>
 			<p>
-				Utilizamos <strong>Vercel Analytics</strong> y <strong>Vercel Speed Insights</strong> para medir
-				el rendimiento del sitio. Estos servicios funcionan sin cookies y recopilan datos anonimizados
-				que no permiten identificarte personalmente.
+				Implementamos <strong>Google Consent Mode v2</strong> en modo básico: Google Analytics no
+				carga ni envía ningún dato a los servidores de Google hasta que otorgas tu consentimiento
+				explícito. Solo tras aceptar las cookies analíticas se activa el seguimiento completo.
 			</p>
 
 			<h3 class="mt-6 mb-3 font-serif text-xl text-[#37443a]">
@@ -181,12 +201,14 @@ const seoData = {
 			</div>
 
 			<h2 class="mt-10 mb-4 font-serif text-2xl text-[#37443a]">
-				2. Gestión de leads y Newsletter
+				2. Autenticación, Inscripciones y Suscripciones
 			</h2>
 			<p>
-				Al apuntarte a nuestra newsletter o talleres, utilizamos cookies para atribuir correctamente
-				el origen del lead en nuestro CRM (actualmente Twenty CRM), garantizando que recibas la
-				información del taller específico al que te inscribiste.
+				Cuando creas una cuenta, te inscribes a un evento o adquieres un curso, utilizamos
+				almacenamiento de sesión (gestionado por <strong>Supabase</strong>) para mantenerte
+				autenticada y para garantizar el acceso al contenido al que tienes derecho. En formularios de
+				inscripción y newsletter, los datos se procesan a través de webhooks de <strong>n8n</strong>
+				para enviarte información relevante sobre el servicio contratado.
 			</p>
 
 			<div class="mt-12 rounded-2xl border border-[#cb6e5f]/20 bg-[#fff5eb] p-8">
