@@ -1,8 +1,8 @@
 import type { APIContext, APIRoute } from "astro"
 
 import { getAuthCallbackUrl } from "@/config/auth"
-import { signInWithOAuth } from "@/auth"
-import type { OAuthProvider } from "@/auth"
+import { signInWithOAuth } from "@auth"
+import type { OAuthProvider } from "@auth"
 
 export const prerender = false
 

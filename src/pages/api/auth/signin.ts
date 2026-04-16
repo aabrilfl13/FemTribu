@@ -1,6 +1,6 @@
 import type { APIContext, APIRoute } from "astro"
 
-import { signIn } from "@/auth"
+import { signIn } from "@auth"
 
 export const prerender = false
 

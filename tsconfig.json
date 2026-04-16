@@ -4,7 +4,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@videos/*": ["./src/videos/*"]
+      "@auth": ["./src/lib/auth"],
+      "@auth/*": ["./src/lib/auth/*"],
+      "@events": ["./src/lib/events"],
+      "@events/*": ["./src/lib/events/*"],
+      "@videos": ["./src/lib/videos"],
+      "@videos/*": ["./src/lib/videos/*"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

@@ -1,7 +1,7 @@
 import type { APIContext, APIRoute } from "astro"
 
 import { getAuthCallbackUrl } from "@/config/auth"
-import { signUp } from "@/auth"
+import { signUp } from "@auth"
 
 export const prerender = false
 
