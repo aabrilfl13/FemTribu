@@ -264,6 +264,93 @@ export const mockEvents: Event[] = [
 		},
 	},
 
+	{
+		kind: "general",
+		slug: "pelvic-glow-experience-ii-mayo-2026",
+		title: "The Pelvic Glow Experience 2.0 · Día de la Madre",
+		subtitle: "Charla Hormonal + Pilates de Suelo Pélvico + Brunch",
+		date: "9 de Mayo 2026",
+		dateISO: "2026-05-09",
+		time: "10:30h",
+		startTime: "10:30:00",
+		endTime: "13:30:00",
+		duration: "3 horas",
+		type: "Presencial",
+		location: "Valencia",
+		locationAddress: "Calle Convent dels Carmelites, 5, Valencia",
+		price: "30€ (IVA incluido)",
+		spots: 15,
+		description:
+			"Una experiencia diseñada para mujeres que deseen comprender su ciclo, cuidar su suelo pélvico y abrazar cada etapa —desde la menstruación hasta la menopausia— con conocimiento y placer. Un plan perfecto para regalar(te) en el Día de la Madre o para venir con esa mujer especial con la que quieres compartir autocuidado y consciencia.\n\nHaremos primero una charla sobre salud hormonal, ciclo menstrual y menopausia: un espacio divulgativo y cercano donde entenderás cómo funcionan tus hormonas y qué puedes hacer para acompañar cada etapa con herramientas prácticas. Después, una sesión de pilates enfocado a suelo pélvico y core profundo, con movimiento consciente para activar, fortalecer y liberar la zona abdominopélvica. Terminaremos con un brunch para compartir, nutrirnos y crear comunidad entre nosotras. Y además… ¡habrá sorpresas!",
+		whatYouWillLearn: [
+			"Cómo funcionan tus hormonas a lo largo del ciclo menstrual",
+			"Herramientas prácticas para acompañar la menopausia",
+			"Cómo activar, fortalecer y liberar el suelo pélvico y el core profundo",
+			"Movimiento consciente para reconectar con tu cuerpo",
+		],
+		facilitators: [
+			{
+				name: "Paula Tejedo",
+				role: "Fisioterapeuta especializada en suelo pélvico y profesora de pilates",
+				bio: "Experta en salud pélvica femenina y fisiosexología, Paula acompaña a mujeres en el cuidado de su cuerpo desde una mirada integradora y respetuosa.",
+				image: "/images/about-me/paula-tejedo.webp",
+				socialMedia: {
+					instagram: "https://www.instagram.com/paula.fisiosuelopelvico/",
+				},
+			},
+			{
+				name: "María Belenguer",
+				role: "Matrona y profesora de Barre",
+				bio: "Matrona especializada en salud femenina y apasionada del movimiento consciente. Creadora de Femm tribu.",
+				image: "/images/about-me/mery-portait.webp",
+				socialMedia: {
+					instagram: "https://www.instagram.com/femm.tribu/",
+					linkedin: "https://www.linkedin.com/in/mar%C3%ADa-belenguer-p%C3%A9rez-b966593a0/",
+				},
+			},
+		],
+		includes: [
+			"Charla sobre salud hormonal, ciclo menstrual y menopausia",
+			"Sesión de pilates de suelo pélvico y core profundo",
+			"Brunch compartido",
+			"Sorpresas",
+		],
+		image: "/images/events/pelvic-glow-2/portada.webp",
+		gallery: [
+			{
+				id: "pelvic-glow-2",
+				src: "/images/events/pelvic-glow-2/img-4.webp",
+				alt: "Pelvic Glow - Taller",
+			},
+			{
+				id: "pelvic-glow-3",
+				src: "/images/events/pelvic-glow-2/img-1.webp",
+				alt: "Pelvic Glow - Instructoras",
+			},
+			{
+				id: "pelvic-glow-4",
+				src: "/images/events/pelvic-glow-2/img-2.webp",
+				alt: "Pelvic Glow - Instructoras",
+			},
+			{
+				id: "pelvic-glow-5",
+				src: "/images/events/pelvic-glow-2/img-3.webp",
+				alt: "Pelvic Glow - Instructoras",
+			},
+			{
+				id: "pelvic-glow-1",
+				src: "/images/events/pelvic-glow-2/portada.webp",
+				alt: "Pelvic Glow Experience",
+			},
+		],
+		whatsappNumber: "34640912048",
+		seo: {
+			title: "The Pelvic Glow Experience 2.0 · Día de la Madre Valencia | 9 Mayo 2026",
+			description:
+				"Taller presencial en Valencia para el Día de la Madre. Charla de salud hormonal y menopausia, pilates de suelo pélvico y brunch compartido. Con María Belenguer, matrona. ¡Reserva tu plaza!",
+		},
+	},
+
 	// ── Club de Lectura events ───────────────────────────────────────────────────
 	{
 		kind: "club-lectura",
