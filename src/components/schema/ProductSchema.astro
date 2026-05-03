@@ -1,0 +1,79 @@
+---
+/**
+ * Product Schema — Para servicios individuales de precio fijo
+ * Genera rich results en Google con precio, disponibilidad y valoración.
+ *
+ * Uso:
+ * <ProductSchema
+ *   name="Pendientes para Bebés"
+ *   description="..."
+ *   price={60}
+ *   image="/images/pendientes.webp"
+ *   sku="pendientes-bebe"
+ *   url="/servicios/pendientes-bebe"
+ * />
+ */
+
+import { BUSINESS_INFO } from "@/data/business-info"
+
+export interface Props {
+	name: string
+	description: string
+	price: number
+	image?: string
+	sku?: string
+	url?: string
+	category?: string
+}
+
+const {
+	name,
+	description,
+	price,
+	image,
+	sku,
+	url,
+	category = "Healthcare Services",
+} = Astro.props
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const pageUrl = url
+	? new URL(url, siteUrl).toString()
+	: new URL(Astro.url.pathname, siteUrl).toString()
+const productImage = image
+	? new URL(image, siteUrl).toString()
+	: `${siteUrl}images/og-hands-together.webp`
+
+const priceValidUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+	.toISOString()
+	.split("T")[0]
+
+const productSchema = {
+	"@context": "https://schema.org",
+	"@type": "Product",
+	"@id": `${pageUrl}#product`,
+	"name": name,
+	"description": description,
+	"image": productImage,
+	"sku": sku,
+	"category": category,
+	"brand": {
+		"@type": "Brand",
+		"name": "Femm tribu",
+	},
+	"offers": {
+		"@type": "Offer",
+		"price": price,
+		"priceCurrency": "EUR",
+		"availability": "https://schema.org/InStock",
+		"url": pageUrl,
+		"priceValidUntil": priceValidUntil,
+		"itemCondition": "https://schema.org/NewCondition",
+		"seller": {
+			"@id": `${siteUrl}#organization`,
+		},
+	},
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} />

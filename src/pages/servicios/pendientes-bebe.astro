@@ -2,6 +2,7 @@
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
+import ProductSchema from "@/components/schema/ProductSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
 import Button from "@/components/ui/Button.astro"
@@ -13,10 +14,12 @@ export const prerender = true
 
 const service = ADDON_SERVICES.pendientesBebe
 
+const heroImageId = "63bc064b-c69f-47a3-aaac-fff5d110ce3f"
+const heroImageUrl = getAssetUrl(heroImageId)
+
 const seoData = {
-	title: "Pendientes para Bebés en Valencia | Matrona Profesional | Femm tribu",
-	description:
-		"Colocación de pendientes para bebés en Valencia por matrona profesional. Materiales hipoalergénicos certificados, entorno seguro e higiene garantizada. 50€ · Sin cita de espera.",
+	...service.seo,
+	image: heroImageUrl,
 	type: "website" as const,
 }
 
@@ -95,7 +98,16 @@ const faqs = [
 		priceMin={service.priceMin}
 		priceMax={service.priceMax}
 		serviceType={service.serviceType}
+		image={heroImageUrl}
 		url="/servicios/pendientes-bebe"
+	/>
+	<ProductSchema
+		name={service.name}
+		description={service.description}
+		price={service.price}
+		image={heroImageUrl}
+		sku={service.id}
+		url={service.url}
 	/>
 	<FAQSchema faqs={faqs} />
 
@@ -152,7 +164,7 @@ const faqs = [
 					data-animate-delay="0.2s"
 				>
 					<div class="text-center">
-						<p class="font-display text-accent text-3xl">50€</p>
+						<p class="font-display text-accent text-3xl">{service.price}€</p>
 						<p class="text-muted-foreground mt-1 text-xs">precio fijo</p>
 					</div>
 					<div class="border-border/40 border-l"></div>
@@ -226,8 +238,8 @@ const faqs = [
 					<div class="w-full lg:w-5/12">
 						<div class="relative overflow-hidden rounded-3xl">
 							<img
-								src={getAssetUrl("63bc064b-c69f-47a3-aaac-fff5d110ce3f")}
-								alt="Pendientes para bebés"
+								src={heroImageUrl}
+								alt="Colocación de pendientes para bebés por matrona profesional en Valencia"
 								loading="lazy"
 								class="h-72 w-full object-cover object-[center_90%] lg:h-full lg:min-h-[480px] lg:object-center"
 							/>
@@ -359,7 +371,7 @@ const faqs = [
 		<FAQ
 			faqs={faqs}
 			title="Preguntas frecuentes"
-			subtitle="Resolvemos las dudas más comunes sobre este evento"
+			subtitle="Resolvemos las dudas más comunes sobre este servicio"
 		/>
 
 		{/* ── Divider ── */}
