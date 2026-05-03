@@ -53,6 +53,7 @@ export default defineConfig({
 					"/privacy/",
 					"/blog/preview/",
 					"/perfil/",
+          "/auth/",
 				]
 				return !excludePaths.some((path) => page.includes(path))
 			},
