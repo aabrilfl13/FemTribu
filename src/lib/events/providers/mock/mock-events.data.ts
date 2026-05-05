@@ -269,8 +269,8 @@ export const mockEvents: Event[] = [
 		slug: "pelvic-glow-experience-ii-mayo-2026",
 		title: "The Pelvic Glow Experience 2.0 · Día de la Madre",
 		subtitle: "Charla Hormonal + Pilates de Suelo Pélvico + Brunch",
-		date: "9 de Mayo 2026",
-		dateISO: "2026-05-09",
+		date: "16 de Mayo 2026",
+		dateISO: "2026-05-16",
 		time: "10:30h",
 		startTime: "10:30:00",
 		endTime: "13:30:00",
@@ -345,7 +345,7 @@ export const mockEvents: Event[] = [
 		],
 		whatsappNumber: "34640912048",
 		seo: {
-			title: "The Pelvic Glow Experience 2.0 · Día de la Madre Valencia | 9 Mayo 2026",
+			title: "The Pelvic Glow Experience 2.0 · Día de la Madre Valencia | 16 Mayo 2026",
 			description:
 				"Taller presencial en Valencia para el Día de la Madre. Charla de salud hormonal y menopausia, pilates de suelo pélvico y brunch compartido. Con María Belenguer, matrona. ¡Reserva tu plaza!",
 		},

@@ -30,6 +30,19 @@ const mockAnnouncementStories: Story[] = [
 		startTime: "2026-03-01T00:00:00",
 		endTime: "2026-03-26T06:00:00",
 	},
+	{
+		id: "evento-16-mayo-pelvic-glow",
+		subtitle: "16 DE MAYO • 10:30H • VALENCIA",
+		title: "The Pelvic Glow Experience 2.0",
+		description:
+			"Un plan para el Día de la Madre: charla de salud hormonal, pilates de suelo pélvico y brunch compartido.\n\nVen sola o con esa mujer especial.",
+		ctaText: "Ver detalles",
+		ctaLink: "/eventos/pelvic-glow-experience-ii-mayo-2026",
+		imageSrc: "/images/events/pelvic-glow-2/img-4.webp",
+		backgroundColor: "#37443a",
+		startTime: "2026-05-05T00:00:00",
+		endTime: "2026-05-16T01:00:00",
+	},
 ]
 
 /**
