@@ -21,17 +21,26 @@ interface VideoPlayerFactoryProps {
 	provider: VideoProviderType
 	url: string
 	title?: string
+	trackingContext?: {
+		courseId: string
+		videoId: string
+		videoTitle?: string
+	}
 }
 
-export const VideoPlayerFactory = ({ provider, url, title }: VideoPlayerFactoryProps) => {
+export const VideoPlayerFactory = ({
+	provider,
+	url,
+	title,
+	trackingContext,
+}: VideoPlayerFactoryProps) => {
 	switch (provider) {
 		case "bunny":
-			return <BunnyPlayer url={url} title={title} />
+			return <BunnyPlayer url={url} title={title} trackingContext={trackingContext} />
 
 		case "mock":
 		case "cloudflare":
 		default:
-			// Use custom VideoPlayer for mock and cloudflare (or as fallback)
 			return <VideoPlayer src={url} />
 	}
 }

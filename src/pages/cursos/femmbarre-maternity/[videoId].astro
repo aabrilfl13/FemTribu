@@ -87,6 +87,11 @@ const seoData = {
 								provider={video.provider}
 								url={video.url}
 								title={video.title}
+								trackingContext={{
+									courseId: "femmbarre-maternity",
+									videoId: video.id,
+									videoTitle: video.title,
+								}}
 								client:load
 							/>
 						</div>
@@ -199,10 +204,12 @@ const seoData = {
 <script is:inline define:vars={{ videoId, videoTitle: video.title }}>
 	window.addEventListener("load", () => {
 		if (typeof window.gtag !== "function") return
-		window.gtag("event", "video_view", {
+		window.gtag("event", "course_enter", {
+			course_id: "femmbarre-maternity",
+			course_title: "FemmBarre Maternity",
+			entry_point: "video",
 			video_id: videoId,
 			video_title: videoTitle,
-			course_slug: "femmbarre-maternity",
 			page: window.location.pathname,
 		})
 	})
@@ -217,7 +224,7 @@ const seoData = {
 		window.gtag("event", "playlist_video_click", {
 			from_video_id: videoId,
 			to_video_id: clickedVideoId,
-			course_slug: "femmbarre-maternity",
+			course_id: "femmbarre-maternity",
 			page: window.location.pathname,
 		})
 	})
