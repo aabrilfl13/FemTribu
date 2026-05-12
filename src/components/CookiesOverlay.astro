@@ -607,6 +607,10 @@
 	class UserPreferenceManager {
 		private storageKey = "femm-tribu-user-consent"
 		private settingsKey = "femm-tribu-user-settings"
+		// Bump when cookie categories or third-party processors change — forces re-prompt.
+		private currentVersion = "1.0"
+		// Re-prompt after this many days even if version hasn't changed (AEPD guidance).
+		private maxAgeDays = 180
 
 		constructor() {
 			this.init()
@@ -660,16 +664,25 @@
 		checkConsentStatus() {
 			const consent = this.getStoredConsent()
 
-			if (consent) {
+			if (consent && this.isConsentValid(consent)) {
 				this.hidePrivacyOverlay()
-
 				this.applyUserPreferences(consent.preferences)
 			} else {
-				// Add delay before showing privacy overlay (2 seconds)
 				setTimeout(() => {
 					this.showPrivacyOverlay()
 				}, 2000)
 			}
+		}
+
+		/**
+		 * A stored consent is valid only if the version matches the current scope
+		 * and it hasn't expired. Stale consents are treated as no consent at all.
+		 */
+		isConsentValid(consent: { version?: string; timestamp?: number }) {
+			if (consent.version !== this.currentVersion) return false
+			if (!consent.timestamp) return false
+			const ageMs = Date.now() - consent.timestamp
+			return ageMs <= this.maxAgeDays * 24 * 60 * 60 * 1000
 		}
 
 		/**
@@ -863,7 +876,7 @@
 			const consent = {
 				timestamp: Date.now(),
 				preferences: preferences,
-				version: "1.0",
+				version: this.currentVersion,
 			}
 
 			try {
