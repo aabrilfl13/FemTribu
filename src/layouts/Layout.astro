@@ -126,22 +126,28 @@ const announcementStories = await getAnnouncements()
 		{!isDevelopment && <GoogleAnalytics />}
 		{!isDevelopment && <MicrosoftClarity />}
 		<script is:inline>
-			function handleConsent(preferences) {
-				// Si se aceptan analíticas, cargamos los servicios
-				if (preferences && preferences.analytics) {
-					console.log("Consentimiento recibido: Cargando Analytics y Clarity...")
-
-					// Disparamos un evento que los componentes específicos escucharán
-					window.dispatchEvent(new CustomEvent("load-analytics-services"))
+			async function fetchUserId() {
+				try {
+					const res = await fetch("/api/user/me", { credentials: "same-origin" })
+					if (!res.ok) return null
+					const data = await res.json()
+					return data?.user?.id ?? null
+				} catch {
+					return null
 				}
 			}
 
-			// 1. Escuchar cambios en tiempo real
+			async function handleConsent(preferences) {
+				if (preferences && preferences.analytics) {
+					const userId = await fetchUserId()
+					window.dispatchEvent(new CustomEvent("load-analytics-services", { detail: { userId } }))
+				}
+			}
+
 			window.addEventListener("cookie-consent-updated", (event) => {
 				handleConsent(event.detail)
 			})
 
-			// 2. Comprobar al cargar la página si ya existía consentimiento
 			document.addEventListener("DOMContentLoaded", () => {
 				const stored = localStorage.getItem("femm-tribu-user-consent")
 				if (stored) {
@@ -174,8 +180,7 @@ const announcementStories = await getAnnouncements()
 		</div>
 		<SpeedInsights />
 		<Analytics />
-	</body>
-	<script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
+	</body><script src="https://cdn.jsdelivr.net/npm/animejs/lib/anime.iife.min.js"></script>
 	<!-- Script de animaciones scroll - Reutilizando animaciones de global.css -->
 	<script>
 		import { initScrollAnimations } from "@/utils/scrollAnimations"

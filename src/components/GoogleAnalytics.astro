@@ -20,10 +20,13 @@ const isDevelopment = import.meta.env.DEV
 			ad_personalization: "denied",
 		})
 
-		function loadGAScript() {
-			if (document.getElementById("ga-external-script")) return
+		function loadGAScript(userId) {
+			if (document.getElementById("ga-external-script")) {
+				// Script already loaded — just set user_id if it became available
+				if (userId) gtag("config", GA_ID, { user_id: userId })
+				return
+			}
 
-			// Update consent to granted before loading the script
 			gtag("consent", "update", {
 				analytics_storage: "granted",
 			})
@@ -35,11 +38,14 @@ const isDevelopment = import.meta.env.DEV
 			document.head.appendChild(script)
 
 			gtag("js", new Date())
-			gtag("config", GA_ID)
+			gtag("config", GA_ID, userId ? { user_id: userId } : undefined)
 
 			console.log("GA4: Activado tras consentimiento.")
 		}
 
-		window.addEventListener("load-analytics-services", loadGAScript)
+		window.addEventListener("load-analytics-services", (event) => {
+			const userId = event?.detail?.userId ?? null
+			loadGAScript(userId)
+		})
 	}
 </script>
