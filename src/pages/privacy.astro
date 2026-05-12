@@ -24,7 +24,7 @@ const seoData = {
 						</a>
 						<h1>Política de Privacidad</h1>
 						<p class="last-updated">
-							Última actualización: <time datetime="2026-04-14">14 de abril de 2026</time>
+							Última actualización: <time datetime="2026-05-12">12 de mayo de 2026</time>
 						</p>
 					</div>
 				</header>
@@ -79,6 +79,14 @@ const seoData = {
 											<strong>Navegación técnica:</strong> Datos analíticos (IP anonimizada, comportamiento
 											en web) a través de Google Analytics y Microsoft Clarity, únicamente si aceptas las
 											cookies analíticas.
+										</li>
+										<li>
+											<strong>Identificador de usuaria en analítica (solo si has iniciado sesión
+											y has aceptado las cookies analíticas):</strong> asociamos tu actividad de
+											navegación a un identificador pseudónimo (el UUID de tu cuenta) para entender
+											qué secciones utilizan las usuarias registradas (cursos, eventos, etc.) y
+											mantener una visión coherente entre dispositivos. Nunca compartimos tu email
+											ni tu nombre con Google o Microsoft.
 										</li>
 									</ul>
 								</div>
@@ -155,11 +163,15 @@ const seoData = {
 									</li>
 									<li>
 										<strong>Google Analytics:</strong> Análisis de audiencia. Solo se activa con tu
-										consentimiento explícito (Consent Mode v2 básico).
+										consentimiento explícito (Consent Mode v2 básico). Si has iniciado sesión y
+										aceptas las cookies analíticas, se envía el UUID de tu cuenta como identificador
+										pseudónimo (User-ID) para analizar el uso agregado entre dispositivos; nunca se
+										envían datos personales identificables (email, nombre, etc.).
 									</li>
 									<li>
 										<strong>Microsoft Clarity:</strong> Análisis de experiencia de usuario y mapas
-										de calor. Requiere consentimiento.
+										de calor. Requiere consentimiento. Aplica la misma lógica de User-ID que Google
+										Analytics para usuarias autenticadas.
 									</li>
 									<li>
 										<strong>YouTube:</strong> Reproducción de vídeos educativos embebidos. Usamos
@@ -177,6 +189,12 @@ const seoData = {
 										>Política de Cookies</a
 									>. Disponemos de un panel de configuración donde puedes gestionar tus preferencias
 									en cualquier momento.
+								</p>
+								<p>
+									<strong>Renovación del consentimiento:</strong> tus preferencias se conservan
+									durante un máximo de 6 meses. Transcurrido ese plazo, o si ampliamos las
+									finalidades o añadimos nuevos proveedores, te volveremos a mostrar el banner de
+									cookies para que confirmes o actualices tu consentimiento.
 								</p>
 							</section>
 
