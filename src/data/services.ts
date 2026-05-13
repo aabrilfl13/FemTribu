@@ -3,6 +3,9 @@
  * Si cambias precios o nombres aquí, se actualiza en toda la web automáticamente
  */
 
+export type ServiceKind = "consulta" | "pack" | "subscription" | "addon"
+export type ServiceFormat = "online" | "presencial" | "both"
+
 export interface ServiceData {
 	id: string
 	name: string
@@ -12,7 +15,9 @@ export interface ServiceData {
 	priceMin: number
 	priceMax: number
 	serviceType: string
-	type: "pack" | "addon" | "subscription"
+	type: ServiceKind
+	duration?: string
+	format?: ServiceFormat
 	// SEO específico
 	seo: {
 		title: string
@@ -27,22 +32,31 @@ export interface AddonServiceData extends ServiceData {
 	icon?: string
 }
 
+/**
+ * Precio único para todas las consultas individuales (50€ / 60 min).
+ * Cambiar aquí actualiza las 5 consultas a la vez.
+ */
+export const CONSULTATION_PRICE = 50
+export const CONSULTATION_DURATION = "60 minutos"
+
 export const SERVICES: Record<string, ServiceData> = {
 	lactancia: {
 		id: "lactancia",
 		name: "Asesoría de Lactancia",
 		nameShort: "Lactancia",
 		description:
-			"Acompañamiento profesional y cercano en Valencia y online para resolver problemas de lactancia. Soluciones reales para el agarre, banco de leche, destete y más.",
+			"Consulta individual con matrona especializada en lactancia en Valencia y online. Resolvemos dificultades de agarre, dolor, producción, banco de leche, lactancia mixta, vuelta al trabajo y destete respetuoso.",
 		url: "/servicios/lactancia",
-		priceMin: 70,
-		priceMax: 220,
-		serviceType: "Lactancia",
-		type: "pack",
+		priceMin: CONSULTATION_PRICE,
+		priceMax: CONSULTATION_PRICE,
+		duration: CONSULTATION_DURATION,
+		format: "both",
+		serviceType: "Consulta de Lactancia",
+		type: "consulta",
 		seo: {
-			title: "Asesoría Lactancia Valencia y Online | Femm tribu",
+			title: "Especialista en Lactancia Valencia | Asesoría Matrona | Femm tribu",
 			description:
-				"¿Dolor o dudas con tu lactancia? María Belenguer, matrona, te acompaña en Valencia y online. Soluciones reales para el agarre, banco de leche y destete.",
+				"María Belenguer, especialista en lactancia en Valencia. Asesoría con matrona para agarre, dolor, producción, banco de leche y destete. Online y presencial. 50€ / 60 min.",
 		},
 	},
 	preparacionParto: {
@@ -50,50 +64,94 @@ export const SERVICES: Record<string, ServiceData> = {
 		name: "Preparación al Parto",
 		nameShort: "Preparación al Parto",
 		description:
-			"Prepara tu parto con ciencia y alma. Acompañamiento presencial en Valencia y online con matrona. Fisiología del parto, gestión del miedo, meditación y posparto.",
+			"Sesión de dudas individual sobre embarazo, parto y posparto con matrona. Basada en evidencia científica. Fisiología del parto, plan de parto, intervenciones médicas, gestión del miedo y lactancia inicial. Programa grupal disponible por WhatsApp.",
 		url: "/servicios/preparacion-al-parto",
-		priceMin: 90,
-		priceMax: 250,
+		priceMin: CONSULTATION_PRICE,
+		priceMax: CONSULTATION_PRICE,
+		duration: CONSULTATION_DURATION,
+		format: "both",
 		serviceType: "Preparación al Parto",
-		type: "pack",
+		type: "consulta",
 		seo: {
-			title: "Preparación al Parto Valencia y Online | Femm tribu",
+			title: "Preparación al Parto Valencia y Online | Matrona | Femm tribu",
 			description:
-				"Acompañamiento presencial en Valencia y online con matrona María Belenguer. Prepara tu parto con ciencia y alma: fisiología, gestión del miedo y posparto. ¡Confía en tu cuerpo!",
+				"Preparación al parto individual con matrona en Valencia y online. Fisiología del parto, plan de parto, gestión del miedo y posparto. Consulta 50€ / 60 min. Programa grupal bajo demanda.",
 		},
 	},
 	menopausia: {
 		id: "menopausia",
-		name: "Acompañamiento en Menopausia",
+		name: "Consulta de Salud en Menopausia",
 		nameShort: "Menopausia",
 		description:
-			"Redefine tu menopausia con acompañamiento integral. Salud sexual, suelo pélvico, nutrición y hábitos saludables. Matrona en Valencia y online.",
+			"Acompañamiento en perimenopausia y menopausia con matrona. Gestión de sofocos, alteraciones del sueño, cambios emocionales, sequedad vaginal, salud ósea y hábitos de autocuidado. Enfoque natural y basado en evidencia.",
 		url: "/servicios/menopausia",
-		priceMin: 80,
-		priceMax: 250,
+		priceMin: CONSULTATION_PRICE,
+		priceMax: CONSULTATION_PRICE,
+		duration: CONSULTATION_DURATION,
+		format: "online",
 		serviceType: "Menopausia",
-		type: "pack",
+		type: "consulta",
 		seo: {
-			title: "Menopausia Valencia y Online | Femm tribu",
+			title: "Menopausia Valencia y Online | Consulta Matrona | Femm tribu",
 			description:
-				"Redefine tu menopausia con María Belenguer. Acompañamiento integral: salud sexual, suelo pélvico y hábitos saludables. Ciencia y alma en Valencia.",
+				"Consulta de menopausia online con María Belenguer, matrona. Gestión de sofocos, sueño, cambios emocionales, sequedad vaginal y salud ósea. Enfoque natural y basado en evidencia. 50€ / 60 min.",
 		},
 	},
 	saludHormonal: {
 		id: "salud-hormonal",
-		name: "Acompañamiento en Salud Hormonal",
+		name: "Consulta de Salud Hormonal",
 		nameShort: "Salud Hormonal",
 		description:
-			"Aprende a escuchar tu cuerpo. Asesoría en salud hormonal, ciclo menstrual, nutrición y consulta preconcepcional. Matrona en Valencia y online.",
+			"Consulta de salud hormonal femenina con matrona. Dolor menstrual, síndrome premenstrual, ciclos irregulares, desajustes hormonales e identificación de las fases del ciclo. Educación, escucha del cuerpo y herramientas prácticas.",
 		url: "/servicios/salud-hormonal",
-		priceMin: 50,
-		priceMax: 160,
+		priceMin: CONSULTATION_PRICE,
+		priceMax: CONSULTATION_PRICE,
+		duration: CONSULTATION_DURATION,
+		format: "both",
 		serviceType: "Salud Hormonal",
+		type: "consulta",
+		seo: {
+			title: "Salud Hormonal Femenina Valencia | Matrona | Femm tribu",
+			description:
+				"Consulta de salud hormonal femenina con María Belenguer. Dolor menstrual, SPM, ciclos irregulares y desajustes hormonales. Matrona en Valencia y online. 50€ / 60 min.",
+		},
+	},
+	conoceTuCiclo: {
+		id: "conoce-tu-ciclo",
+		name: "Pack Conoce tu Ciclo",
+		nameShort: "Conoce tu Ciclo",
+		description:
+			"Acompañamiento de 3 meses para aprender a entender, observar y conectar con tu ciclo menstrual. Seguimiento personalizado, sesiones individuales, educación sobre cada fase, interpretación de síntomas y recomendaciones adaptadas a tu estilo de vida.",
+		url: "/servicios/conoce-tu-ciclo",
+		priceMin: 120,
+		priceMax: 120,
+		duration: "3 meses",
+		format: "online",
+		serviceType: "Pack Conoce tu Ciclo",
 		type: "pack",
 		seo: {
-			title: "Salud Hormonal Valencia y Online | Femm tribu",
+			title: "Conoce tu Ciclo — Acompañamiento Menstrual 3 Meses | Femm tribu",
 			description:
-				"Aprende a escuchar tu cuerpo con María Belenguer. Asesoría en salud hormonal, nutrición y ciclo menstrual en Valencia y online. ¡Vive en sintonía contigo!",
+				"Pack 'Conoce tu Ciclo': 3 meses de acompañamiento online con matrona para entender tu ciclo menstrual, interpretar síntomas y conectar con tu cuerpo. 120€.",
+		},
+	},
+	preconcepcional: {
+		id: "preconcepcional",
+		name: "Consulta Preconcepcional",
+		nameShort: "Preconcepcional",
+		description:
+			"Consulta preconcepcional con matrona para preparar el embarazo de forma consciente y saludable. Revisión de salud general y hábitos, ciclo menstrual y ovulación, nutrición, suplementación básica y estilo de vida. Para mujeres y parejas en proceso de concepción.",
+		url: "/servicios/preconcepcional",
+		priceMin: CONSULTATION_PRICE,
+		priceMax: CONSULTATION_PRICE,
+		duration: CONSULTATION_DURATION,
+		format: "both",
+		serviceType: "Consulta Preconcepcional",
+		type: "consulta",
+		seo: {
+			title: "Consulta Preconcepcional Valencia y Online | Matrona | Femm tribu",
+			description:
+				"Consulta preconcepcional con matrona en Valencia y online. Preparación consciente del embarazo: ciclo, ovulación, nutrición y suplementación. Para mujeres y parejas. 50€ / 60 min.",
 		},
 	},
 	femmbarre: {
@@ -105,6 +163,8 @@ export const SERVICES: Record<string, ServiceData> = {
 		url: "/servicios/femmbarre",
 		priceMin: 35,
 		priceMax: 35,
+		duration: "1 clase semanal",
+		format: "online",
 		serviceType: "FemmBarre Maternity",
 		type: "subscription",
 		seo: {
@@ -126,6 +186,7 @@ export const ADDON_SERVICES: Record<string, AddonServiceData> = {
 		price: 60,
 		priceMin: 60,
 		priceMax: 60,
+		format: "presencial",
 		serviceType: "Pendientes Bebé",
 		type: "addon",
 		features: [
@@ -153,6 +214,13 @@ export function getAllServices(): ServiceData[] {
  */
 export function getAllAddonServices(): AddonServiceData[] {
 	return Object.values(ADDON_SERVICES)
+}
+
+/**
+ * Helper para obtener sólo las consultas individuales (50€ / 60 min)
+ */
+export function getAllConsultations(): ServiceData[] {
+	return Object.values(SERVICES).filter((s) => s.type === "consulta")
 }
 
 /**
