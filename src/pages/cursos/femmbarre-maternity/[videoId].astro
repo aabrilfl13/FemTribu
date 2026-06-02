@@ -1,8 +1,8 @@
 ---
+import { getVideo, listVideos, type Video } from "@videos"
 import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
 import Layout from "@/layouts/Layout.astro"
-import { getVideo, listVideos, type Video } from "@videos"
 
 // Get the video ID from the URL
 const { videoId } = Astro.params

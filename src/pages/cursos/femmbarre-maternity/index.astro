@@ -1,9 +1,10 @@
 ---
+import { listVideos, type Video } from "@videos"
+
 import VideoGrid from "@/components/course/VideoGrid"
 import CTA from "@/components/sections/cta/CTA.astro"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
-import { listVideos, type Video } from "@videos"
 
 // Check if user has access to Femm Barre
 const user = Astro.locals.user
@@ -20,7 +21,7 @@ if (!user.hasActiveFemmBarre) {
 }
 
 // Fetch videos for this course
-const videosResult = await listVideos()
+const videosResult = await listVideos({ courseId: "56371f21-2208-466a-bf2a-9d5121d66a56" })
 const videos: Video[] = videosResult.data ?? []
 
 // Sort videos by creation date (most recent first)

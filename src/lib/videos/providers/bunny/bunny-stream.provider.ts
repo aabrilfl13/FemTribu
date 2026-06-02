@@ -160,9 +160,11 @@ export class BunnyStreamProvider implements VideoProvider {
 			const params = new URLSearchParams()
 			const page = options?.offset ? Math.floor(options.offset / (options.limit || 50)) + 1 : 1
 			const perPage = options?.limit || 50
+			const collectionId = options?.courseId || ""
 
 			params.set("page", page.toString())
 			params.set("itemsPerPage", perPage.toString())
+			params.set("collection", collectionId)
 
 			// Fetch from the library
 			const response = await fetch(
