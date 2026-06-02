@@ -1,9 +1,13 @@
 ---
+import { getVideo } from "@videos"
+import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
+
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import Button from "@/components/ui/Button.astro"
+import Modal from "@/components/ui/Modal.astro"
 import { SERVICES } from "@/data/services"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
@@ -110,6 +114,10 @@ const faqs = [
 	},
 ]
 
+const videoId = "df6bfe30-4680-45ec-bfdd-6ddba0aa6b61"
+const videoResult = await getVideo(videoId)
+const videoTeaser = videoResult.data
+
 const seoData = {
 	...serviceData.seo,
 	type: "website" as const,
@@ -175,10 +183,13 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 						</div>
 					</div>
 
-					<!-- Image -->
+					<!-- Video preview -->
 					<div class="relative mx-auto w-full max-w-md lg:max-w-none">
-						<div
-							class="shadow-warm border-accent/20 rotate-2 overflow-hidden rounded-3xl border-2 transition-transform duration-500 hover:rotate-0"
+						<button
+							id="open-video-modal-btn"
+							type="button"
+							aria-label="Reproducir vídeo de FemmBarre Maternity"
+							class="shadow-warm border-accent/20 focus-visible:ring-accent/40 group relative block w-full rotate-2 cursor-pointer overflow-hidden rounded-3xl border-2 transition-transform duration-500 hover:rotate-0 focus:rotate-0 focus:outline-none focus-visible:ring-4"
 							data-animate="animate-fade-up"
 							data-animate-duration="1s"
 							data-animate-delay="0.3s"
@@ -190,7 +201,23 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 								width="600"
 								height="480"
 							/>
-						</div>
+							<span
+								class="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors duration-300 group-hover:bg-black/30"
+							>
+								<span
+									class="bg-cream/95 text-accent shadow-warm flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
+								>
+									<svg
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										class="ml-1 h-9 w-9"
+										aria-hidden="true"
+									>
+										<polygon points="5 3 19 12 5 21 5 3"></polygon>
+									</svg>
+								</span>
+							</span>
+						</button>
 						<div
 							class="bg-card shadow-warm border-border/50 absolute -bottom-4 -left-4 rounded-2xl border p-4"
 							data-animate="animate-fade-up"
@@ -459,6 +486,31 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			</div>
 		</section>
 	</main>
+
+	<Modal
+		id="femmbarre-video-modal"
+		size="xl"
+		noPadding={true}
+		ariaLabel="Vídeo de FemmBarre Maternity"
+	>
+		<div id="femmbarre-video-modal-body" class="overflow-hidden rounded-3xl bg-black">
+			{
+				videoTeaser && (
+					<VideoPlayerFactory
+						provider={videoTeaser.provider}
+						url={videoTeaser.url}
+						title={videoTeaser.title}
+						trackingContext={{
+							courseId: "femmbarre-maternity",
+							videoId: videoTeaser.id,
+							videoTitle: videoTeaser.title,
+						}}
+						client:load
+					/>
+				)
+			}
+		</div>
+	</Modal>
 </Layout>
 
 <script define:vars={{ phoneNumber, serviceName }}>
@@ -466,6 +518,28 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		const subscribeBtn = document.getElementById("subscribe-btn")
 		const subscribeCta = document.getElementById("subscribe-cta-btn")
 		const trialBtn = document.getElementById("trial-btn")
+
+		const openVideoBtn = document.getElementById("open-video-modal-btn")
+		const videoModal = document.getElementById("femmbarre-video-modal")
+
+		openVideoBtn?.addEventListener("click", () => {
+			if (typeof window.gtag === "function") {
+				window.gtag("event", "video_modal_open", {
+					cta_label: serviceName,
+					page: window.location.pathname,
+				})
+			}
+			window.modalManager?.open("femmbarre-video-modal")
+		})
+
+		// Pause Bunny playback on close: reload the iframe by resetting its src.
+		videoModal?.addEventListener("close", () => {
+			const iframe = videoModal.querySelector("iframe")
+			if (iframe) {
+				const src = iframe.getAttribute("src")
+				if (src) iframe.setAttribute("src", src)
+			}
+		})
 
 		const handleSubscribe = (ctaPosition) => {
 			if (typeof window.gtag === "function") {
