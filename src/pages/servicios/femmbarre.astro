@@ -6,6 +6,7 @@ import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import VideoSchema from "@/components/schema/VideoSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Modal from "@/components/ui/Modal.astro"
 import { SERVICES } from "@/data/services"
@@ -138,6 +139,23 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		onlineOnly={true}
 	/>
 	<FAQSchema faqs={faqs} />
+	{
+		videoTeaser && (
+			<VideoSchema
+				name={videoTeaser.title}
+				description={
+					videoTeaser.description ||
+					`Vídeo de presentación de ${serviceName} — barre prenatal online guiado por María, matrona e instructora de Barre.`
+				}
+				thumbnailUrl={videoTeaser.thumbnailUrl}
+				uploadDate={videoTeaser.createdAt}
+				durationSeconds={videoTeaser.duration}
+				embedUrl={videoTeaser.url}
+				width={videoTeaser.metadata?.width}
+				height={videoTeaser.metadata?.height}
+			/>
+		)
+	}
 	<main id="main-content">
 		<!-- Hero -->
 		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24">

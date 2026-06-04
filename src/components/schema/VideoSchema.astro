@@ -1,0 +1,73 @@
+---
+/**
+ * Video Schema - VideoObject schema.org markup
+ *
+ * Allows Google to surface the video as a rich result in Search and Discover.
+ * https://developers.google.com/search/docs/appearance/structured-data/video
+ *
+ * Usage:
+ * <VideoSchema
+ *   name="FemmBarre Maternity - Teaser"
+ *   description="Vídeo de presentación..."
+ *   thumbnailUrl="https://..."
+ *   uploadDate={new Date('2026-...')}
+ *   durationSeconds={120}
+ *   embedUrl="https://player.mediadelivery.net/embed/..."
+ * />
+ */
+
+export interface Props {
+	name: string
+	description: string
+	thumbnailUrl: string
+	uploadDate: Date | string
+	durationSeconds: number
+	embedUrl?: string
+	contentUrl?: string
+	width?: number
+	height?: number
+	inLanguage?: string
+}
+
+const {
+	name,
+	description,
+	thumbnailUrl,
+	uploadDate,
+	durationSeconds,
+	embedUrl,
+	contentUrl,
+	width,
+	height,
+	inLanguage = "es",
+} = Astro.props
+
+const siteUrl = Astro.site?.toString() || "https://femmtribu.es"
+
+// ISO 8601 duration: "PT" + seconds + "S"
+const isoDuration = `PT${Math.max(0, Math.floor(durationSeconds))}S`
+
+const uploadDateISO = uploadDate instanceof Date ? uploadDate.toISOString() : uploadDate
+
+const videoSchema: Record<string, unknown> = {
+	"@context": "https://schema.org",
+	"@type": "VideoObject",
+	"name": name,
+	"description": description,
+	"thumbnailUrl": [thumbnailUrl],
+	"uploadDate": uploadDateISO,
+	"duration": isoDuration,
+	"inLanguage": inLanguage,
+	"isFamilyFriendly": true,
+	"publisher": {
+		"@id": `${siteUrl}#organization`,
+	},
+}
+
+if (embedUrl) videoSchema.embedUrl = embedUrl
+if (contentUrl) videoSchema.contentUrl = contentUrl
+if (width) videoSchema.width = width
+if (height) videoSchema.height = height
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
