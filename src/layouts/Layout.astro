@@ -26,8 +26,23 @@ export interface Props {
 	type?: "website" | "article"
 	noindex?: boolean
 	navScrolled?: boolean
+	video?: {
+		url: string
+		secureUrl?: string
+		width?: number
+		height?: number
+		thumbnailUrl?: string
+	}
 }
-const { title, description, image, type, noindex = false, navScrolled = false } = Astro.props
+const {
+	title,
+	description,
+	image,
+	type,
+	noindex = false,
+	navScrolled = false,
+	video,
+} = Astro.props
 const isDevelopment = import.meta.env.DEV
 
 // Fetch announcements (simulates API call, runs at build time or request time depending on SSR/SSG)
@@ -87,7 +102,14 @@ const announcementStories = await getAnnouncements()
 
 		<!-- Keep SVG for browsers that support it -->
 		<!-- SEO and Social Meta -->
-		<SEO title={title} description={description} image={image} type={type} noindex={noindex} />
+		<SEO
+			title={title}
+			description={description}
+			image={image}
+			type={type}
+			noindex={noindex}
+			video={video}
+		/>
 		<meta
 			name="keywords"
 			content="maternidad, lactancia, embarazo, matrona, mujer, mujeres, salud femenina, María Belenguer"

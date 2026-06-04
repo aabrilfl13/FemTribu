@@ -122,6 +122,15 @@ const videoTeaser = videoResult.data
 const seoData = {
 	...serviceData.seo,
 	type: "website" as const,
+	video: videoTeaser
+		? {
+				url: videoTeaser.url,
+				secureUrl: videoTeaser.url,
+				width: videoTeaser.metadata?.width,
+				height: videoTeaser.metadata?.height,
+				thumbnailUrl: videoTeaser.thumbnailUrl,
+			}
+		: undefined,
 }
 
 const phoneNumber = import.meta.env.WHATSAPP_NUMBER

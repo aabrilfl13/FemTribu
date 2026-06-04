@@ -1,10 +1,19 @@
 ---
+interface VideoMeta {
+	url: string
+	secureUrl?: string
+	width?: number
+	height?: number
+	thumbnailUrl?: string
+}
+
 interface Props {
 	title?: string
 	description?: string
 	image?: string
 	type?: "website" | "article"
 	noindex?: boolean
+	video?: VideoMeta
 }
 
 const {
@@ -13,10 +22,14 @@ const {
 	image = "images/og-hands-together.webp", // imagen por defecto
 	type = "website",
 	noindex = false,
+	video,
 } = Astro.props
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const fullImageUrl = new URL(image, Astro.site).toString()
+const ogImage = video?.thumbnailUrl || image
+const fullImageUrl = video?.thumbnailUrl
+	? video.thumbnailUrl
+	: new URL(ogImage, Astro.site).toString()
 const isDevelopment = import.meta.env.ENV === "development"
 ---
 
@@ -52,9 +65,31 @@ const isDevelopment = import.meta.env.ENV === "development"
 <meta property="og:locale" content="es_ES" />
 <meta property="og:site_name" content="Femm tribu" />
 
+{
+	video && (
+		<>
+			<meta property="og:video" content={video.url} />
+			<meta property="og:video:secure_url" content={video.secureUrl || video.url} />
+			<meta property="og:video:type" content="text/html" />
+			{video.width && <meta property="og:video:width" content={String(video.width)} />}
+			{video.height && <meta property="og:video:height" content={String(video.height)} />}
+		</>
+	)
+}
+
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={video ? "player" : "summary_large_image"} />
 <meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={fullImageUrl} />
+
+{
+	video && (
+		<>
+			<meta name="twitter:player" content={video.secureUrl || video.url} />
+			{video.width && <meta name="twitter:player:width" content={String(video.width)} />}
+			{video.height && <meta name="twitter:player:height" content={String(video.height)} />}
+		</>
+	)
+}
