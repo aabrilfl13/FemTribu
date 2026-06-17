@@ -1,235 +1,94 @@
 ---
-import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
-import ServiceSchema from "@/components/schema/ServiceSchema.astro"
-import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
-import Button from "@/components/ui/Button.astro"
-import Card from "@/components/ui/Card.astro"
-import CardContent from "@/components/ui/CardContent.astro"
-import CardDescription from "@/components/ui/CardDescription.astro"
-import CardFooter from "@/components/ui/CardFooter.astro"
-import CardHeader from "@/components/ui/CardHeader.astro"
-import CardTitle from "@/components/ui/CardTitle.astro"
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
 import { SERVICES } from "@/data/services"
-import Layout from "@/layouts/Layout.astro"
 
 export const prerender = true
 
-const serviceName = "Menopausia"
-const serviceData = SERVICES.menopausia
+const service = SERVICES.menopausia
+const motif = "/images/icons/illustrations/ilustracion-negro_14.svg"
 
-const packs = [
+const aboutBody = [
+	"La menopausia no es una enfermedad, sino una etapa natural en la vida de toda mujer. Como matrona especializada en salud femenina, te acompaño para que comprendas qué ocurre en tu cuerpo durante la perimenopausia y la menopausia, y para que transites este cambio con información, calma y herramientas reales.",
+	"Abordamos los síntomas más frecuentes —sofocos, insomnio, cambios de ánimo, sequedad vaginal o pérdida de densidad ósea— desde un enfoque natural y basado en evidencia científica. No se trata de “aguantar”: se trata de entender tus hormonas y cuidar tu alimentación, tu descanso, tu movimiento y tu salud sexual para mantener tu calidad de vida.",
+	"La consulta dura 60 minutos, es totalmente personalizada y se realiza online desde cualquier lugar de España. Un espacio de escucha sin juicio donde resolver tus dudas y diseñar un plan de autocuidado adaptado a tu momento vital.",
+]
+
+const work = [
+	"Sofocos",
+	"Alteraciones del sueño",
+	"Cambios emocionales",
+	"Sequedad vaginal",
+	"Salud ósea",
+	"Hábitos y autocuidado",
+]
+
+const audience = [
+	"Mujeres en perimenopausia",
+	"Mujeres en menopausia",
+	"Mujeres que quieren entender esta etapa",
+]
+
+const faqs = [
 	{
-		name: "Descubre tu menopausia",
-		subtitle: "Pack Básico",
-		price: 80,
-		description:
-			"Dos sesiones enfocadas en la información esencial y en ayudarte a redefinir la menopausia desde una perspectiva positiva.",
-		features: [
-			"Sesión 1: Fisiología de la menopausia — cambios hormonales y síntomas",
-			"Sesión 2: Redefinir la menopausia — oportunidad de bienestar y autoconocimiento",
-		],
-		ideal:
-			"Quieres entender qué está pasando en tu cuerpo y necesitas herramientas para afrontar la menopausia con confianza.",
-		highlight: false,
-		tier: "basic",
+		question: "¿Una matrona trata la menopausia?",
+		answer:
+			"Sí. La matrona es la profesional especializada en la salud de la mujer a lo largo de todas sus etapas, incluida la menopausia. Te ayuda a comprender los cambios hormonales, a aliviar los síntomas desde un enfoque natural y a derivar al especialista cuando es necesario.",
 	},
 	{
-		name: "Cuida tu cuerpo y energía",
-		subtitle: "Pack Medio",
-		price: 170,
-		description:
-			"Combina la información básica con recomendaciones prácticas para nutrición, suplementación y entrenamiento.",
-		features: [
-			"Todo lo del Pack Básico",
-			"Sesión 3: Nutrición y suplementación adaptadas a tus necesidades",
-			"Sesión 4: Entrenamiento — movimiento adaptado a tu etapa de vida",
-			"Descargables prácticos con ejercicios, pautas y consejos",
-		],
-		ideal:
-			"Quieres aplicar lo aprendido en tu día a día y mantener tu energía, fuerza y equilibrio.",
-		highlight: true,
-		tier: "medium",
+		question: "¿Qué podéis hacer por los sofocos, el insomnio y los cambios emocionales?",
+		answer:
+			"Trabajamos hábitos de alimentación, descanso, movimiento y gestión del estrés con base científica, además de orientarte sobre suplementación y las opciones disponibles. El objetivo es reducir la intensidad de los síntomas y mejorar tu bienestar diario.",
 	},
 	{
-		name: "Menopausia plena",
-		subtitle: "Pack Premium",
-		price: 250,
-		description:
-			"Un programa integral para acompañarte en todos los aspectos de tu salud: cuerpo, mente, suelo pélvico, sexualidad y hábitos saludables.",
-		features: [
-			"Todo lo del Pack Básico y Medio",
-			"Sesión 5: Salud sexual — intimidad y placer durante la menopausia",
-			"Sesión 6: Suelo pélvico — ejercicios para fortalecer y mantener tu suelo pélvico",
-			"Descargables con ejercicios, rutinas y recomendaciones",
-			"Acompañamiento por WhatsApp durante 2 meses",
-		],
-		ideal:
-			"Quieres un acompañamiento completo y personalizado para vivir esta etapa con seguridad, bienestar y conciencia corporal.",
-		highlight: false,
-		tier: "premium",
+		question: "¿Atendéis la sequedad vaginal y la salud sexual en la menopausia?",
+		answer:
+			"Sí. La sequedad vaginal y los cambios en la sexualidad son muy frecuentes y tienen solución. En la consulta hablamos de ello con naturalidad y te damos pautas y recursos para cuidar tu salud íntima.",
+	},
+	{
+		question: "¿En qué etapa puedo pedir cita: perimenopausia, menopausia o postmenopausia?",
+		answer:
+			"En cualquiera de ellas. Cuanto antes acudas —incluso en la perimenopausia, con los primeros cambios del ciclo— más fácil será anticiparte y cuidar tu salud hormonal y ósea a largo plazo.",
+	},
+	{
+		question: "¿Cuánto cuesta la consulta de menopausia?",
+		answer:
+			"La consulta de salud en menopausia cuesta 50 € e incluye 60 minutos de atención personalizada online, con posibilidad de seguimiento posterior opcional.",
 	},
 ]
 
-const seoData = {
-	...serviceData.seo,
-	type: "website" as const,
-}
-
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+const related = [
+	{
+		href: "/servicios/salud-hormonal",
+		title: "Consulta de Salud Hormonal",
+		description:
+			"Si buscas entender tu ciclo, el dolor menstrual o los desajustes hormonales antes de esta etapa.",
+		price: "50€ · 60 min",
+	},
+	{
+		href: "/servicios/conoce-tu-ciclo",
+		title: "Pack Conoce tu Ciclo",
+		description:
+			"Acompañamiento de 3 meses para comprender en profundidad tu salud hormonal femenina.",
+		price: "120€ · 3 meses",
+	},
+]
 ---
 
-<Layout navScrolled={true} {...seoData}>
-	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
-	<ServiceSchema
-		name={serviceData.name}
-		description={serviceData.description}
-		priceMin={serviceData.priceMin}
-		priceMax={serviceData.priceMax}
-		serviceType={serviceData.serviceType}
-	/>
-	<main id="main-content" class="pt-21">
-		{/* Background decorations */}
-		<div
-			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-		>
-		</div>
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
-			<div class="z-10 container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-4xl text-center">
-					<span
-						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-					>
-						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
-						Vive tu madurez con vitalidad y consciencia
-					</span>
-					<h1
-						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.1s"
-					>
-						Acompañamiento en <span class="text-accent">Menopausia</span> en Valencia y Online
-					</h1>
-					<p
-						class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.2s"
-					>
-						Un acompañamiento integral en Valencia y online para transitar tu menopausia con
-						vitalidad y consciencia. Redefine esta etapa cuidando tu salud hormonal, sexual y
-						emocional.
-						<span class="text-accent">Elige tu pack.</span>
-					</p>
-				</div>
-			</div>
-		</section>
-
-		{/* Pricing Cards */}
-		<section class="pb-24 lg:pb-32">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-					{
-						packs.map((pack, index) => (
-							<Card
-								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
-									pack.highlight
-										? "border-accent ring-accent/20 shadow-lg ring-2"
-										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
-								}`}
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 300}ms`}
-							>
-								{pack.highlight && (
-									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
-										Más popular
-									</div>
-								)}
-
-								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4">
-										<CardTitle class="font-display text-primary mb-1 text-2xl">
-											{pack.name}
-										</CardTitle>
-										<CardDescription class="text-accent text-base font-medium">
-											{pack.subtitle}
-										</CardDescription>
-									</div>
-
-									<div class="mb-4 flex items-baseline gap-1">
-										<span class="font-display text-primary text-4xl">{pack.price}€</span>
-									</div>
-
-									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
-								</CardHeader>
-
-								<CardContent>
-									{/* Features */}
-									<ul class="list-none space-y-3">
-										{pack.features.map((feature) => (
-											<li class="flex items-start gap-3">
-												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<svg
-														class="text-accent h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="3"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<polyline points="20 6 9 17 4 12" />
-													</svg>
-												</div>
-												<span class="text-muted-foreground text-sm">{feature}</span>
-											</li>
-										))}
-									</ul>
-								</CardContent>
-
-								<CardFooter class="flex-col gap-4">
-									{/* Ideal for */}
-									<div class="bg-muted/50 w-full rounded-xl p-4">
-										<p class="text-sm">
-											<span class="text-primary font-medium">Ideal para ti si: </span>
-											<span class="text-muted-foreground">{pack.ideal}</span>
-										</p>
-									</div>
-									{/* CTA Button */}
-									<Button
-										variant={pack.highlight ? "hero" : "outline"}
-										class="w-full"
-										size="lg"
-										data-service-tier={pack.tier}
-									>
-										Reservar {pack.subtitle}
-									</Button>
-								</CardFooter>
-							</Card>
-						))
-					}
-				</div>
-			</div>
-		</section>
-		<AdditionalInfo serviceName={serviceName} />
-	</main>
-</Layout>
-
-<script define:vars={{ phoneNumber, serviceName }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-tier]")
-
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const tier = button.getAttribute("data-service-tier") || "basic"
-				const message = encodeURIComponent(
-					`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			})
-		})
-	})
-</script>
+<ServiceDetail
+	service={service}
+	serviceName="Menopausia"
+	color="forest"
+	motif={motif}
+	eyebrow="Acompañamiento natural y basado en evidencia"
+	h1Lead="Salud en"
+	h1Accent="Menopausia"
+	h1Tail="en Valencia y Online"
+	intro="Un acompañamiento integral en Valencia y online para transitar tu menopausia con vitalidad y consciencia. Comprende los cambios de tu cuerpo y mejora tu calidad de vida desde un enfoque natural y basado en evidencia."
+	aboutTitle="¿Una matrona acompaña la menopausia?"
+	aboutBody={aboutBody}
+	work={work}
+	audience={audience}
+	priceNote="60 min · Online · Sesión personalizada"
+	faqs={faqs}
+	related={related}
+/>

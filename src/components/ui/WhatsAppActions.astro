@@ -1,0 +1,40 @@
+---
+/**
+ * WhatsAppActions — shared click handlers that open WhatsApp prefilled.
+ * Drop once per page; it wires every button on the page that has:
+ *   data-service-name="…"      → "I'd like to book …"
+ *   data-whatsapp-inquiry="…"  → "I'd like to know about …"
+ * Binds on first load and after Astro client-side navigation.
+ */
+const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+---
+
+<script is:inline define:vars={{ phoneNumber }}>
+	function femmWaOpen(text) {
+		window.open(`https://wa.me/34${phoneNumber}?text=${encodeURIComponent(text)}`, "_blank")
+	}
+	function femmBindWhatsApp() {
+		// Booking buttons
+		document
+			.querySelectorAll("button[data-service-name]:not([data-wa-bound])")
+			.forEach((button) => {
+				button.setAttribute("data-wa-bound", "1")
+				button.addEventListener("click", () => {
+					const name = button.getAttribute("data-service-name") || "un servicio"
+					femmWaOpen(`Hola! Me interesa reservar *${name}* de *Femm tribu*.`)
+				})
+			})
+		// Inquiry buttons (group programme, availability, etc.)
+		document
+			.querySelectorAll("button[data-whatsapp-inquiry]:not([data-wa-bound])")
+			.forEach((button) => {
+				button.setAttribute("data-wa-bound", "1")
+				button.addEventListener("click", () => {
+					const inquiry = button.getAttribute("data-whatsapp-inquiry") || "un servicio"
+					femmWaOpen(`Hola! Me interesa saber sobre *${inquiry}* de *Femm tribu*.`)
+				})
+			})
+	}
+	document.addEventListener("DOMContentLoaded", femmBindWhatsApp)
+	document.addEventListener("astro:page-load", femmBindWhatsApp)
+</script>

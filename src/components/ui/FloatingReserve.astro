@@ -1,0 +1,99 @@
+---
+/**
+ * FloatingReserve — sticky bottom bar with the service price + WhatsApp CTA.
+ * Stays on screen whenever no on-page reserve CTA is visible, so there is
+ * always a way to book. Mark each on-page CTA with `data-reserve-cta` and an
+ * IntersectionObserver hides this bar while any of them is in view.
+ * The generic FloatingCTA (Layout FAB) is hidden while this bar is shown.
+ * The button carries `data-service-name`, so WhatsAppActions opens WhatsApp.
+ */
+import WhatsAppIcon from "@/assets/iconos/whatsapp.svg"
+
+interface Props {
+	/** Name sent to WhatsApp and shown as the bar title. */
+	serviceName: string
+	/** Price label, e.g. "50€". */
+	priceLabel: string
+	/** Short caption next to the price, e.g. "60 min" or "3 meses". */
+	caption?: string
+	ctaLabel?: string
+}
+
+const { serviceName, priceLabel, caption, ctaLabel = "Reservar" } = Astro.props
+---
+
+<div
+	id="floating-reserve"
+	aria-hidden="true"
+	class="pointer-events-none fixed inset-x-0 bottom-0 z-[997] translate-y-[150%] opacity-0 transition-all duration-300 ease-out [&.is-visible]:pointer-events-auto [&.is-visible]:translate-y-0 [&.is-visible]:opacity-100"
+>
+	<div class="container mx-auto px-4 pb-4">
+		<div
+			class="bg-background/95 border-accent/20 shadow-organic mx-auto flex max-w-2xl items-center justify-between gap-4 rounded-full border-2 py-2.5 pr-2.5 pl-5 backdrop-blur-md"
+		>
+			<div class="min-w-0">
+				<p class="font-display text-primary truncate text-sm leading-tight">{serviceName}</p>
+				<p class="font-display text-accent text-base leading-tight">
+					{priceLabel}
+					{caption && <span class="text-muted-foreground font-body text-xs">· {caption}</span>}
+				</p>
+			</div>
+			<button
+				type="button"
+				data-service-name={serviceName}
+				class="bg-accent text-cream hover:bg-accent/90 shadow-warm inline-flex flex-shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-300 hover:scale-105"
+			>
+				<WhatsAppIcon class="h-4 w-4" />
+				{ctaLabel}
+			</button>
+		</div>
+	</div>
+</div>
+
+<style is:global>
+	/* Hide the generic floating contact FAB while the reserve bar is on screen. */
+	body.reserve-bar-active #floating-cta {
+		opacity: 0;
+		transform: scale(0.8);
+		pointer-events: none;
+		transition:
+			opacity 0.3s ease,
+			transform 0.3s ease;
+	}
+</style>
+
+<script is:inline>
+	function initFloatingReserve() {
+		const bar = document.getElementById("floating-reserve")
+		const ctas = document.querySelectorAll("[data-reserve-cta]")
+		if (!bar || ctas.length === 0) return
+
+		const visible = new Set()
+		const sync = () => {
+			const show = visible.size === 0
+			bar.classList.toggle("is-visible", show)
+			bar.setAttribute("aria-hidden", show ? "false" : "true")
+			document.body.classList.toggle("reserve-bar-active", show)
+		}
+
+		// Count a CTA as "on screen" only while it sits in the central band of the
+		// viewport (top/bottom 35% ignored). This way the bar hides when a CTA is
+		// actually in focus, and reappears as soon as you scroll it past — including
+		// the stretch between the price card and the final CTA.
+		const io = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((e) => {
+					if (e.isIntersecting) visible.add(e.target)
+					else visible.delete(e.target)
+				})
+				sync()
+			},
+			{ threshold: 0, rootMargin: "-35% 0px -35% 0px" }
+		)
+		ctas.forEach((el) => io.observe(el))
+		sync()
+	}
+
+	document.addEventListener("DOMContentLoaded", initFloatingReserve)
+	document.addEventListener("astro:page-load", initFloatingReserve)
+</script>

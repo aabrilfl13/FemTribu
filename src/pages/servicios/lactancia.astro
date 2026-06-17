@@ -1,283 +1,99 @@
 ---
-import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
-import ServiceSchema from "@/components/schema/ServiceSchema.astro"
-import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
-import Button from "@/components/ui/Button.astro"
-import Card from "@/components/ui/Card.astro"
-import CardContent from "@/components/ui/CardContent.astro"
-import CardDescription from "@/components/ui/CardDescription.astro"
-import CardFooter from "@/components/ui/CardFooter.astro"
-import CardHeader from "@/components/ui/CardHeader.astro"
-import CardTitle from "@/components/ui/CardTitle.astro"
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
 import { SERVICES } from "@/data/services"
-import Layout from "@/layouts/Layout.astro"
 
 export const prerender = true
 
-const serviceName = "Lactancia"
-const serviceData = SERVICES.lactancia
+const service = SERVICES.lactancia
+const motif = "/images/icons/illustrations/ilustracion-negro_05.svg"
 
-const packs = [
+const aboutBody = [
+	"Una especialista en lactancia (matrona y asesora de lactancia) te acompaña de forma individual para que la lactancia materna sea una experiencia tranquila y posible, desde el inicio hasta cualquier etapa del proceso. Es un espacio seguro donde expresar tus dudas, recibir apoyo profesional y encontrar soluciones adaptadas a tu situación.",
+	"En la consulta valoramos la toma completa y el agarre del bebé, abordamos el dolor, las grietas o las molestias, y trabajamos la producción de leche, el uso del sacaleches, la lactancia mixta o diferida, la vuelta al trabajo y el destete respetuoso. Cada caso es único y la consulta se adapta a ti.",
+	"Puedes hacerla online o presencial en Valencia, y dura 60 minutos.",
+]
+
+const work = [
+	"Valoración completa de la toma",
+	"Evaluación del agarre del bebé",
+	"Dolor, grietas o molestias",
+	"Producción de leche (aumento o disminución)",
+	"Uso de sacaleches",
+	"Lactancia mixta o diferida",
+	"Vuelta al trabajo",
+	"Destete respetuoso",
+]
+
+const audience = [
+	"Madres recientes",
+	"Embarazadas que quieren prepararse",
+	"Mujeres con dificultades en la lactancia",
+	"Cualquier mamá que necesite acompañamiento",
+]
+
+const faqs = [
 	{
-		name: "Tu lactancia paso a paso",
-		subtitle: "Pack Básico",
-		price: 70,
-		description:
-			"Una sesión personalizada para abordar el motivo que te preocupa (dolor, grietas, agarre, producción, etc.) y encontrar soluciones adaptadas a tu situación. Incluye acompañamiento posterior para que no te sientas sola en el proceso y puedas poner en práctica lo aprendido con seguridad.",
-		features: [
-			"Sesión individual (online o presencial) para resolver el problema.",
-			"15 días de seguimiento para revisar avances y resolver dudas.",
-			"PDF con recomendaciones personalizadas.",
-		],
-		ideal:
-			"Estás viviendo un reto puntual en tu lactancia y quieres resolverlo con información clara y apoyo cercano.",
-		highlight: false,
-		tier: "basic",
+		question: "¿Cuánto cuesta una asesoría de lactancia en Valencia?",
+		answer:
+			"La consulta de lactancia cuesta 50 € e incluye 60 minutos de atención personalizada, online o presencial en Valencia.",
 	},
 	{
-		name: "Acompañando tu lactancia",
-		subtitle: "Pack Medio",
-		price: 200,
-		description:
-			"Un seguimiento más profundo para acompañarte durante todo el primer mes de lactancia, con sesiones adaptadas a tus necesidades: seguimiento, banco de leche, reincorporación al trabajo o destete.",
-		features: [
-			"Asesoría de lactancia para resolver un problema/dudas + PDF con recomendaciones personalizadas.",
-			"Sesión a la semana: seguimiento/taller de creación y conservación de banco de leche.",
-			"Sesión a las 2 semanas: seguimiento/taller de incorporación al trabajo remunerado.",
-			"Sesión al mes: seguimiento/taller de destete.",
-			"Seguimiento por WhatsApp/email para revisar avances y resolverdudas.",
-		],
-		ideal:
-			"quieres un acompañamiento completo durante el primer mes o estás viviendo una lactancia con altibajos y buscas seguridad, guía y herramientas.",
-		highlight: true,
-		tier: "medium",
+		question: "¿Qué incluye una consulta de lactancia con matrona?",
+		answer:
+			"Incluye la valoración de la toma y del agarre, el abordaje del dolor o las grietas, y el trabajo sobre producción de leche, sacaleches, lactancia mixta, vuelta al trabajo o destete, según lo que necesites.",
 	},
 	{
-		name: "Lactancia plena",
-		subtitle: "Pack Premium",
-		price: 220,
-		description:
-			"Este pack está diseñado para acompañarte desde antes del nacimiento de tu bebé, ayudándote a prepararte con información, confianza y herramientas reales. Incluye seguimiento continuo durante los primeros meses y una sesión extra para resolver dudas o abordar cualquier cambio en el futuro.",
-		features: [
-			"Sesión pre-mamá: todo lo que necesitas saber antes de comenzar tu lactancia.",
-			"Sesión a la semana del nacimiento: seguimiento/taller de creación y conservación de banco de leche.",
-			"Sesión a las 2 semanas: seguimiento/taller de incorporación al trabajo remunerado.",
-			"Sesión al mes: seguimiento/taller de destete.",
-			"Sesión extra a usar en los siguientes 3 meses.",
-			"Descargables y recursos prácticos.",
-			"Acompañamiento por WhatsApp/email para revisar avances y resolver dudas.",
-		],
-		ideal:
-			"estás embarazada y quieres vivir tu lactancia con acompañamiento profesional, continuo y personalizado.",
-		highlight: false,
-		tier: "premium",
+		question: "¿Es mejor la asesoría online o presencial?",
+		answer:
+			"Ambas son eficaces. La presencial permite valorar la toma en directo; la online es muy cómoda y resuelve la gran mayoría de dificultades con apoyo visual. Te ayudo a elegir según tu caso.",
+	},
+	{
+		question: "¿A partir de cuándo puedo pedir cita?",
+		answer:
+			"Cuando quieras: durante el embarazo para prepararte, en los primeros días si surge cualquier dificultad, o más adelante para la vuelta al trabajo o el destete.",
+	},
+	{
+		question: "¿Atendéis el dolor al amamantar o los problemas de agarre?",
+		answer:
+			"Sí, son de los motivos de consulta más frecuentes. Valoramos la causa del dolor o del mal agarre y te damos pautas concretas para corregirlo y amamantar sin molestias.",
+	},
+	{
+		question: "¿Ofrecéis packs de seguimiento de lactancia?",
+		answer:
+			"Ahora el servicio es una consulta única de 50 € que se adapta a cada etapa, con seguimiento posterior por WhatsApp cuando lo necesitas. Si requieres acompañamiento continuado, planificamos juntas las sesiones que precises.",
 	},
 ]
 
-const seoData = {
-	...serviceData.seo,
-	type: "website" as const,
-}
-
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+const related = [
+	{
+		href: "/servicios/preparacion-al-parto",
+		title: "Preparación al Parto",
+		description: "Prepara el inicio de la lactancia y el posparto antes del nacimiento.",
+		price: "50€ · 60 min",
+	},
+	{
+		href: "/servicios/pendientes-bebe",
+		title: "Pendientes para Bebés",
+		description: "Colocación de pendientes por matrona profesional, en Valencia.",
+		price: "60€",
+	},
+]
 ---
 
-<Layout navScrolled={true} {...seoData}>
-	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
-	<ServiceSchema
-		name={serviceData.name}
-		description={serviceData.description}
-		priceMin={serviceData.priceMin}
-		priceMax={serviceData.priceMax}
-		serviceType={serviceData.serviceType}
-	/>
-	<main id="main-content" class="pt-21">
-		{/* Background decorations */}
-		<div
-			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-		>
-		</div>
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
-			<div class="z-10 container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-4xl text-center">
-					<span
-						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-					>
-						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
-						Acompañamiento personalizado
-					</span>
-					<h1
-						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.1s"
-					>
-						Asesoría de <span class="text-accent">Lactancia</span> en Valencia y Online
-					</h1>
-					<p
-						class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.2s"
-					>
-						Acompañamiento profesional y cercano en Valencia y online para que disfrutes de tu
-						lactancia. Resolvemos tus dudas, superamos dificultades y te sostenemos en cada etapa.
-						<span class="text-accent">Elige el pack que necesites.</span>
-					</p>
-				</div>
-				<div
-					class="mt-10 flex justify-center"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-					data-animate-delay="0.3s"
-				>
-					<div class="relative inline-flex">
-						{/* Decorative organic circle (like hero image) */}
-						<div
-							class="from-terracotta/20 to-terracotta/10 shape-blob animate-pulse-soft pointer-events-none absolute -inset-4 bg-gradient-to-b"
-						>
-						</div>
-
-						<div
-							class="relative inline-flex flex-col items-center gap-1 rounded-2xl px-6 py-4 sm:gap-0"
-						>
-							<p class="text-muted-foreground px-10 pt-2 text-sm">
-								Servicio disponible en colaboración con
-							</p>
-
-							<a
-								href="https://laurajorgenutricion.com/"
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label="Visitar el sitio web de Laura Jorge — Centro de nutrición, psicología y salud"
-								class="transition-transform duration-300 hover:scale-[1.02]"
-							>
-								<img
-									src="/images/logos/laura-jorge/laura-jorge-logo.png"
-									alt="Logo Laura Jorge — Centro de nutrición, psicología y salud"
-									loading="lazy"
-									class="h-20 w-auto object-contain sm:h-22 md:h-25"
-								/>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		{/* Pricing Cards */}
-		<section class="pb-24 lg:pb-32">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-					{
-						packs.map((pack, index) => (
-							<Card
-								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
-									pack.highlight
-										? "border-accent ring-accent/20 shadow-lg ring-2"
-										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
-								}`}
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 300}ms`}
-							>
-								{pack.highlight && (
-									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
-										Recomendado
-									</div>
-								)}
-
-								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4 flex items-center gap-3">
-										<div class="flex-1">
-											<CardTitle class="font-display text-primary mb-1 text-2xl">
-												{pack.name}
-											</CardTitle>
-											<CardDescription class="text-accent text-base font-medium">
-												{pack.subtitle}
-											</CardDescription>
-										</div>
-										<img
-											src="/images/logos/laura-jorge/laura-jorge-icon.png"
-											alt="Isotipo Laura Jorge Clínica"
-											loading="lazy"
-											class="h-12 w-auto flex-shrink-0 object-contain"
-										/>
-									</div>
-
-									<div class="mb-4 flex items-baseline gap-1">
-										<span class="font-display text-primary text-4xl">{pack.price}€</span>
-									</div>
-
-									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
-								</CardHeader>
-
-								<CardContent>
-									{/* Features */}
-									<ul class="list-none space-y-3">
-										{pack.features.map((feature) => (
-											<li class="flex items-start gap-3">
-												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<svg
-														class="text-accent h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="3"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<polyline points="20 6 9 17 4 12" />
-													</svg>
-												</div>
-												<span class="text-muted-foreground text-sm">{feature}</span>
-											</li>
-										))}
-									</ul>
-								</CardContent>
-
-								<CardFooter class="flex-col gap-4">
-									{/* Ideal for */}
-									<div class="bg-muted/50 w-full rounded-xl p-4">
-										<p class="text-sm">
-											<span class="text-primary font-medium">Ideal para ti si: </span>
-											<span class="text-muted-foreground">{pack.ideal}</span>
-										</p>
-									</div>
-									{/* CTA Button */}
-									<Button
-										variant={pack.highlight ? "hero" : "outline"}
-										class="w-full"
-										size="lg"
-										data-service-tier={pack.tier}
-									>
-										Reservar {pack.subtitle}
-									</Button>
-								</CardFooter>
-							</Card>
-						))
-					}
-				</div>
-			</div>
-		</section>
-		<AdditionalInfo serviceName={serviceName} />
-	</main>
-</Layout>
-
-<script define:vars={{ phoneNumber, serviceName }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-tier]")
-
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const tier = button.getAttribute("data-service-tier") || "basic"
-				const message = encodeURIComponent(
-					`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			})
-		})
-	})
-</script>
+<ServiceDetail
+	service={service}
+	serviceName="Lactancia"
+	color="sage"
+	motif={motif}
+	eyebrow="Acompañamiento personalizado"
+	h1Accent="Especialista en Lactancia"
+	h1Tail="en Valencia y Online"
+	intro="Acompañamiento profesional y cercano en Valencia y online para que disfrutes de tu lactancia. Resolvemos tus dudas, superamos dificultades y te sostenemos en cada etapa, desde el inicio hasta el destete respetuoso."
+	aboutTitle="¿Qué hace una especialista en lactancia?"
+	aboutBody={aboutBody}
+	work={work}
+	audience={audience}
+	priceNote="60 min · Online o presencial · Sesión personalizada"
+	faqs={faqs}
+	related={related}
+/>

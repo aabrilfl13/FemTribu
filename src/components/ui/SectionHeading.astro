@@ -1,0 +1,36 @@
+---
+/**
+ * SectionHeading — centered section intro: a label chip + title + optional
+ * subtitle. Pass `color` for a stage tint, or `labelClass` for a custom one.
+ */
+import { STAGE, type TintColor } from "@/components/ui/stageColors"
+
+interface Props {
+	label: string
+	color?: TintColor
+	labelClass?: string
+	title: string
+	subtitle?: string
+	/** Wrapper class override (e.g. bottom margin). */
+	class?: string
+}
+
+const { label, color, labelClass = "", title, subtitle, class: className = "mb-10" } = Astro.props
+const chip = color ? STAGE[color].chip : labelClass
+---
+
+<div
+	class:list={["text-center", className]}
+	data-animate="animate-fade-up"
+	data-animate-duration="1s"
+>
+	<span class:list={["mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium", chip]}>
+		{label}
+	</span>
+	<h2 class="font-display text-primary text-3xl lg:text-4xl">{title}</h2>
+	{
+		subtitle && (
+			<p class="text-muted-foreground mx-auto mt-3 max-w-2xl text-base lg:text-lg">{subtitle}</p>
+		)
+	}
+</div>

@@ -1,233 +1,114 @@
 ---
-import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
-import ServiceSchema from "@/components/schema/ServiceSchema.astro"
-import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
 import Button from "@/components/ui/Button.astro"
-import Card from "@/components/ui/Card.astro"
-import CardContent from "@/components/ui/CardContent.astro"
-import CardDescription from "@/components/ui/CardDescription.astro"
-import CardFooter from "@/components/ui/CardFooter.astro"
-import CardHeader from "@/components/ui/CardHeader.astro"
-import CardTitle from "@/components/ui/CardTitle.astro"
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
 import { SERVICES } from "@/data/services"
-import Layout from "@/layouts/Layout.astro"
 
 export const prerender = true
 
-const serviceName = "Preparación al Parto"
-const serviceData = SERVICES.preparacionParto
+const service = SERVICES.preparacionParto
+const motif = "/images/icons/illustrations/ilustracion-negro_07.svg"
 
-const packs = [
+const aboutBody = [
+	"La sesión de dudas sobre embarazo y parto es una consulta individual con matrona para resolver todo lo que te preocupa de esta etapa, basada en evidencia científica y adaptada a tus necesidades. Te ayudo a entender lo que estás viviendo y a tomar decisiones informadas con tranquilidad.",
+	"Hablamos de los cambios del embarazo, de cómo es el parto y sus fases, de cómo elaborar tu plan de parto, de las intervenciones médicas más habituales y de cómo gestionar el miedo al parto. También preparamos el posparto inmediato y el inicio de la lactancia, para que llegues con confianza al gran día.",
+	"La sesión dura 60 minutos y puedes hacerla online o presencial en Valencia. Y si prefieres prepararte junto a otras familias, también ofrecemos un programa grupal de preparación al parto.",
+]
+
+const work = [
+	"Cambios en el embarazo",
+	"Preparación al parto",
+	"Plan de parto",
+	"Intervenciones médicas",
+	"Gestión del miedo al parto",
+	"Posparto inmediato",
+	"Lactancia (inicio)",
+]
+
+const audience = [
+	"Mujeres embarazadas en cualquier trimestre",
+	"Mujeres que quieren prepararse para el parto",
+	"Personas con dudas o inseguridad sobre el proceso",
+]
+
+const faqs = [
 	{
-		name: "Confía en tu cuerpo",
-		subtitle: "Pack Básico",
-		price: 90,
-		description:
-			"Un acompañamiento esencial para comprender la fisiología del parto y trabajar los miedos más comunes. A través de dos sesiones online, aprenderás qué sucede en tu cuerpo durante el parto y descubrirás herramientas prácticas para afrontarlo con seguridad y confianza.",
-		features: [
-			"Sesión 1: Fisiología del parto — qué ocurre en tu cuerpo, fases, hormonas y señales",
-			"Sesión 2: Miedo al parto y herramientas para gestionarlo",
-			"Formulario previo para adaptar la preparación a tus necesidades",
-		],
-		ideal:
-			"Estás en tu primer embarazo o quieres una preparación breve pero completa para entender y confiar en tu cuerpo.",
-		highlight: false,
-		tier: "basic",
+		question: "¿Cuándo empezar la preparación al parto?",
+		answer:
+			"Lo habitual es empezar alrededor de la semana 28-32, en el tercer trimestre, aunque puedes resolver dudas en cualquier momento del embarazo. Si tienes inquietudes concretas, no hace falta esperar.",
 	},
 	{
-		name: "Fluye con tu parto",
-		subtitle: "Pack Medio",
-		price: 170,
-		description:
-			"Un acompañamiento integral para trabajar el cuerpo y la mente de forma conjunta. Además de la información teórica y emocional, aprenderás movilidad y posturas útiles para el parto, y técnicas de visualización y meditación para conectar con tu respiración y mantener la calma.",
-		features: [
-			"Todo lo del Pack Básico",
-			"Sesión 3: Movilidad y movimiento para el parto",
-			"Sesión 4: Meditación y visualización para conectar con la calma interior",
-		],
-		ideal:
-			"Buscas una preparación más completa, con herramientas prácticas y corporales que te ayuden a vivir tu parto de forma activa y consciente.",
-		highlight: false,
-		tier: "medium",
+		question: "¿Preparación individual, online o grupal: cuál me conviene?",
+		answer:
+			"La sesión individual (online o presencial) se adapta a tus dudas y a tu ritmo. La preparación grupal añade el valor de compartir con otras familias. Puedes combinarlas; te ayudo a elegir según tu momento.",
 	},
 	{
-		name: "El viaje de nacer",
-		subtitle: "Pack Premium",
-		price: 250,
-		description:
-			"Un programa de preparación profundo y personalizado que abarca todas las dimensiones del parto: cuerpo, mente, emociones, vínculo y posparto. Te acompañamos paso a paso para que vivas esta etapa con confianza, seguridad y apoyo constante.",
-		features: [
-			"Todo lo del Pack Básico y Medio",
-			"Sesión 5: Dinámica de conexión en pareja — comunicación, roles y acompañamiento emocional",
-			"Sesión 6: Postparto inmediato y cuidados del recién nacido",
-			"Entregables en PDF con resúmenes, ejercicios y recursos prácticos",
-			"Acompañamiento por WhatsApp durante el proceso",
-		],
-		ideal:
-			"Quieres una preparación completa, en pareja o en solitario, con acompañamiento cercano y recursos prácticos antes, durante y después del parto.",
-		highlight: true,
-		tier: "premium",
+		question: "¿Ofrecéis preparación al parto para parejas?",
+		answer:
+			"Sí. Tu pareja o acompañante puede participar en la sesión para entender su papel durante el parto y el posparto y aprender cómo sostenerte.",
+	},
+	{
+		question: "¿Qué es un plan de parto y cómo se elabora?",
+		answer:
+			"Es un documento donde expresas tus preferencias para el parto (posiciones, alivio del dolor, contacto piel con piel…). En la sesión te explico las opciones basadas en evidencia y te ayudo a redactarlo.",
+	},
+	{
+		question: "¿Ofrecéis la sesión de dudas una sola vez?",
+		answer:
+			"Sí. Es una consulta puntual de 60 minutos por 50 €. Puedes reservar las sesiones que necesites, sin paquetes obligatorios.",
 	},
 ]
 
-const seoData = {
-	...serviceData.seo,
-	type: "website" as const,
-}
-
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+const related = [
+	{
+		href: "/servicios/lactancia",
+		title: "Asesoría de Lactancia",
+		description: "Para preparar y acompañar el inicio de la lactancia tras el nacimiento.",
+		price: "50€ · 60 min",
+	},
+	{
+		href: "/servicios/femmbarre",
+		title: "FemmBarre Maternity",
+		description: "Barre prenatal online para mantenerte activa y preparar tu cuerpo para el parto.",
+		price: "35€ / mes",
+	},
+]
 ---
 
-<Layout navScrolled={true} {...seoData}>
-	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
-	<ServiceSchema
-		name={serviceData.name}
-		description={serviceData.description}
-		priceMin={serviceData.priceMin}
-		priceMax={serviceData.priceMax}
-		serviceType={serviceData.serviceType}
-	/>
-	<main id="main-content" class="pt-21">
-		{/* Background decorations */}
-		<div
-			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-		>
+<ServiceDetail
+	service={service}
+	serviceName="Preparación al Parto"
+	color="coral"
+	motif={motif}
+	eyebrow="Sesión de dudas basada en evidencia"
+	h1Accent="Preparación al Parto"
+	h1Tail="en Valencia y Online"
+	intro="Resolvemos tus dudas sobre embarazo, parto y posparto con información basada en evidencia y acompañamiento emocional, para que vivas tu parto con confianza y tomes decisiones informadas."
+	aboutTitle="¿Qué es la sesión de dudas de embarazo y parto?"
+	aboutBody={aboutBody}
+	work={work}
+	audience={audience}
+	priceNote="60 min · Online o presencial · Sesión de dudas individual"
+	faqs={faqs}
+	related={related}
+>
+	{/* Group-programme banner (PDF: route to WhatsApp for availability) */}
+	<div
+		class="border-coral/30 bg-coral/10 flex flex-col gap-4 rounded-3xl border-2 border-dashed p-6 sm:flex-row sm:items-center sm:justify-between"
+	>
+		<div>
+			<p class="font-display text-primary text-lg">¿Prefieres preparación al parto en grupo?</p>
+			<p class="text-muted-foreground text-sm">
+				Organizamos un programa grupal de preparación al parto. Consulta disponibilidad por
+				WhatsApp.
+			</p>
 		</div>
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
-			<div class="z-10 container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-4xl text-center">
-					<span
-						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-					>
-						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
-						Acompañamiento personalizado
-					</span>
-					<h1
-						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.1s"
-					>
-						Preparación al <span class="text-accent">Parto</span> en Valencia y Online
-					</h1>
-					<p
-						class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.2s"
-					>
-						Tu matrona en Valencia y online. Un acompañamiento diseñado para que vivas tu parto con
-						ciencia, alma y seguridad. Elige el pack de preparación que mejor se adapte a tu viaje.
-					</p>
-				</div>
-			</div>
-		</section>
-
-		{/* Pricing Cards */}
-		<section class="pb-24 lg:pb-32">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-					{
-						packs.map((pack, index) => (
-							<Card
-								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
-									pack.highlight
-										? "border-accent ring-accent/20 shadow-lg ring-2"
-										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
-								}`}
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 300}ms`}
-							>
-								{pack.highlight && (
-									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
-										Más popular
-									</div>
-								)}
-
-								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4">
-										<CardTitle class="font-display text-primary mb-1 text-2xl">
-											{pack.name}
-										</CardTitle>
-										<CardDescription class="text-accent text-base font-medium">
-											{pack.subtitle}
-										</CardDescription>
-									</div>
-
-									<div class="mb-4 flex items-baseline gap-1">
-										<span class="font-display text-primary text-4xl">{pack.price}€</span>
-									</div>
-
-									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
-								</CardHeader>
-
-								<CardContent>
-									{/* Features */}
-									<ul class="list-none space-y-3">
-										{pack.features.map((feature) => (
-											<li class="flex items-start gap-3">
-												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<svg
-														class="text-accent h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="3"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<polyline points="20 6 9 17 4 12" />
-													</svg>
-												</div>
-												<span class="text-muted-foreground text-sm">{feature}</span>
-											</li>
-										))}
-									</ul>
-								</CardContent>
-
-								<CardFooter class="flex-col gap-4">
-									{/* Ideal for */}
-									<div class="bg-muted/50 w-full rounded-xl p-4">
-										<p class="text-sm">
-											<span class="text-primary font-medium">Ideal para ti si: </span>
-											<span class="text-muted-foreground">{pack.ideal}</span>
-										</p>
-									</div>
-									{/* CTA Button */}
-									<Button
-										variant={pack.highlight ? "hero" : "outline"}
-										class="w-full"
-										size="lg"
-										data-service-tier={pack.tier}
-									>
-										Reservar {pack.subtitle}
-									</Button>
-								</CardFooter>
-							</Card>
-						))
-					}
-				</div>
-			</div>
-		</section>
-		<AdditionalInfo serviceName={serviceName} />
-	</main>
-</Layout>
-
-<script define:vars={{ phoneNumber, serviceName }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-tier]")
-
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const tier = button.getAttribute("data-service-tier") || "basic"
-				const message = encodeURIComponent(
-					`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			})
-		})
-	})
-</script>
+		<Button
+			variant="hero"
+			size="sm"
+			class="shrink-0 rounded-full"
+			data-whatsapp-inquiry="Programa grupal de preparación al parto"
+		>
+			Consultar disponibilidad
+		</Button>
+	</div>
+</ServiceDetail>

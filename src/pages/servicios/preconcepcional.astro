@@ -1,0 +1,92 @@
+---
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
+import { CONSULTATION_DURATION, SERVICES } from "@/data/services"
+
+export const prerender = true
+
+const service = SERVICES.preconcepcional
+const motif = "/images/icons/illustrations/ilustracion-negro_03.svg"
+
+const aboutBody = [
+	"La consulta preconcepcional es una visita con matrona pensada para preparar tu cuerpo y tu mente antes de buscar el embarazo. Cuidar tu salud en los meses previos a la concepción mejora la fertilidad y sienta las bases de un embarazo más sano.",
+	"Revisamos tu estado de salud general y tus hábitos, tu ciclo menstrual y tu ventana de ovulación, y valoramos la nutrición y la suplementación básica (como el ácido fólico) que conviene iniciar antes de la gestación. También resolvemos tus dudas y acompañamos las emociones que rodean esta decisión.",
+	"La consulta dura 60 minutos, es personalizada y puedes realizarla online o presencial en Valencia. Pueden acudir tanto mujeres como parejas que estén planificando la maternidad.",
+]
+
+const work = [
+	"Salud general y hábitos",
+	"Ciclo menstrual y ovulación",
+	"Nutrición y suplementación básica",
+	"Estilo de vida",
+	"Resolución de dudas",
+]
+
+const audience = [
+	"Mujeres que buscan embarazo",
+	"Mujeres que quieren prepararse con antelación",
+	"Parejas en proceso de concepción",
+]
+
+const faqs = [
+	{
+		question: "¿Qué se valora en una consulta preconcepcional?",
+		answer:
+			"Revisamos tu salud general y tus hábitos, tu ciclo menstrual y tu ovulación, y la suplementación recomendada antes del embarazo (como el ácido fólico). El objetivo es optimizar tu fertilidad y preparar tu cuerpo para una gestación saludable.",
+	},
+	{
+		question: "¿Cuándo debería empezar a prepararme si quiero buscar embarazo?",
+		answer:
+			"Lo ideal es comenzar al menos 3 meses antes de buscar el embarazo, porque algunos nutrientes y hábitos necesitan ese tiempo para hacer efecto. Si ya lo estás buscando, nunca es tarde para una valoración.",
+	},
+	{
+		question: "¿Atendéis a parejas en proceso de concepción?",
+		answer:
+			"Sí. La concepción es cosa de dos: la consulta está abierta tanto a mujeres como a parejas que quieran prepararse juntas para la búsqueda del embarazo.",
+	},
+	{
+		question: "¿Qué nutrición y suplementos recomendáis en la preconcepción?",
+		answer:
+			"Damos pautas de alimentación y orientamos sobre la suplementación básica preconcepcional (ácido fólico, yodo o vitamina D según el caso). Las recomendaciones se adaptan a tu situación y, cuando procede, se coordinan con tu médico.",
+	},
+	{
+		question: "¿Hace falta preparación preconcepcional si no tengo ningún problema aparente?",
+		answer:
+			"Sí, es muy recomendable. La consulta preconcepcional es preventiva: ayuda a llegar al embarazo en las mejores condiciones aunque te encuentres bien y permite detectar a tiempo aspectos mejorables.",
+	},
+]
+
+const related = [
+	{
+		href: "/servicios/conoce-tu-ciclo",
+		title: "Pack Conoce tu Ciclo",
+		description:
+			"Profundiza en tu ciclo y tu fertilidad durante 3 meses antes de buscar el embarazo.",
+		price: "120€ · 3 meses",
+	},
+	{
+		href: "/servicios/salud-hormonal",
+		title: "Consulta de Salud Hormonal",
+		description: "Para regular el ciclo o resolver desajustes hormonales antes de la concepción.",
+		price: "50€ · 60 min",
+	},
+]
+---
+
+<ServiceDetail
+	service={service}
+	serviceName="Consulta Preconcepcional"
+	color="terracotta"
+	motif={motif}
+	eyebrow={`Consulta · ${service.priceMin}€ · ${CONSULTATION_DURATION}`}
+	h1Lead="Consulta"
+	h1Accent="Preconcepcional"
+	h1Tail="en Valencia y Online"
+	intro="Para mujeres y parejas que desean preparar el embarazo de forma consciente y saludable. Un espacio para revisar tu estado actual y darte herramientas para optimizar tu fertilidad."
+	aboutTitle="¿Qué es una consulta preconcepcional?"
+	aboutBody={aboutBody}
+	work={work}
+	audience={audience}
+	priceNote="60 min · Online o presencial · Mujeres y parejas"
+	faqs={faqs}
+	related={related}
+/>
