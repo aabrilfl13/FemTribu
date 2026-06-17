@@ -1,6 +1,5 @@
-import { useEffect, useRef } from "react"
-
 import type { Video } from "@videos"
+import { useEffect, useRef } from "react"
 
 interface VideoGridProps {
 	videos: Video[]

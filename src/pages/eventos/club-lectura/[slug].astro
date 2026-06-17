@@ -1,4 +1,12 @@
 ---
+import {
+	fetchEvents,
+	generateCalendarLink,
+	generateShareLinks,
+	isClubLecturaEvent,
+	type ClubLecturaEvent,
+} from "@events"
+
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
 import Button from "@/components/ui/Button.astro"
@@ -8,13 +16,6 @@ import CardDescription from "@/components/ui/CardDescription.astro"
 import CardHeader from "@/components/ui/CardHeader.astro"
 import CardTitle from "@/components/ui/CardTitle.astro"
 import Layout from "@/layouts/Layout.astro"
-import {
-	fetchEvents,
-	generateCalendarLink,
-	generateShareLinks,
-	isClubLecturaEvent,
-	type ClubLecturaEvent,
-} from "@events"
 
 export const prerender = true
 

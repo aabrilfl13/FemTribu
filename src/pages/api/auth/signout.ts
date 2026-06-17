@@ -1,6 +1,5 @@
-import type { APIContext, APIRoute } from "astro"
-
 import { signOut } from "@auth"
+import type { APIContext, APIRoute } from "astro"
 
 export const prerender = false
 

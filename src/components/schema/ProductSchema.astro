@@ -26,15 +26,7 @@ export interface Props {
 	category?: string
 }
 
-const {
-	name,
-	description,
-	price,
-	image,
-	sku,
-	url,
-	category = "Healthcare Services",
-} = Astro.props
+const { name, description, price, image, sku, url, category = "Healthcare Services" } = Astro.props
 
 const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
 const pageUrl = url

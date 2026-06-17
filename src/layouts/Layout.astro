@@ -34,15 +34,7 @@ export interface Props {
 		thumbnailUrl?: string
 	}
 }
-const {
-	title,
-	description,
-	image,
-	type,
-	noindex = false,
-	navScrolled = false,
-	video,
-} = Astro.props
+const { title, description, image, type, noindex = false, navScrolled = false, video } = Astro.props
 const isDevelopment = import.meta.env.DEV
 
 // Fetch announcements (simulates API call, runs at build time or request time depending on SSR/SSG)
