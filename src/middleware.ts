@@ -1,7 +1,7 @@
+import { getSession, getUser } from "@auth"
 import type { APIContext } from "astro"
 import { defineMiddleware, sequence } from "astro:middleware"
 
-import { getSession, getUser } from "@auth"
 import { AUTH_CONFIG } from "@/config/auth"
 
 // Admin credentials - Move these to environment variables in production

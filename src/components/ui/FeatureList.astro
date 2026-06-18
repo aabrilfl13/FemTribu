@@ -1,0 +1,74 @@
+---
+/**
+ * FeatureList — tinted marker list shared across service surfaces.
+ * marker "check" = circle + tick (used for "what we cover"); "dot" = small dot
+ * (used for audience / pack / subscription features).
+ */
+import { STAGE, type TintColor } from "@/components/ui/stageColors"
+
+interface Props {
+	items: string[]
+	marker?: "check" | "dot"
+	color?: TintColor
+	/** 2 = two-column grid, 1 = stacked. */
+	cols?: 1 | 2
+	/** "sm" = text-xs (compact cards), "base" = default. */
+	size?: "sm" | "base"
+	/** Container class override. */
+	class?: string
+}
+
+const {
+	items,
+	marker = "dot",
+	color = "terracotta",
+	cols = 1,
+	size = "base",
+	class: className,
+} = Astro.props
+const t = STAGE[color]
+
+const defaultContainer =
+	cols === 2
+		? "grid gap-x-4 gap-y-1.5 sm:grid-cols-2"
+		: marker === "check"
+			? "space-y-3"
+			: "space-y-2"
+const container = className ?? defaultContainer
+
+const itemBase = marker === "check" ? "flex items-start gap-3" : "flex items-center gap-3"
+const textSize = size === "sm" ? "text-xs" : ""
+---
+
+<ul class={container}>
+	{
+		items.map((item) => (
+			<li class:list={["text-muted-foreground", itemBase, textSize]}>
+				{marker === "check" ? (
+					<span
+						class:list={[
+							t.soft,
+							"mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full",
+						]}
+					>
+						<svg
+							class:list={[t.text, "h-3 w-3"]}
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="3"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+						>
+							<polyline points="20 6 9 17 4 12" />
+						</svg>
+					</span>
+				) : (
+					<span class:list={[t.dot, "h-1.5 w-1.5 flex-shrink-0 rounded-full"]} />
+				)}
+				<span>{item}</span>
+			</li>
+		))
+	}
+</ul>

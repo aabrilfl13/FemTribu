@@ -1,0 +1,36 @@
+---
+/**
+ * Eyebrow — brand chip for heroes (Femm tribu icon + label).
+ * Pass `color` for a stage tint, or `class` for a custom one.
+ */
+import { STAGE, type TintColor } from "@/components/ui/stageColors"
+
+interface Props {
+	color?: TintColor
+	class?: string
+	animate?: boolean
+	delay?: string
+}
+
+const { color, class: className = "", animate = false, delay } = Astro.props
+const tint = color ? STAGE[color].chip : ""
+const animation = animate
+	? {
+			"data-animate": "animate-fade-up",
+			"data-animate-duration": "1s",
+			...(delay ? { "data-animate-delay": delay } : {}),
+		}
+	: {}
+---
+
+<span
+	class:list={[
+		"inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium",
+		tint,
+		className,
+	]}
+	{...animation}
+>
+	<img src="/images/logos/logo_icono.svg" alt="" class="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+	<slot />
+</span>

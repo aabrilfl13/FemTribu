@@ -2,7 +2,13 @@
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
 import Button from "@/components/ui/Button.astro"
-import { ADDON_SERVICES, SERVICES } from "@/data/services"
+import Eyebrow from "@/components/ui/Eyebrow.astro"
+import OfferCard from "@/components/ui/OfferCard.astro"
+import SectionHeading from "@/components/ui/SectionHeading.astro"
+import ServiceMotif from "@/components/ui/ServiceMotif.astro"
+import { STAGE } from "@/components/ui/stageColors"
+import WhatsAppActions from "@/components/ui/WhatsAppActions.astro"
+import { ADDON_SERVICES, CONSULTATION_PRICE, SERVICES } from "@/data/services"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
 
@@ -11,93 +17,141 @@ export const prerender = true
 const seoData = {
 	title: "Servicios de Matrona en Valencia y Online | Femm tribu",
 	description:
-		"Packs de acompañamiento en lactancia, preparación al parto, menopausia y salud hormonal. FemmBarre prenatal y servicios puntuales. Matrona en Valencia y online.",
+		"Consultas con matrona a 50€ en Valencia y online: lactancia, embarazo y parto, salud hormonal, preconcepción y menopausia. Pack Conoce tu Ciclo (120€) y FemmBarre prenatal (35€/mes).",
 	type: "website" as const,
 }
 
-const packs = [
+// Brand line-art motif per service (fallback shown until a real photo is set).
+const ILU = "/images/icons/illustrations"
+const serviceMotif: Record<string, string> = {
+	"salud-hormonal": `${ILU}/ilustracion-negro_01.svg`,
+	"preconcepcional": `${ILU}/ilustracion-negro_03.svg`,
+	"preparacion-parto": `${ILU}/ilustracion-negro_07.svg`,
+	"lactancia": `${ILU}/ilustracion-negro_05.svg`,
+	"menopausia": `${ILU}/ilustracion-negro_14.svg`,
+}
+const cicloMotif = `${ILU}/ilustracion-negro_02.svg`
+const femmbarreMotif = `${ILU}/ilustracion-negro_16.svg`
+const pendientesMotif = `${ILU}/ilustracion-negro_09.svg`
+
+// Real photos per service. Fill the path when available; the slot is reserved
+// and meanwhile the brand illustration is shown.
+//   e.g.  lactancia: "/images/servicios/lactancia.webp",
+const servicePhoto: Record<string, string | undefined> = {
+	"pendientes-bebe": getAssetUrl("63bc064b-c69f-47a3-aaac-fff5d110ce3f"),
+}
+
+type StageKey = "ciclo" | "embarazo" | "maternidad" | "menopausia"
+
+interface ConsultationGroup {
+	id: StageKey
+	label: string
+	title: string
+	subtitle: string
+	color: "terracotta" | "coral" | "sage" | "forest"
+	services: Array<{
+		id: string
+		name: string
+		nameShort: string
+		description: string
+		url: string
+		badge?: { label: string; image: string }
+	}>
+}
+
+const consultationGroups: ConsultationGroup[] = [
 	{
-		id: SERVICES.saludHormonal.id,
-		name: SERVICES.saludHormonal.name,
-		nameShort: SERVICES.saludHormonal.nameShort,
-		description: SERVICES.saludHormonal.description,
-		url: SERVICES.saludHormonal.url,
-		priceMin: SERVICES.saludHormonal.priceMin,
-		priceMax: SERVICES.saludHormonal.priceMax,
-		icon: "/images/icons/illustrations/ilustracion-negro_01.svg",
+		id: "ciclo",
+		label: "Ciclo y hormonas",
+		title: "Entiende tu ciclo y tu salud hormonal",
+		subtitle:
+			"Desde el dolor menstrual hasta la preparación preconcepcional: consultas para conocer tu cuerpo y tomar decisiones informadas.",
 		color: "terracotta",
-		features: [
-			"Sesiones online personalizadas",
-			"Guías prácticas de nutrición",
-			"Acompañamiento continuo",
+		services: [
+			{
+				id: SERVICES.saludHormonal.id,
+				name: SERVICES.saludHormonal.name,
+				nameShort: SERVICES.saludHormonal.nameShort,
+				description:
+					"Dolor menstrual, SPM, ciclos irregulares o desajustes hormonales. Identifica las fases del ciclo y trabaja hábitos que mejoran tu bienestar hormonal.",
+				url: SERVICES.saludHormonal.url,
+			},
+			{
+				id: SERVICES.preconcepcional.id,
+				name: SERVICES.preconcepcional.name,
+				nameShort: SERVICES.preconcepcional.nameShort,
+				description:
+					"Para mujeres y parejas que quieren preparar el embarazo de forma consciente. Revisamos ciclo, ovulación, nutrición y suplementación básica.",
+				url: SERVICES.preconcepcional.url,
+			},
 		],
 	},
 	{
-		id: SERVICES.preparacionParto.id,
-		name: SERVICES.preparacionParto.name,
-		nameShort: SERVICES.preparacionParto.nameShort,
-		description: SERVICES.preparacionParto.description,
-		url: SERVICES.preparacionParto.url,
-		priceMin: SERVICES.preparacionParto.priceMin,
-		priceMax: SERVICES.preparacionParto.priceMax,
-		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
+		id: "embarazo",
+		label: "Embarazo y parto",
+		title: "Prepárate para tu parto con matrona",
+		subtitle:
+			"Resolvemos dudas sobre embarazo, parto y posparto con información basada en evidencia y acompañamiento emocional.",
 		color: "coral",
-		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
+		services: [
+			{
+				id: SERVICES.preparacionParto.id,
+				name: "Sesión de dudas: Embarazo y Parto",
+				nameShort: SERVICES.preparacionParto.nameShort,
+				description:
+					"Cambios del embarazo, preparación al parto, plan de parto, intervenciones médicas, gestión del miedo, posparto inmediato y lactancia inicial. ¿Prefieres preparación en grupo? Consulta disponibilidad por WhatsApp.",
+				url: SERVICES.preparacionParto.url,
+			},
+		],
 	},
 	{
-		id: SERVICES.lactancia.id,
-		name: SERVICES.lactancia.name,
-		nameShort: SERVICES.lactancia.nameShort,
-		description: SERVICES.lactancia.description,
-		url: SERVICES.lactancia.url,
-		priceMin: SERVICES.lactancia.priceMin,
-		priceMax: SERVICES.lactancia.priceMax,
-		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
+		id: "maternidad",
+		label: "Maternidad y lactancia",
+		title: "Lactancia y acompañamiento posparto",
+		subtitle:
+			"Acompañamiento individual para resolver cualquier dificultad con la lactancia materna, desde el inicio hasta el destete respetuoso.",
 		color: "sage",
-		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
-		badge: { label: "Laura Jorge", image: "/images/logos/laura-jorge/laura-jorge-icon.png" },
+		services: [
+			{
+				id: SERVICES.lactancia.id,
+				name: SERVICES.lactancia.name,
+				nameShort: SERVICES.lactancia.nameShort,
+				description:
+					"Agarre, dolor, grietas, producción de leche, uso de sacaleches, lactancia mixta o diferida, vuelta al trabajo y destete respetuoso.",
+				url: SERVICES.lactancia.url,
+				badge: {
+					label: "Laura Jorge",
+					image: "/images/logos/laura-jorge/laura-jorge-icon.png",
+				},
+			},
+		],
 	},
 	{
-		id: SERVICES.menopausia.id,
-		name: SERVICES.menopausia.name,
-		nameShort: SERVICES.menopausia.nameShort,
-		description: SERVICES.menopausia.description,
-		url: SERVICES.menopausia.url,
-		priceMin: SERVICES.menopausia.priceMin,
-		priceMax: SERVICES.menopausia.priceMax,
-		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
+		id: "menopausia",
+		label: "Menopausia",
+		title: "Acompañamiento en perimenopausia y menopausia",
+		subtitle:
+			"Comprende los cambios del cuerpo y mejora tu calidad de vida desde un enfoque natural, cercano y basado en evidencia.",
 		color: "forest",
-		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
+		services: [
+			{
+				id: SERVICES.menopausia.id,
+				name: SERVICES.menopausia.name,
+				nameShort: SERVICES.menopausia.nameShort,
+				description:
+					"Sofocos, alteraciones del sueño, cambios emocionales, sequedad vaginal, salud ósea y hábitos de autocuidado.",
+				url: SERVICES.menopausia.url,
+			},
+		],
 	},
 ]
 
-const colorClasses: Record<string, { bg: string; border: string; hover: string; dot: string }> = {
-	terracotta: {
-		bg: "bg-terracotta/10",
-		border: "border-terracotta/20",
-		hover: "hover:border-terracotta/40",
-		dot: "bg-terracotta",
-	},
-	coral: {
-		bg: "bg-coral/10",
-		border: "border-coral/20",
-		hover: "hover:border-coral/40",
-		dot: "bg-coral",
-	},
-	sage: {
-		bg: "bg-sage/10",
-		border: "border-sage/20",
-		hover: "hover:border-sage/40",
-		dot: "bg-sage",
-	},
-	forest: {
-		bg: "bg-forest/10",
-		border: "border-forest/20",
-		hover: "hover:border-forest/40",
-		dot: "bg-forest",
-	},
-}
-
+const cicloPackFeatures = [
+	"Seguimiento personalizado",
+	"Sesiones individuales",
+	"Educación de cada fase",
+	"Recomendaciones a medida",
+]
 const femmbarreFeatures = [
 	"1 clase semanal en directo",
 	"Acceso a grabaciones",
@@ -105,73 +159,80 @@ const femmbarreFeatures = [
 	"Adaptado a cada trimestre",
 ]
 
-const puntuales = [
-	{
-		...ADDON_SERVICES.pendientesBebe,
-		question: "Colocación de pendientes para tu bebé por profesional sanitario",
-		longDescription:
-			"Servicio realizado por una matrona profesional, en un entorno higiénico y con materiales hipoalergénicos certificados.",
-		src: "63bc064b-c69f-47a3-aaac-fff5d110ce3f",
-	},
-]
+const ciclosPack = SERVICES.conoceTuCiclo
+const femmbarre = SERVICES.femmbarre
+const pendientes = ADDON_SERVICES.pendientesBebe
 
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
+// Flat list of every consultation, to emit one Service schema each.
+const consultationSchemas = consultationGroups
+	.flatMap((g) => g.services)
+	.map((s) => ({
+		name: SERVICES[s.id.replace(/-([a-z])/g, (_, c) => c.toUpperCase())]?.name ?? s.name,
+		description:
+			SERVICES[s.id.replace(/-([a-z])/g, (_, c) => c.toUpperCase())]?.description ?? s.description,
+		serviceType:
+			SERVICES[s.id.replace(/-([a-z])/g, (_, c) => c.toUpperCase())]?.serviceType ?? s.nameShort,
+	}))
+
+const anchors = [
+	{ href: "#consultas", label: "Consultas" },
+	{ href: "#packs", label: "Packs" },
+	{ href: "#suscripcion", label: "Suscripción" },
+	{ href: "#puntuales", label: "Servicios puntuales" },
+]
 ---
 
 <Layout navScrolled={true} {...seoData}>
-	{/* SEO Schemas */}
+	{/* SEO schemas — one Service per consultation + pack + subscription + addon */}
 	{
-		packs.map((s) => (
+		consultationSchemas.map((s) => (
 			<ServiceSchema
 				name={s.name}
 				description={s.description}
-				priceMin={s.priceMin}
-				priceMax={s.priceMax}
-				serviceType={s.nameShort}
-			/>
-		))
-	}
-	<ServiceSchema
-		name={SERVICES.femmbarre.name}
-		description={SERVICES.femmbarre.description}
-		serviceType={SERVICES.femmbarre.serviceType}
-		priceMin={SERVICES.femmbarre.priceMin}
-		isSubscription={true}
-		billingPeriod="month"
-		onlineOnly={true}
-		url={SERVICES.femmbarre.url}
-	/>
-	{
-		puntuales.map((s) => (
-			<ServiceSchema
-				name={s.name}
-				description={s.description}
-				priceMin={s.priceMin}
-				priceMax={s.priceMax}
+				priceMin={CONSULTATION_PRICE}
+				priceMax={CONSULTATION_PRICE}
 				serviceType={s.serviceType}
 			/>
 		))
 	}
+	<ServiceSchema
+		name={ciclosPack.name}
+		description={ciclosPack.description}
+		priceMin={ciclosPack.priceMin}
+		priceMax={ciclosPack.priceMax}
+		serviceType={ciclosPack.serviceType}
+		url={ciclosPack.url}
+	/>
+	<ServiceSchema
+		name={femmbarre.name}
+		description={femmbarre.description}
+		serviceType={femmbarre.serviceType}
+		priceMin={femmbarre.priceMin}
+		isSubscription={true}
+		billingPeriod="month"
+		onlineOnly={true}
+		url={femmbarre.url}
+	/>
+	<ServiceSchema
+		name={pendientes.name}
+		description={pendientes.description}
+		priceMin={pendientes.priceMin}
+		priceMax={pendientes.priceMax}
+		serviceType={pendientes.serviceType}
+	/>
 
 	<main id="main-content" class="pt-21">
-		{/* ── Hero ── */}
+		{/* Hero */}
 		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-16 lg:px-8">
 			<div class="mx-auto max-w-3xl text-center">
-				<span
-					class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-				>
-					<img src="/images/icons/cookie.svg" alt="" class="h-4 w-4" aria-hidden="true" />
-					Servicios
-				</span>
+				<Eyebrow class="bg-coral-light/30 text-primary mb-6" animate>Servicios</Eyebrow>
 				<h1
 					class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
 					data-animate="animate-fade-up"
 					data-animate-duration="1s"
 					data-animate-delay="0.1s"
 				>
-					Te acompañamos en <span class="text-accent">cada etapa</span>
+					Servicios de <span class="text-accent">matrona</span> en Valencia y online
 				</h1>
 				<p
 					class="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
@@ -179,8 +240,9 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					data-animate-duration="1s"
 					data-animate-delay="0.2s"
 				>
-					Desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto y la
-					lactancia. Packs personalizados, suscripción mensual y servicios puntuales.
+					Consultas individuales a {CONSULTATION_PRICE}€ · Pack Conoce tu Ciclo de 3 meses ·
+					FemmBarre prenatal · Servicios puntuales. Elige lo que necesites para cada etapa de tu
+					vida.
 				</p>
 
 				{/* Quick-jump anchors */}
@@ -190,110 +252,165 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 					data-animate-duration="1s"
 					data-animate-delay="0.3s"
 				>
-					<a
-						href="#packs"
-						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
-					>
-						Packs
-					</a>
-					<a
-						href="#suscripcion"
-						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
-					>
-						Suscripción
-					</a>
-					<a
-						href="#puntuales"
-						class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
-					>
-						Servicios puntuales
-					</a>
+					{
+						anchors.map((a) => (
+							<a
+								href={a.href}
+								class="border-border/50 text-muted-foreground hover:border-accent/50 hover:text-accent rounded-full border px-4 py-2 text-sm transition-colors"
+							>
+								{a.label}
+							</a>
+						))
+					}
 				</div>
 			</div>
 		</section>
 
-		{/* ── Packs ── */}
-		<section id="packs" class="scroll-mt-24 py-16 lg:py-20">
+		{/* Consultations grouped by life stage */}
+		<section id="consultas" class="scroll-mt-24 py-16 lg:py-20">
 			<div class="container mx-auto px-4 lg:px-8">
-				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
-					<span
-						class="bg-sage/20 text-forest mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
-					>
-						Packs de acompañamiento
-					</span>
-					<h2 class="font-display text-primary text-3xl lg:text-4xl">Asesoría personalizada</h2>
-					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
-						Sesiones individuales con seguimiento adaptado a tu momento.
-					</p>
-				</div>
+				<SectionHeading
+					class="mb-12"
+					color="sage"
+					label={`Consultas individuales · ${CONSULTATION_PRICE}€ · 60 min`}
+					title="Elige la consulta que necesitas ahora"
+					subtitle="Todas las consultas duran 60 minutos y son personalizadas. Puedes realizarlas online o presencial en Valencia."
+				/>
 
-				<div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:gap-8">
+				<div class="mx-auto max-w-6xl space-y-12 lg:space-y-16">
 					{
-						packs.map((service, index) => {
-							const colors = colorClasses[service.color]
+						consultationGroups.map((group) => {
+							const c = STAGE[group.color]
 							return (
 								<div
-									id={service.id}
-									class={`group bg-background relative scroll-mt-24 rounded-3xl border-2 p-8 transition-all duration-300 ${colors.border} ${colors.hover} hover:shadow-elegant`}
+									id={group.id}
+									class="scroll-mt-24"
 									data-animate="animate-fade-up"
 									data-animate-duration="1s"
-									data-animate-delay={`${index * 80}ms`}
 								>
-									{/* Header */}
-									<div class="mb-6 flex items-start justify-between">
-										<div
-											class={`flex h-16 w-16 items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110 ${colors.bg}`}
-										>
-											<img src={service.icon} alt={service.name} class="h-10 w-10" loading="lazy" />
-										</div>
-										{"badge" in service && service.badge && (
-											<img
-												src={(service.badge as { label: string; image: string }).image}
-												alt={(service.badge as { label: string; image: string }).label}
-												loading="lazy"
-												class="ml-auto h-8 w-auto flex-shrink-0 object-contain"
-											/>
-										)}
-									</div>
-
-									{/* Content */}
-									<a href={service.url} class="group/link block">
-										<h3 class="font-display text-forest group-hover/link:text-accent mb-3 text-2xl transition-colors lg:text-3xl">
-											{service.name}
-										</h3>
-									</a>
-									<p class="text-muted-foreground mb-6 text-sm leading-relaxed">
-										{service.description}
-									</p>
-
-									{/* Features */}
-									<ul class="mb-6 space-y-2">
-										{service.features.map((feature) => (
-											<li class="text-muted-foreground flex items-center gap-2 text-sm">
-												<span class={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${colors.dot}`} />
-												{feature}
-											</li>
-										))}
-									</ul>
-
-									{/* Footer */}
-									<div class="border-border/30 flex items-center justify-between border-t pt-4">
+									{/* Group header */}
+									<div class="border-border/30 mb-6 flex flex-col gap-2 border-b pb-4 lg:flex-row lg:items-end lg:justify-between">
 										<div>
-											<span class="font-display text-primary text-xl">
-												{service.priceMin === service.priceMax
-													? `${service.priceMin}€`
-													: `Desde ${service.priceMin}€`}
+											<span
+												class:list={[
+													"mb-2 inline-block rounded-full px-3 py-1 text-xs font-medium tracking-wider uppercase",
+													c.chip,
+												]}
+											>
+												{group.label}
 											</span>
+											<h3 class="font-display text-primary text-2xl lg:text-3xl">{group.title}</h3>
 										</div>
-										<Button
-											href={service.url}
-											variant="hero"
-											size="sm"
-											class="rounded-full px-4 py-2 text-sm transition-all duration-300 hover:scale-105"
-										>
-											Ver pack
-										</Button>
+										<p class="text-muted-foreground max-w-md text-sm lg:text-right">
+											{group.subtitle}
+										</p>
 									</div>
+
+									{/* Service cards */}
+									<div
+										class:list={[
+											"grid gap-6",
+											group.services.length > 1 ? "md:grid-cols-2" : "md:grid-cols-1",
+										]}
+									>
+										{group.services.map((service, index) => (
+											<article
+												id={service.id}
+												class:list={[
+													"group bg-background hover:shadow-elegant relative scroll-mt-24 overflow-hidden rounded-3xl border-2 transition-all duration-300",
+													c.border,
+													c.hover,
+												]}
+												data-animate="animate-fade-up"
+												data-animate-duration="1s"
+												data-animate-delay={`${index * 80}ms`}
+											>
+												<div class="flex flex-col sm:flex-row">
+													{/* Visual — real photo if set, else brand motif */}
+													<ServiceMotif
+														motif={serviceMotif[service.id] ?? cicloMotif}
+														image={servicePhoto[service.id]}
+														imageAlt={service.name}
+														color={group.color}
+														class="h-40 w-full sm:h-auto sm:w-44 sm:flex-shrink-0"
+													/>
+
+													<div class="flex flex-1 flex-col p-6 lg:p-8">
+														{service.badge && (
+															<div class="mb-4 flex items-center gap-2">
+																<img
+																	src={service.badge.image}
+																	alt={service.badge.label}
+																	loading="lazy"
+																	class="h-7 w-auto flex-shrink-0 object-contain"
+																/>
+																<span class="text-muted-foreground text-xs">
+																	En colaboración con {service.badge.label}
+																</span>
+															</div>
+														)}
+
+														<a href={service.url} class="group/link block">
+															<h4 class="font-display text-forest group-hover/link:text-accent mb-2 text-xl transition-colors lg:text-2xl">
+																{service.name}
+															</h4>
+														</a>
+														<p class="text-muted-foreground mb-5 flex-1 text-sm leading-relaxed">
+															{service.description}
+														</p>
+
+														<div class="border-border/30 flex items-center justify-between gap-3 border-t pt-4">
+															<div class="flex flex-col">
+																<span class="font-display text-primary text-xl">
+																	{CONSULTATION_PRICE}€
+																</span>
+																<span class="text-muted-foreground text-xs">
+																	60 min · Online o presencial
+																</span>
+															</div>
+															<Button
+																href={service.url}
+																variant="hero"
+																size="sm"
+																class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+															>
+																Ver detalle
+															</Button>
+														</div>
+													</div>
+												</div>
+											</article>
+										))}
+									</div>
+
+									{/* Group banner: birth-prep group */}
+									{group.id === "embarazo" && (
+										<div
+											class:list={[
+												"mt-6 rounded-2xl border-2 border-dashed p-5 lg:flex lg:items-center lg:justify-between lg:gap-6",
+												c.border,
+												c.soft,
+											]}
+										>
+											<div class="mb-3 lg:mb-0">
+												<p class="font-display text-primary text-lg">
+													¿Prefieres preparación al parto en grupo?
+												</p>
+												<p class="text-muted-foreground text-sm">
+													Organizamos programas grupales puntuales. Consulta disponibilidad por
+													WhatsApp.
+												</p>
+											</div>
+											<Button
+												variant="hero"
+												size="sm"
+												class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+												data-whatsapp-inquiry="Programa grupal de preparación al parto"
+											>
+												Consultar disponibilidad
+											</Button>
+										</div>
+									)}
 								</div>
 							)
 						})
@@ -302,198 +419,143 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			</div>
 		</section>
 
-		{/* ── Divider ── */}
 		<div class="container mx-auto px-4 lg:px-8">
 			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
 		</div>
 
-		{/* ── Suscripción — FemmBarre ── */}
+		{/* Pack */}
+		<section id="packs" class="scroll-mt-24 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<SectionHeading
+					color="terracotta"
+					label="Pack de acompañamiento"
+					title="Acompañamientos profundos"
+					subtitle="Para quienes quieren ir más allá de una consulta puntual."
+				/>
+				<div class="mx-auto max-w-3xl" data-animate="animate-fade-up" data-animate-duration="1s">
+					<OfferCard
+						href={ciclosPack.url}
+						title={ciclosPack.name}
+						subtitle="Aprende a entender, observar y conectar con tu ciclo menstrual."
+						body="Durante 3 meses trabajamos juntas para que interpretes tu ciclo con seguridad, anticipes lo que necesitas en cada fase y tomes decisiones alineadas con tu cuerpo."
+						features={cicloPackFeatures}
+						price={ciclosPack.priceMin}
+						priceSuffix=" · 3 meses"
+						ctaLabel="Ver el pack"
+						badge="3 meses · Online"
+						color="terracotta"
+						motif={cicloMotif}
+						image={servicePhoto["conoce-tu-ciclo"]}
+						imageAlt={ciclosPack.name}
+					/>
+				</div>
+			</div>
+		</section>
+
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		{/* Subscription — FemmBarre */}
 		<section id="suscripcion" class="scroll-mt-24 py-16 lg:py-20">
 			<div class="container mx-auto px-4 lg:px-8">
-				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
-					<span
-						class="bg-accent/10 text-accent mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
-					>
-						Suscripción mensual
-					</span>
-					<h2 class="font-display text-primary text-3xl lg:text-4xl">Bienestar y movimiento</h2>
-					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
-						Clases online diseñadas para cada etapa del embarazo.
-					</p>
+				<SectionHeading
+					color="accent"
+					label="Suscripción mensual"
+					title="Bienestar y movimiento"
+					subtitle="Clases online diseñadas para cada etapa del embarazo."
+				/>
+				<div class="mx-auto max-w-3xl" data-animate="animate-fade-up" data-animate-duration="1s">
+					<OfferCard
+						href={femmbarre.url}
+						title={femmbarre.name}
+						subtitle="Barre prenatal para embarazadas"
+						body="Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier sitio, a tu ritmo y con total seguridad."
+						features={femmbarreFeatures}
+						price={femmbarre.priceMin}
+						priceSuffix="/mes"
+						ctaLabel="Descubre FemmBarre"
+						badge="Suscripción mensual"
+						color="accent"
+						motif={femmbarreMotif}
+						image={getAssetUrl("434e8c6a-e85f-4c33-a049-298dd53bedcd")}
+						imageAlt="FemmBarre Maternity — Barre prenatal para embarazadas"
+					/>
 				</div>
+			</div>
+		</section>
 
-				<div
-					class="mx-auto max-w-3xl"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-					data-animate-delay="0.1s"
-				>
+		<div class="container mx-auto px-4 lg:px-8">
+			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
+		</div>
+
+		{/* One-off services */}
+		<section id="puntuales" class="scroll-mt-24 py-16 lg:py-20">
+			<div class="container mx-auto px-4 lg:px-8">
+				<SectionHeading
+					labelClass="bg-coral-light/30 text-primary"
+					label="Servicios puntuales"
+					title="¿Necesitas algo puntual?"
+					subtitle="Servicios individuales que puedes reservar de forma independiente."
+				/>
+
+				<div class="mx-auto max-w-3xl">
 					<div
-						class="group bg-background border-accent/20 hover:border-accent/40 hover:shadow-warm relative grid overflow-hidden rounded-3xl border-2 transition-all duration-300 md:grid-cols-5"
+						class="bg-background border-border/50 hover:border-accent/30 hover:shadow-elegant group flex flex-col items-center gap-8 rounded-3xl border-2 p-8 transition-all duration-300 lg:flex-row"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
 					>
-						{/* Image */}
-						<div class="relative h-48 overflow-hidden md:col-span-2 md:h-full">
-							<img
-								src={getAssetUrl("434e8c6a-e85f-4c33-a049-298dd53bedcd")}
-								alt="FemmBarre Maternity — Barre prenatal para embarazadas"
-								class="h-full w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
-								loading="lazy"
+						<div class="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-2xl">
+							<ServiceMotif
+								motif={pendientesMotif}
+								image={servicePhoto["pendientes-bebe"]}
+								imageAlt={pendientes.name}
+								color="coral"
+								class="h-full w-full"
 							/>
 							<div
-								class="from-background/60 md:from-background/30 absolute inset-0 bg-gradient-to-t to-transparent md:bg-gradient-to-r"
+								class="from-forest-dark/85 via-forest-dark/25 absolute right-0 bottom-0 left-0 bg-gradient-to-t to-transparent p-2 text-center"
 							>
+								<span class="font-display text-cream block text-2xl">{pendientes.price}€</span>
+								<span class="text-cream/80 text-xs">por sesión</span>
 							</div>
-							<span
-								class="bg-accent text-accent-foreground font-body absolute top-4 left-4 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="12"
-									height="12"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line
-										x1="16"
-										y1="2"
-										x2="16"
-										y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line
-										x1="3"
-										y1="10"
-										x2="21"
-										y2="10"></line></svg
-								>
-								Suscripción mensual
-							</span>
 						</div>
 
-						{/* Content */}
-						<div class="p-6 md:col-span-3">
-							<h3 class="font-display text-forest mb-1 text-xl">
-								<a href={SERVICES.femmbarre.url} class="hover:text-accent transition-colors">
-									{SERVICES.femmbarre.name}
-								</a>
-							</h3>
-							<p class="text-muted-foreground mb-3 text-sm">Barre prenatal para embarazadas</p>
-							<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
-								Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier
-								sitio, a tu ritmo y con total seguridad.
+						<div class="flex-1 text-center lg:text-left">
+							<p class="text-accent mb-1 text-xs font-medium tracking-wider uppercase">
+								{pendientes.nameShort}
 							</p>
-							<ul class="mb-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
+							<h3 class="font-display text-primary mb-3 text-xl lg:text-2xl">
+								Colocación de pendientes para tu bebé por profesional sanitario
+							</h3>
+							<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
+								Servicio realizado por una matrona profesional, en un entorno higiénico y con
+								materiales hipoalergénicos certificados.
+							</p>
+							<ul class="mb-5 space-y-1.5">
 								{
-									femmbarreFeatures.map((feature) => (
-										<li class="text-muted-foreground flex items-center gap-2 text-xs">
-											<span class="bg-accent h-1.5 w-1.5 flex-shrink-0 rounded-full" />
+									pendientes.features.map((feature: string) => (
+										<li class="text-muted-foreground flex items-center justify-center gap-2 text-sm lg:justify-start">
+											<span class="text-accent">—</span>
 											{feature}
 										</li>
 									))
 								}
 							</ul>
-							<div class="border-border/30 flex items-center justify-between border-t pt-4">
-								<div>
-									<span class="font-display text-forest text-xl"
-										>{SERVICES.femmbarre.priceMin}€</span
-									>
-									<span class="text-muted-foreground text-xs">/mes</span>
-								</div>
-								<Button
-									href={SERVICES.femmbarre.url}
-									variant="hero"
-									size="sm"
-									class="rounded-full text-sm transition-all duration-300 hover:scale-105"
-								>
-									Descubre FemmBarre
-								</Button>
-							</div>
+							<Button
+								variant="hero"
+								size="sm"
+								class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+								data-service-name={pendientes.name}
+							>
+								Reservar {pendientes.nameShort}
+							</Button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		{/* ── Divider ── */}
-		<div class="container mx-auto px-4 lg:px-8">
-			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
-		</div>
-
-		{/* ── Servicios Puntuales ── */}
-		<section id="puntuales" class="scroll-mt-24 py-16 lg:py-20">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
-					<span
-						class="bg-coral-light/30 text-primary mb-3 inline-block rounded-full px-4 py-1.5 text-sm font-medium"
-					>
-						Servicios puntuales
-					</span>
-					<h2 class="font-display text-primary text-3xl lg:text-4xl">¿Necesitas algo puntual?</h2>
-					<p class="text-muted-foreground mt-3 text-base lg:text-lg">
-						Servicios individuales que puedes reservar de forma independiente.
-					</p>
-				</div>
-
-				<div class="mx-auto max-w-3xl space-y-8">
-					{
-						puntuales.map((service, index) => (
-							<div
-								class="bg-background border-border/50 hover:border-accent/30 hover:shadow-elegant group flex flex-col items-center gap-8 rounded-3xl border-2 p-8 transition-all duration-300 lg:flex-row"
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 100}ms`}
-							>
-								{/* Price badge */}
-								<div class="relative h-40 w-40 flex-shrink-0 overflow-hidden rounded-2xl">
-									<img
-										src={getAssetUrl(service.src)}
-										alt={service.name}
-										loading="lazy"
-										class="h-full w-full object-cover object-[center_90%]"
-									/>
-									<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-									<div class="absolute right-0 bottom-0 left-0 p-2 text-center">
-										<span class="font-display block text-2xl text-white">{service.price}€</span>
-										<span class="text-xs text-white/70">por sesión</span>
-									</div>
-								</div>
-
-								{/* Content */}
-								<div class="flex-1 text-center lg:text-left">
-									<p class="text-accent mb-1 text-xs font-medium tracking-wider uppercase">
-										{service.nameShort}
-									</p>
-									<h3 class="font-display text-primary mb-3 text-xl lg:text-2xl">
-										{service.question}
-									</h3>
-									<p class="text-muted-foreground mb-4 text-sm leading-relaxed">
-										{service.longDescription}
-									</p>
-									<ul class="mb-5 space-y-1.5">
-										{service.features.map((feature: string) => (
-											<li class="text-muted-foreground flex items-center justify-center gap-2 text-sm lg:justify-start">
-												<span class="text-accent">—</span>
-												{feature}
-											</li>
-										))}
-									</ul>
-									<Button
-										variant="hero"
-										size="sm"
-										class="rounded-full text-sm transition-all duration-300 hover:scale-105"
-										data-service-name={service.name}
-									>
-										Reservar {service.nameShort}
-									</Button>
-								</div>
-							</div>
-						))
-					}
-				</div>
-			</div>
-		</section>
-
-		{/* ── Divider ── */}
 		<div class="container mx-auto px-4 lg:px-8">
 			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
 		</div>
@@ -502,27 +564,16 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	</main>
 </Layout>
 
-<script define:vars={{ phoneNumber }}>
+<WhatsAppActions />
+
+<script is:inline>
+	// Smooth-scroll to the quick-jump target when arriving with a hash.
 	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-name]")
-
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const serviceName = button.getAttribute("data-service-name") || "servicio"
-				const message = encodeURIComponent(
-					`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			})
-		})
-
-		// Smooth scroll for quick-jump anchors
 		if (window.location.hash) {
 			setTimeout(() => {
-				const element = document.querySelector(window.location.hash)
-				if (element) {
-					element.scrollIntoView({ behavior: "smooth", block: "start" })
-				}
+				document
+					.querySelector(window.location.hash)
+					?.scrollIntoView({ behavior: "smooth", block: "start" })
 			}, 100)
 		}
 	})

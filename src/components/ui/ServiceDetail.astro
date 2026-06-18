@@ -1,0 +1,272 @@
+---
+/**
+ * ServiceDetail — standard service-page template (see docs/seo-plan-keywords.md §4).
+ * SEO/GEO-oriented structure:
+ *   Hero → "what is it?" → "what we cover" → "who is it for" → single price card
+ *   → [extra slot] → related services → FAQ (+ FAQSchema) → CTA.
+ *
+ * Every detail page is a thin data wrapper over this component.
+ */
+import FAQ from "@/components/FAQ.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
+import ServiceSchema from "@/components/schema/ServiceSchema.astro"
+import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Button from "@/components/ui/Button.astro"
+import Eyebrow from "@/components/ui/Eyebrow.astro"
+import FeatureList from "@/components/ui/FeatureList.astro"
+import FloatingReserve from "@/components/ui/FloatingReserve.astro"
+import ServiceMotif from "@/components/ui/ServiceMotif.astro"
+import { STAGE, type StageColor } from "@/components/ui/stageColors"
+import WhatsAppActions from "@/components/ui/WhatsAppActions.astro"
+import type { ServiceData } from "@/data/services"
+import Layout from "@/layouts/Layout.astro"
+
+interface FAQItem {
+	question: string
+	answer: string
+}
+interface RelatedLink {
+	href: string
+	title: string
+	description: string
+	price?: string
+}
+
+interface Props {
+	service: ServiceData
+	serviceName: string
+	color?: StageColor
+	motif: string
+	image?: string
+	eyebrow: string
+	h1Lead?: string
+	h1Accent: string
+	h1Tail?: string
+	intro: string
+	aboutTitle: string
+	aboutBody: string[]
+	workTitle?: string
+	work: string[]
+	audienceTitle?: string
+	audience: string[]
+	priceNote: string
+	ctaLabel?: string
+	faqTitle?: string
+	faqs: FAQItem[]
+	relatedTitle?: string
+	related?: RelatedLink[]
+}
+
+const {
+	service,
+	serviceName,
+	color = "terracotta",
+	motif,
+	image,
+	eyebrow,
+	h1Lead = "",
+	h1Accent,
+	h1Tail = "",
+	intro,
+	aboutTitle,
+	aboutBody,
+	workTitle = "¿Qué trabajaremos en consulta?",
+	work,
+	audienceTitle = "¿Para quién es?",
+	audience,
+	priceNote,
+	ctaLabel = "Reservar consulta",
+	faqTitle,
+	faqs,
+	relatedTitle = "También te puede interesar",
+	related = [],
+} = Astro.props
+
+const t = STAGE[color]
+const seoData = { ...service.seo, type: "website" as const }
+const hasExtra = Astro.slots.has("default")
+// Short caption for the floating bar, e.g. "60 min" or "3 meses".
+const floatingCaption = priceNote.split("·")[0].trim()
+---
+
+<Layout navScrolled={true} {...seoData}>
+	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
+	<ServiceSchema
+		name={service.name}
+		description={service.description}
+		priceMin={service.priceMin}
+		priceMax={service.priceMax}
+		serviceType={service.serviceType}
+		url={service.url}
+	/>
+
+	<main id="main-content" class="pt-21">
+		{/* Hero */}
+		<section class="container mx-auto mt-16 mb-10 px-4 lg:px-8">
+			<div class="relative">
+				<div
+					class:list={[
+						t.soft,
+						"shape-blob pointer-events-none absolute -top-12 right-0 h-64 w-64 translate-x-1/3",
+					]}
+					aria-hidden="true"
+				>
+				</div>
+				<div class="relative mx-auto max-w-3xl text-center">
+					<Eyebrow color={color} animate class="mb-6">{eyebrow}</Eyebrow>
+					<h1
+						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
+						{h1Lead}{h1Lead && " "}<span class="text-accent">{h1Accent}</span>{h1Tail && " "}{
+							h1Tail
+						}
+					</h1>
+					<p
+						class="text-muted-foreground mx-auto max-w-2xl text-lg lg:text-xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.2s"
+					>
+						{intro}
+					</p>
+				</div>
+			</div>
+		</section>
+
+		{/* Body: visual + copy */}
+		<section class="container mx-auto px-4 pb-8 lg:px-8">
+			<div class="mx-auto grid max-w-5xl items-start gap-10 lg:grid-cols-2 lg:gap-14">
+				<div class="lg:sticky lg:top-28" data-animate="animate-fade-up" data-animate-duration="1s">
+					<ServiceMotif
+						motif={motif}
+						image={image}
+						imageAlt={service.name}
+						color={color}
+						class="shadow-soft aspect-[4/5] w-full rounded-[2rem]"
+					/>
+				</div>
+
+				<div data-animate="animate-fade-up" data-animate-duration="1s" data-animate-delay="0.1s">
+					<h2 class="font-display text-primary mb-4 text-2xl lg:text-3xl">{aboutTitle}</h2>
+					{aboutBody.map((p) => <p class="text-muted-foreground mb-4 leading-relaxed">{p}</p>)}
+
+					<h2 class="font-display text-primary mt-8 mb-4 text-2xl lg:text-3xl">{workTitle}</h2>
+					<FeatureList items={work} marker="check" color={color} class="mb-8 space-y-3" />
+
+					<h2 class="font-display text-primary mb-4 text-2xl lg:text-3xl">{audienceTitle}</h2>
+					<FeatureList items={audience} marker="dot" color={color} />
+				</div>
+			</div>
+		</section>
+
+		{/* Single price card */}
+		<section data-reserve-cta class="container mx-auto px-4 py-10 lg:px-8">
+			<div
+				class:list={[
+					"bg-card mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-3xl border-2 p-8 text-center transition-all duration-300 sm:flex-row sm:justify-between sm:text-left",
+					t.border,
+					t.hover,
+				]}
+				data-animate="animate-fade-up"
+				data-animate-duration="1s"
+			>
+				<div>
+					<p class="font-display text-primary text-2xl lg:text-3xl">{service.name}</p>
+					<p class="text-muted-foreground mt-1 text-sm">{priceNote}</p>
+				</div>
+				<div class="flex flex-col items-center gap-3 sm:items-end">
+					<span class="font-display text-primary text-4xl">{service.priceMin}€</span>
+					<Button variant="hero" size="lg" class="rounded-full" data-service-name={service.name}>
+						{ctaLabel}
+					</Button>
+				</div>
+			</div>
+		</section>
+
+		{/* Optional extra block (collaboration / group banner / comparison) */}
+		{
+			hasExtra && (
+				<section class="container mx-auto px-4 pb-4 lg:px-8">
+					<div class="mx-auto max-w-3xl">
+						<slot />
+					</div>
+				</section>
+			)
+		}
+
+		{/* Related services */}
+		{
+			related.length > 0 && (
+				<section class="container mx-auto px-4 py-12 lg:px-8">
+					<div class="mx-auto max-w-5xl">
+						<h2 class="font-display text-primary mb-8 text-center text-2xl lg:text-3xl">
+							{relatedTitle}
+						</h2>
+						<div
+							class:list={[
+								"grid gap-6",
+								related.length > 1 ? "md:grid-cols-2" : "md:mx-auto md:max-w-xl",
+							]}
+						>
+							{related.map((r) => (
+								<a
+									href={r.href}
+									class:list={[
+										"group bg-card hover:shadow-elegant flex flex-col rounded-3xl border-2 p-6 transition-all duration-300",
+										t.border,
+										t.hover,
+									]}
+								>
+									<h3 class="font-display text-primary group-hover:text-accent mb-2 text-xl transition-colors">
+										{r.title}
+									</h3>
+									<p class="text-muted-foreground mb-4 flex-1 text-sm leading-relaxed">
+										{r.description}
+									</p>
+									<span class="text-accent flex items-center gap-2 text-sm font-medium">
+										{r.price ? r.price : "Ver detalle"}
+										<svg
+											class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											aria-hidden="true"
+										>
+											<path d="M5 12h14" />
+											<path d="m12 5 7 7-7 7" />
+										</svg>
+									</span>
+								</a>
+							))}
+						</div>
+					</div>
+				</section>
+			)
+		}
+
+		{/* FAQ — shared visible component + FAQPage JSON-LD */}
+		<FAQ
+			faqs={faqs}
+			title={faqTitle ?? `Preguntas frecuentes sobre ${serviceName.toLowerCase()}`}
+		/>
+		<FAQSchema faqs={faqs} />
+
+		<div data-reserve-cta>
+			<AdditionalInfo serviceName={serviceName} />
+		</div>
+	</main>
+</Layout>
+
+<WhatsAppActions />
+<FloatingReserve
+	serviceName={service.name}
+	priceLabel={`${service.priceMin}€`}
+	caption={floatingCaption}
+/>

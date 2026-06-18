@@ -1,0 +1,117 @@
+---
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
+import { SERVICES } from "@/data/services"
+
+export const prerender = true
+
+const service = SERVICES.conoceTuCiclo
+const motif = "/images/icons/illustrations/ilustracion-negro_02.svg"
+
+const aboutBody = [
+	"El pack Conoce tu Ciclo es un acompañamiento de 3 meses con matrona para aprender a entender, observar y conectar con tu ciclo menstrual. Si te sientes desconectada de tu cuerpo o tu ciclo te resulta un misterio, este programa te da el método y el seguimiento para interpretarlo con seguridad.",
+	"Durante tres ciclos completos trabajamos juntas con sesiones individuales y educación sobre cada fase —menstrual, folicular, ovulatoria y lútea—, aprendiendo a leer tus síntomas y señales. Recibirás recomendaciones de hábitos, nutrición y movimiento adaptadas a tu estilo de vida y a cada momento del ciclo.",
+	"El objetivo es que, al terminar, comprendas tu ciclo, anticipes lo que necesitas en cada fase y tomes decisiones alineadas con tu cuerpo. Es 100% online, desde cualquier lugar de España.",
+]
+
+const work = [
+	"Seguimiento personalizado durante 3 meses",
+	"Sesiones individuales",
+	"Educación sobre cada fase del ciclo",
+	"Interpretación de síntomas y señales",
+	"Recomendaciones adaptadas a tu estilo de vida",
+]
+
+const audience = [
+	"Mujeres que quieren profundizar en su ciclo",
+	"Mujeres con síntomas recurrentes",
+	"Mujeres que buscan autoconocimiento",
+]
+
+const faqs = [
+	{
+		question: "¿Qué incluye el pack Conoce tu Ciclo?",
+		answer:
+			"Incluye seguimiento personalizado durante 3 meses, sesiones individuales, educación sobre cada fase del ciclo, interpretación de tus síntomas y señales, y recomendaciones de hábitos adaptadas a tu estilo de vida.",
+	},
+	{
+		question: "¿Por qué dura 3 meses y no una sola sesión?",
+		answer:
+			"Porque 3 meses son 3 ciclos reales. Observar varios ciclos seguidos permite identificar patrones, confirmar cambios y consolidar hábitos, algo que una consulta única no puede ofrecer.",
+	},
+	{
+		question: "¿Tengo que registrar síntomas? ¿Qué herramientas uso?",
+		answer:
+			"Sí, aprenderás a registrar tus señales de forma sencilla (temperatura, moco cervical, energía, estado de ánimo…). Te guío con plantillas y recursos prácticos; no necesitas nada complicado.",
+	},
+	{
+		question: "¿Puedo combinarlo con la consulta preconcepcional?",
+		answer:
+			"Totalmente. Conocer tu ciclo es una base excelente si estás pensando en buscar embarazo; muchas mujeres combinan este pack con la consulta preconcepcional.",
+	},
+	{
+		question: "¿Cuánto cuesta el pack Conoce tu Ciclo?",
+		answer: "El pack completo cuesta 120 € e incluye 3 meses de acompañamiento online con matrona.",
+	},
+]
+
+const related = [
+	{
+		href: "/servicios/salud-hormonal",
+		title: "Consulta de Salud Hormonal",
+		description: "¿Solo necesitas resolver una duda puntual sobre tu ciclo? Empieza por aquí.",
+		price: "50€ · 60 min",
+	},
+	{
+		href: "/servicios/preconcepcional",
+		title: "Consulta Preconcepcional",
+		description: "Si tu objetivo es preparar el cuerpo para buscar el embarazo.",
+		price: "50€ · 60 min",
+	},
+]
+---
+
+<ServiceDetail
+	service={service}
+	serviceName="Conoce tu Ciclo"
+	color="terracotta"
+	motif={motif}
+	eyebrow="Pack de acompañamiento · 3 meses"
+	h1Lead="Conoce tu"
+	h1Accent="Ciclo"
+	intro="Un acompañamiento profundo para aprender a entender, observar y conectar con tu ciclo menstrual. Durante 3 meses (3 ciclos reales) dejas de sentirte desconectada de tu cuerpo y empiezas a interpretarlo con seguridad."
+	aboutTitle="¿En qué consiste el pack Conoce tu Ciclo?"
+	aboutBody={aboutBody}
+	workTitle="¿Qué incluye?"
+	work={work}
+	audience={audience}
+	priceNote="3 meses · Online · Acompañamiento personalizado"
+	ctaLabel="Reservar el pack"
+	faqs={faqs}
+	related={related}
+>
+	{/* Single consultation vs pack comparison (commercial intent) */}
+	<div
+		class="border-terracotta/20 bg-terracotta/5 grid gap-4 rounded-3xl border-2 p-6 sm:grid-cols-2"
+	>
+		<div class="bg-card rounded-2xl p-5">
+			<p class="font-display text-primary text-lg">Consulta única</p>
+			<p class="font-display text-primary mt-1 text-2xl">50€</p>
+			<p class="text-muted-foreground mt-2 text-sm">
+				Una sesión puntual para resolver una duda concreta sobre tu ciclo o tu salud hormonal.
+			</p>
+		</div>
+		<div class="border-terracotta/40 bg-card relative rounded-2xl border-2 p-5">
+			<span
+				class="bg-accent text-accent-foreground absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-medium"
+			>
+				Cambio real
+			</span>
+			<p class="font-display text-primary text-lg">Pack Conoce tu Ciclo</p>
+			<p class="font-display text-primary mt-1 text-2xl">120€</p>
+			<p class="text-muted-foreground mt-2 text-sm">
+				3 meses = 3 ciclos de seguimiento. Datos reales de tu propio cuerpo y hábitos que se
+				consolidan.
+			</p>
+		</div>
+	</div>
+</ServiceDetail>

@@ -1,379 +1,94 @@
 ---
-import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
-import ServiceSchema from "@/components/schema/ServiceSchema.astro"
-import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
-import Button from "@/components/ui/Button.astro"
-import Card from "@/components/ui/Card.astro"
-import CardContent from "@/components/ui/CardContent.astro"
-import CardDescription from "@/components/ui/CardDescription.astro"
-import CardFooter from "@/components/ui/CardFooter.astro"
-import CardHeader from "@/components/ui/CardHeader.astro"
-import CardTitle from "@/components/ui/CardTitle.astro"
+import ServiceDetail from "@/components/ui/ServiceDetail.astro"
 import { SERVICES } from "@/data/services"
-import Layout from "@/layouts/Layout.astro"
 
 export const prerender = true
 
-const serviceName = "Salud Hormonal"
-const serviceData = SERVICES.saludHormonal
+const service = SERVICES.saludHormonal
+const motif = "/images/icons/illustrations/ilustracion-negro_01.svg"
 
-const packs = [
+const aboutBody = [
+	"La consulta de salud hormonal femenina es un espacio con matrona para entender tu ciclo menstrual y mejorar tu bienestar desde un enfoque integral. Trabajamos desde la educación, la escucha del cuerpo y herramientas prácticas para tu día a día.",
+	"Si sufres dolor menstrual, síndrome premenstrual (SPM), ciclos irregulares o notas desajustes hormonales, te ayudo a identificar las fases de tu ciclo y a entender qué está ocurriendo. Revisamos tus hábitos —alimentación, descanso, movimiento y gestión del estrés— porque el equilibrio hormonal se construye, en gran parte, desde el estilo de vida.",
+	"La consulta dura 60 minutos, es personalizada y puedes hacerla online o presencial en Valencia. Cuando necesitas un cambio profundo y sostenido, puedes continuar con el pack Conoce tu Ciclo (3 meses) o, si buscas el embarazo, con la consulta preconcepcional.",
+]
+
+const work = [
+	"Dolor menstrual",
+	"Síndrome premenstrual (SPM)",
+	"Ciclos irregulares",
+	"Desajustes hormonales",
+	"Identificación de las fases del ciclo",
+	"Hábitos y estilo de vida",
+]
+
+const audience = [
+	"Mujeres con molestias en su ciclo",
+	"Mujeres que quieren entender su cuerpo",
+	"Mujeres que buscan equilibrio hormonal natural",
+]
+
+const faqs = [
 	{
-		name: "Conecta con tu ciclo",
-		subtitle: "Pack Básico",
-		price: 50,
-		description:
-			"Una sesión online en directo para entender de forma clara y sencilla qué ocurre en tu cuerpo durante cada fase del ciclo menstrual.",
-		features: [
-			"Sesión online en directo sobre teoría del ciclo menstrual explicada de forma visual y resolución de dudas",
-			"Formulario previo para adaptar la sesión a ti",
-		],
-		ideal:
-			"Estás dando tus primeros pasos en el autoconocimiento hormonal y quieres entender tu cuerpo sin complicaciones.",
-		highlight: false,
-		tier: "basic",
+		question: "¿Qué es una consulta de salud hormonal con matrona?",
+		answer:
+			"Es una consulta para comprender y mejorar tu salud hormonal femenina: dolor menstrual, SPM, ciclos irregulares o desajustes. Combinamos educación sobre tu ciclo con cambios de hábitos y herramientas prácticas, desde un enfoque natural y basado en evidencia.",
 	},
 	{
-		name: "Equilibra tu energía",
-		subtitle: "Pack Medio",
-		price: 70,
-		description:
-			"Combina la parte educativa del Pack Básico con recursos prácticos que te ayudarán a aplicar lo aprendido en tu día a día.",
-		features: [
-			"Todo lo del Pack Básico",
-			"Guía en PDF con recomendaciones de nutrición y movimiento",
-			"Descargables prácticos (calendario del ciclo, hábitos...)",
-			"Registro de síntomas personalizado",
-		],
-		ideal:
-			"Quieres pasar de la teoría a la práctica y empezar a vivir en sintonía con tus ritmos naturales.",
-		highlight: true,
-		tier: "medium",
+		question: "¿Trabajáis SPM, endometriosis o ciclos irregulares?",
+		answer:
+			"Sí. Acompañamos el síndrome premenstrual, los ciclos irregulares y los síntomas asociados a condiciones como la endometriosis o el SOP desde el estilo de vida, coordinándonos con tu equipo médico cuando es necesario.",
 	},
 	{
-		name: "Vive en Sintonía",
-		subtitle: "Pack Premium",
-		price: 130,
-		description:
-			"Un acompañamiento completo para quienes quieren ir más allá. Aprenderás a escuchar tu cuerpo e integrar hábitos saludables.",
-		features: [
-			"Todo lo del Pack Básico y Medio",
-			"Acompañamiento por WhatsApp durante 3 meses",
-			"Sesión de revisión y ajustes a los 2 meses",
-			"Sesión de consolidación y cierre a los 3 meses",
-		],
-		ideal:
-			"Quieres un acompañamiento cercano y constante para integrar nuevos hábitos y reconectar profundamente con tu cuerpo.",
-		highlight: false,
-		tier: "premium",
+		question: "¿Cuánto dura un acompañamiento de salud hormonal?",
+		answer:
+			"Una consulta puntual dura 60 minutos. Si buscas un cambio sostenido, el pack Conoce tu Ciclo ofrece 3 meses de seguimiento, porque regular el ciclo y consolidar hábitos lleva varios ciclos.",
+	},
+	{
+		question: "¿Cuál es la diferencia entre la consulta suelta y el pack de 3 meses?",
+		answer:
+			"La consulta suelta (50 €) resuelve una duda concreta o hace una primera valoración. El pack Conoce tu Ciclo (120 €) es un acompañamiento de 3 meses con seguimiento para un cambio real y datos de tu propio cuerpo.",
+	},
+	{
+		question: "¿Cuánto cuesta la consulta de salud hormonal?",
+		answer:
+			"La consulta cuesta 50 € e incluye 60 minutos de atención personalizada, online o presencial en Valencia.",
 	},
 ]
 
-const preconceptionPacks = [
+const related = [
 	{
-		name: "Consulta Preconcepcional",
-		subtitle: "Básica",
-		price: 50,
-		description: "Una consulta completa para preparar tu cuerpo y mente para la concepción.",
-		features: [
-			"Historia de salud y estilo de vida",
-			"Valoración de salud general",
-			"Suplementación y cuidados previos",
-			"Ciclo menstrual y fertilidad",
-			"Consejos para una concepción saludable",
-			"Espacio para tus dudas y emociones",
-		],
-		ideal: "Quieres una valoración inicial antes de buscar el embarazo.",
-		highlight: false,
-		tier: "Consulta Preconcepcional",
+		href: "/servicios/conoce-tu-ciclo",
+		title: "Pack Conoce tu Ciclo",
+		description:
+			"Acompañamiento de 3 meses para comprender tu ciclo en profundidad y consolidar hábitos. El paso natural tras una primera consulta.",
+		price: "120€ · 3 meses",
 	},
 	{
-		name: "Pack Preconcepcional",
-		subtitle: "Completo",
-		price: 160,
+		href: "/servicios/preconcepcional",
+		title: "Consulta Preconcepcional",
 		description:
-			"Acompañamiento integral para preparar tu cuerpo de forma consciente para la maternidad.",
-		features: [
-			"Teoría del ciclo menstrual + resolución de dudas",
-			"Consulta preconcepcional completa",
-			"Guía en PDF de nutrición, movimiento y estilo de vida",
-			"Descargables prácticos",
-			"Sesión de seguimiento al mes",
-			"Sesión de seguimiento a los dos meses",
-		],
-		ideal:
-			"Quieres conocer tu ciclo menstrual y mejorar hábitos de vida antes de buscar el embarazo.",
-		highlight: true,
-		tier: "Preconcepcional",
+			"Si tu objetivo es preparar el cuerpo de forma consciente antes de buscar el embarazo.",
+		price: "50€ · 60 min",
 	},
 ]
-
-const seoData = {
-	...serviceData.seo,
-	type: "website" as const,
-}
-
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 ---
 
-<Layout navScrolled={true} {...seoData}>
-	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
-	<ServiceSchema
-		name={serviceData.name}
-		description={serviceData.description}
-		priceMin={serviceData.priceMin}
-		priceMax={serviceData.priceMax}
-		serviceType={serviceData.serviceType}
-	/>
-	<main id="main-content" class="pt-21">
-		{/* Background decorations */}
-		<div
-			class="bg-secondary/15 shape-blob pointer-events-none absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
-		>
-		</div>
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
-			<div class="z-10 container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-4xl text-center">
-					<span
-						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-					>
-						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
-						Un viaje de autoconocimiento hormonal
-					</span>
-					<h1
-						class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.1s"
-					>
-						<span class="text-accent">Salud Hormonal</span> en Valencia y Online
-					</h1>
-					<p
-						class="text-muted-foreground mx-auto max-w-3xl text-lg lg:text-xl"
-						data-animate="animate-fade-up"
-						data-animate-duration="1s"
-						data-animate-delay="0.2s"
-					>
-						Un viaje de autoconocimiento para entender tus hormonas y vivir en equilibrio.
-						Acompañamiento en Valencia y online para reconciliarte con tu ciclo menstrual y
-						potenciar tu vitalidad.
-						<span class="text-accent">Elige tu pack.</span>
-					</p>
-				</div>
-			</div>
-		</section>
-
-		{/* Pricing Cards */}
-		<section class="pb-24 lg:pb-32">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-					{
-						packs.map((pack, index) => (
-							<Card
-								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
-									pack.highlight
-										? "border-accent ring-accent/20 shadow-lg ring-2"
-										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
-								}`}
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 300}ms`}
-							>
-								{pack.highlight && (
-									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
-										Más popular
-									</div>
-								)}
-
-								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4">
-										<CardTitle class="font-display text-primary mb-1 text-2xl">
-											{pack.name}
-										</CardTitle>
-										<CardDescription class="text-accent text-base font-medium">
-											{pack.subtitle}
-										</CardDescription>
-									</div>
-
-									<div class="mb-4 flex items-baseline gap-1">
-										<span class="font-display text-primary text-4xl">{pack.price}€</span>
-									</div>
-
-									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
-								</CardHeader>
-
-								<CardContent>
-									{/* Features */}
-									<ul class="list-none space-y-3">
-										{pack.features.map((feature) => (
-											<li class="flex items-start gap-3">
-												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<svg
-														class="text-accent h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="3"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<polyline points="20 6 9 17 4 12" />
-													</svg>
-												</div>
-												<span class="text-muted-foreground text-sm">{feature}</span>
-											</li>
-										))}
-									</ul>
-								</CardContent>
-
-								<CardFooter class="flex-col gap-4">
-									{/* Ideal for */}
-									<div class="bg-muted/50 w-full rounded-xl p-4">
-										<p class="text-sm">
-											<span class="text-primary font-medium">Ideal para ti si: </span>
-											<span class="text-muted-foreground">{pack.ideal}</span>
-										</p>
-									</div>
-									{/* CTA Button */}
-									<Button
-										variant={pack.highlight ? "hero" : "outline"}
-										class="w-full"
-										size="lg"
-										data-service-tier={pack.tier}
-									>
-										Reservar {pack.subtitle}
-									</Button>
-								</CardFooter>
-							</Card>
-						))
-					}
-				</div>
-			</div>
-		</section>
-
-		<section class="container mx-auto mt-16 mb-16 px-4 lg:mb-24 lg:px-8">
-			<div class="z-10 container mx-auto px-4 lg:px-8">
-				<div class="mx-auto max-w-4xl text-center">
-					<span
-						class="bg-coral-light/30 text-primary mb-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm"
-					>
-						<img src="/images/icons/cookie.svg" alt="Icono de galleta" class="h-4 w-4" />
-						Preparación para la maternidad
-					</span>
-					<h2 class="font-display text-primary mb-4 text-3xl md:text-4xl">
-						Consulta Preconcepcional
-					</h2>
-					<p class="text-muted-foreground mx-auto max-w-2xl">
-						Prepara tu cuerpo y tu mente para recibir una nueva vida
-					</p>
-				</div>
-			</div>
-		</section>
-		<section class="pb-24 lg:pb-32">
-			<div class="container mx-auto px-4 lg:px-8">
-				<div class="grid gap-8 md:grid-cols-2 lg:gap-6">
-					{
-						preconceptionPacks.map((pack, index) => (
-							<Card
-								class={`relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${
-									pack.highlight
-										? "border-accent ring-accent/20 shadow-lg ring-2"
-										: "border-border/50 hover:border-accent/50 hover:shadow-warm"
-								}`}
-								data-animate="animate-fade-up"
-								data-animate-duration="1s"
-								data-animate-delay={`${index * 300}ms`}
-							>
-								{pack.highlight && (
-									<div class="bg-accent text-accent-foreground absolute top-0 right-0 left-0 py-2 text-center text-sm font-medium">
-										Recomendado
-									</div>
-								)}
-
-								<CardHeader class={pack.highlight ? "pt-12" : ""}>
-									<div class="mb-4">
-										<CardTitle class="font-display text-primary mb-1 text-2xl">
-											{pack.name}
-										</CardTitle>
-										<CardDescription class="text-accent text-base font-medium">
-											{pack.subtitle}
-										</CardDescription>
-									</div>
-
-									<div class="mb-4 flex items-baseline gap-1">
-										<span class="font-display text-primary text-4xl">{pack.price}€</span>
-									</div>
-
-									<p class="text-muted-foreground text-sm leading-relaxed">{pack.description}</p>
-								</CardHeader>
-
-								<CardContent>
-									{/* Features */}
-									<ul class="list-none space-y-3">
-										{pack.features.map((feature) => (
-											<li class="flex items-start gap-3">
-												<div class="bg-accent/20 mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full">
-													<svg
-														class="text-accent h-3 w-3"
-														viewBox="0 0 24 24"
-														fill="none"
-														stroke="currentColor"
-														stroke-width="3"
-														stroke-linecap="round"
-														stroke-linejoin="round"
-													>
-														<polyline points="20 6 9 17 4 12" />
-													</svg>
-												</div>
-												<span class="text-muted-foreground text-sm">{feature}</span>
-											</li>
-										))}
-									</ul>
-								</CardContent>
-
-								<CardFooter class="flex-col gap-4">
-									{/* Ideal for */}
-									<div class="bg-muted/50 w-full rounded-xl p-4">
-										<p class="text-sm">
-											<span class="text-primary font-medium">Ideal para ti si: </span>
-											<span class="text-muted-foreground">{pack.ideal}</span>
-										</p>
-									</div>
-									{/* CTA Button */}
-									<Button
-										variant={pack.highlight ? "hero" : "outline"}
-										class="w-full"
-										size="lg"
-										data-service-tier={pack.tier}
-									>
-										Reservar {pack.subtitle}
-									</Button>
-								</CardFooter>
-							</Card>
-						))
-					}
-				</div>
-			</div>
-		</section>
-	</main>
-
-	<AdditionalInfo serviceName={serviceName} />
-
-	<script define:vars={{ phoneNumber, serviceName }}>
-		document.addEventListener("DOMContentLoaded", () => {
-			const buttons = document.querySelectorAll("button[data-service-tier]")
-
-			buttons.forEach((button) => {
-				button.addEventListener("click", () => {
-					const tier = button.getAttribute("data-service-tier") || "basic"
-					const message = encodeURIComponent(
-						`Hola! Me interesa saber más sobre *${serviceName}* - *Pack ${tier.charAt(0).toUpperCase() + tier.slice(1)}* de *Femm tribu*.`
-					)
-					window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-				})
-			})
-		})
-	</script>
-</Layout>
+<ServiceDetail
+	service={service}
+	serviceName="Salud Hormonal"
+	color="terracotta"
+	motif={motif}
+	eyebrow="Un viaje de autoconocimiento hormonal"
+	h1Accent="Salud Hormonal Femenina"
+	h1Tail="en Valencia y Online"
+	intro="Un viaje de autoconocimiento para entender tus hormonas y vivir en equilibrio. Acompañamiento en Valencia y online para reconciliarte con tu ciclo menstrual y potenciar tu vitalidad."
+	aboutTitle="¿Qué es una consulta de salud hormonal?"
+	aboutBody={aboutBody}
+	work={work}
+	audience={audience}
+	priceNote="60 min · Online o presencial · Sesión personalizada"
+	faqs={faqs}
+	relatedTitle="¿Buscas algo más específico?"
+	related={related}
+/>

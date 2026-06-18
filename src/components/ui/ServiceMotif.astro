@@ -1,0 +1,78 @@
+---
+/**
+ * ServiceMotif — brand visual panel for service cards.
+ *
+ * Behaviour (hybrid strategy):
+ *  - If `image` is passed, it shows the real photo (object-cover).
+ *  - If there is NO `image`, it falls back to the brand illustration (line-art
+ *    tinted to the stage colour over an organic texture). This is the default,
+ *    intentional and production-ready state.
+ *
+ * To add a photo later: pass `image="/images/servicios/xxx.webp"`.
+ * Nothing else changes; the slot is already reserved.
+ */
+import { STAGE, type StageColor } from "@/components/ui/stageColors"
+
+interface Props {
+	/** Path to the brand line-art illustration (fallback and watermark). */
+	motif: string
+	/** Optional real photo. When omitted, the motif is shown. */
+	image?: string
+	imageAlt?: string
+	/** Stage colour for tinting the motif and texture. */
+	color?: StageColor
+	class?: string
+}
+
+const { motif, image, imageAlt = "", color = "terracotta", class: className = "" } = Astro.props
+
+const c = STAGE[color]
+// Gradient halo start colour, specific to this component.
+const halo: Record<StageColor, string> = {
+	terracotta: "from-terracotta/15",
+	coral: "from-coral/15",
+	sage: "from-sage/15",
+	forest: "from-forest/15",
+}
+---
+
+<div class:list={["relative flex items-center justify-center overflow-hidden", c.soft, className]}>
+	{
+		image ? (
+			<img
+				src={image}
+				alt={imageAlt}
+				loading="lazy"
+				class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+			/>
+		) : (
+			<>
+				{/* Subtle brand organic texture */}
+				<span
+					class:list={[
+						"bg-organic-cells pointer-events-none absolute inset-0 opacity-[0.12]",
+						c.text,
+					]}
+					aria-hidden="true"
+				/>
+				{/* Organic halo behind the motif */}
+				<span
+					class:list={[
+						"shape-blob pointer-events-none absolute h-[78%] w-[78%] bg-gradient-to-br to-transparent",
+						halo[color],
+					]}
+					aria-hidden="true"
+				/>
+				{/* Line-art illustration tinted to the stage colour */}
+				<span
+					class:list={[
+						"mask-motif relative h-[55%] max-h-32 w-[55%] max-w-32 transition-transform duration-500 group-hover:scale-105",
+						c.text,
+					]}
+					style={`--motif:url('${motif}')`}
+					aria-hidden="true"
+				/>
+			</>
+		)
+	}
+</div>

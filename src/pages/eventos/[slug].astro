@@ -1,4 +1,13 @@
 ---
+import {
+	fetchEvents,
+	generateCalendarLink,
+	generateShareLinks,
+	generateWhatsAppReservationLink,
+	isGeneralEvent,
+	type GeneralEvent,
+} from "@events"
+
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import EventSchema from "@/components/schema/EventSchema.astro"
@@ -13,14 +22,6 @@ import EventVideoPlayer from "@/components/ui/EventVideoPlayer.astro"
 import ImageStack from "@/components/ui/polaroid-flick-through"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
-import {
-	fetchEvents,
-	generateCalendarLink,
-	generateShareLinks,
-	generateWhatsAppReservationLink,
-	isGeneralEvent,
-	type GeneralEvent,
-} from "@events"
 
 export const prerender = true
 
@@ -163,9 +164,11 @@ const seoData = event.seo
 						<circle cx="12" cy="10" r="3"></circle>
 					</svg>
 					<span class="font-body text-terracotta text-sm">
-						{event.sessions
-							? `${event.sessions[0].date} – ${event.sessions[event.sessions.length - 1].date}`
-							: event.date}{" "}
+						{
+							event.sessions
+								? `${event.sessions[0].date} – ${event.sessions[event.sessions.length - 1].date}`
+								: event.date
+						}{" "}
 						• {event.time} • {event.location}
 					</span>
 				</div>
@@ -324,15 +327,17 @@ const seoData = event.seo
 											<p class="font-body text-forest/70 text-sm">
 												{event.sessions ? "Fechas" : "Fecha"}
 											</p>
-											{event.sessions ? (
-												<ul class="font-body text-forest space-y-0.5">
-													{event.sessions.map((s) => (
-														<li class="font-medium">{s.date}</li>
-													))}
-												</ul>
-											) : (
-												<p class="font-body text-forest font-medium">{eventDetails.date}</p>
-											)}
+											{
+												event.sessions ? (
+													<ul class="font-body text-forest space-y-0.5">
+														{event.sessions.map((s) => (
+															<li class="font-medium">{s.date}</li>
+														))}
+													</ul>
+												) : (
+													<p class="font-body text-forest font-medium">{eventDetails.date}</p>
+												)
+											}
 										</div>
 									</div>
 									<div class="flex items-center gap-3">

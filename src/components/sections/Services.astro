@@ -1,91 +1,104 @@
 ---
-import ServiceInfoModal from "@/components/modals/ServiceInfoModal.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import Button from "@/components/ui/Button.astro"
-import { SERVICES } from "@/data/services"
+import OfferCard from "@/components/ui/OfferCard.astro"
+import SectionHeading from "@/components/ui/SectionHeading.astro"
+import { STAGE, type StageColor } from "@/components/ui/stageColors"
+import { CONSULTATION_PRICE, SERVICES } from "@/data/services"
 import { getAssetUrl } from "@/services/directus"
 
-const services = [
+interface HomeService {
+	id: string
+	icon: string
+	title: string
+	description: string
+	price: string
+	priceSuffix?: string
+	color: StageColor
+	href: string
+	badge?: { label: string; image: string }
+	highlight?: boolean
+	pack?: boolean
+}
+
+const services: HomeService[] = [
 	{
 		id: "salud-hormonal",
 		icon: "/images/icons/illustrations/ilustracion-negro_01.svg",
-		title: "Salud Hormonal",
+		title: SERVICES.saludHormonal.nameShort,
 		description:
-			"Entiende tu ciclo menstrual y vive en sintonía con tus fases. Aprende a escuchar las señales de tu cuerpo y toma decisiones desde el conocimiento.",
-		features: [
-			"Sesiones online personalizadas",
-			"Guías prácticas de nutrición y movimiento",
-			"Acompañamiento continuo",
-		],
-		price: "Ver más",
+			"Dolor menstrual, SPM, ciclos irregulares o desajustes hormonales. Aprende a escuchar tu cuerpo.",
+		price: `${CONSULTATION_PRICE}€`,
+		priceSuffix: "60 min",
 		color: "terracotta",
-		href: "/servicios/salud-hormonal",
+		href: SERVICES.saludHormonal.url,
+	},
+	{
+		id: "preconcepcional",
+		icon: "/images/icons/illustrations/ilustracion-negro_03.svg",
+		title: SERVICES.preconcepcional.nameShort,
+		description:
+			"Preparación consciente del embarazo. Ciclo, ovulación, nutrición y suplementación básica.",
+		price: `${CONSULTATION_PRICE}€`,
+		priceSuffix: "60 min",
+		color: "sage",
+		href: SERVICES.preconcepcional.url,
 	},
 	{
 		id: "preparacion-al-parto",
 		icon: "/images/icons/illustrations/ilustracion-negro_07.svg",
-		title: "Preparación al Parto",
+		title: SERVICES.preparacionParto.nameShort,
 		description:
-			"El parto es un proceso físico, emocional y mental. Te acompañamos a entender tu cuerpo, gestionar miedos y confiar en tu capacidad para parir.",
-		features: ["Fisiología del parto", "Movilidad y respiración", "Conexión en pareja"],
-		price: "Ver más",
+			"Sesión de dudas sobre embarazo, parto y posparto. Plan de parto, intervenciones y gestión del miedo.",
+		price: `${CONSULTATION_PRICE}€`,
+		priceSuffix: "60 min",
 		color: "coral",
-		href: "/servicios/preparacion-al-parto",
+		href: SERVICES.preparacionParto.url,
 	},
 	{
 		id: "lactancia",
 		icon: "/images/icons/illustrations/ilustracion-negro_05.svg",
-		title: "Lactancia",
+		title: SERVICES.lactancia.nameShort,
 		description:
-			"Cada lactancia es única. Te ayudamos a entender cómo funciona tu cuerpo, resolver dificultades y disfrutar de tu lactancia sin miedo ni culpa.",
-		features: ["Información basada en evidencia", "Resolución de dificultades", "Apoyo emocional"],
-		price: "Ver más",
+			"Agarre, dolor, producción, banco de leche, vuelta al trabajo y destete respetuoso.",
+		price: `${CONSULTATION_PRICE}€`,
+		priceSuffix: "60 min",
 		color: "sage",
-		href: "/servicios/lactancia",
+		href: SERVICES.lactancia.url,
+		// badge: {
+		// 	label: "Laura Jorge",
+		// 	image: "/images/logos/laura-jorge/laura-jorge-icon.png",
+		// },
 	},
 	{
 		id: "menopausia",
 		icon: "/images/icons/illustrations/ilustracion-negro_14.svg",
-		title: "Menopausia",
+		title: SERVICES.menopausia.nameShort,
 		description:
-			"Una etapa de cambios hormonales y emocionales. Te acompañamos a redescubrir tu energía y tomar decisiones conscientes sobre tu salud.",
-		features: ["Gestión de síntomas", "Estilo de vida saludable", "Bienestar integral"],
-		price: "Ver más",
+			"Sofocos, sueño, cambios emocionales, sequedad vaginal, salud ósea y hábitos de autocuidado.",
+		price: `${CONSULTATION_PRICE}€`,
+		priceSuffix: "60 min",
+		color: "terracotta",
+		href: SERVICES.menopausia.url,
+	},
+	{
+		id: "conoce-tu-ciclo",
+		icon: "/images/icons/illustrations/ilustracion-negro_02.svg",
+		title: SERVICES.conoceTuCiclo.nameShort,
+		description:
+			"Pack de 3 meses para aprender a entender, observar y conectar con tu ciclo menstrual.",
+		price: `${SERVICES.conoceTuCiclo.priceMin}€`,
+		priceSuffix: "3 meses",
 		color: "forest",
-		href: "/servicios/menopausia",
+		href: SERVICES.conoceTuCiclo.url,
+		highlight: true,
+		pack: true,
 	},
 ]
 
-const colorClasses = {
-	terracotta: {
-		bg: "bg-terracotta/10",
-		icon: "text-terracotta",
-		border: "border-terracotta/20",
-		hover: "hover:border-terracotta/40",
-	},
-	coral: {
-		bg: "bg-coral/10",
-		icon: "text-coral",
-		border: "border-coral/20",
-		hover: "hover:border-coral/40",
-	},
-	sage: {
-		bg: "bg-sage/10",
-		icon: "text-sage",
-		border: "border-sage/20",
-		hover: "hover:border-sage/40",
-	},
-	forest: {
-		bg: "bg-forest/10",
-		icon: "text-forest",
-		border: "border-forest/20",
-		hover: "hover:border-forest/40",
-	},
-}
-
-const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 const femmbarre = SERVICES.femmbarre
-
+const femmbarreMotif = "/images/icons/illustrations/ilustracion-negro_16.svg"
+const femmbarreImage = "434e8c6a-e85f-4c33-a049-298dd53bedcd"
 const femmbarreFeatures = [
 	"1 clase semanal en directo",
 	"Acceso a grabaciones",
@@ -95,8 +108,7 @@ const femmbarreFeatures = [
 ---
 
 <section id="servicios" class="bg-coral-light/10 relative overflow-hidden py-20 lg:py-28">
-	{/* Decorative blobs */}
-
+	{/* Decorative blob */}
 	<div
 		class="bg-coral/10 absolute bottom-0 left-0 h-80 w-80 -translate-x-1/2 translate-y-1/2 rounded-full blur-3xl"
 		aria-hidden="true"
@@ -104,7 +116,7 @@ const femmbarreFeatures = [
 	</div>
 
 	<div class="relative z-10 container mx-auto px-4">
-		{/* Header */}
+		{/* Header (kept large — section hero) */}
 		<div class="mx-auto mb-16 max-w-3xl text-center">
 			<span
 				class="bg-sage/20 text-forest font-body mb-4 inline-block rounded-full px-4 py-2 text-sm"
@@ -127,283 +139,149 @@ const femmbarreFeatures = [
 				data-animate-duration="1s"
 				data-animate-delay="0.2s"
 			>
-				Desde tu ciclo menstrual hasta la menopausia, pasando por el embarazo, el parto y la
-				lactancia. Una mirada integral y humana para cada momento de tu vida.
+				Consultas individuales con matrona a {CONSULTATION_PRICE}€, el pack Conoce tu Ciclo de 3
+				meses y FemmBarre prenatal. Elige lo que necesites para cada momento de tu vida.
 			</p>
 		</div>
 
-		{/* Services Grid */}
-		<div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:gap-8">
+		{/* Services grid — 6 compact stages */}
+		<div class="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
 			{
 				services.map((service, index) => {
-					const colors = colorClasses[service.color as keyof typeof colorClasses]
-
+					const color = STAGE[service.color]
 					return (
-						<div
+						<a
 							id={service.id}
-							class={`group bg-background relative rounded-3xl border-2 p-8 ${colors.border} ${colors.hover} hover:shadow-elegant scroll-mt-24 transition-all duration-300`}
+							href={service.href}
+							class:list={[
+								"group bg-background hover:shadow-elegant relative flex scroll-mt-24 flex-col rounded-3xl border-2 p-6 transition-all duration-300",
+								color.border,
+								color.hover,
+								service.highlight ? `ring-2 ring-offset-2 ${color.ring}` : "",
+							]}
 							data-animate="animate-fade-up"
 							data-animate-duration="1s"
-							data-animate-delay={`${index * 100}ms`}
+							data-animate-delay={`${index * 80}ms`}
 						>
-							{/* Header con Icon y Share Button */}
-							<div class="mb-6 flex items-start justify-between">
+							{/* Header with motif icon */}
+							<div class="mb-5 flex items-center justify-between">
 								<div
-									class={`h-16 w-16 ${colors.bg} flex items-center justify-center rounded-2xl transition-transform duration-300 group-hover:scale-110`}
+									class:list={[
+										"shape-organic flex h-14 w-14 items-center justify-center transition-transform duration-300 group-hover:scale-110",
+										color.soft,
+									]}
 								>
-									<img
-										src={service.icon}
-										alt={service.title}
-										class={`h-16 w-16 ${service.color}`}
-										style="filter: brightness(0) saturate(100%);"
-										loading="lazy"
+									<span
+										class:list={["mask-motif h-9 w-9", color.text]}
+										style={`--motif:url('${service.icon}')`}
+										aria-hidden="true"
 									/>
 								</div>
-								{service.id === "lactancia" && (
-									<img
-										src="/images/logos/laura-jorge/laura-jorge-icon.png"
-										alt="Laura Jorge"
-										loading="lazy"
-										class="ml-auto h-8 w-auto flex-shrink-0 object-contain"
-									/>
-								)}
-								<button
-									class="share-service-btn text-forest/40 hover:text-forest hover:bg-forest/5 flex h-11 w-11 cursor-pointer items-center justify-center rounded-lg transition-all duration-200"
-									data-service-id={service.id}
-									aria-label="Compartir servicio"
-									title="Copiar enlace"
+								<div class="flex flex-row items-center">
+									{service.badge && (
+										<img
+											src={service.badge.image}
+											alt={service.badge.label}
+											loading="lazy"
+											class="h-7 w-auto flex-shrink-0 object-contain"
+										/>
+									)}
+									{service.pack && (
+										<span class="bg-accent text-accent-foreground font-body rounded-full px-3 py-1 text-xs font-medium">
+											Pack
+										</span>
+									)}
+								</div>
+							</div>
+
+							{/* Content */}
+							<h3 class="font-display text-forest group-hover:text-accent mb-2 text-xl transition-colors lg:text-2xl">
+								{service.title}
+							</h3>
+							<p class="text-forest/70 font-body mb-5 flex-1 text-sm leading-relaxed">
+								{service.description}
+							</p>
+
+							{/* Price + arrow */}
+							<div class="border-forest/10 flex items-center justify-between border-t pt-4">
+								<div class="flex flex-col">
+									<span class="font-display text-forest text-lg">{service.price}</span>
+									{service.priceSuffix && (
+										<span class="text-forest/60 font-body text-xs">{service.priceSuffix}</span>
+									)}
+								</div>
+								<span
+									class:list={[
+										"flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1",
+										color.soft,
+									]}
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
-										width="20"
-										height="20"
+										width="16"
+										height="16"
 										viewBox="0 0 24 24"
 										fill="none"
 										stroke="currentColor"
 										stroke-width="2"
 										stroke-linecap="round"
 										stroke-linejoin="round"
+										class={color.text}
+										aria-hidden="true"
 									>
-										<circle cx="18" cy="5" r="3" />
-										<circle cx="6" cy="12" r="3" />
-										<circle cx="18" cy="19" r="3" />
-										<line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-										<line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+										<path d="M5 12h14" />
+										<path d="m12 5 7 7-7 7" />
 									</svg>
-								</button>
+								</span>
 							</div>
-
-							{/* Content */}
-							<Button
-								href={service.href !== "#" ? service.href : undefined}
-								variant="link"
-								class="p-0 no-underline hover:no-underline"
-							>
-								<h3 class="font-display text-forest mb-3 text-2xl lg:text-3xl">{service.title}</h3>
-							</Button>
-							<p class="text-forest/70 font-body mb-6 leading-relaxed">{service.description}</p>
-
-							{/* Features */}
-							<ul class="mb-6 space-y-2">
-								{service.features.map((feature) => (
-									<li class="text-forest/70 font-body flex items-center gap-2 text-sm">
-										<span class={`bg-terracotta h-1.5 w-1.5 rounded-full`} />
-										{feature}
-									</li>
-								))}
-							</ul>
-
-							{/* Price & CTA */}
-							<div class="border-forest/10 flex items-center justify-between border-t pt-4">
-								<Button
-									href={service.href !== "#" ? service.href : undefined}
-									variant="linkMuted"
-									class="no-underline hover:no-underline"
-									size="sm"
-								>
-									<span class="font-display text-forest text-xl">{service.price}</span>
-								</Button>
-								<Button
-									class="bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic service-info-btn rounded-full px-4 py-2 transition-all duration-300 hover:scale-105"
-									data-service-name={service.title}
-									data-service-href={service.href}
-								>
-									Pedir cita
-								</Button>
-							</div>
-						</div>
+						</a>
 					)
 				})
 			}
 		</div>
 
-		{/* Sesiones sueltas info */}
-		<div class="mx-auto mt-12 max-w-2xl">
-			<div
-				class="from-secondary/10 via-background to-accent/10 border-secondary/30 relative rounded-2xl border bg-gradient-to-r p-6"
+		{/* CTA to hub */}
+		<div
+			class="mt-10 text-center"
+			data-animate="animate-fade-up"
+			data-animate-duration="1s"
+			data-animate-delay="0.3s"
+		>
+			<Button
+				href="/servicios"
+				variant="outline"
+				class="rounded-full px-6 py-3 text-sm transition-all duration-300 hover:scale-105"
 			>
-				<div class="absolute -top-3 left-1/2 -translate-x-1/2">
-					<span
-						class="bg-background font-body text-primary/70 border-secondary/30 rounded-full border px-4 py-1 text-sm"
-					>
-						También disponible
-					</span>
-				</div>
-				<div class="pt-2 text-center">
-					<h3 class="font-display text-primary mb-2 text-xl">Sesiones sueltas</h3>
-					<p class="text-primary/80 font-body mb-3">
-						Si necesitas una consulta puntual sobre lactancia, salud hormonal, preparación al parto
-						o menopausia, reserva una sesión individual online o presencial en Valencia por
-						<data value="50" class="font-display text-primary text-xl font-semibold">50€</data>.
-					</p>
-					<a
-						href={`https://wa.me/34${phoneNumber}?text=${encodeURIComponent("¡Hola! Me gustaría reservar una sesión suelta en Femm tribu.")}`}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-accent font-body hover:text-accent/80 inline-flex items-center gap-1 text-sm font-semibold transition-colors"
-						onclick="window.gtag && window.gtag('event', 'cta_click', { cta_type: 'whatsapp', cta_label: 'sesion_suelta', page: window.location.pathname })"
-					>
-						Reservar sesión suelta
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
-						>
-					</a>
-				</div>
-			</div>
+				Ver todos los servicios
+			</Button>
 		</div>
 
-		{/* Schema: Sesión suelta */}
-		<ServiceSchema
-			name="Sesión suelta de matrona"
-			description="Consulta individual con matrona sobre lactancia, salud hormonal, preparación al parto o menopausia. Disponible online y presencial en Valencia."
-			serviceType="Consulta de matrona"
-			priceMin={50}
-		/>
-
-		{/* Más de FemmTribu — FemmBarre */}
+		{/* More from FemmTribu — FemmBarre */}
 		<div class="mt-20">
-			<div class="mx-auto mb-12 text-center">
-				<span
-					class="bg-accent/10 text-accent font-body mb-4 inline-block rounded-full px-4 py-2 text-sm"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-				>
-					Más de FemmTribu
-				</span>
-				<h3
-					class="font-display text-forest mb-4 text-3xl md:text-4xl"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-					data-animate-delay="0.1s"
-				>
-					Bienestar y movimiento
-				</h3>
-				<p
-					class="text-forest/70 font-body mx-auto max-w-2xl"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-					data-animate-delay="0.2s"
-				>
-					Además de nuestros servicios de acompañamiento, ofrecemos actividades de bienestar
-					diseñadas para cada etapa.
-				</p>
-			</div>
+			<SectionHeading
+				class="mb-12"
+				color="accent"
+				label="Más de FemmTribu"
+				title="Bienestar y movimiento"
+				subtitle="Además de nuestras consultas, ofrecemos FemmBarre Maternity: una suscripción mensual de barre prenatal online."
+			/>
 
-			<div class="mx-auto max-w-3xl">
-				<div
-					class="group bg-background border-accent/20 hover:border-accent/40 hover:shadow-warm relative grid overflow-hidden rounded-3xl border-2 transition-all duration-300 md:grid-cols-5"
-					data-animate="animate-fade-up"
-					data-animate-duration="1s"
-					data-animate-delay="0.3s"
-				>
-					{/* Image — left column */}
-					<div class="relative h-48 overflow-hidden md:col-span-2 md:h-full">
-						<img
-							src={getAssetUrl("434e8c6a-e85f-4c33-a049-298dd53bedcd")}
-							alt="FemmBarre Maternity — Barre prenatal para embarazadas"
-							class="h-full w-full object-cover object-[center_30%] transition-transform duration-500 group-hover:scale-105"
-							loading="lazy"
-						/>
-						<div
-							class="from-background/60 md:from-background/30 absolute inset-0 bg-gradient-to-t to-transparent md:bg-gradient-to-r"
-						>
-						</div>
-						<span
-							class="bg-accent text-accent-foreground font-body absolute top-4 left-4 inline-flex items-center gap-1 rounded-full border-0 px-3 py-1 text-xs font-medium"
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="12"
-								height="12"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line
-									x1="16"
-									y1="2"
-									x2="16"
-									y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line
-									x1="3"
-									y1="10"
-									x2="21"
-									y2="10"></line></svg
-							>
-							Suscripción mensual
-						</span>
-					</div>
-
-					{/* Content — right column */}
-					<div class="p-6 md:col-span-3">
-						<h4 class="font-display text-forest mb-1 text-xl">
-							<a href={femmbarre.url} class="hover:text-accent transition-colors">
-								{femmbarre.name}
-							</a>
-						</h4>
-						<p class="text-forest/60 font-body mb-3 text-sm">Barre prenatal para embarazadas</p>
-
-						<p class="text-forest/70 font-body mb-4 text-sm leading-relaxed">
-							Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier
-							sitio, a tu ritmo y con total seguridad.
-						</p>
-
-						<ul class="mb-4 grid grid-cols-2 gap-x-4 gap-y-1.5">
-							{
-								femmbarreFeatures.map((feature) => (
-									<li class="text-forest/70 font-body flex items-center gap-2 text-xs">
-										<span class="bg-accent h-1.5 w-1.5 flex-shrink-0 rounded-full" />
-										{feature}
-									</li>
-								))
-							}
-						</ul>
-
-						<div class="border-forest/10 flex items-center justify-between border-t pt-4">
-							<div>
-								<span class="font-display text-forest text-xl">{femmbarre.priceMin}€</span>
-								<span class="text-forest/60 font-body text-xs">/mes</span>
-							</div>
-							<Button
-								href={femmbarre.url}
-								variant="primary"
-								size="sm"
-								class="bg-gradient-terracota text-accent-foreground shadow-warm hover:shadow-organic rounded-full text-sm transition-all duration-300 hover:scale-105"
-							>
-								Descubre FemmBarre
-							</Button>
-						</div>
-					</div>
-				</div>
+			<div class="mx-auto max-w-3xl" data-animate="animate-fade-up" data-animate-duration="1s">
+				<OfferCard
+					href={femmbarre.url}
+					title={femmbarre.name}
+					subtitle="Barre prenatal para embarazadas"
+					body="Clases de barre adaptadas al embarazo, guiadas por matrona. Online desde cualquier sitio, a tu ritmo y con total seguridad."
+					features={femmbarreFeatures}
+					price={femmbarre.priceMin}
+					priceSuffix="/mes"
+					ctaLabel="Descubre FemmBarre"
+					badge="Suscripción mensual"
+					color="accent"
+					motif={femmbarreMotif}
+					image={getAssetUrl(femmbarreImage)}
+					imageAlt="FemmBarre Maternity — Barre prenatal para embarazadas"
+				/>
 			</div>
 
 			{/* Schema: FemmBarre */}
@@ -419,7 +297,7 @@ const femmbarreFeatures = [
 			/>
 		</div>
 
-		{/* CTA */}
+		{/* Final CTA */}
 		<div
 			class="mt-16 text-center"
 			data-animate="animate-fade-up"
@@ -438,100 +316,4 @@ const femmbarreFeatures = [
 			</a>
 		</div>
 	</div>
-	{/* Service Info Modal */}
-	<ServiceInfoModal />
 </section>
-
-<script define:vars={{ phoneNumber }}>
-	document.addEventListener("DOMContentLoaded", () => {
-		// Handle share buttons
-		const shareButtons = document.querySelectorAll(".share-service-btn")
-
-		shareButtons.forEach((button) => {
-			button.addEventListener("click", async (e) => {
-				e.stopPropagation()
-				const serviceId = button.getAttribute("data-service-id")
-				const url = `${window.location.origin}${window.location.pathname}#${serviceId}`
-
-				try {
-					await navigator.clipboard.writeText(url)
-
-					// Visual feedback
-					const originalHTML = button.innerHTML
-					button.innerHTML = `
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<polyline points="20 6 9 17 4 12"></polyline>
-						</svg>
-					`
-					button.classList.add("text-sage")
-
-					setTimeout(() => {
-						button.innerHTML = originalHTML
-						button.classList.remove("text-sage")
-					}, 2000)
-				} catch (err) {
-					console.error("Error al copiar el enlace:", err)
-				}
-			})
-		})
-
-		// Handle hash navigation and smooth scroll
-		if (window.location.hash) {
-			setTimeout(() => {
-				const element = document.querySelector(window.location.hash)
-				if (element) {
-					element.scrollIntoView({ behavior: "smooth", block: "center" })
-				}
-			}, 100)
-		}
-
-		const serviceButtons = document.querySelectorAll(".service-info-btn")
-
-		serviceButtons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const serviceName = button.getAttribute("data-service-name") || "nuestros servicios"
-				const href = button.getAttribute("data-service-href")
-
-				if (window.gtag) {
-					window.gtag("event", "service_inquiry", {
-						service_name: serviceName,
-						page: window.location.pathname,
-					})
-				}
-				const whatsappBtn = document.getElementById("whatsapp-service-btn")
-
-				if (href != "#" && href != null && whatsappBtn) {
-					const message = encodeURIComponent(
-						`¡Hola! Quiero reservar una cita para el servicio de *${serviceName}* de *Femm tribu*.`
-					)
-					window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-				}
-				// Update the WhatsApp button's data attribute in the modal
-				else if (whatsappBtn) {
-					whatsappBtn.setAttribute("data-service-name", serviceName)
-					// Open the modal
-					window.modalManager.open("service-info-modal")
-				}
-			})
-		})
-
-		// Handle "Más información" buttons
-		const masInfoButtons = document.querySelectorAll(".mas-info-btn")
-
-		masInfoButtons.forEach((button) => {
-			button.addEventListener("click", (e) => {
-				e.preventDefault()
-				const serviceName = button.getAttribute("data-service-name") || "nuestros servicios"
-
-				// Update the WhatsApp button's data attribute in the modal
-				const whatsappBtn = document.getElementById("whatsapp-service-btn")
-				if (whatsappBtn) {
-					whatsappBtn.setAttribute("data-service-name", serviceName)
-				}
-
-				// Open the modal
-				window.modalManager.open("service-info-modal")
-			})
-		})
-	})
-</script>

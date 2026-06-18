@@ -1,0 +1,112 @@
+---
+/**
+ * OfferCard — horizontal promo card (visual panel + content) used for the
+ * pack and the FemmBarre subscription on the hub and the home page.
+ * Visual is a ServiceMotif: pass `image` for a real photo, else the brand motif.
+ */
+import Button from "@/components/ui/Button.astro"
+import FeatureList from "@/components/ui/FeatureList.astro"
+import ServiceMotif from "@/components/ui/ServiceMotif.astro"
+import { STAGE, type StageColor, type TintColor } from "@/components/ui/stageColors"
+
+interface Props {
+	href: string
+	title: string
+	subtitle?: string
+	body: string
+	features: string[]
+	price: string | number
+	priceSuffix?: string
+	ctaLabel: string
+	/** Top-left badge text over the visual. */
+	badge?: string
+	color?: TintColor
+	motif: string
+	image?: string
+	imageAlt?: string
+}
+
+const {
+	href,
+	title,
+	subtitle,
+	body,
+	features,
+	price,
+	priceSuffix = "",
+	ctaLabel,
+	badge,
+	color = "terracotta",
+	motif,
+	image,
+	imageAlt = "",
+} = Astro.props
+
+const t = STAGE[color]
+// ServiceMotif only knows the 4 stage colors; fall back for "accent".
+const motifColor: StageColor = color === "accent" ? "terracotta" : color
+---
+
+<div
+	class:list={[
+		"group bg-background hover:shadow-warm relative grid overflow-hidden rounded-3xl border-2 transition-all duration-300 md:grid-cols-5",
+		t.border,
+		t.hover,
+	]}
+>
+	{/* Visual */}
+	<div class="relative md:col-span-2 md:h-full">
+		<ServiceMotif
+			motif={motif}
+			image={image}
+			imageAlt={imageAlt}
+			color={motifColor}
+			class="h-48 w-full md:h-full"
+		/>
+		{
+			badge && (
+				<span
+					class:list={[
+						t.badge,
+						"font-body absolute top-4 left-4 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium",
+					]}
+				>
+					{badge}
+				</span>
+			)
+		}
+	</div>
+
+	{/* Content */}
+	<div class="p-6 md:col-span-3">
+		<h3 class="font-display text-forest mb-1 text-xl lg:text-2xl">
+			<a href={href} class="hover:text-accent transition-colors">{title}</a>
+		</h3>
+		{subtitle && <p class="text-muted-foreground mb-3 text-sm">{subtitle}</p>}
+		<p class="text-muted-foreground mb-4 text-sm leading-relaxed">{body}</p>
+
+		<FeatureList
+			items={features}
+			marker="dot"
+			color={color}
+			cols={2}
+			size="sm"
+			class="mb-4 grid grid-cols-2 gap-x-4 gap-y-1.5"
+		/>
+
+		<div class="border-border/30 flex items-center justify-between border-t pt-4">
+			<div>
+				<span class="font-display text-forest text-xl">{price}€</span>
+				{priceSuffix && <span class="text-muted-foreground text-xs">{priceSuffix}</span>}
+			</div>
+			<Button
+				href={href}
+				variant="hero"
+				size="sm"
+				class="rounded-full text-sm transition-all duration-300 hover:scale-105"
+			>
+				{ctaLabel}
+			</Button>
+		</div>
+	</div>
+</div>
