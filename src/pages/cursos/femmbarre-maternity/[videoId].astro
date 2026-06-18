@@ -34,7 +34,7 @@ if (!videoResult.data) {
 const video = videoResult.data
 
 // Fetch all videos from this course for the playlist
-const videosResult = await listVideos({ courseId: "femmbarre-maternity" })
+const videosResult = await listVideos({ courseId: "56371f21-2208-466a-bf2a-9d5121d66a56" })
 const allVideos: Video[] = videosResult.data ?? []
 const sortedVideos = [...allVideos].sort(
 	(a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
