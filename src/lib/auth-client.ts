@@ -61,10 +61,21 @@ export function clearCachedUser(): void {
 	}
 }
 
+// In-flight dedup: concurrent callers (UserNav + MobileMenuAuth) share one fetch.
+let _inflight: Promise<CachedUser | null> | null = null
+
 // Fetches the authoritative auth state from the server and updates the cache.
 // Returns the user (or null if logged out). Returns the previous cache value
 // on a network error so a transient failure doesn't wipe a valid session.
 export async function fetchUser(): Promise<CachedUser | null> {
+	if (_inflight) return _inflight
+	_inflight = _doFetch().finally(() => {
+		_inflight = null
+	})
+	return _inflight
+}
+
+async function _doFetch(): Promise<CachedUser | null> {
 	try {
 		const res = await fetch("/api/user/me", {
 			headers: { Accept: "application/json" },

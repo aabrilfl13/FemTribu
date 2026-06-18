@@ -9,11 +9,13 @@ interface MobileMenuAuthProps {
 export default function MobileMenuAuth({ initialUser }: MobileMenuAuthProps) {
 	// Seed from server user / session cache / undefined — see UserNav for the
 	// full rationale. Static nav shell + client-cached auth = no logged-out flash.
-	const [user, setUser] = useState<AuthState>(
-		() => initialUser ?? (typeof window === "undefined" ? undefined : getCachedUser())
-	)
+	const [user, setUser] = useState<AuthState>(initialUser)
 
 	useEffect(() => {
+		if (initialUser === undefined) {
+			const cached = getCachedUser()
+			if (cached !== undefined) setUser(cached)
+		}
 		fetchUser().then(setUser)
 	}, [])
 

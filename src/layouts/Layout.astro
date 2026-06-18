@@ -142,6 +142,11 @@ const announcementStories = await getAnnouncements()
 		<script is:inline>
 			async function fetchUserId() {
 				try {
+					const cached = sessionStorage.getItem("femm-user")
+					if (cached !== null) {
+						const user = JSON.parse(cached)
+						return user?.id ?? null
+					}
 					const res = await fetch("/api/user/me", { credentials: "same-origin" })
 					if (!res.ok) return null
 					const data = await res.json()
@@ -186,7 +191,7 @@ const announcementStories = await getAnnouncements()
 			<!-- Static nav shell. Auth widgets (UserNav / MobileMenuAuth) hydrate
 			     client-side from the session cache, so there is no logged-out flash
 			     and the mobile menu's inline scripts run against real DOM. -->
-			<Nav scrolled={navScrolled} initialUser={Astro.locals.user ?? null} />
+			<Nav scrolled={navScrolled} initialUser={Astro.locals.user} />
 			<slot />
 			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />

@@ -12,13 +12,15 @@ export default function UserNav({ initialUser }: UserNavProps) {
 	// or `undefined` on a first visit (render a neutral skeleton, never the
 	// logged-out buttons). The server render is always `undefined` so initial
 	// markup matches; the client lazy-initializer reads the cache before paint.
-	const [user, setUser] = useState<AuthState>(
-		() => initialUser ?? (typeof window === "undefined" ? undefined : getCachedUser())
-	)
+	const [user, setUser] = useState<AuthState>(initialUser)
 	const [dropdownOpen, setDropdownOpen] = useState(false)
 
-	// Refresh authoritative state once on mount, keeping the cache warm.
 	useEffect(() => {
+		// Seed from cache before fetching so repeat navigations don't flash.
+		if (initialUser === undefined) {
+			const cached = getCachedUser()
+			if (cached !== undefined) setUser(cached)
+		}
 		fetchUser().then(setUser)
 	}, [])
 
