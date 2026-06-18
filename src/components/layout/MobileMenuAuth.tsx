@@ -1,18 +1,36 @@
-interface User {
-	id: string
-	email: string
-	displayName: string | null
-	avatarUrl: string | null
-	emailVerified: boolean
-}
+import { useEffect, useState } from "react"
+
+import { fetchUser, getCachedUser, type AuthState, type CachedUser } from "@/lib/auth-client"
 
 interface MobileMenuAuthProps {
-	initialUser?: User | null
+	initialUser?: CachedUser | null
 }
 
 export default function MobileMenuAuth({ initialUser }: MobileMenuAuthProps) {
-	// Since Nav is a Server Island, initialUser is always provided from Astro.locals
-	const user = initialUser ?? null
+	// Seed from server user / session cache / undefined — see UserNav for the
+	// full rationale. Static nav shell + client-cached auth = no logged-out flash.
+	const [user, setUser] = useState<AuthState>(
+		() => initialUser ?? (typeof window === "undefined" ? undefined : getCachedUser())
+	)
+
+	useEffect(() => {
+		fetchUser().then(setUser)
+	}, [])
+
+	// First visit, state unknown: neutral skeleton instead of the login buttons.
+	if (user === undefined) {
+		return (
+			<div className="mobile-auth-section mb-6 flex w-full flex-col gap-2 pb-8" aria-hidden="true">
+				<div className="mb-4 flex items-center gap-4">
+					<div className="h-16 w-16 flex-shrink-0 animate-pulse rounded-full bg-[#37443a]/10" />
+					<div className="flex-1 space-y-2">
+						<div className="h-4 w-32 animate-pulse rounded bg-[#37443a]/10" />
+						<div className="h-3 w-40 animate-pulse rounded bg-[#37443a]/10" />
+					</div>
+				</div>
+			</div>
+		)
+	}
 
 	const displayName = user?.displayName || user?.email?.split("@")[0] || "Usuario"
 	const initials = user
