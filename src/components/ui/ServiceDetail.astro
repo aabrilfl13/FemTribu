@@ -104,11 +104,19 @@ const floatingCaption = priceNote.split("·")[0].trim()
 	<main id="main-content" class="pt-21">
 		{/* Hero */}
 		<section class="container mx-auto mt-16 mb-10 px-4 lg:px-8">
+			<div
+				class:list={[
+					t.soft,
+					"shape-blob pointer-events-none absolute -top-12 right-0 h-64 w-64 translate-x-1/3 md:hidden",
+				]}
+				aria-hidden="true"
+			>
+			</div>
 			<div class="relative">
 				<div
 					class:list={[
 						t.soft,
-						"shape-blob pointer-events-none absolute -top-12 right-0 h-64 w-64 translate-x-1/3",
+						"shape-blob pointer-events-none absolute -top-12 right-0 hidden h-64 w-64 translate-x-1/3 md:block",
 					]}
 					aria-hidden="true"
 				>
