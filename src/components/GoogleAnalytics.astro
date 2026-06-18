@@ -40,7 +40,7 @@ const isDevelopment = import.meta.env.DEV
 			gtag("js", new Date())
 			gtag("config", GA_ID, userId ? { user_id: userId } : undefined)
 
-			console.log("GA4: Activado tras consentimiento.")
+			// console.log("GA4: Activado tras consentimiento.")
 		}
 
 		window.addEventListener("load-analytics-services", (event) => {
