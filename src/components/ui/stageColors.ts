@@ -22,6 +22,8 @@ export interface Tint {
 	chip: string
 	/** solid badge (bg + text) */
 	badge: string
+	/** highlight ring (for featured cards) */
+	ring: string
 }
 
 export const STAGE: Record<TintColor, Tint> = {
@@ -33,6 +35,7 @@ export const STAGE: Record<TintColor, Tint> = {
 		hover: "hover:border-terracotta/40",
 		chip: "bg-terracotta/15 text-terracotta-dark",
 		badge: "bg-terracotta text-cream",
+		ring: "ring-terracotta/50",
 	},
 	coral: {
 		text: "text-coral",
@@ -42,6 +45,7 @@ export const STAGE: Record<TintColor, Tint> = {
 		hover: "hover:border-coral/40",
 		chip: "bg-coral/15 text-terracotta-dark",
 		badge: "bg-coral text-cream",
+		ring: "ring-coral/50",
 	},
 	sage: {
 		text: "text-sage",
@@ -51,6 +55,7 @@ export const STAGE: Record<TintColor, Tint> = {
 		hover: "hover:border-sage/45",
 		chip: "bg-sage/20 text-forest",
 		badge: "bg-sage text-cream",
+		ring: "ring-sage/50",
 	},
 	forest: {
 		text: "text-forest",
@@ -60,6 +65,7 @@ export const STAGE: Record<TintColor, Tint> = {
 		hover: "hover:border-forest/40",
 		chip: "bg-forest/10 text-forest",
 		badge: "bg-forest text-cream",
+		ring: "ring-forest/50",
 	},
 	accent: {
 		text: "text-accent",
@@ -69,5 +75,6 @@ export const STAGE: Record<TintColor, Tint> = {
 		hover: "hover:border-accent/40",
 		chip: "bg-accent/10 text-accent",
 		badge: "bg-accent text-accent-foreground",
+		ring: "ring-accent/50",
 	},
 }
