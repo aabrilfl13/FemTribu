@@ -1,21 +1,26 @@
 import { useEffect, useState } from "react"
 
-interface User {
-	id: string
-	email: string
-	displayName: string | null
-	avatarUrl: string | null
-	emailVerified: boolean
-}
+import { fetchUser, getCachedUser, type AuthState, type CachedUser } from "@/lib/auth-client"
 
 interface UserNavProps {
-	initialUser?: User | null
+	initialUser?: CachedUser | null
 }
 
 export default function UserNav({ initialUser }: UserNavProps) {
-	// Since Nav is a Server Island, initialUser is always provided from Astro.locals
-	const user = initialUser ?? null
+	// Nav is now a static shell. Seed from (in order): a server-provided user
+	// (SSR pages like /perfil), the session cache (repeat navigation — no flash),
+	// or `undefined` on a first visit (render a neutral skeleton, never the
+	// logged-out buttons). The server render is always `undefined` so initial
+	// markup matches; the client lazy-initializer reads the cache before paint.
+	const [user, setUser] = useState<AuthState>(
+		() => initialUser ?? (typeof window === "undefined" ? undefined : getCachedUser())
+	)
 	const [dropdownOpen, setDropdownOpen] = useState(false)
+
+	// Refresh authoritative state once on mount, keeping the cache warm.
+	useEffect(() => {
+		fetchUser().then(setUser)
+	}, [])
 
 	// Setup click-outside handler for dropdown
 	useEffect(() => {
@@ -29,6 +34,17 @@ export default function UserNav({ initialUser }: UserNavProps) {
 		document.addEventListener("click", handleClickOutside)
 		return () => document.removeEventListener("click", handleClickOutside)
 	}, [])
+
+	// First visit, state unknown: neutral placeholder so we never flash the
+	// logged-out buttons before the user is resolved.
+	if (user === undefined) {
+		return (
+			<div
+				className="h-10 w-28 animate-pulse rounded-full bg-white/10 [.scrolled_&]:bg-[#37443a]/10"
+				aria-hidden="true"
+			/>
+		)
+	}
 
 	if (!user) {
 		// Show Login/Register buttons

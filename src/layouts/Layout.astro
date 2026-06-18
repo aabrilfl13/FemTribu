@@ -183,9 +183,10 @@ const announcementStories = await getAnnouncements()
 				<div class="snow"></div>
 				<div class="snow"></div>
 			</div> -->
-			<Nav server:defer scrolled={navScrolled}>
-				<Nav slot="fallback" scrolled={navScrolled} initialUser={null} />
-			</Nav>
+			<!-- Static nav shell. Auth widgets (UserNav / MobileMenuAuth) hydrate
+			     client-side from the session cache, so there is no logged-out flash
+			     and the mobile menu's inline scripts run against real DOM. -->
+			<Nav scrolled={navScrolled} initialUser={Astro.locals.user ?? null} />
 			<slot />
 			<StoriesModal id="announcements-stories" stories={announcementStories} />
 			<Footer />
