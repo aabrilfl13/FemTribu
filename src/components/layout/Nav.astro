@@ -82,7 +82,12 @@ const navItems = [
 			>
 				{
 					navItems.map((item) => (
-						<div class="nav-item-wrapper relative">
+						<div
+							class:list={[
+								"nav-item-wrapper relative",
+								{ "hidden xl:block": item.label === "Inicio" },
+							]}
+						>
 							{item.subGroups ? (
 								<>
 									<button
