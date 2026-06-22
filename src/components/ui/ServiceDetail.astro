@@ -91,7 +91,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 ---
 
 <Layout navScrolled={true} {...seoData}>
-	<BreadcrumbSchema items={[{ name: "Servicios" }, { name: serviceName }]} />
+	<BreadcrumbSchema items={[{ name: "Servicios", href: "/servicios/" }, { name: serviceName }]} />
 	<ServiceSchema
 		name={service.name}
 		description={service.description}
