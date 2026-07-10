@@ -7,6 +7,7 @@
  *
  * Every detail page is a thin data wrapper over this component.
  */
+import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
@@ -103,7 +104,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 
 	<main id="main-content" class="pt-21">
 		{/* Hero */}
-		<section class="container mx-auto mt-16 mb-10 px-4 lg:px-8">
+		<section class="container mx-auto mt-16 mb-10 px-4 lg:px-8" data-funnel-section="hero">
 			<div
 				class:list={[
 					t.soft,
@@ -146,7 +147,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 		</section>
 
 		{/* Body: visual + copy */}
-		<section class="container mx-auto px-4 pb-8 lg:px-8">
+		<section class="container mx-auto px-4 pb-8 lg:px-8" data-funnel-section="about">
 			<div class="mx-auto grid max-w-5xl items-start gap-10 lg:grid-cols-2 lg:gap-14">
 				<div class="lg:sticky lg:top-28" data-animate="animate-fade-up" data-animate-duration="1s">
 					<ServiceMotif
@@ -172,7 +173,11 @@ const floatingCaption = priceNote.split("·")[0].trim()
 		</section>
 
 		{/* Single price card */}
-		<section data-reserve-cta class="container mx-auto px-4 py-10 lg:px-8">
+		<section
+			data-reserve-cta
+			data-funnel-section="price_cta"
+			class="container mx-auto px-4 py-10 lg:px-8"
+		>
 			<div
 				class:list={[
 					"bg-card mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-3xl border-2 p-8 text-center transition-all duration-300 sm:flex-row sm:justify-between sm:text-left",
@@ -188,7 +193,13 @@ const floatingCaption = priceNote.split("·")[0].trim()
 				</div>
 				<div class="flex flex-col items-center gap-3 sm:items-end">
 					<span class="font-display text-primary text-4xl">{service.priceMin}€</span>
-					<Button variant="hero" size="lg" class="rounded-full" data-service-name={service.name}>
+					<Button
+						variant="hero"
+						size="lg"
+						class="rounded-full"
+						data-service-name={service.name}
+						data-cta-position="price_card"
+					>
 						{ctaLabel}
 					</Button>
 				</div>
@@ -198,7 +209,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 		{/* Optional extra block (collaboration / group banner / comparison) */}
 		{
 			hasExtra && (
-				<section class="container mx-auto px-4 pb-4 lg:px-8">
+				<section class="container mx-auto px-4 pb-4 lg:px-8" data-funnel-section="extra">
 					<div class="mx-auto max-w-3xl">
 						<slot />
 					</div>
@@ -209,7 +220,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 		{/* Related services */}
 		{
 			related.length > 0 && (
-				<section class="container mx-auto px-4 py-12 lg:px-8">
+				<section class="container mx-auto px-4 py-12 lg:px-8" data-funnel-section="related">
 					<div class="mx-auto max-w-5xl">
 						<h2 class="font-display text-primary mb-8 text-center text-2xl lg:text-3xl">
 							{relatedTitle}
@@ -260,13 +271,15 @@ const floatingCaption = priceNote.split("·")[0].trim()
 		}
 
 		{/* FAQ — shared visible component + FAQPage JSON-LD */}
-		<FAQ
-			faqs={faqs}
-			title={faqTitle ?? `Preguntas frecuentes sobre ${serviceName.toLowerCase()}`}
-		/>
+		<div data-funnel-section="faq">
+			<FAQ
+				faqs={faqs}
+				title={faqTitle ?? `Preguntas frecuentes sobre ${serviceName.toLowerCase()}`}
+			/>
+		</div>
 		<FAQSchema faqs={faqs} />
 
-		<div data-reserve-cta>
+		<div data-reserve-cta data-funnel-section="additional_info">
 			<AdditionalInfo serviceName={serviceName} />
 		</div>
 	</main>
@@ -278,3 +291,4 @@ const floatingCaption = priceNote.split("·")[0].trim()
 	priceLabel={`${service.priceMin}€`}
 	caption={floatingCaption}
 />
+<SectionFunnel />

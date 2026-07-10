@@ -1,4 +1,5 @@
 ---
+import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
@@ -114,7 +115,7 @@ const faqs = [
 
 	<main id="main-content" class="pt-21">
 		{/* ── Hero ── */}
-		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-12 lg:px-8">
+		<section class="container mx-auto mt-16 mb-8 px-4 lg:mb-12 lg:px-8" data-funnel-section="hero">
 			<div class="mx-auto max-w-3xl text-center">
 				<div class="mb-4 flex flex-wrap items-center justify-center gap-2">
 					<a
@@ -199,7 +200,7 @@ const faqs = [
 		</section>
 
 		{/* ── Por qué con una matrona ── */}
-		<section class="bg-coral-light/10 py-16 lg:py-20">
+		<section class="bg-coral-light/10 py-16 lg:py-20" data-funnel-section="why_reasons">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mb-10 text-center" data-animate="animate-fade-up" data-animate-duration="1s">
 					<h2 class="font-display text-primary mb-3 text-3xl lg:text-4xl">
@@ -233,7 +234,7 @@ const faqs = [
 		</section>
 
 		{/* ── Service detail ── */}
-		<section class="py-16 lg:py-24">
+		<section class="py-16 lg:py-24" data-funnel-section="detail_price">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mx-auto flex max-w-5xl flex-col items-center gap-10 lg:flex-row lg:gap-16">
 					{/* Price card */}
@@ -377,21 +378,26 @@ const faqs = [
 			</div>
 		</section>
 
-		<FAQ
-			faqs={faqs}
-			title="Preguntas frecuentes"
-			subtitle="Resolvemos las dudas más comunes sobre este servicio"
-		/>
+		<div data-funnel-section="faq">
+			<FAQ
+				faqs={faqs}
+				title="Preguntas frecuentes"
+				subtitle="Resolvemos las dudas más comunes sobre este servicio"
+			/>
+		</div>
 
 		{/* ── Divider ── */}
 		<div class="container mx-auto px-4 lg:px-8">
 			<div class="border-border/30 mx-auto max-w-xs border-t"></div>
 		</div>
 
-		<AdditionalInfo serviceName="Pendientes para Bebés" />
+		<div data-funnel-section="additional_info">
+			<AdditionalInfo serviceName="Pendientes para Bebés" />
+		</div>
 	</main>
 
 	<FloatingReserve serviceName={service.name} priceLabel={`${service.price}€`} caption="Valencia" />
+	<SectionFunnel />
 </Layout>
 
 <script define:vars={{ phoneNumber, serviceName: service.name }}>

@@ -41,6 +41,7 @@ const { serviceName, priceLabel, caption, ctaLabel = "Reservar" } = Astro.props
 			<button
 				type="button"
 				data-service-name={serviceName}
+				data-cta-position="floating"
 				class="bg-accent text-cream hover:bg-accent/90 shadow-warm inline-flex flex-shrink-0 items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-all duration-300 hover:scale-105"
 			>
 				<WhatsAppIcon class="h-4 w-4" />

@@ -1,0 +1,39 @@
+{
+	/**
+	 * SectionFunnel — fires a GA4 "section_view" event the first time each
+	 * `[data-funnel-section="name"]` element enters the viewport. Drop once per
+	 * page; mark whichever sections you want in the funnel with the attribute.
+	 */
+}
+<script is:inline>
+	function initSectionFunnel() {
+		const sections = document.querySelectorAll("[data-funnel-section]")
+		if (sections.length === 0) return
+
+		const seen = new Set()
+		const io = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (!entry.isIntersecting) return
+					const name = entry.target.getAttribute("data-funnel-section")
+					if (seen.has(name)) return
+					seen.add(name)
+					io.unobserve(entry.target)
+
+					if (typeof window.gtag === "function") {
+						window.gtag("event", "section_view", {
+							section_name: name,
+							page: window.location.pathname,
+						})
+					}
+				})
+			},
+			{ threshold: 0.4 }
+		)
+
+		sections.forEach((el) => io.observe(el))
+	}
+
+	document.addEventListener("DOMContentLoaded", initSectionFunnel)
+	document.addEventListener("astro:page-load", initSectionFunnel)
+</script>

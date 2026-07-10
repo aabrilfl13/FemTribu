@@ -2,6 +2,7 @@
 import { getVideo } from "@videos"
 import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
+import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
 import FAQ from "@/components/FAQ.astro"
 import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
 import FAQSchema from "@/components/schema/FAQSchema.astro"
@@ -168,7 +169,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	}
 	<main id="main-content">
 		<!-- Hero -->
-		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24">
+		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24" data-funnel-section="hero">
 			<div class="relative z-10 container mx-auto px-4 lg:px-8">
 				<div class="grid items-center gap-12 lg:grid-cols-2">
 					<!-- Text -->
@@ -282,7 +283,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</section>
 
 		<!-- Benefits -->
-		<section class="bg-muted/30 py-20">
+		<section class="bg-muted/30 py-20" data-funnel-section="benefits">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mb-16 text-center">
 					<h2
@@ -325,7 +326,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</section>
 
 		<!-- Schedule -->
-		<section class="py-20">
+		<section class="py-20" data-funnel-section="schedule">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mx-auto max-w-3xl">
 					<div class="mb-12 text-center">
@@ -381,7 +382,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</section>
 
 		<!-- Material necesario -->
-		<section class="bg-muted/30 py-20">
+		<section class="bg-muted/30 py-20" data-funnel-section="materials">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div class="mx-auto max-w-3xl">
 					<div class="mb-12 text-center">
@@ -425,7 +426,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</section>
 
 		<!-- FAQs -->
-		<section class="pt-20">
+		<section class="pt-20" data-funnel-section="faq">
 			<FAQ faqs={faqs} />
 		</section>
 
@@ -470,7 +471,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	-->
 
 		<!-- CTA / Pricing -->
-		<section class="py-20">
+		<section class="py-20" data-funnel-section="pricing_cta">
 			<div class="container mx-auto px-4 lg:px-8">
 				<div
 					class="from-accent/10 via-background to-coral/10 border-accent/20 mx-auto max-w-3xl rounded-3xl border bg-gradient-to-br p-12 text-center"
@@ -549,6 +550,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		caption="mes"
 		ctaLabel="Suscribirse"
 	/>
+	<SectionFunnel />
 </Layout>
 
 <script define:vars={{ phoneNumber, serviceName }}>

@@ -13,6 +13,15 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 	function femmWaOpen(text) {
 		window.open(`https://wa.me/34${phoneNumber}?text=${encodeURIComponent(text)}`, "_blank")
 	}
+	function femmTrackCta(button, ctaType, label) {
+		if (typeof window.gtag !== "function") return
+		window.gtag("event", "cta_click", {
+			cta_type: ctaType,
+			cta_label: label,
+			cta_position: button.getAttribute("data-cta-position") || "unknown",
+			page: window.location.pathname,
+		})
+	}
 	function femmBindWhatsApp() {
 		// Booking buttons
 		document
@@ -21,6 +30,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				button.setAttribute("data-wa-bound", "1")
 				button.addEventListener("click", () => {
 					const name = button.getAttribute("data-service-name") || "un servicio"
+					femmTrackCta(button, "reservar", name)
 					femmWaOpen(`Hola! Me interesa reservar *${name}* de *Femm tribu*.`)
 				})
 			})
@@ -31,6 +41,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 				button.setAttribute("data-wa-bound", "1")
 				button.addEventListener("click", () => {
 					const inquiry = button.getAttribute("data-whatsapp-inquiry") || "un servicio"
+					femmTrackCta(button, "consulta", inquiry)
 					femmWaOpen(`Hola! Me interesa saber sobre *${inquiry}* de *Femm tribu*.`)
 				})
 			})
