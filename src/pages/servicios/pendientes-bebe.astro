@@ -6,6 +6,7 @@ import ProductSchema from "@/components/schema/ProductSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
 import Button from "@/components/ui/Button.astro"
+import FloatingReserve from "@/components/ui/FloatingReserve.astro"
 import { ADDON_SERVICES } from "@/data/services"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
@@ -179,6 +180,7 @@ const faqs = [
 					data-animate="animate-fade-up"
 					data-animate-duration="1s"
 					data-animate-delay="0.3s"
+					data-reserve-cta
 				>
 					<Button variant="hero" size="lg" data-service-name={service.name}>
 						Reservar cita
@@ -351,18 +353,20 @@ const faqs = [
 							</ul>
 						</div>
 
-						<Button variant="hero" size="lg" data-service-name={service.name}>
-							Reservar cita por WhatsApp
-							<svg
-								class="ml-1 h-4 w-4"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
-								></polyline></svg
-							>
-						</Button>
+						<div data-reserve-cta>
+							<Button variant="hero" size="lg" data-service-name={service.name}>
+								Reservar cita por WhatsApp
+								<svg
+									class="ml-1 h-4 w-4"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"
+									></polyline></svg
+								>
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -381,6 +385,8 @@ const faqs = [
 
 		<AdditionalInfo serviceName="Pendientes para Bebés" />
 	</main>
+
+	<FloatingReserve serviceName={service.name} priceLabel={`${service.price}€`} caption="Valencia" />
 </Layout>
 
 <script define:vars={{ phoneNumber }}>
