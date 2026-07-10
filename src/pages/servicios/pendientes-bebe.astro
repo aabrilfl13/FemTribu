@@ -182,7 +182,7 @@ const faqs = [
 					data-animate-delay="0.3s"
 					data-reserve-cta
 				>
-					<Button variant="hero" size="lg" data-service-name={service.name}>
+					<Button id="reserve-hero-btn" variant="hero" size="lg" data-service-name={service.name}>
 						Reservar cita
 						<svg
 							class="ml-1 h-4 w-4"
@@ -354,7 +354,12 @@ const faqs = [
 						</div>
 
 						<div data-reserve-cta>
-							<Button variant="hero" size="lg" data-service-name={service.name}>
+							<Button
+								id="reserve-detail-btn"
+								variant="hero"
+								size="lg"
+								data-service-name={service.name}
+							>
 								Reservar cita por WhatsApp
 								<svg
 									class="ml-1 h-4 w-4"
@@ -389,18 +394,29 @@ const faqs = [
 	<FloatingReserve serviceName={service.name} priceLabel={`${service.price}€`} caption="Valencia" />
 </Layout>
 
-<script define:vars={{ phoneNumber }}>
+<script define:vars={{ phoneNumber, serviceName: service.name }}>
 	document.addEventListener("DOMContentLoaded", () => {
-		const buttons = document.querySelectorAll("button[data-service-name]")
+		const heroBtn = document.getElementById("reserve-hero-btn")
+		const detailBtn = document.getElementById("reserve-detail-btn")
+		const floatingBtn = document.querySelector("#floating-reserve button")
 
-		buttons.forEach((button) => {
-			button.addEventListener("click", () => {
-				const serviceName = button.getAttribute("data-service-name") || "Pendientes para Bebés"
-				const message = encodeURIComponent(
-					`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
-				)
-				window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
-			})
-		})
+		const handleReserve = (ctaPosition) => {
+			if (typeof window.gtag === "function") {
+				window.gtag("event", "cta_click", {
+					cta_type: "reservar",
+					cta_label: serviceName,
+					cta_position: ctaPosition,
+					page: window.location.pathname,
+				})
+			}
+			const message = encodeURIComponent(
+				`Hola! Me interesa reservar el servicio de *${serviceName}* de *Femm tribu*.`
+			)
+			window.open(`https://wa.me/34${phoneNumber}?text=${message}`, "_blank")
+		}
+
+		heroBtn?.addEventListener("click", () => handleReserve("hero"))
+		detailBtn?.addEventListener("click", () => handleReserve("detail"))
+		floatingBtn?.addEventListener("click", () => handleReserve("floating"))
 	})
 </script>
