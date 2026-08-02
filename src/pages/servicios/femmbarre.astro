@@ -43,11 +43,9 @@ const benefits = [
 		icon: "13bac3ec-332d-497e-88c1-142652fdfb67",
 		title: "Online desde cualquier sitio",
 		description:
-			"Clase semanal en directo y acceso a todas las grabaciones para que entrenes a tu ritmo, cuando quieras.",
+			"Clase nueva cada semana y acceso a todas las grabaciones para que entrenes a tu ritmo, cuando quieras.",
 	},
 ]
-
-const scheduleItems = [{ day: "Martes", time: "19:15h", type: "Barre Maternity" }]
 
 // TODO: Descomentar cuando haya alumnas reales
 // const testimonials = [
@@ -77,7 +75,7 @@ const materials = [
 ]
 
 const includedFeatures = [
-	"1 clase semanal en directo (martes 19:15h)",
+	"1 clase nueva cada semana",
 	"Acceso a la biblioteca de sesiones grabadas",
 	"Guiada por María, matrona e instructora de Barre",
 	"Adaptado a cada trimestre del embarazo",
@@ -96,9 +94,9 @@ const faqs = [
 			"No, no hace falta. Las clases están diseñadas para todos los niveles. María guía cada movimiento y ofrece variantes para que vayas a tu ritmo.",
 	},
 	{
-		question: "¿Qué pasa si no puedo asistir a la clase en directo?",
+		question: "¿Cuándo se publican las clases nuevas?",
 		answer:
-			"Todas las sesiones quedan grabadas y disponibles en la biblioteca de clases. Puedes verlas tantas veces como quieras, cuando te venga mejor.",
+			"Cada semana se sube una clase nueva a la biblioteca, sin horario fijo. Puedes verla cuando quieras y tantas veces como necesites, junto al resto de sesiones grabadas.",
 	},
 	{
 		question: "¿Qué material necesito?",
@@ -264,8 +262,8 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 									/>
 								</div>
 								<div>
-									<p class="font-display text-primary text-sm">Online y en directo</p>
-									<p class="text-muted-foreground font-body text-xs">Martes 19:15h</p>
+									<p class="font-display text-primary text-sm">Online, a tu ritmo</p>
+									<p class="text-muted-foreground font-body text-xs">Clase nueva cada semana</p>
 								</div>
 							</div>
 						</div>
@@ -335,48 +333,36 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 							data-animate="animate-fade-up"
 							data-animate-duration="1s"
 						>
-							Horario semanal
+							Cómo funciona
 						</h2>
 						<p class="text-muted-foreground">
-							Una sesión semanal en directo. Si no puedes asistir, todas las clases quedan grabadas
-							para que accedas cuando quieras.
+							Sin horario fijo. Cada semana se sube una clase nueva a la biblioteca y accedes cuando
+							quieras.
 						</p>
 					</div>
 
-					<div class="space-y-4">
-						{
-							scheduleItems.map((item, index) => (
-								<div
-									class="bg-card border-border/50 hover:border-accent/30 flex items-center justify-between rounded-2xl border p-6 transition-colors"
-									data-animate="animate-fade-up"
-									data-animate-duration="1s"
-									data-animate-delay={`${index * 150}ms`}
-								>
-									<div class="flex items-center gap-4">
-										<div class="bg-accent/10 flex h-12 w-12 items-center justify-center rounded-xl text-xl">
-											<img
-												src={getAssetUrl("ca8e9ea4-0520-42e3-a1cc-da142f8a674f")}
-												alt=""
-												class="h-6 w-6 object-contain"
-												loading="lazy"
-											/>
-										</div>
-										<div>
-											<p class="font-display text-primary text-lg">{item.day}</p>
-											<p class="text-muted-foreground text-sm">{item.time}</p>
-										</div>
-									</div>
-									<span class="bg-secondary/10 text-secondary border-secondary/20 rounded-full border px-3 py-1 text-sm">
-										{item.type}
-									</span>
-								</div>
-							))
-						}
+					<div
+						class="bg-card border-border/50 hover:border-accent/30 flex items-center gap-4 rounded-2xl border p-6 transition-colors"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						<div
+							class="bg-accent/10 flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-xl"
+						>
+							<img
+								src={getAssetUrl("ca8e9ea4-0520-42e3-a1cc-da142f8a674f")}
+								alt=""
+								class="h-6 w-6 object-contain"
+								loading="lazy"
+							/>
+						</div>
+						<div>
+							<p class="font-display text-primary text-lg">Clase nueva cada semana</p>
+							<p class="text-muted-foreground text-sm">
+								Sin día ni hora fija — entrena cuando mejor te venga.
+							</p>
+						</div>
 					</div>
-
-					<p class="text-muted-foreground mt-6 text-center text-sm">
-						* Los horarios pueden variar. Se avisará con antelación de cualquier cambio.
-					</p>
 				</div>
 			</div>
 		</section>

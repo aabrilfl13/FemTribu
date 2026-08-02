@@ -170,7 +170,7 @@ export const SERVICES: Record<string, ServiceData> = {
 		seo: {
 			title: "FemmBarre Maternity — Barre Prenatal Online | Femm tribu",
 			description:
-				"Barre prenatal online para embarazadas. Clase semanal en directo guiada por María, matrona e instructora de Barre. Movimiento consciente adaptado al embarazo. 35€/mes sin permanencia.",
+				"Barre prenatal online para embarazadas. Clase nueva cada semana guiada por María, matrona e instructora de Barre. Movimiento consciente adaptado al embarazo. 35€/mes sin permanencia.",
 		},
 	},
 } as const
