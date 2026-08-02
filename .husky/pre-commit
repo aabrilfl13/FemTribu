@@ -1,0 +1,8 @@
+FILES=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$FILES" ] && exit 0
+
+echo "$FILES" | xargs pnpm prettier --check --ignore-unknown
+if [ $? -ne 0 ]; then
+  echo "Prettier found unformatted files. Run 'pnpm prettier --write .' and re-stage, then commit again." >&2
+  exit 1
+fi
