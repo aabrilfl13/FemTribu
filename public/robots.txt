@@ -6,6 +6,7 @@ Allow: /
 
 # Bloquear endpoints técnicos
 Disallow: /api/
+Disallow: /_server-islands/
 Disallow: /*.json$
 Disallow: /cdn-cgi/
 

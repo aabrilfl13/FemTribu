@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/(admin|newsletter|cookies|privacy)(.*)",
+      "source": "/(admin|newsletter|cookies|privacy|api|_server-islands)(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "source": "/((?!admin|newsletter|cookies|privacy).*)",
+      "source": "/((?!admin|newsletter|cookies|privacy|api|_server-islands).*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
