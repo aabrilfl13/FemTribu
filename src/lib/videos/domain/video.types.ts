@@ -1,4 +1,4 @@
-export type VideoProviderType = "bunny" | "cloudflare" | "mock"
+export type VideoProviderType = "bunny" | "cloudflare" | "youtube" | "mock"
 
 export interface Video {
 	id: string
