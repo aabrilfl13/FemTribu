@@ -1,5 +1,4 @@
 ---
-import { getVideo } from "@videos"
 import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
 import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
@@ -10,7 +9,6 @@ import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import VideoSchema from "@/components/schema/VideoSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import FloatingReserve from "@/components/ui/FloatingReserve.astro"
-import Modal from "@/components/ui/Modal.astro"
 import { SERVICES } from "@/data/services"
 import Layout from "@/layouts/Layout.astro"
 import { getAssetUrl } from "@/services/directus"
@@ -115,22 +113,27 @@ const faqs = [
 	},
 ]
 
-const VIDEO_ID = "828aafac-bbf1-4d40-9fd2-aa5ab7409520"
-const videoResult = await getVideo(VIDEO_ID)
-const videoTeaser = videoResult.data
+const YOUTUBE_VIDEO_ID = "PEZMX_bK51E"
+const videoTeaser = {
+	id: YOUTUBE_VIDEO_ID,
+	provider: "youtube" as const,
+	title: "¿Qué es FemmBarre Maternity? Barre prenatal online guiado por matrona",
+	description:
+		"Vídeo de presentación de FemmBarre Maternity — barre prenatal online guiado por María, matrona e instructora de Barre.",
+	url: `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`,
+	thumbnailUrl: `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`,
+	duration: 66,
+	createdAt: new Date(),
+}
 
 const seoData = {
 	...serviceData.seo,
 	type: "website" as const,
-	video: videoTeaser
-		? {
-				url: videoTeaser.url,
-				secureUrl: videoTeaser.url,
-				width: videoTeaser.metadata?.width,
-				height: videoTeaser.metadata?.height,
-				thumbnailUrl: videoTeaser.thumbnailUrl,
-			}
-		: undefined,
+	video: {
+		url: videoTeaser.url,
+		secureUrl: videoTeaser.url,
+		thumbnailUrl: videoTeaser.thumbnailUrl,
+	},
 }
 
 const phoneNumber = import.meta.env.WHATSAPP_NUMBER
@@ -148,23 +151,14 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		onlineOnly={true}
 	/>
 	<FAQSchema faqs={faqs} />
-	{
-		videoTeaser && (
-			<VideoSchema
-				name={videoTeaser.title}
-				description={
-					videoTeaser.description ||
-					`Vídeo de presentación de ${serviceName} — barre prenatal online guiado por María, matrona e instructora de Barre.`
-				}
-				thumbnailUrl={videoTeaser.thumbnailUrl}
-				uploadDate={videoTeaser.createdAt}
-				durationSeconds={videoTeaser.duration}
-				embedUrl={videoTeaser.url}
-				width={videoTeaser.metadata?.width}
-				height={videoTeaser.metadata?.height}
-			/>
-		)
-	}
+	<VideoSchema
+		name={videoTeaser.title}
+		description={videoTeaser.description}
+		thumbnailUrl={videoTeaser.thumbnailUrl}
+		uploadDate={videoTeaser.createdAt}
+		durationSeconds={videoTeaser.duration}
+		embedUrl={videoTeaser.url}
+	/>
 	<main id="main-content">
 		<!-- Hero -->
 		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24" data-funnel-section="hero">
@@ -213,41 +207,21 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 
 					<!-- Video preview -->
 					<div class="relative mx-auto w-full max-w-md lg:max-w-none">
-						<button
-							id="open-video-modal-btn"
-							type="button"
-							aria-label="Reproducir vídeo de FemmBarre Maternity"
-							class="shadow-warm border-accent/20 focus-visible:ring-accent/40 group relative block w-full rotate-2 cursor-pointer overflow-hidden rounded-3xl border-2 transition-transform duration-500 hover:rotate-0 focus:rotate-0 focus:outline-none focus-visible:ring-4"
+						<div
+							class="shadow-warm border-accent/20 overflow-hidden rounded-3xl border-2"
 							data-animate="animate-fade-up"
 							data-animate-duration="1s"
 							data-animate-delay="0.3s"
 						>
-							<img
-								src={getAssetUrl("434e8c6a-e85f-4c33-a049-298dd53bedcd")}
-								alt="FemmBarre Maternity - Barre prenatal para embarazadas"
-								class="h-[400px] w-full object-cover object-top sm:h-[480px]"
-								width="600"
-								height="480"
+							<VideoPlayerFactory
+								provider={videoTeaser.provider}
+								url={videoTeaser.url}
+								title={videoTeaser.title}
+								client:load
 							/>
-							<span
-								class="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors duration-300 group-hover:bg-black/30"
-							>
-								<span
-									class="bg-cream/95 text-accent shadow-warm flex h-20 w-20 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
-								>
-									<svg
-										viewBox="0 0 24 24"
-										fill="currentColor"
-										class="ml-1 h-9 w-9"
-										aria-hidden="true"
-									>
-										<polygon points="5 3 19 12 5 21 5 3"></polygon>
-									</svg>
-								</span>
-							</span>
-						</button>
+						</div>
 						<div
-							class="bg-card shadow-warm border-border/50 absolute -bottom-4 -left-4 rounded-2xl border p-4"
+							class="bg-card shadow-warm border-border/50 absolute -bottom-6 -left-4 rounded-2xl border p-4 lg:-bottom-4"
 							data-animate="animate-fade-up"
 							data-animate-duration="1s"
 							data-animate-delay="0.6s"
@@ -505,31 +479,6 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		</section>
 	</main>
 
-	<Modal
-		id="femmbarre-video-modal"
-		size="xl"
-		noPadding={true}
-		ariaLabel="Vídeo de FemmBarre Maternity"
-	>
-		<div id="femmbarre-video-modal-body" class="overflow-hidden rounded-3xl bg-black">
-			{
-				videoTeaser && (
-					<VideoPlayerFactory
-						provider={videoTeaser.provider}
-						url={videoTeaser.url}
-						title={videoTeaser.title}
-						trackingContext={{
-							courseId: "femmbarre-maternity",
-							videoId: videoTeaser.id,
-							videoTitle: videoTeaser.title,
-						}}
-						client:load
-					/>
-				)
-			}
-		</div>
-	</Modal>
-
 	<FloatingReserve
 		serviceName={serviceName}
 		priceLabel="35€"
@@ -545,28 +494,6 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		const subscribeCta = document.getElementById("subscribe-cta-btn")
 		const subscribeFloating = document.querySelector("#floating-reserve button")
 		const trialBtn = document.getElementById("trial-btn")
-
-		const openVideoBtn = document.getElementById("open-video-modal-btn")
-		const videoModal = document.getElementById("femmbarre-video-modal")
-
-		openVideoBtn?.addEventListener("click", () => {
-			if (typeof window.gtag === "function") {
-				window.gtag("event", "video_modal_open", {
-					cta_label: serviceName,
-					page: window.location.pathname,
-				})
-			}
-			window.modalManager?.open("femmbarre-video-modal")
-		})
-
-		// Pause Bunny playback on close: reload the iframe by resetting its src.
-		videoModal?.addEventListener("close", () => {
-			const iframe = videoModal.querySelector("iframe")
-			if (iframe) {
-				const src = iframe.getAttribute("src")
-				if (src) iframe.setAttribute("src", src)
-			}
-		})
 
 		const handleSubscribe = (ctaPosition) => {
 			if (typeof window.gtag === "function") {

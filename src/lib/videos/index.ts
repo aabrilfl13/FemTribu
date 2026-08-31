@@ -30,3 +30,4 @@ export { mockVideos, SAMPLE_VIDEO_URLS } from "./providers/mock/mock-videos.data
 export { VideoPlayerFactory } from "./components/VideoPlayerFactory"
 export { VideoPlayer } from "./components/VideoPlayer"
 export { BunnyPlayer } from "./components/BunnyPlayer"
+export { YouTubePlayer } from "./components/YouTubePlayer"

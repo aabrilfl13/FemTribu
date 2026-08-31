@@ -3,6 +3,7 @@
 import type { VideoProviderType } from "../domain/video.types"
 import { BunnyPlayer } from "./BunnyPlayer"
 import { VideoPlayer } from "./VideoPlayer"
+import { YouTubePlayer } from "./YouTubePlayer"
 
 /**
  * VideoPlayerFactory - Factory component that renders the appropriate player
@@ -37,6 +38,9 @@ export const VideoPlayerFactory = ({
 	switch (provider) {
 		case "bunny":
 			return <BunnyPlayer url={url} title={title} trackingContext={trackingContext} />
+
+		case "youtube":
+			return <YouTubePlayer url={url} title={title} />
 
 		case "mock":
 		case "cloudflare":
