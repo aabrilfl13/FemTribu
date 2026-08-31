@@ -1,5 +1,4 @@
 ---
-import { getVideo } from "@videos"
 import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
 import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
@@ -115,22 +114,27 @@ const faqs = [
 	},
 ]
 
-const VIDEO_ID = "828aafac-bbf1-4d40-9fd2-aa5ab7409520"
-const videoResult = await getVideo(VIDEO_ID)
-const videoTeaser = videoResult.data
+const YOUTUBE_VIDEO_ID = "PEZMX_bK51E"
+const videoTeaser = {
+	id: YOUTUBE_VIDEO_ID,
+	provider: "youtube" as const,
+	title: "¿Qué es FemmBarre Maternity? Barre prenatal online guiado por matrona",
+	description:
+		"Vídeo de presentación de FemmBarre Maternity — barre prenatal online guiado por María, matrona e instructora de Barre.",
+	url: `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`,
+	thumbnailUrl: `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`,
+	duration: 66,
+	createdAt: new Date(),
+}
 
 const seoData = {
 	...serviceData.seo,
 	type: "website" as const,
-	video: videoTeaser
-		? {
-				url: videoTeaser.url,
-				secureUrl: videoTeaser.url,
-				width: videoTeaser.metadata?.width,
-				height: videoTeaser.metadata?.height,
-				thumbnailUrl: videoTeaser.thumbnailUrl,
-			}
-		: undefined,
+	video: {
+		url: videoTeaser.url,
+		secureUrl: videoTeaser.url,
+		thumbnailUrl: videoTeaser.thumbnailUrl,
+	},
 }
 
 const phoneNumber = import.meta.env.WHATSAPP_NUMBER
@@ -148,23 +152,14 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		onlineOnly={true}
 	/>
 	<FAQSchema faqs={faqs} />
-	{
-		videoTeaser && (
-			<VideoSchema
-				name={videoTeaser.title}
-				description={
-					videoTeaser.description ||
-					`Vídeo de presentación de ${serviceName} — barre prenatal online guiado por María, matrona e instructora de Barre.`
-				}
-				thumbnailUrl={videoTeaser.thumbnailUrl}
-				uploadDate={videoTeaser.createdAt}
-				durationSeconds={videoTeaser.duration}
-				embedUrl={videoTeaser.url}
-				width={videoTeaser.metadata?.width}
-				height={videoTeaser.metadata?.height}
-			/>
-		)
-	}
+	<VideoSchema
+		name={videoTeaser.title}
+		description={videoTeaser.description}
+		thumbnailUrl={videoTeaser.thumbnailUrl}
+		uploadDate={videoTeaser.createdAt}
+		durationSeconds={videoTeaser.duration}
+		embedUrl={videoTeaser.url}
+	/>
 	<main id="main-content">
 		<!-- Hero -->
 		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24" data-funnel-section="hero">
@@ -512,21 +507,17 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 		ariaLabel="Vídeo de FemmBarre Maternity"
 	>
 		<div id="femmbarre-video-modal-body" class="overflow-hidden rounded-3xl bg-black">
-			{
-				videoTeaser && (
-					<VideoPlayerFactory
-						provider={videoTeaser.provider}
-						url={videoTeaser.url}
-						title={videoTeaser.title}
-						trackingContext={{
-							courseId: "femmbarre-maternity",
-							videoId: videoTeaser.id,
-							videoTitle: videoTeaser.title,
-						}}
-						client:load
-					/>
-				)
-			}
+			<VideoPlayerFactory
+				provider={videoTeaser.provider}
+				url={videoTeaser.url}
+				title={videoTeaser.title}
+				trackingContext={{
+					courseId: "femmbarre-maternity",
+					videoId: videoTeaser.id,
+					videoTitle: videoTeaser.title,
+				}}
+				client:load
+			/>
 		</div>
 	</Modal>
 
@@ -559,7 +550,7 @@ const phoneNumber = import.meta.env.WHATSAPP_NUMBER
 			window.modalManager?.open("femmbarre-video-modal")
 		})
 
-		// Pause Bunny playback on close: reload the iframe by resetting its src.
+		// Pause playback on close: reload the iframe by resetting its src.
 		videoModal?.addEventListener("close", () => {
 			const iframe = videoModal.querySelector("iframe")
 			if (iframe) {
