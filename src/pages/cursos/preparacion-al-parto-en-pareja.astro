@@ -1,0 +1,601 @@
+---
+/**
+ * «Vuestro viaje» — landing de captación para el curso de preparación al parto
+ * online en pareja. Tráfico de pago (Meta ads).
+ *
+ * ESTADO: solo maquetación. Pendiente (ver data/vuestro-viaje-landing-plan.md):
+ *   - Formulario: POST a /api/lead + validación + estados + redirect a /gracias
+ *   - Captura de UTM / fbclid (src/utils/attribution.ts)
+ *   - Eventos GA4 (cta_click, lead_form_start, generate_lead) y Meta (Lead)
+ *   - Schema: CourseSchema + FAQSchema + VideoSchema + BreadcrumbSchema
+ *   - Chrome reducido para tráfico de pago (Layout propio)
+ *
+ * prerender = true es OBLIGATORIO: middleware.ts protege /cursos, y solo las
+ * páginas prerenderizadas se saltan la comprobación de sesión. Sin esto, el
+ * tráfico anónimo de los anuncios acaba en /auth/login.
+ */
+import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
+
+import FAQ from "@/components/FAQ.astro"
+import Button from "@/components/ui/Button.astro"
+import {
+	ABOUT,
+	EDITION,
+	FAQS,
+	FORM,
+	HERO,
+	INCLUDED,
+	MECHANISM,
+	QUALIFIER,
+	RELATED,
+	SEO_DATA,
+	SESSIONS,
+	TESTIMONIALS,
+	VIDEO,
+} from "@/data/vuestro-viaje"
+import Layout from "@/layouts/Layout.astro"
+
+export const prerender = true
+
+const seoData = {
+	...SEO_DATA,
+	type: "website" as const,
+	video: {
+		url: VIDEO.url,
+		secureUrl: VIDEO.url,
+		thumbnailUrl: VIDEO.thumbnailUrl,
+	},
+}
+
+const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
+	"Hola! Me interesa el curso *Vuestro viaje* de preparación al parto en pareja."
+)}`
+---
+
+<Layout navScrolled={true} {...seoData}>
+	<main id="main-content">
+		<!-- ==================== 1. HERO ==================== -->
+		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24" data-funnel-section="hero">
+			<div class="relative z-10 container mx-auto px-4 lg:px-8">
+				<div class="grid items-center gap-12 lg:grid-cols-2">
+					<!-- Text -->
+					<div class="text-center lg:text-left">
+						<span
+							class="bg-accent/10 text-accent border-accent/20 mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							{HERO.eyebrow}
+						</span>
+
+						<h1
+							class="font-display text-primary mb-6 text-4xl sm:text-5xl lg:text-6xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.1s"
+						>
+							{HERO.h1Lead}
+							<span class="text-accent mt-2 block text-2xl sm:text-3xl lg:text-4xl">
+								{HERO.h1Tail}
+							</span>
+						</h1>
+
+						<p
+							class="text-muted-foreground mx-auto mb-8 max-w-lg text-lg leading-relaxed lg:mx-0"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.2s"
+						>
+							{HERO.intro}
+						</p>
+
+						<!-- Qualifier chips -->
+						<ul
+							class="mb-8 flex flex-wrap justify-center gap-2 lg:justify-start"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.25s"
+						>
+							{
+								HERO.chips.map((chip) => (
+									<li class="bg-cream text-forest border-sage/20 rounded-full border px-3 py-1.5 text-sm">
+										{chip}
+									</li>
+								))
+							}
+						</ul>
+
+						<div
+							class="flex flex-col items-center gap-3 lg:items-start"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
+						>
+							<div class="flex flex-col gap-3 sm:flex-row" data-reserve-cta>
+								<Button href="#form" variant="hero" size="lg">{HERO.ctaLabel}</Button>
+								<Button
+									href={whatsappHref}
+									variant="heroOutline"
+									size="lg"
+									target="_blank"
+									rel="noopener"
+								>
+									{HERO.whatsappLabel}
+								</Button>
+							</div>
+							<p class="text-muted-foreground max-w-sm text-sm">{HERO.ctaNote}</p>
+						</div>
+					</div>
+
+					<!-- Video -->
+					<div class="relative mx-auto w-full max-w-md lg:max-w-none">
+						<div
+							class="shadow-warm border-accent/20 overflow-hidden rounded-3xl border-2"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.3s"
+						>
+							<VideoPlayerFactory
+								provider={VIDEO.provider}
+								url={VIDEO.url}
+								title={VIDEO.title}
+								client:load
+							/>
+						</div>
+						<div
+							class="bg-card shadow-warm border-border/50 absolute -bottom-6 -left-4 rounded-2xl border p-4 lg:-bottom-4"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay="0.6s"
+						>
+							<div class="flex items-center gap-3">
+								<img
+									src="/images/about-me/mery-portrait.jpg"
+									alt="María Belenguer, matrona"
+									class="border-accent/20 h-10 w-10 rounded-full border object-cover"
+									width="40"
+									height="40"
+									loading="lazy"
+								/>
+								<div>
+									<p class="font-display text-primary text-sm">María Belenguer</p>
+									<p class="text-muted-foreground font-body text-xs">Matrona · Femm tribu</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div
+				class="bg-accent/10 shape-organic absolute top-20 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2"
+			>
+			</div>
+			<div
+				class="bg-coral/10 shape-blob absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2"
+			>
+			</div>
+		</section>
+
+		<!-- ==================== 2. QUALIFIER ==================== -->
+		<section class="bg-muted/30 py-20" data-funnel-section="qualifier">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-3xl text-center">
+					<h2
+						class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						{QUALIFIER.title}
+					</h2>
+
+					<div
+						class="bg-accent/10 text-accent border-accent/20 mb-8 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.1s"
+					>
+						{EDITION.fppLabelShort}
+					</div>
+
+					{
+						QUALIFIER.body.map((paragraph, index) => (
+							<p
+								class="text-muted-foreground mb-4 leading-relaxed"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${0.15 + index * 0.1}s`}
+							>
+								{paragraph}
+							</p>
+						))
+					}
+
+					<div
+						class="mt-8 flex flex-wrap justify-center gap-3"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.4s"
+					>
+						{
+							QUALIFIER.fallbackLinks.map((link) => (
+								<a
+									href={link.href}
+									class="text-accent hover:text-accent/80 border-accent/30 hover:border-accent rounded-full border border-dashed px-4 py-2 text-sm transition-colors"
+								>
+									{link.label}
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 3. MECHANISM ==================== -->
+		<section class="py-20" data-funnel-section="mechanism">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto mb-14 max-w-3xl text-center">
+					<h2
+						class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						{MECHANISM.title}
+					</h2>
+					<p class="text-muted-foreground leading-relaxed">{MECHANISM.intro}</p>
+				</div>
+
+				<blockquote
+					class="from-accent/10 via-background to-coral/10 border-accent/20 mx-auto mb-14 max-w-2xl rounded-3xl border bg-gradient-to-br p-8 text-center"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+					data-animate-delay="0.15s"
+				>
+					<p class="font-display text-primary text-xl leading-relaxed italic lg:text-2xl">
+						{MECHANISM.pullQuote}
+					</p>
+				</blockquote>
+
+				<div class="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+					{
+						MECHANISM.pillars.map((pillar, index) => (
+							<div
+								class="bg-card border-border/50 hover:border-accent/30 hover:shadow-warm rounded-2xl border p-6 text-center transition-all duration-300"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 150}ms`}
+							>
+								<h3 class="font-display text-accent mb-3 text-xl">{pillar.title}</h3>
+								<p class="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 4. SESSIONS ==================== -->
+		<section class="bg-muted/30 py-20" data-funnel-section="curriculum">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-14 text-center">
+					<h2
+						class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						El recorrido, sesión a sesión
+					</h2>
+					<p class="text-muted-foreground mx-auto max-w-2xl">
+						Cuatro sesiones en directo, en un grupo de máximo {EDITION.capacity} parejas.
+					</p>
+				</div>
+
+				<div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-2">
+					{
+						SESSIONS.map((session, index) => (
+							<article
+								class="bg-card border-border/50 hover:border-accent/30 hover:shadow-warm rounded-2xl border p-6 transition-all duration-300"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 120}ms`}
+							>
+								<div class="mb-4 flex items-center gap-3">
+									<span class="bg-accent/10 text-accent font-display flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-lg">
+										{session.number}
+									</span>
+									<h3 class="font-display text-primary text-lg leading-tight">{session.title}</h3>
+								</div>
+								<p class="text-muted-foreground text-sm leading-relaxed">{session.description}</p>
+							</article>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 5. INCLUDED ==================== -->
+		<section class="py-20" data-funnel-section="includes">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-3xl">
+					<div class="mb-12 text-center">
+						<h2
+							class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							Y durante todo el proceso...
+						</h2>
+						<p class="text-muted-foreground">
+							El curso no acaba cuando termina la sesión. Seguimos con vosotros.
+						</p>
+					</div>
+
+					<ul class="grid gap-4 sm:grid-cols-2">
+						{
+							INCLUDED.map((item, index) => (
+								<li
+									class="bg-card border-border/50 flex items-start gap-3 rounded-2xl border p-5"
+									data-animate="animate-fade-up"
+									data-animate-duration="1s"
+									data-animate-delay={`${index * 120}ms`}
+								>
+									<svg
+										class="text-accent mt-0.5 h-5 w-5 flex-shrink-0"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="3"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<polyline points="20 6 9 17 4 12" />
+									</svg>
+									<span class="text-muted-foreground text-sm leading-relaxed">{item}</span>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 6. TESTIMONIALS (vacío hasta tener reales) ==================== -->
+		{
+			TESTIMONIALS.length > 0 && (
+				<section class="bg-muted/30 py-20" data-funnel-section="proof">
+					<div class="container mx-auto px-4 lg:px-8">
+						<h2 class="font-display text-primary mb-12 text-center text-3xl lg:text-4xl">
+							Lo que cuentan otras parejas
+						</h2>
+						<div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+							{TESTIMONIALS.map((testimonial) => (
+								<figure class="bg-card border-border/50 rounded-2xl border p-6">
+									<blockquote class="text-muted-foreground mb-4 text-sm leading-relaxed italic">
+										{testimonial.text}
+									</blockquote>
+									<figcaption class="font-display text-primary text-sm">
+										{testimonial.name}
+										<span class="text-muted-foreground font-body block text-xs">
+											{testimonial.context}
+										</span>
+									</figcaption>
+								</figure>
+							))}
+						</div>
+					</div>
+				</section>
+			)
+		}
+
+		<!-- ==================== 7. ABOUT ==================== -->
+		<section class="bg-muted/30 py-20" data-funnel-section="about">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto grid max-w-4xl items-center gap-10 lg:grid-cols-[280px_1fr]">
+					<div
+						class="mx-auto w-full max-w-[280px]"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						<img
+							src="/images/about-me/mery-portrait.jpg"
+							alt="María Belenguer, matrona y creadora de Femm tribu"
+							class="shadow-warm border-accent/20 aspect-[4/5] w-full rounded-3xl border-2 object-cover"
+							loading="lazy"
+						/>
+					</div>
+					<div data-animate="animate-fade-up" data-animate-duration="1s" data-animate-delay="0.15s">
+						<span class="text-accent font-body mb-2 block text-sm tracking-wide uppercase">
+							Sobre mí
+						</span>
+						<h2 class="font-display text-primary mb-4 text-3xl lg:text-4xl">{ABOUT.title}</h2>
+						<p class="text-muted-foreground leading-relaxed">{ABOUT.body}</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 8. PRICE ==================== -->
+		<section class="py-20" data-funnel-section="pricing">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div
+					class="from-accent/10 via-background to-coral/10 border-accent/20 mx-auto max-w-3xl rounded-3xl border bg-gradient-to-br p-12 text-center"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					<h2 class="font-display text-primary mb-4 text-3xl lg:text-4xl">Precio y plazas</h2>
+
+					<div class="mb-2 flex items-baseline justify-center gap-3">
+						<span class="font-display text-primary text-5xl">{EDITION.priceLabel}</span>
+						<span class="text-muted-foreground">/ pareja</span>
+					</div>
+					<p class="text-muted-foreground mb-8 text-sm">{EDITION.priceNote}</p>
+
+					<p
+						class="bg-cream text-forest border-sage/20 mb-8 inline-flex rounded-full border px-4 py-2 text-sm"
+					>
+						Plazas limitadas a {EDITION.capacity} parejas
+					</p>
+
+					<div data-reserve-cta>
+						<Button href="#form" variant="hero" size="lg">{HERO.ctaLabel}</Button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 9. FAQ ==================== -->
+		<div data-funnel-section="faq">
+			<FAQ
+				faqs={[...FAQS]}
+				title="Preguntas frecuentes"
+				subtitle="Y si te queda alguna, escríbeme y te la resuelvo."
+			/>
+		</div>
+
+		<!-- ==================== 10. FORM (solo maquetación) ==================== -->
+		<section id="form" class="bg-muted/30 py-20" data-funnel-section="lead_form">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-xl">
+					<div class="mb-10 text-center">
+						<h2
+							class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							{FORM.title}
+						</h2>
+						<p class="text-muted-foreground">{FORM.intro}</p>
+					</div>
+
+					<form
+						id="lead-form"
+						class="bg-card border-border/50 shadow-warm space-y-5 rounded-3xl border p-8"
+						novalidate
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.15s"
+					>
+						<div>
+							<label for="lead-name" class="text-primary mb-2 block text-sm font-medium">
+								Nombre y apellidos
+							</label>
+							<input
+								type="text"
+								id="lead-name"
+								name="name"
+								autocomplete="name"
+								class="border-input focus:border-accent focus:ring-accent/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+							/>
+						</div>
+
+						<div>
+							<label for="lead-fpp" class="text-primary mb-2 block text-sm font-medium">
+								Fecha probable de parto
+							</label>
+							<input
+								type="date"
+								id="lead-fpp"
+								name="fpp"
+								class="border-input focus:border-accent focus:ring-accent/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+							/>
+							<p class="text-muted-foreground mt-2 text-xs">
+								Esta edición es para partos entre el {EDITION.fppLabel}.
+							</p>
+						</div>
+
+						<div class="grid gap-5 sm:grid-cols-2">
+							<div>
+								<label for="lead-phone" class="text-primary mb-2 block text-sm font-medium">
+									Teléfono
+								</label>
+								<input
+									type="tel"
+									id="lead-phone"
+									name="phone"
+									autocomplete="tel"
+									class="border-input focus:border-accent focus:ring-accent/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+								/>
+							</div>
+							<div>
+								<label for="lead-email" class="text-primary mb-2 block text-sm font-medium">
+									Email
+								</label>
+								<input
+									type="email"
+									id="lead-email"
+									name="email"
+									autocomplete="email"
+									class="border-input focus:border-accent focus:ring-accent/20 w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+								/>
+							</div>
+						</div>
+
+						<label class="text-muted-foreground flex items-start gap-3 text-xs leading-relaxed">
+							<input
+								type="checkbox"
+								name="consent"
+								class="accent-accent mt-0.5 h-4 w-4 flex-shrink-0"
+							/>
+							<span>
+								He leído y acepto la <a
+									href="/privacy"
+									target="_blank"
+									class="text-accent underline">política de privacidad</a
+								> y que María me contacte para darme información sobre el curso.
+							</span>
+						</label>
+
+						<div class="pt-2 text-center">
+							{/* TODO: type="submit" + POST /api/lead cuando exista el endpoint */}
+							<Button type="button" variant="hero" size="lg" class="w-full">
+								{FORM.ctaLabel}
+							</Button>
+							<p class="text-muted-foreground mt-3 text-xs">{FORM.ctaNote}</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==================== 11. RELATED (después del formulario) ==================== -->
+		<section class="py-20" data-funnel-section="related">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mb-12 text-center">
+					<h2
+						class="font-display text-primary mb-4 text-2xl lg:text-3xl"
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+					>
+						Otros programas de Femm tribu
+					</h2>
+					<p class="text-muted-foreground mx-auto max-w-xl text-sm">
+						Si esta edición no te encaja, quizá alguno de estos sí.
+					</p>
+				</div>
+
+				<div class="mx-auto grid max-w-5xl gap-6 lg:grid-cols-3">
+					{
+						RELATED.map((item, index) => (
+							<a
+								href={item.href}
+								class="bg-card border-border/50 hover:border-accent/30 hover:shadow-warm group flex flex-col rounded-2xl border p-6 transition-all duration-300"
+								data-animate="animate-fade-up"
+								data-animate-duration="1s"
+								data-animate-delay={`${index * 120}ms`}
+							>
+								<h3 class="font-display text-primary group-hover:text-accent mb-2 text-lg transition-colors">
+									{item.title}
+								</h3>
+								<p class="text-muted-foreground mb-4 flex-1 text-sm leading-relaxed">
+									{item.description}
+								</p>
+								<span class="text-accent font-display text-sm">{item.price}</span>
+							</a>
+						))
+					}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
