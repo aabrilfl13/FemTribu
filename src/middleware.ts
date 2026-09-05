@@ -57,6 +57,7 @@ const userAuth = defineMiddleware(async (context: APIContext, next) => {
 	// Public API routes that don't require authentication
 	const publicApiRoutes = [
 		"/api/contact",
+		"/api/lead",
 		"/api/newsletter",
 		"/api/newsletter/unsubscribe",
 		"/api/send-email",

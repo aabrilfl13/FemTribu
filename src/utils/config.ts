@@ -29,6 +29,32 @@ export function getWebhookConfig(): Config {
 	}
 }
 
+interface CrmConfig {
+	/** Base URL of the Twenty API, e.g. https://crm.femmtribu.es (no trailing slash). */
+	baseUrl: string
+	/** Twenty API key (Settings → APIs). Sent as a Bearer token. */
+	apiToken: string
+}
+
+/**
+ * Get Twenty CRM configuration from environment variables.
+ * Throws if the required variables are not set, so the caller can return a
+ * 500 without leaking configuration details to the client.
+ */
+export function getCrmConfig(): CrmConfig {
+	const baseUrl = import.meta.env.CRM_API_URL
+	const apiToken = import.meta.env.CRM_API_TOKEN
+
+	if (!baseUrl || !apiToken) {
+		throw new Error("CRM_API_URL or CRM_API_TOKEN environment variables are not set")
+	}
+
+	return {
+		baseUrl: baseUrl.replace(/\/+$/, ""),
+		apiToken,
+	}
+}
+
 /**
  * Check if webhook configuration is available
  * Returns true if all required env vars are set, false otherwise

@@ -176,7 +176,8 @@ skills-lock.json
 !.claude/skills/femtribu-project
 .agents
 
-data/
+# Local scratch docs and client material (root only — NOT src/data, which is source)
+/data/
 .mcp.json
 
 # Supabase

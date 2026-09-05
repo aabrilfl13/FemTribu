@@ -631,6 +631,8 @@
 </style>
 
 <script>
+	import { showToast } from "@/utils/toast"
+
 	/**
 	 * Privacy Consent Manager
 	 * Handles privacy consent, preferences, and compliance with GDPR
@@ -1003,88 +1005,17 @@
 		}
 
 		/**
-		 * Show notification message
+		 * Show notification message.
+		 *
+		 * Thin wrapper kept for the existing call sites — the implementation lives
+		 * in @/utils/toast so any page can raise the same notification.
 		 */
-		showNotification(message: string, type: "success" | "info" | "error" = "info") {
-			// Create notification element
-			const notification = document.createElement("div")
-			notification.className = `cookie-notification ${type}`
-			notification.innerHTML = `
-				<div class="notification-content">
-					<span class="notification-message">${message}</span>
-					<button class="notification-close" onclick="this.parentElement.parentElement.remove()">
-						<svg viewBox="0 0 24 24" fill="currentColor">
-							<path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-						</svg>
-					</button>
-				</div>
-			`
-
-			// Add styles
-			notification.style.cssText = `
-				position: fixed;
-				top: 20px;
-				right: 20px;
-				background: ${type === "success" ? "#6a8067" : type === "error" ? "#e74c3c" : "#cb6e5f"};
-				color: white;
-				padding: 15px 20px;
-				border-radius: 10px;
-				box-shadow: 0 4px 15px rgba(55, 68, 58, 0.3);
-				z-index: 1001;
-				animation: slideInRight 0.3s ease-in-out;
-				max-width: 300px;
-			`
-
-			// Add notification styles to head if not already there
-			if (!document.getElementById("cookie-notification-styles")) {
-				const styles = document.createElement("style")
-				styles.id = "cookie-notification-styles"
-				styles.textContent = `
-					@keyframes slideInRight {
-						from { transform: translateX(100%); opacity: 0; }
-						to { transform: translateX(0); opacity: 1; }
-					}
-					.cookie-notification .notification-content {
-						display: flex;
-						align-items: center;
-						gap: 10px;
-						font-family: 'Questrial', sans-serif;
-						font-size: 0.9rem;
-					}
-					.cookie-notification .notification-message {
-						flex: 1;
-					}
-					.cookie-notification .notification-close {
-						background: none;
-						border: none;
-						color: white;
-						cursor: pointer;
-						padding: 0;
-						width: 20px;
-						height: 20px;
-						opacity: 0.8;
-						transition: opacity 0.3s ease;
-					}
-					.cookie-notification .notification-close:hover {
-						opacity: 1;
-					}
-					.cookie-notification .notification-close svg {
-						width: 16px;
-						height: 16px;
-					}
-				`
-				document.head.appendChild(styles)
-			}
-
-			document.body.appendChild(notification)
-
-			// Auto-remove after 5 seconds
-			setTimeout(() => {
-				if (notification.parentElement) {
-					notification.style.animation = "slideInRight 0.3s ease-in-out reverse"
-					setTimeout(() => notification.remove(), 300)
-				}
-			}, 5000)
+		showNotification(
+			message: string,
+			type: "success" | "info" | "error" = "info",
+			container: HTMLElement = document.body
+		) {
+			showToast(message, { type, container })
 		}
 
 		/**
