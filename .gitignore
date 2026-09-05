@@ -172,10 +172,11 @@ skills-lock.json
 .claude/projects/
 .claude/commands/
 .claude/skills/*
+.claude/agents/
 !.claude/skills/femtribu-project
 .agents
 
-src/data/estructura_empresa
+data/
 .mcp.json
 
 # Supabase
