@@ -122,6 +122,37 @@
 							</ul>
 						</div>
 					</div>
+
+					<!-- Marketing cookies -->
+					<div class="preference-category">
+						<div class="preference-category-header">
+							<div class="preference-category-info">
+								<h5>Publicidad</h5>
+								<p>
+									Nos permiten medir el resultado de nuestros anuncios y mostrarte contenido más
+									relevante.
+								</p>
+							</div>
+							<div class="preference-toggle">
+								<input type="checkbox" id="marketing-preferences" />
+								<label for="marketing-preferences" class="toggle-label">
+									<span class="toggle-switch"></span>
+								</label>
+							</div>
+						</div>
+						<div class="preference-details">
+							<ul>
+								<li>
+									<strong>Meta Pixel (Facebook e Instagram):</strong> Cookies <code>_fbp</code> y
+									<code>_fbc</code> para medir conversiones de nuestras campañas
+								</li>
+								<li>
+									<strong>Audiencias personalizadas:</strong> Evita que veas anuncios de servicios que
+									ya has contratado
+								</li>
+							</ul>
+						</div>
+					</div>
 				</div>
 
 				<!-- Advanced actions -->
@@ -608,7 +639,8 @@
 		private storageKey = "femm-tribu-user-consent"
 		private settingsKey = "femm-tribu-user-settings"
 		// Bump when cookie categories or third-party processors change — forces re-prompt.
-		private currentVersion = "1.0"
+		// 1.1 — added the "marketing" category (Meta Pixel).
+		private currentVersion = "1.1"
 		// Re-prompt after this many days even if version hasn't changed (AEPD guidance).
 		private maxAgeDays = 180
 
@@ -693,6 +725,7 @@
 				essential: true,
 				analytics: true,
 				youtube: true,
+				marketing: true,
 			}
 
 			this.saveUserConsent(preferences)
@@ -710,6 +743,7 @@
 				essential: true,
 				analytics: false,
 				youtube: false,
+				marketing: false,
 			}
 
 			this.saveUserConsent(preferences)
@@ -754,6 +788,8 @@
 					(document.getElementById("analytics-preferences") as HTMLInputElement)?.checked || false,
 				youtube:
 					(document.getElementById("youtube-preferences") as HTMLInputElement)?.checked || false,
+				marketing:
+					(document.getElementById("marketing-preferences") as HTMLInputElement)?.checked || false,
 			}
 
 			this.saveUserConsent(preferences)
@@ -772,14 +808,17 @@
 				essential: true,
 				analytics: false,
 				youtube: false,
+				marketing: false,
 			}
 
 			// Update checkboxes
 			const analyticsCheckbox = document.getElementById("analytics-preferences") as HTMLInputElement
 			const youtubeCheckbox = document.getElementById("youtube-preferences") as HTMLInputElement
+			const marketingCheckbox = document.getElementById("marketing-preferences") as HTMLInputElement
 
 			if (analyticsCheckbox) analyticsCheckbox.checked = preferences.analytics
 			if (youtubeCheckbox) youtubeCheckbox.checked = preferences.youtube
+			if (marketingCheckbox) marketingCheckbox.checked = preferences.marketing || false
 		}
 
 		/**
@@ -801,6 +840,34 @@
 			} else {
 				this.disableYouTubeFeatures()
 			}
+
+			// Marketing preferences
+			if (preferences.marketing) {
+				this.enableMarketing()
+			} else {
+				this.disableMarketing()
+			}
+		}
+
+		/**
+		 * Enable marketing pixels (Meta Pixel).
+		 *
+		 * The pixel script itself is injected by MetaPixel.astro when it receives
+		 * "load-marketing-services", dispatched from Layout.astro on this grant.
+		 */
+		enableMarketing() {
+			// no-op: see MetaPixel.astro / Layout.astro handleConsent()
+		}
+
+		/**
+		 * Disable marketing pixels.
+		 *
+		 * Nothing to tear down: fbevents.js is never loaded without consent, so a
+		 * revoked grant simply means the script is never injected in later sessions.
+		 * Meta cookies already set are cleared by the browser on the user's request.
+		 */
+		disableMarketing() {
+			// no-op: see MetaPixel.astro
 		}
 
 		/**
@@ -1046,7 +1113,7 @@
 		/**
 		 * Check if specific cookie category is enabled
 		 */
-		isCategoryEnabled(category: "essential" | "analytics" | "youtube") {
+		isCategoryEnabled(category: "essential" | "analytics" | "youtube" | "marketing") {
 			const preferences = this.getCurrentPreferences()
 			return preferences?.[category] || false
 		}

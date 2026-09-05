@@ -1,0 +1,59 @@
+---
+/**
+ * Meta Pixel — consent-gated (marketing category).
+ *
+ * Mirrors the GoogleAnalytics.astro pattern: the `fbq` queue is stubbed on every
+ * page load so callers can track events at any time, but `connect.facebook.net`
+ * is NOT contacted until the visitor grants the "marketing" cookie category.
+ * Queued calls flush automatically once fbevents.js loads.
+ *
+ * Consent flow:
+ *   CookiesOverlay  → "cookie-consent-updated"
+ *   Layout.astro    → "load-marketing-services"   (only when preferences.marketing)
+ *   this component  → injects fbevents.js, fbq("init"), fbq("track", "PageView")
+ *
+ * Tracking a conversion elsewhere (deduped against the n8n Conversions API call):
+ *   window.fbq("track", "Lead", { value: 149, currency: "EUR" }, { eventID })
+ */
+const PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID || ""
+const isDevelopment = import.meta.env.DEV
+const enabled = !isDevelopment && PIXEL_ID.length > 0
+---
+
+<script is:inline define:vars={{ PIXEL_ID, enabled }}>
+	if (!window.fbq) {
+		const queue = []
+		const fbq = function () {
+			if (fbq.callMethod) {
+				fbq.callMethod.apply(fbq, arguments)
+			} else {
+				queue.push(arguments)
+			}
+		}
+		fbq.push = fbq
+		fbq.loaded = true
+		fbq.version = "2.0"
+		// Same array reference the closure pushes into — fbevents.js drains
+		// window.fbq.queue on load, which replays everything queued before consent.
+		fbq.queue = queue
+		window.fbq = fbq
+		window._fbq = fbq
+	}
+
+	if (enabled) {
+		function loadMetaPixel() {
+			if (document.getElementById("meta-pixel-script")) return
+
+			const script = document.createElement("script")
+			script.id = "meta-pixel-script"
+			script.async = true
+			script.src = "https://connect.facebook.net/en_US/fbevents.js"
+			document.head.appendChild(script)
+
+			window.fbq("init", PIXEL_ID)
+			window.fbq("track", "PageView")
+		}
+
+		window.addEventListener("load-marketing-services", loadMetaPixel)
+	}
+</script>
