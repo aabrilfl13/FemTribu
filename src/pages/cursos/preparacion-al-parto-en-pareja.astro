@@ -4,7 +4,6 @@
  * online en pareja. Tráfico de pago (Meta ads).
  *
  * Pendiente (ver data/vuestro-viaje-landing-plan.md):
- *   - Schema: CourseSchema + FAQSchema + VideoSchema + BreadcrumbSchema
  *   - Meta Conversions API server-side desde el CRM (dedup con eventId)
  *   - Chrome reducido para tráfico de pago (Layout propio)
  *
@@ -16,6 +15,10 @@ import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
 import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
 import FAQ from "@/components/FAQ.astro"
+import BreadcrumbSchema from "@/components/schema/BreadcrumbSchema.astro"
+import CourseSchema from "@/components/schema/CourseSchema.astro"
+import FAQSchema from "@/components/schema/FAQSchema.astro"
+import VideoSchema from "@/components/schema/VideoSchema.astro"
 import Button from "@/components/ui/Button.astro"
 import Modal from "@/components/ui/Modal.astro"
 import {
@@ -54,6 +57,25 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 ---
 
 <Layout navScrolled={true} {...seoData}>
+	<BreadcrumbSchema items={[{ name: "Cursos", href: "/cursos" }, { name: "Vuestro viaje" }]} />
+	<CourseSchema
+		name={`${HERO.h1Lead} — ${HERO.h1Tail}`}
+		description={SEO_DATA.description}
+		price={EDITION.price}
+		maxAttendees={EDITION.capacity}
+		teaches={SESSIONS.map((session) => session.title)}
+		audience="Parejas embarazadas que se preparan para el parto"
+	/>
+	<FAQSchema faqs={[...FAQS]} />
+	<VideoSchema
+		name={VIDEO.title}
+		description={VIDEO.description}
+		thumbnailUrl={VIDEO.thumbnailUrl}
+		uploadDate={VIDEO.uploadDate}
+		durationSeconds={VIDEO.durationSeconds}
+		embedUrl={VIDEO.url}
+		inLanguage="es-ES"
+	/>
 	<main id="main-content">
 		<!-- ==================== 1. HERO ==================== -->
 		<section class="relative mt-16 overflow-hidden pt-21 pb-16 lg:pb-24" data-funnel-section="hero">

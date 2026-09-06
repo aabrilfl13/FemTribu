@@ -1,0 +1,125 @@
+---
+/**
+ * Course Schema — Course + CourseInstance + Offer.
+ *
+ * Makes the programme eligible for Google's course rich results, which surface
+ * price, provider and delivery mode in search.
+ * https://developers.google.com/search/docs/appearance/structured-data/course
+ *
+ * Only emits what we actually know: `startDate`, `endDate` and `workloadISO` are
+ * optional, because inventing dates in structured data is worse than omitting
+ * them — Google treats a mismatch with the visible page as a violation.
+ *
+ * Usage:
+ * <CourseSchema
+ *   name="Vuestro viaje"
+ *   description="..."
+ *   price={149}
+ *   maxAttendees={8}
+ *   teaches={["...", "..."]}
+ * />
+ */
+import { BUSINESS_INFO } from "@/data/business-info"
+
+export interface Props {
+	name: string
+	description: string
+	price: number
+	/** Places available, e.g. 8 couples. */
+	maxAttendees?: number
+	/** What the course covers — one entry per session. */
+	teaches?: string[]
+	/** Who it is for, in plain words. */
+	audience?: string
+	/** ISO date (YYYY-MM-DD) when the course starts, when confirmed. */
+	startDate?: string
+	/** ISO date (YYYY-MM-DD) when the course ends, when confirmed. */
+	endDate?: string
+	/** Total time commitment as an ISO 8601 duration, e.g. "PT8H". */
+	workloadISO?: string
+	url?: string
+	image?: string
+	currency?: string
+	inLanguage?: string
+}
+
+const {
+	name,
+	description,
+	price,
+	maxAttendees,
+	teaches = [],
+	audience,
+	startDate,
+	endDate,
+	workloadISO,
+	url,
+	image,
+	currency = "EUR",
+	inLanguage = "es-ES",
+} = Astro.props
+
+const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
+const pageUrl = url
+	? new URL(url, siteUrl).toString()
+	: new URL(Astro.url.pathname, siteUrl).toString()
+const courseImage = image ? new URL(image, siteUrl).toString() : undefined
+
+const courseInstance = {
+	"@type": "CourseInstance",
+	"courseMode": "online",
+	...(workloadISO && { courseWorkload: workloadISO }),
+	...(startDate && { startDate }),
+	...(endDate && { endDate }),
+	...(maxAttendees && { maximumAttendeeCapacity: maxAttendees }),
+	"instructor": {
+		"@id": `${siteUrl}#person`,
+	},
+	"location": {
+		"@type": "VirtualLocation",
+		"url": pageUrl,
+	},
+	"offers": {
+		"@type": "Offer",
+		"price": price,
+		"priceCurrency": currency,
+		"availability": "https://schema.org/LimitedAvailability",
+		"url": pageUrl,
+		"category": "Paid",
+	},
+}
+
+const courseSchema = {
+	"@context": "https://schema.org",
+	"@type": "Course",
+	"@id": `${pageUrl}#course`,
+	"name": name,
+	"description": description,
+	"url": pageUrl,
+	...(courseImage && { image: courseImage }),
+	"inLanguage": inLanguage,
+	"isAccessibleForFree": false,
+	"provider": {
+		"@id": `${siteUrl}#organization`,
+	},
+	...(teaches.length > 0 && { teaches }),
+	...(audience && {
+		audience: {
+			"@type": "Audience",
+			"audienceType": audience,
+		},
+	}),
+	"hasCourseInstance": courseInstance,
+	// Repeated at Course level: Google reads offers from either place.
+	"offers": {
+		"@type": "Offer",
+		"price": price,
+		"priceCurrency": currency,
+		"availability": "https://schema.org/LimitedAvailability",
+		"url": pageUrl,
+		"category": "Paid",
+	},
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
