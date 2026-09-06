@@ -15,6 +15,13 @@ const lead: LeadInput = {
 	edition: "nov-dic-2026",
 	source: "landing-vuestro-viaje",
 	campaign: "vuestro-viaje-escasez",
+	utmSource: "ig",
+	utmMedium: "paid_social",
+	utmContent: "vuestro-viaje-creatividad-a",
+	utmTerm: "vuestro-viaje-adset-1",
+	fbclid: "IwAR-test-click-id",
+	landingPath: "/cursos/preparacion-al-parto-en-pareja",
+	referrer: "https://l.instagram.com/",
 }
 
 function ok(operation: string) {
@@ -105,8 +112,17 @@ describe("createLeadInTwenty", () => {
 			amount: { amountMicros: 149000000, currencyCode: "EUR" },
 			stage: "NEW",
 			pointOfContactId: "createPerson-1",
-			campaign: "vuestro-viaje-escasez",
 			fpp: "2026-12-01",
+			campaign: "vuestro-viaje-escasez",
+			utmSource: "ig",
+			utmMedium: "paid_social",
+			utmContent: "vuestro-viaje-creatividad-a",
+			utmTerm: "vuestro-viaje-adset-1",
+			fbclid: "IwAR-test-click-id",
+			landingPath: "/cursos/preparacion-al-parto-en-pareja",
+			referrer: "https://l.instagram.com/",
+			edition: "nov-dic-2026",
+			source: "landing-vuestro-viaje",
 		})
 	})
 
@@ -131,6 +147,30 @@ describe("createLeadInTwenty", () => {
 		expect(result.leadCaptured).toBe(true)
 		expect(result.personId).toBe("createPerson-1")
 		expect(result.opportunityId).toBeNull()
+	})
+
+	it("omits attribution fields the visitor arrived without", async () => {
+		fetchMock
+			.mockResolvedValueOnce(ok("createPerson"))
+			.mockResolvedValueOnce(ok("createOpportunity"))
+
+		await createLeadInTwenty(config, {
+			...lead,
+			utmSource: null,
+			utmMedium: null,
+			utmContent: null,
+			utmTerm: null,
+			fbclid: null,
+			referrer: null,
+		})
+
+		const body = bodyOf(fetchMock, 1)
+		for (const key of ["utmSource", "utmMedium", "utmContent", "utmTerm", "fbclid", "referrer"]) {
+			expect(body).not.toHaveProperty(key)
+		}
+		// The ones that are always present still go.
+		expect(body.campaign).toBe("vuestro-viaje-escasez")
+		expect(body.fpp).toBe("2026-12-01")
 	})
 
 	it("throws when the Person cannot be created", async () => {

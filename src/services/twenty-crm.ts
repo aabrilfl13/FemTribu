@@ -28,9 +28,40 @@ export interface LeadInput {
 	fpp: string
 	edition: string
 	source: string
-	/** Custom field in Twenty, fed from utm_campaign. */
+	/** Fed from utm_campaign, or the landing's fallback campaign. */
 	campaign: string | null
+	utmSource: string | null
+	utmMedium: string | null
+	utmContent: string | null
+	utmTerm: string | null
+	fbclid: string | null
+	landingPath: string | null
+	referrer: string | null
 }
+
+/**
+ * Opportunity custom fields: our key → the field's API name in Twenty.
+ *
+ * Twenty derives the API name from the field label when you create it, and you
+ * can edit it under Settings → Data model → Opportunity. The right-hand values
+ * below must match those API names exactly, or Twenty rejects the payload.
+ * Renaming a field in Twenty is a one-line change here.
+ *
+ * Delete a line to stop sending that field.
+ */
+const OPPORTUNITY_CUSTOM_FIELDS = {
+	fpp: "fpp",
+	campaign: "campaign",
+	utmSource: "utmSource",
+	utmMedium: "utmMedium",
+	utmContent: "utmContent",
+	utmTerm: "utmTerm",
+	fbclid: "fbclid",
+	landingPath: "landingPath",
+	referrer: "referrer",
+	edition: "edition",
+	source: "source",
+} as const satisfies Partial<Record<keyof LeadInput, string>>
 
 export interface TwentyResult {
 	personId: string | null
@@ -148,9 +179,9 @@ async function createPerson(config: TwentyConfig, lead: LeadInput): Promise<stri
 /**
  * Create the Opportunity linked to the Person.
  *
- * The `campaign` custom field is attempted first; if Twenty rejects the payload
- * (400/422 — field missing or renamed) we retry once without custom fields, so a
- * schema mismatch in the CRM never costs a paid lead.
+ * Custom fields from OPPORTUNITY_CUSTOM_FIELDS are attempted first; if Twenty
+ * rejects the payload (400/422 — a field missing or renamed) we retry once with
+ * the built-in fields only, so a schema mismatch never costs a paid lead.
  */
 async function createOpportunity(
 	config: TwentyConfig,
@@ -168,16 +199,20 @@ async function createOpportunity(
 	}
 
 	const withCustomFields: Record<string, unknown> = { ...base }
-	if (lead.campaign) withCustomFields.campaign = lead.campaign
-	if (lead.fpp) withCustomFields.fpp = lead.fpp
+	for (const [leadKey, twentyField] of Object.entries(OPPORTUNITY_CUSTOM_FIELDS)) {
+		const value = lead[leadKey as keyof LeadInput]
+		// Skip null/empty so an absent utm doesn't overwrite anything with "".
+		if (value === null || value === undefined || value === "") continue
+		withCustomFields[twentyField] = value
+	}
 
-	const hasCustomFields =
-		withCustomFields.campaign !== undefined || withCustomFields.fpp !== undefined
+	const hasCustomFields = Object.keys(withCustomFields).length > Object.keys(base).length
 
 	let result = await twentyPost(config, "/rest/opportunities", withCustomFields)
 
-	// Retry whenever custom fields were attached — either `campaign` or `fpp` may
-	// be missing or renamed in Twenty, and neither is worth losing a paid lead over.
+	// Retry whenever custom fields were attached: any one of them may be missing or
+	// renamed in Twenty, and no attribution field is worth losing a paid lead over.
+	// The logged `detail` names the offending field so the map above can be fixed.
 	if (!result.ok && (result.status === 400 || result.status === 422) && hasCustomFields) {
 		logger.warn("Twenty rejected the opportunity custom fields — retrying without them", {
 			status: result.status,

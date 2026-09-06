@@ -9,6 +9,8 @@ export const prerender = false
 
 /** Cap free-text fields so a crafted request can't push junk into the CRM. */
 const MAX_TEXT = 200
+/** URLs need more room than a name, but still bounded. */
+const MAX_URL = 512
 
 interface LeadRequest {
 	name?: string
@@ -115,6 +117,13 @@ export const POST: APIRoute = async ({ request }) => {
 			edition: EDITION.slug,
 			source: "landing-vuestro-viaje",
 			campaign,
+			utmSource: clean(attribution.utm_source) || null,
+			utmMedium: clean(attribution.utm_medium) || null,
+			utmContent: clean(attribution.utm_content) || null,
+			utmTerm: clean(attribution.utm_term) || null,
+			fbclid: clean(attribution.fbclid) || null,
+			landingPath: clean(attribution.landingPath, MAX_URL) || null,
+			referrer: clean(attribution.referrer, MAX_URL) || null,
 		})
 
 		if (!result.opportunityId) {
