@@ -151,26 +151,27 @@ export const TESTIMONIALS: { name: string; context: string; text: string }[] = [
 export const FAQS = [
 	{
 		question: "¿Las sesiones son en directo o grabadas?",
-		answer: "TODO(client): confirmar formato, plataforma y si quedan grabadas para verlas después.",
+		answer:
+			"Las sesiones son en directo para que el curso esté hecho a vuestra medida y podamos avanzar según vuestras dudas y necesidades",
 	},
 	{
 		question: "¿Cuándo son las sesiones y cuánto duran?",
-		answer: "TODO(client): confirmar días, horario y duración de cada sesión.",
+		answer: "Las sesiones serán los miércoles 7, 14, 21 y 28 por la tarde, y durarán 2:30h aprox.",
 	},
 	{
 		question: "¿Tiene que venir mi pareja a todas las sesiones?",
 		answer:
-			"El curso está diseñado para viviros como equipo, así que lo ideal es que vengáis los dos. Si alguna sesión le coincide con trabajo, no pasa nada: te cuento lo esencial y seguimos.",
+			"El curso está diseñado para viviros como equipo, así que lo ideal es que vengáis los dos.",
 	},
 	{
 		question: "¿Y si me pongo de parto antes de terminar el curso?",
 		answer:
-			"No perdéis nada. Seguimos acompañándoos por WhatsApp y mantenéis la sesión individual de seguimiento tras el parto.",
+			"No perdéis nada. Seguimos acompañándoos por WhatsApp y mantenéis la sesión individual de seguimiento tras el parto. En caso de que el parto ocurriera antes nos pondríamos en contacto con vosotros para individualizar cada caso.",
 	},
 	{
 		question: "¿Sirve si ya hice preparación al parto en el centro de salud?",
 		answer:
-			"Sí. Aquí no repetimos la parte teórica: trabajamos el cuerpo, el miedo y el vínculo de pareja en un grupo de solo 8 parejas, con acompañamiento directo por WhatsApp durante todo el proceso.",
+			"Sí. Aquí no repetimos la parte teórica: trabajamos el cuerpo, el miedo y el vínculo de pareja en un grupo de solo 8 parejas, con acompañamiento directo por WhatsApp durante todo el proceso y sesión de seguimiento postparto para seguir acompañándoos.",
 	},
 	{
 		question: "¿Y si mi fecha de parto no entra en el rango?",
@@ -183,18 +184,13 @@ export const FAQS = [
 	},
 	{
 		question: "¿Cómo se paga y cuándo se confirma la plaza?",
-		answer: "TODO(client): confirmar método de pago y cuándo queda reservada la plaza.",
+		answer:
+			"Para confirmar la plaza y realizar el pago es necesario ponerse en contacto con nosotros y seguir las instrucciones proporcionadas.",
 	},
 ] as const
 
 /** Cross-links, rendered after the form so they don't leak conversions. */
 export const RELATED = [
-	{
-		href: "/servicios/femmbarre",
-		title: "FemmBarre Maternity",
-		description: "Barre prenatal online para mantenerte activa y preparar tu cuerpo para el parto.",
-		price: "35€ / mes",
-	},
 	{
 		href: "/servicios/preparacion-al-parto",
 		title: "Preparación al parto individual",
@@ -207,6 +203,12 @@ export const RELATED = [
 		title: "Asesoría de lactancia",
 		description: "Para preparar y acompañar el inicio de la lactancia tras el nacimiento.",
 		price: "50€ · 60 min",
+	},
+	{
+		href: "/servicios/femmbarre",
+		title: "FemmBarre Maternity",
+		description: "Barre prenatal online para mantenerte activa y preparar tu cuerpo para el parto.",
+		price: "35€ / mes",
 	},
 ] as const
 
