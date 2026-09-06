@@ -529,9 +529,6 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 								aria-describedby="lead-fpp-hint lead-fpp-error"
 								class="border-input focus:border-accent focus:ring-accent/20 aria-[invalid=true]:border-destructive w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
 							/>
-							<p id="lead-fpp-hint" class="text-muted-foreground mt-2 text-xs">
-								Esta edición es para partos entre el {EDITION.fppLabel}.
-							</p>
 							<p id="lead-fpp-notice" class="text-accent mt-2 hidden text-xs"></p>
 							<p id="lead-fpp-error" class="text-destructive mt-1.5 hidden text-xs"></p>
 						</div>
@@ -725,8 +722,6 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 		const submit = document.getElementById("lead-submit") as HTMLButtonElement | null
 		const summary = document.getElementById("lead-form-errors")
 		const summaryList = document.getElementById("lead-form-errors-list")
-		const fppInput = document.getElementById("lead-fpp") as HTMLInputElement | null
-		const fppNotice = document.getElementById("lead-fpp-notice")
 
 		const input = (field: Field) =>
 			document.getElementById(`lead-${field}`) as HTMLInputElement | null
@@ -837,20 +832,6 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 			summary?.focus()
 		}
 
-		/** Out-of-window due dates are still accepted — flagged for the next edition. */
-		function updateFppNotice() {
-			if (!fppInput || !fppNotice) return
-			const value = fppInput.value
-			const outOfRange = !!value && (value < EDITION.fppFrom || value > EDITION.fppTo)
-			fppNotice.textContent = outOfRange
-				? "Tu fecha es de otra edición — déjanos igualmente tus datos y te aviso en cuanto abra la siguiente."
-				: ""
-			fppNotice.classList.toggle("hidden", !outOfRange)
-		}
-
-		fppInput?.addEventListener("change", updateFppNotice)
-		updateFppNotice()
-
 		// Form-start signal: tells you how many people engage vs. how many finish.
 		for (const field of FIELDS) {
 			input(field)?.addEventListener(
@@ -940,12 +921,10 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 					currency: "EUR",
 					value: 149,
 					lead_source: "landing-vuestro-viaje",
-					qualified: data.qualified === true,
 				})
 				window.fbq?.("track", "Lead", { currency: "EUR", value: 149 }, { eventID: eventId })
 
 				form.reset()
-				updateFppNotice()
 				openSuccessModal()
 			} catch {
 				showErrors({ name: "No hemos podido conectar. Inténtalo de nuevo en un momento." })
