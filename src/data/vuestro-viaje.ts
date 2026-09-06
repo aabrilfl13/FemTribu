@@ -35,7 +35,7 @@ export const EDITION = {
 export const DEFAULT_CAMPAIGN = "vuestro-viaje"
 
 /** TODO(client): real video id. Placeholder reuses the FemmBarre teaser. */
-export const YOUTUBE_VIDEO_ID = "PEZMX_bK51E"
+export const YOUTUBE_VIDEO_ID = "jDJ4GtAyiB8"
 
 export const VIDEO = {
 	id: YOUTUBE_VIDEO_ID,
