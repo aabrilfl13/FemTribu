@@ -14,6 +14,7 @@
  */
 import { VideoPlayerFactory } from "@videos/components/VideoPlayerFactory"
 
+import SectionFunnel from "@/components/analytics/SectionFunnel.astro"
 import FAQ from "@/components/FAQ.astro"
 import Button from "@/components/ui/Button.astro"
 import Modal from "@/components/ui/Modal.astro"
@@ -112,9 +113,12 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 							data-animate-delay="0.3s"
 						>
 							<div class="flex flex-col gap-3 sm:flex-row" data-reserve-cta>
-								<Button href="#form" variant="hero" size="lg">{HERO.ctaLabel}</Button>
+								<Button href="#form" variant="hero" size="lg" data-cta="hero"
+									>{HERO.ctaLabel}</Button
+								>
 								<Button
 									href={whatsappHref}
+									data-cta="hero-whatsapp"
 									variant="heroOutline"
 									size="lg"
 									target="_blank"
@@ -438,7 +442,8 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 					</p>
 
 					<div data-reserve-cta>
-						<Button href="#form" variant="hero" size="lg">{HERO.ctaLabel}</Button>
+						<Button href="#form" variant="hero" size="lg" data-cta="pricing">{HERO.ctaLabel}</Button
+						>
 					</div>
 				</div>
 			</div>
@@ -590,7 +595,14 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 						</div>
 
 						<div class="pt-2 text-center">
-							<Button id="lead-submit" type="submit" variant="hero" size="lg" class="w-full">
+							<Button
+								id="lead-submit"
+								type="submit"
+								data-cta="form-submit"
+								variant="hero"
+								size="lg"
+								class="w-full"
+							>
 								{FORM.ctaLabel}
 							</Button>
 							<p class="text-muted-foreground mt-3 text-xs">{FORM.ctaNote}</p>
@@ -680,6 +692,7 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 					</Button>
 					<Button
 						href={whatsappHref}
+						data-cta="success-whatsapp"
 						variant="heroOutline"
 						size="lg"
 						target="_blank"
@@ -692,6 +705,8 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 			</div>
 		</Modal>
 	</main>
+
+	<SectionFunnel />
 </Layout>
 
 <script>
@@ -741,6 +756,18 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 		 * execCommand when the async Clipboard API is unavailable — non-secure
 		 * context, or a browser blocking it.
 		 */
+		// One delegated listener for every CTA: mark a button with data-cta and its
+		// clicks are attributed by position without touching this script again.
+		document.addEventListener("click", (event) => {
+			const cta = (event.target as HTMLElement | null)?.closest<HTMLElement>("[data-cta]")
+			if (!cta) return
+			window.gtag?.("event", "cta_click", {
+				cta_position: cta.dataset.cta,
+				cta_label: cta.textContent?.trim().slice(0, 60),
+				page: window.location.pathname,
+			})
+		})
+
 		const shareBtn = document.getElementById("success-share") as HTMLButtonElement | null
 
 		shareBtn?.addEventListener("click", async () => {
