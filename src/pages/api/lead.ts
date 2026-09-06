@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro"
 
 import { EDITION } from "@/data/vuestro-viaje"
-import { createLeadInTwenty } from "@/services/twenty-crm.ts"
+import { saveLeadInTwenty } from "@/services/twenty-crm.ts"
 import { getCrmConfig } from "@/utils/config.ts"
 import { logger } from "@/utils/logger.ts"
 
@@ -109,7 +109,7 @@ export const POST: APIRoute = async ({ request }) => {
 	})
 
 	try {
-		const result = await createLeadInTwenty(crm, {
+		const result = await saveLeadInTwenty(crm, {
 			name,
 			email: email || null,
 			phone: phone || null,
@@ -131,6 +131,14 @@ export const POST: APIRoute = async ({ request }) => {
 			// report success and let the alert on this log line prompt a manual fix.
 			logger.warn("Lead saved without opportunity", { personId: result.personId, campaign })
 		}
+
+		// Whether the email was already in the CRM stays in the logs. Returning it
+		// would let anyone probe the form to discover who has signed up.
+		logger.info("Lead stored", {
+			personExisted: result.personExisted,
+			opportunityExisted: result.opportunityExisted,
+			campaign,
+		})
 
 		return jsonResponse({ success: true }, 200)
 	} catch (error) {
