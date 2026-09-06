@@ -34,7 +34,6 @@ export const EDITION = {
  */
 export const DEFAULT_CAMPAIGN = "vuestro-viaje"
 
-/** TODO(client): real video id. Placeholder reuses the FemmBarre teaser. */
 export const YOUTUBE_VIDEO_ID = "61CXf3PTbZ0"
 
 export const VIDEO = {
@@ -45,9 +44,13 @@ export const VIDEO = {
 		"Vídeo de presentación de «Vuestro viaje», el curso online e íntimo de preparación al parto para parejas, guiado por María Belenguer, matrona.",
 	url: `https://www.youtube-nocookie.com/embed/${YOUTUBE_VIDEO_ID}`,
 	thumbnailUrl: `https://i.ytimg.com/vi/${YOUTUBE_VIDEO_ID}/hqdefault.jpg`,
-	/** TODO(client): real duration in seconds. */
-	durationSeconds: 66,
-	uploadDate: new Date("2026-09-05"),
+	/**
+	 * Real values read from YouTube. Both are published in the VideoObject schema,
+	 * so a wrong number is a factual error Google can check against the video.
+	 * Update them whenever the video is replaced.
+	 */
+	durationSeconds: 91,
+	uploadDate: new Date("2026-09-06T15:48:26Z"),
 } as const
 
 export const HERO = {
