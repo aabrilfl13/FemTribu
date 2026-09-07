@@ -202,6 +202,160 @@ const whatsappHref = `https://wa.me/34640912048?text=${encodeURIComponent(
 			</div>
 		</section>
 
+		<!-- ==================== 10. FORM ==================== -->
+		<section id="form" class="pt-5 pb-24" data-funnel-section="lead_form">
+			<div class="container mx-auto px-4 lg:px-8">
+				<div class="mx-auto max-w-xl">
+					<div class="mb-10 text-center">
+						<h2
+							class="font-display text-primary mb-4 text-3xl lg:text-4xl"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+						>
+							{FORM.title}
+						</h2>
+						<p class="text-muted-foreground">{FORM.intro}</p>
+					</div>
+
+					<form
+						id="lead-form"
+						class="bg-card border-border/50 shadow-warm relative space-y-5 rounded-3xl border p-8"
+						novalidate
+						data-animate="animate-fade-up"
+						data-animate-duration="1s"
+						data-animate-delay="0.15s"
+					>
+						<div
+							id="lead-form-errors"
+							class="border-destructive/40 bg-destructive/5 hidden rounded-2xl border p-4"
+							role="alert"
+							tabindex="-1"
+							aria-labelledby="lead-form-errors-title"
+						>
+							<p id="lead-form-errors-title" class="text-destructive mb-1 text-sm font-medium">
+								Revisa estos datos
+							</p>
+							<ul id="lead-form-errors-list" class="text-destructive space-y-1 text-xs"></ul>
+						</div>
+
+						<!-- Honeypot: los bots lo rellenan, las personas no lo ven -->
+						<div class="absolute top-auto -left-[9999px]" aria-hidden="true">
+							<label for="lead-website">No rellenar</label>
+							<input
+								type="text"
+								id="lead-website"
+								name="website"
+								tabindex="-1"
+								autocomplete="off"
+							/>
+						</div>
+
+						<div>
+							<label for="lead-name" class="text-primary mb-2 block text-sm font-medium">
+								Nombre y apellidos
+							</label>
+							<input
+								type="text"
+								id="lead-name"
+								name="name"
+								autocomplete="name"
+								required
+								aria-describedby="lead-name-error"
+								class="border-input focus:border-accent focus:ring-accent/20 aria-[invalid=true]:border-destructive w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+							/>
+							<p id="lead-name-error" class="text-destructive mt-1.5 hidden text-xs"></p>
+						</div>
+
+						<div>
+							<label for="lead-fpp" class="text-primary mb-2 block text-sm font-medium">
+								Fecha probable de parto
+							</label>
+							<input
+								type="date"
+								id="lead-fpp"
+								name="fpp"
+								required
+								aria-describedby="lead-fpp-hint lead-fpp-error"
+								class="border-input focus:border-accent focus:ring-accent/20 aria-[invalid=true]:border-destructive w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+							/>
+							<p id="lead-fpp-notice" class="text-accent mt-2 hidden text-xs"></p>
+							<p id="lead-fpp-error" class="text-destructive mt-1.5 hidden text-xs"></p>
+						</div>
+
+						<div class="grid gap-5 sm:grid-cols-2">
+							<div>
+								<label for="lead-phone" class="text-primary mb-2 block text-sm font-medium">
+									Teléfono
+								</label>
+								<input
+									type="tel"
+									id="lead-phone"
+									name="phone"
+									autocomplete="tel"
+									aria-describedby="lead-phone-error"
+									class="border-input focus:border-accent focus:ring-accent/20 aria-[invalid=true]:border-destructive w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+								/>
+								<p id="lead-phone-error" class="text-destructive mt-1.5 hidden text-xs"></p>
+							</div>
+							<div>
+								<label for="lead-email" class="text-primary mb-2 block text-sm font-medium">
+									Email
+								</label>
+								<input
+									type="email"
+									id="lead-email"
+									name="email"
+									autocomplete="email"
+									aria-describedby="lead-email-error"
+									class="border-input focus:border-accent focus:ring-accent/20 aria-[invalid=true]:border-destructive w-full rounded-xl border bg-white px-4 py-3 text-sm transition-colors focus:ring-2 focus:outline-none"
+								/>
+								<p id="lead-email-error" class="text-destructive mt-1.5 hidden text-xs"></p>
+							</div>
+						</div>
+
+						<div>
+							<label
+								for="lead-consent"
+								class="text-muted-foreground flex items-start gap-3 text-xs leading-relaxed"
+							>
+								<input
+									type="checkbox"
+									id="lead-consent"
+									name="consent"
+									required
+									aria-describedby="lead-consent-error"
+									class="accent-accent mt-0.5 h-4 w-4 flex-shrink-0"
+								/>
+								<span>
+									He leído y acepto la <a
+										href="/privacy"
+										target="_blank"
+										class="text-accent underline">política de privacidad</a
+									> y que María me contacte para darme información sobre el curso.
+									<span class="mt-1.5 block text-[11px] opacity-75">{FORM.legalNote}</span>
+								</span>
+							</label>
+							<p id="lead-consent-error" class="text-destructive mt-1.5 hidden text-xs"></p>
+						</div>
+
+						<div class="pt-2 text-center">
+							<Button
+								id="lead-submit"
+								type="submit"
+								data-cta="form-submit"
+								variant="hero"
+								size="lg"
+								class="w-full"
+							>
+								{FORM.ctaLabel}
+							</Button>
+							<p class="text-muted-foreground mt-3 text-xs">{FORM.ctaNote}</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
 		<!-- ==================== 2. QUALIFIER ==================== -->
 		<section class="bg-muted/30 py-20" data-funnel-section="qualifier">
 			<div class="container mx-auto px-4 lg:px-8">
