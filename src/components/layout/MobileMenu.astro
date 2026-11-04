@@ -131,7 +131,7 @@ const { navItems, user } = Astro.props
 		<!-- Social Links in Mobile Menu -->
 		<div class="mobile-social">
 			<a
-				href="https://www.instagram.com/femm.tribu/"
+				href={import.meta.env.INSTRAGRAM_URL}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="mobile-social-link"
@@ -140,7 +140,7 @@ const { navItems, user } = Astro.props
 				<InstagramIcon />
 			</a>
 			<a
-				href="https://www.tiktok.com/@merypebe"
+				href={import.meta.env.TIKTOK_URL}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="mobile-social-link"

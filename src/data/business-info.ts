@@ -29,9 +29,9 @@ export const BUSINESS_INFO = {
 
 	// Redes sociales
 	socialLinks: [
-		"https://www.instagram.com/femmtribu/",
-		"https://www.tiktok.com/@merypebe",
-		"https://chat.whatsapp.com/JYIdCr4B3nECmebwt0UqkM",
+		import.meta.env.INSTRAGRAM_URL,
+		import.meta.env.TIKTOK_URL,
+		import.meta.env.WHATSAPP_COMMUNITY_URL,
 	],
 
 	// Imágenes corporativas
