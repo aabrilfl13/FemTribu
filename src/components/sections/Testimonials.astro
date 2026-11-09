@@ -52,7 +52,13 @@ const testimonials = getTestimonialsFor(serviceId)
 							</blockquote>
 							<figcaption class="flex items-center justify-between">
 								<span class="font-display text-primary text-sm">{t.name}</span>
-								<span class="text-muted-foreground flex items-center gap-1.5 text-xs">
+								<a
+									href={t.url ?? GOOGLE_REVIEWS_URL}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-muted-foreground hover:text-accent flex items-center gap-1.5 text-xs transition-colors"
+									aria-label="Ver esta reseña en Google"
+								>
 									{t.date}
 									<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" aria-hidden="true">
 										<path
@@ -72,7 +78,7 @@ const testimonials = getTestimonialsFor(serviceId)
 											d="M12 4.77c1.76 0 3.34.6 4.58 1.79l3.44-3.44A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.08 6.72l3.99 3.1A7.15 7.15 0 0 1 12 4.77z"
 										/>
 									</svg>
-								</span>
+								</a>
 							</figcaption>
 						</figure>
 					))}

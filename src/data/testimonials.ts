@@ -15,6 +15,8 @@ export interface Testimonial {
 	/** Fecha aproximada en que se dejó la reseña (no hace falta el día exacto). */
 	date: string
 	source: "google"
+	/** Enlace directo a esta reseña en Google (maps.app.goo.gl/...). Si falta, se enlaza al perfil general. */
+	url?: string
 	/** IDs de SERVICES/ADDON_SERVICES (services.ts) donde debe mostrarse. */
 	serviceIds: string[]
 }
@@ -29,6 +31,7 @@ export const TESTIMONIALS: Testimonial[] = [
 		rating: 5,
 		date: "noviembre 2026",
 		source: "google",
+		url: "https://maps.app.goo.gl/xnWjYoUGYGk2ubGV7",
 		serviceIds: ["pendientes-bebe"],
 	},
 	{
@@ -37,6 +40,7 @@ export const TESTIMONIALS: Testimonial[] = [
 		rating: 5,
 		date: "noviembre 2026",
 		source: "google",
+		url: "https://maps.app.goo.gl/K9Yo3wn9yUtBZGY46",
 		serviceIds: ["pendientes-bebe"],
 	},
 ]
