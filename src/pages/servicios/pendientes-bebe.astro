@@ -6,6 +6,7 @@ import FAQSchema from "@/components/schema/FAQSchema.astro"
 import ProductSchema from "@/components/schema/ProductSchema.astro"
 import ServiceSchema from "@/components/schema/ServiceSchema.astro"
 import AdditionalInfo from "@/components/sections/cta/AdditionalInfo.astro"
+import Testimonials from "@/components/sections/Testimonials.astro"
 import Button from "@/components/ui/Button.astro"
 import FloatingReserve from "@/components/ui/FloatingReserve.astro"
 import { ADDON_SERVICES } from "@/data/services"
@@ -377,6 +378,8 @@ const faqs = [
 				</div>
 			</div>
 		</section>
+
+		<Testimonials serviceId={service.id} title="Lo que cuentan otras familias" />
 
 		<div data-funnel-section="faq">
 			<FAQ

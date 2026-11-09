@@ -1,0 +1,94 @@
+---
+/**
+ * Testimonials — reseñas reales filtradas por servicio (src/data/testimonials.ts).
+ * No renderiza nada si ese servicio no tiene testimonios todavía, así que puede
+ * dejarse montado en cualquier página de servicio desde ya.
+ */
+import { getTestimonialsFor, GOOGLE_REVIEWS_URL } from "@/data/testimonials"
+
+interface Props {
+	serviceId: string
+	title?: string
+}
+
+const { serviceId, title = "Lo que cuentan quienes ya han venido" } = Astro.props
+const testimonials = getTestimonialsFor(serviceId)
+---
+
+{
+	testimonials.length > 0 && (
+		<section class="bg-muted/30 py-16 lg:py-20" data-funnel-section="testimonials">
+			<div class="container mx-auto px-4 lg:px-8">
+				<h2
+					class="font-display text-primary mb-10 text-center text-2xl lg:text-3xl"
+					data-animate="animate-fade-up"
+					data-animate-duration="1s"
+				>
+					{title}
+				</h2>
+
+				<div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+					{testimonials.map((t, index) => (
+						<figure
+							class="bg-card border-border/50 rounded-2xl border p-6"
+							data-animate="animate-fade-up"
+							data-animate-duration="1s"
+							data-animate-delay={`${index * 100}ms`}
+						>
+							<div class="mb-3 flex gap-0.5" aria-label={`${t.rating} de 5 estrellas`}>
+								{[...Array(5)].map((_, i) => (
+									<svg
+										class={i < t.rating ? "text-accent h-4 w-4" : "text-border h-4 w-4"}
+										viewBox="0 0 20 20"
+										fill="currentColor"
+										aria-hidden="true"
+									>
+										<path d="M10 1.5l2.6 5.27 5.82.85-4.21 4.1 1 5.8L10 14.9l-5.21 2.74 1-5.8-4.21-4.1 5.82-.85L10 1.5z" />
+									</svg>
+								))}
+							</div>
+							<blockquote class="text-muted-foreground mb-4 text-sm leading-relaxed italic">
+								"{t.text}"
+							</blockquote>
+							<figcaption class="flex items-center justify-between">
+								<span class="font-display text-primary text-sm">{t.name}</span>
+								<span class="text-muted-foreground flex items-center gap-1.5 text-xs">
+									{t.date}
+									<svg class="h-3.5 w-3.5" viewBox="0 0 24 24" aria-hidden="true">
+										<path
+											fill="#4285F4"
+											d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.3h6.47a5.53 5.53 0 0 1-2.4 3.63v3h3.88c2.27-2.09 3.54-5.17 3.54-8.66z"
+										/>
+										<path
+											fill="#34A853"
+											d="M12 24c3.24 0 5.95-1.08 7.93-2.92l-3.87-3a7.4 7.4 0 0 1-11-3.9H1.08v3.1A12 12 0 0 0 12 24z"
+										/>
+										<path
+											fill="#FBBC05"
+											d="M5.07 14.18a7.2 7.2 0 0 1 0-4.36v-3.1H1.08a12 12 0 0 0 0 10.56l3.99-3.1z"
+										/>
+										<path
+											fill="#EA4335"
+											d="M12 4.77c1.76 0 3.34.6 4.58 1.79l3.44-3.44A11.6 11.6 0 0 0 12 0 12 12 0 0 0 1.08 6.72l3.99 3.1A7.15 7.15 0 0 1 12 4.77z"
+										/>
+									</svg>
+								</span>
+							</figcaption>
+						</figure>
+					))}
+				</div>
+
+				<p class="text-muted-foreground mt-8 text-center text-sm">
+					<a
+						href={GOOGLE_REVIEWS_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-accent hover:underline"
+					>
+						Ver todas las reseñas en Google →
+					</a>
+				</p>
+			</div>
+		</section>
+	)
+}
