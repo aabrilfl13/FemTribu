@@ -203,7 +203,7 @@ export const RELATED = [
 	},
 	{
 		href: "/servicios/lactancia",
-		title: "Asesoría de lactancia",
+		title: "Asesora de lactancia",
 		description: "Para preparar y acompañar el inicio de la lactancia tras el nacimiento.",
 		price: "50€ · 60 min",
 	},

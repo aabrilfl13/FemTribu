@@ -95,6 +95,7 @@ const floatingCaption = priceNote.split("·")[0].trim()
 	<BreadcrumbSchema items={[{ name: "Servicios", href: "/servicios/" }, { name: serviceName }]} />
 	<ServiceSchema
 		name={service.name}
+		alternateNames={service.alternateNames}
 		description={service.description}
 		priceMin={service.priceMin}
 		priceMax={service.priceMax}

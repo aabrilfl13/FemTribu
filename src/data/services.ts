@@ -18,6 +18,8 @@ export interface ServiceData {
 	type: ServiceKind
 	duration?: string
 	format?: ServiceFormat
+	/** Sinónimos de búsqueda del servicio (Schema.org alternateName). */
+	alternateNames?: string[]
 	// SEO específico
 	seo: {
 		title: string
@@ -45,18 +47,24 @@ export const SERVICES: Record<string, ServiceData> = {
 		name: "Asesoría de Lactancia",
 		nameShort: "Lactancia",
 		description:
-			"Consulta individual con matrona especializada en lactancia en Valencia y online. Resolvemos dificultades de agarre, dolor, producción, banco de leche, lactancia mixta, vuelta al trabajo y destete respetuoso.",
+			"Asesora de lactancia en Valencia y online: consulta individual con matrona especializada en lactancia materna. Resolvemos dificultades de agarre, dolor, producción, banco de leche, lactancia mixta, vuelta al trabajo y destete respetuoso.",
 		url: "/servicios/lactancia",
 		priceMin: CONSULTATION_PRICE,
 		priceMax: CONSULTATION_PRICE,
 		duration: CONSULTATION_DURATION,
 		format: "both",
-		serviceType: "Consulta de Lactancia",
+		serviceType: "Asesora de Lactancia",
 		type: "consulta",
+		alternateNames: [
+			"Asesora de Lactancia",
+			"Asesora de Lactancia en Valencia",
+			"Especialista en Lactancia",
+			"Consulta de Lactancia",
+		],
 		seo: {
-			title: "Especialista en Lactancia Valencia | Asesoría Matrona | Femm tribu",
+			title: "Asesora de Lactancia en Valencia y Online | Femm tribu",
 			description:
-				"María Belenguer, especialista en lactancia en Valencia. Asesoría con matrona para agarre, dolor, producción, banco de leche y destete. Online y presencial. 50€ / 60 min.",
+				"Asesora de lactancia y matrona en Valencia y online. Te ayudo con el agarre, el dolor, las grietas, la producción, el sacaleches, la vuelta al trabajo y el destete. 50€ · 60 min.",
 		},
 	},
 	preparacionParto: {

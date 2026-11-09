@@ -24,6 +24,8 @@
 
 export interface Props {
 	name: string
+	/** Sinónimos con los que la gente busca el servicio. */
+	alternateNames?: string[]
 	description: string
 	priceMin: number
 	priceMax?: number
@@ -37,6 +39,7 @@ export interface Props {
 
 const {
 	name,
+	alternateNames,
 	description,
 	priceMin,
 	priceMax,
@@ -57,6 +60,7 @@ const serviceSchema = {
 	"@type": "Service",
 	"@id": `${pageUrl}#service`,
 	"name": name,
+	...(alternateNames?.length ? { alternateName: alternateNames } : {}),
 	"description": description,
 	"serviceType": serviceType,
 	"image": serviceImage,
