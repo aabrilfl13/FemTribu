@@ -12,9 +12,26 @@
  *   sku="pendientes-bebe"
  *   url="/servicios/pendientes-bebe"
  * />
+ *
+ * El servicio se presta presencialmente, así que la oferta declara
+ * `doesNotShip` y una política de devolución "no aplicable": son los valores
+ * reales y además resuelven los avisos de Search Console sobre
+ * `shippingDetails` y `hasMerchantReturnPolicy`.
+ *
+ * `aggregateRating` y `reviews` son opcionales y sólo se emiten si se pasan.
+ * Google exige que sean valoraciones reales recogidas por el propio sitio:
+ * no rellenar con datos inventados ni copiados de Google Business Profile.
  */
 
 import { BUSINESS_INFO } from "@/data/business-info"
+
+export interface Review {
+	author: string
+	ratingValue: number
+	body: string
+	/** ISO date, p. ej. "2026-03-14" */
+	datePublished: string
+}
 
 export interface Props {
 	name: string
@@ -24,9 +41,23 @@ export interface Props {
 	sku?: string
 	url?: string
 	category?: string
+	/** Sólo con valoraciones reales recogidas en la web. */
+	aggregateRating?: { ratingValue: number; reviewCount: number }
+	/** Sólo con reseñas reales y verificables. */
+	reviews?: Review[]
 }
 
-const { name, description, price, image, sku, url, category = "Healthcare Services" } = Astro.props
+const {
+	name,
+	description,
+	price,
+	image,
+	sku,
+	url,
+	category = "Healthcare Services",
+	aggregateRating,
+	reviews,
+} = Astro.props
 
 const siteUrl = Astro.site?.toString() || BUSINESS_INFO.siteUrl
 const pageUrl = url
@@ -36,6 +67,7 @@ const productImage = image
 	? new URL(image, siteUrl).toString()
 	: `${siteUrl}images/og-hands-together.webp`
 
+const today = new Date().toISOString().split("T")[0]
 const priceValidUntil = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
 	.toISOString()
 	.split("T")[0]
@@ -59,12 +91,54 @@ const productSchema = {
 		"priceCurrency": "EUR",
 		"availability": "https://schema.org/InStock",
 		"url": pageUrl,
+		"validFrom": today,
 		"priceValidUntil": priceValidUntil,
 		"itemCondition": "https://schema.org/NewCondition",
 		"seller": {
 			"@id": `${siteUrl}#organization`,
 		},
+		// Servicio presencial: no hay envío ni devolución posible.
+		"shippingDetails": {
+			"@type": "OfferShippingDetails",
+			"doesNotShip": true,
+			"shippingDestination": {
+				"@type": "DefinedRegion",
+				"addressCountry": "ES",
+			},
+		},
+		"hasMerchantReturnPolicy": {
+			"@type": "MerchantReturnPolicy",
+			"applicableCountry": "ES",
+			"returnPolicyCategory": "https://schema.org/MerchantReturnNotApplicable",
+		},
 	},
+	...(aggregateRating
+		? {
+				aggregateRating: {
+					"@type": "AggregateRating",
+					"ratingValue": aggregateRating.ratingValue,
+					"reviewCount": aggregateRating.reviewCount,
+					"bestRating": 5,
+					"worstRating": 1,
+				},
+			}
+		: {}),
+	...(reviews?.length
+		? {
+				review: reviews.map((r) => ({
+					"@type": "Review",
+					"author": { "@type": "Person", "name": r.author },
+					"datePublished": r.datePublished,
+					"reviewBody": r.body,
+					"reviewRating": {
+						"@type": "Rating",
+						"ratingValue": r.ratingValue,
+						"bestRating": 5,
+						"worstRating": 1,
+					},
+				})),
+			}
+		: {}),
 }
 ---
 
